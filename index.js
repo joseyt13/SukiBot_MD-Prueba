@@ -59,7 +59,7 @@ async function showBanner() {
 
     `.split('\n').map(line => chalk.hex('#ff00cc').bold(line)).join('\n')
 
-    const subtitle = chalk.hex('#00eaff').bold('✦ ROXYBOT-MD ✦').padStart(40)
+    const subtitle = chalk.hex('#00eaff').bold('✦ Suki-Bot-MD ✦').padStart(40)
     const poweredMsg = chalk.hex('#00eaff').italic('powered by Brayan')
     const aiMsg = chalk.hex('#ffb300').bold('🤖 RoxyAi - Tu compañera virtual')
     const tips = [
@@ -91,13 +91,13 @@ async function showBanner() {
                 borderStyle: 'double',
                 borderColor: 'whiteBright',
                 backgroundColor: 'black',
-                title: 'Roxy AI',
+                title: 'Suki-Bot-MD',
                 titleAlignment: 'center'
             }
         )
     )
 
-    say('RoxyAi', {
+    say('Suki-Bot-MD', {
         font: 'block',
         align: 'center',
         colors: ['blue', 'cyan'],
