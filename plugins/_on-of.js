@@ -1,129 +1,88 @@
-import { createHash} from 'crypto';
-import fetch from 'node-fetch';
+let handler = async (m, { conn, command, args, usedPrefix, isOwner, isROwner, isAdmin}) => {
+  const chat = global.db.data.chats[m.chat];
+  const bot = global.db.data.settings[conn.user.jid] || {};
+  const config = command.toLowerCase();
+  const isGroup = m.isGroup;
+  let globalSetting = false;
 
-const handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isROwner}) => {
-  let chat = global.db.data.chats[m.chat];
-  let user = global.db.data.users[m.sender];
-  let bot = global.db.data.settings[conn.user.jid] || {};
-  let type = command.toLowerCase();
-  let isAll = false;
-
-  let isEnable = chat[type] || false;
-
-  if (args[0] === 'on' || args[0] === 'enable') {
-    isEnable = true;
-} else if (args[0] === 'off' || args[0] === 'disable') {
-    isEnable = false;
-} else {
-    const estado = isEnable? '🟢 ACTIVADO': '🔴 DESACTIVADO';
+  if (!args[0]) {
+    const estado = chat[config]? '🟢 ACTIVO': '🔴 INACTIVO';
     return conn.reply(m.chat,
-      `꒰🌸꒱ *Suki Configuración Mística* 💫
-━━━━━━━━━━━━━━━━━━
-💖 Puedes controlar la función: *${command}*
+`🍓 *Panel de configuración de Suki_Bot_MD*
 
-🌈 Usa:
-• *${usedPrefix}${command} on* – Activar la ternura ✨
-• *${usedPrefix}${command} off* – Dormir la función 💤
+🧃 Comando: *${command}*
+🎀 Estado actual: ${estado}
 
-🔧 Estado actual: ${estado}
-━━━━━━━━━━━━━━━━━━`, m);
+✨ Usa uno de estos para ajustar:
+• *${usedPrefix + command} on* — Activar 🌈
+• *${usedPrefix + command} off* — Desactivar 😴`, m);
 }
 
-  switch (type) {
+  const activar = /on|activar|enable/i.test(args[0]);
+  const desactivar = /off|desactivar|disable/i.test(args[0]);
+
+  let valor = activar? true: desactivar? false: null;
+  if (valor === null) throw `🌸 Usa: *${usedPrefix + command} on/off*`;
+
+  // Validar permisos según el comando
+  const permisosGrupo = isGroup &&!(isAdmin || isOwner);
+  const permisosPrivado =!isGroup &&!isOwner;
+
+  switch (config) {
     case 'welcome':
     case 'bv':
     case 'bienvenida':
-      if (!m.isGroup?!isOwner:!isAdmin) throw false;
-      chat.welcome = isEnable;
-      break;
-
-    case 'antisubbots':
-    case 'antisub':
-    case 'antisubot':
-    case 'antibot2':
-      if (m.isGroup &&!(isAdmin || isOwner)) throw false;
-      chat.antiBot2 = isEnable;
+    case 'reaction':
+    case 'reaccion':
+    case 'detect':
+    case 'detect2':
+    case 'nsfw':
+      if (permisosGrupo || permisosPrivado) throw '⚠️ Solo admins pueden cambiar esto.';
+      chat[config] = valor;
       break;
 
     case 'modoadmin':
     case 'soloadmin':
-      if (m.isGroup &&!(isAdmin || isOwner)) throw false;
-      chat.modoadmin = isEnable;
-      break;
-
-    case 'reaction':
-    case 'reaccion':
-    case 'emojis':
-      if (!m.isGroup?!isOwner:!isAdmin) throw false;
-      chat.reaction = isEnable;
-      break;
-
-    case 'nsfw':
-    case 'nsfwhot':
-    case 'nsfwhorny':
-      if (!m.isGroup?!isOwner:!isAdmin) throw false;
-      chat.nsfw = isEnable;
+    case 'antisubbots':
+    case 'antisub':
+    case 'antilink':
+    case 'antilink2':
+      if (permisosGrupo) throw '⚠️ Solo admins pueden cambiar esto.';
+      chat[config] = valor;
       break;
 
     case 'jadibotmd':
     case 'modejadibot':
-      isAll = true;
-      if (!isOwner) throw false;
-      bot.jadibotmd = isEnable;
-      break;
-
-    case 'detect':
-    case 'avisos':
-      if (!m.isGroup?!isOwner:!isAdmin) throw false;
-      chat.detect = isEnable;
-      break;
-
-    case 'detect2':
-    case 'eventos':
-      if (!m.isGroup?!isOwner:!isAdmin) throw false;
-      chat.detect2 = isEnable;
-      break;
-
-    case 'antilink':
-      if (m.isGroup &&!(isAdmin || isOwner)) throw false;
-      chat.antiLink = isEnable;
-      break;
-
-    case 'antilink2':
-      if (m.isGroup &&!(isAdmin || isOwner)) throw false;
-      chat.antiLink2 = isEnable;
+      if (!isOwner) throw '⚠️ Solo el dueño del bot puede cambiar esto.';
+      bot.jadibotmd = valor;
+      globalSetting = true;
       break;
 
     default:
-      return conn.reply(m.chat, '⚠️ Esta función aún no está disponible en el reino de Suki~', m);
+      return conn.reply(m.chat, '🧁 Esta configuración no existe en el mundo de Suki todavía...', m);
 }
 
-  chat[type] = isEnable;
+  const lugar = globalSetting? '🌐 Aplicado globalmente': '👑 Activado en este grupo';
 
-  conn.reply(m.chat,
-    `🌸꒰ *Suki_Bot_MD ha actualizado tus encantos* ꒱✨
-━━━━━━━━━━━━━━━━━━
-🧋 *Función:* ${type}
-🎀 *Estado:* ${isEnable? '✅ ACTIVADO~ yay!': '❌ DESACTIVADO~ zzz…'}
-${isAll? '🌐 *Aplicado globalmente a Suki_Bot_MD*': '👑 *Solo afecta este grupito mágico*'}
-━━━━━━━━━━━━━━━━━━
-🌟 Sigue configurando tu mundo kawaii~`, m);
+  return conn.reply(m.chat,
+`✨ *Encanto actualizado con éxito*
+
+📌 Opción: *${command}*
+📶 Estado: ${valor? '✅ ACTIVADO': '❌ DESACTIVADO'}
+${lugar}
+
+🌈 Suki ha lanzado el hechizo 🪄`, m);
 };
 
 handler.help = [
   'welcome', 'bv', 'bienvenida',
-  'antisubbots', 'antisub', 'antisubot', 'antibot2',
-  'modoadmin', 'soloadmin',
-  'reaction', 'reaccion', 'emojis',
-  'nsfw', 'nsfwhot', 'nsfwhorny',
-  'jadibotmd', 'modejadibot',
-  'detect', 'avisos',
-  'detect2', 'eventos',
-  'antilink', 'antilink2'
+  'reaction', 'reaccion',
+  'detect', 'detect2',
+  'nsfw', 'modoadmin', 'soloadmin',
+  'antisubbots', 'antisub', 'antilink', 'antilink2',
+  'jadibotmd', 'modejadibot'
 ];
-
-handler.tags = ['group', 'settings'];
+handler.tags = ['settings', 'group'];
 handler.command = handler.help;
 handler.register = true;
-
 export default handler;
