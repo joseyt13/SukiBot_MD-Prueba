@@ -11,6 +11,11 @@ const textSuki = (text) => {
   return text.toLowerCase().split('').map(c => charset[c] || c).join('');
 };
 
+const channelRD = {
+  id: '120363402097425674@newsletter',
+  name: '☁️ Suki_Bot_MD 🌸'
+};
+
 let tags = {
   main: textSuki('🌸 menú principal'),
   group: textSuki('🤍 grupo de amor'),
@@ -34,10 +39,10 @@ const defaultMenu = {
   before: `
 ${welcomeBanner}
 
-╭─♡ Estado del Usuario ♡─╮
+╭─♡ Estado de Usuario ♡─╮
 │ 🌈 Nombre: \`%name\`
 │ ⭐ Nivel: %level
-│ ⚡ Exp: %exp/%maxexp
+│ ⚡ EXP: %exp/%maxexp
 │ 🎀 Modo: %mode
 │ 🧃 Usuarios registrados: %totalreg
 │ 🕰️ Tiempo activo: %muptime
@@ -46,18 +51,16 @@ ${welcomeBanner}
 ✨ ¡Que tu magia fluya, %name!
 %readmore`.trimStart(),
 
-  header: '\n🌺 %category\n',
+  header: '\n🌸 ˗ˏˋ %category ˎˊ˗\n',
   body: '🍡 ➤ %cmd %iscorazones %isPremium',
   footer: '\n',
   after: `
-╭─✦ 「 𝚂𝚄𝙱-𝙱𝙾𝚃𝚂 」 ✦─╮
-│ 🍓 ¿Quieres formar parte del mundo encantado?
-│ 💫 Hazte Sub-Bot de *Suki_Bot_MD* con amor~
-│ 🎀 Usa *#code* o escanea tu *#Qr mágico*
-│ 📞 Conéctate al número principal:
-│ ┆ ✧ +54 9 11 7642-9275 ✧
-│ 🩵 ¡Comienza tu aventura como ayudante bot!
-╰────────────────────────╯
+╭─✧ 「 SUB-BOT 」 ✧─╮
+│ 🍓 ¿Quieres unirte al mundo kawaii?
+│ 🧋 Hazte Sub-Bot de *Suki_Bot_MD*
+│ ✨ Usa *#code* o escanea tu *#Qr mágico*
+│ 📞 Número principal: +54 9 11 7642-9275
+╰──────────────────────╯
 
 ꒰🌙꒱━━━━━━━━━━━━━━━━━━`
 };
@@ -93,7 +96,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     const { before, header, body, footer, after} = defaultMenu;
 
-    let _text = [
+    const _text = [
       before,
 ...Object.keys(tags).map(tag => {
         const cmds = help
@@ -106,7 +109,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
       after
     ].join('\n');
 
-    let replace = {
+    const replace = {
       '%': '%',
       name,
       level,
@@ -127,7 +130,20 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
       contextInfo: {
         mentionedJid: [m.sender],
         isForwarded: true,
-        forwardingScore: 999
+        forwardingScore: 999,
+        forwardedNewsletterMessageInfo: {
+          newsletterJid: channelRD.id,
+          serverMessageId: 100,
+          newsletterName: channelRD.name
+},
+        externalAdReply: {
+          title: '🌸 Suki_Bot_MD 🌸',
+          body: '✨ Únete al canal oficial de Suki',
+          thumbnailUrl: 'https://files.catbox.moe/3ee3ib.jpg',
+          sourceUrl: 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W',
+          mediaType: 1,
+          renderLargerThumbnail: true
+}
 }
 }, { quoted: m});
 
@@ -148,4 +164,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-}
+    }
