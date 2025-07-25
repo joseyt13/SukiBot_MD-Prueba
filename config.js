@@ -26,11 +26,11 @@ global.prems = ['5491156178758'];
 
 // IᑎᖴOᖇᗰᗩᑕIOᑎ ՏOᗷᖇᗴ ᒪᗩ ᗷOT 🍁
 global.libreria = 'Baileys';
-global.nameqr = 'RoxyBot';
-global.namebot = 'RoxyBot';
+global.nameqr = 'SukiBot';
+global.namebot = 'SukiBot';
 global.sessions = 'Sessions';
 global.jadi = 'JadiBots';
-global.roxyJadibts = true;
+global.sukiJadibts = true;
 
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
