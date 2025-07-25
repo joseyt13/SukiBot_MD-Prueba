@@ -1,256 +1,147 @@
-import fetch from 'node-fetch'
-import { xpRange } from '../lib/levelling.js'
-import { promises as fsPromises } from 'fs'
-import { join } from 'path'
-import PhoneNumber from 'awesome-phonenumber'
+import { xpRange} from '../lib/levelling.js';
+import fetch from 'node-fetch';
 
-let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
+const channelRD = {
+  id: '120363402097425674@newsletter',
+  name: '☁️ Suki_Bot_MD 🌸'
+};
+
+const textSuki = (text) => {
+  const charset = {
+    a:'ᴀ', b:'ʙ', c:'ᴄ', d:'ᴅ', e:'ᴇ', f:'ꜰ', g:'ɢ',
+    h:'ʜ', i:'ɪ', j:'ᴊ', k:'ᴋ', l:'ʟ', m:'ᴍ', n:'ɴ',
+    o:'ᴏ', p:'ᴘ', q:'ǫ', r:'ʀ', s:'ꜱ', t:'ᴛ', u:'ᴜ',
+    v:'ᴠ', w:'ᴡ', x:'ˣ', y:'ʏ', z:'ᴢ'
+};
+  return text.toLowerCase().split('').map(c => charset[c] || c).join('');
+};
+
+let tags = {
+  main: textSuki('🌸 menú principal'),
+  group: textSuki('🤍 grupo de amor'),
+  serbot: textSuki('💫 energía suki')
+};
+
+const welcomeBanner = `
+╭︿︿︿︿︿╮
+(｡>﹏<｡)っ 💌 ｡･ﾟ･｡
+╰︶︶︶︶︶╯
+
+♡ Bienvenida a Suki_Bot_MD ♡
+Donde cada comando vibra con ternura 🌸
+`.trim();
+
+const defaultMenu = {
+  before: `
+${welcomeBanner}
+
+╭─♡──────────────╮
+│ 💖 Espíritu: \`%name\`
+│ 🌟 Nivel: %level
+│ 🧸 Energía: %exp/%maxexp
+│ 🩵 Modo: %mode
+│ 🫧 Total almas: %totalreg
+│ ⏰ Tiempo activa: %muptime
+╰───────────────♡─╯
+
+🩷 ¡Hoy brillas más que el sol, %name! ✨
+%readmore`.trimStart(),
+
+  header: '\n🌺 ˗ˏˋ %category ˎˊ˗\n',
+  body: '🍓 ➤ %cmd %iscorazones %isPremium',
+  footer: '\n',
+  after: `\n꒰🌙꒱━━━━━━━━━━━━━━━━━━`
+};
+
+let handler = async (m, { conn, usedPrefix: _p}) => {
   try {
-    await m.react('✨️')
+    const { exp = 0, level = 0} = global.db.data.users[m.sender];
+    const { min, xp} = xpRange(level, global.multiplier);
+    const name = await conn.getName(m.sender);
+    const _uptime = process.uptime() * 1000;
+    const muptime = clockString(_uptime);
+    const totalreg = Object.keys(global.db.data.users).length;
+    const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
 
-    let { exp, bank, registered } = global.db.data.users[m.sender]
-    let name = await conn.getName(m.sender)
-    let _uptime = process.uptime() * 1000
-    let uptime = clockString(_uptime)
-    let totalreg = Object.keys(global.db.data.users).length
-    let groupUserCount = m.isGroup ? participants.length : '-'
+    let help = Object.values(global.plugins)
+.filter(p =>!p.disabled)
+.map(p => ({
+        help: Array.isArray(p.help)? p.help: [p.help],
+        tags: Array.isArray(p.tags)? p.tags: [p.tags],
+        prefix: 'customPrefix' in p,
+        limit: p.limit,
+        premium: p.premium,
+        enabled:!p.disabled
+}));
 
-    let perfil = await conn.profilePictureUrl(conn.user.jid, 'image')
-      .catch(() => 'https://files.catbox.moe/9i5o9z.jpg')
+    for (const plugin of help) {
+      if (plugin.tags) {
+        for (const t of plugin.tags) {
+          if (!(t in tags) && t) tags[t] = textSuki(t);
+}
+}
+}
 
-    // Preparar el tag del usuario
-    const userId = m.sender.split('@')[0]
-    let taguser = `@${userId}`
-    let phone = PhoneNumber('+' + userId)
-    let pais = phone.getRegionCode() || 'Desconocido 🌐'
+    const { before, header, body, footer, after} = defaultMenu;
 
-    const vids = [
-      'https://files.cloudkuimages.guru/videos/RhnYWAae.mp4',
-      'https://files.cloudkuimages.guru/videos/RhnYWAae.mp4',
-      'https://files.cloudkuimages.guru/videos/RhnYWAae.mp4'
-    ]
-    let videoUrl = vids[Math.floor(Math.random() * vids.length)]
+    let _text = [
+      before,
+...Object.keys(tags).map(tag => {
+        const cmds = help
+.filter(menu => menu.tags.includes(tag))
+.map(menu =>
+            menu.help.map(cmd => body.replace(/%cmd/g, menu.prefix? cmd: _p + cmd)).join('\n')
+).join('\n');
+        return `${header.replace(/%category/g, tags[tag])}${cmds}${footer}`;
+}),
+      after
+    ].join('\n');
 
-    const header = [
-      `╔═━★•°*"'*°•★━═╗`,
-      `    ✦ ꧁𝐖𝐞𝐥𝐜𝐨𝐦𝐞꧂ ✦`,
-      `╚═━★•°*"'*°•★━═╝`
-    ].join('\n')
+    let replace = {
+      '%': '%',
+      name,
+      level,
+      exp: exp - min,
+      maxexp: xp,
+      totalreg,
+      mode,
+      muptime,
+      readmore: String.fromCharCode(8206).repeat(4001)
+};
 
-    const user = global.db.data.users[m.sender] || {};
-    const country = user.country || '';
-    const isPremium = user.premium || false;
+    const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-
-    const channelRD = { 
-      id: '120363312092804854@newsletter', 
-      name: 'Oficial channel Roxy-MD'
-    }
-
-
-    const metaMsg = {
-      quoted: global.fakeMetaMsg,
+    await conn.sendMessage(m.chat, {
+      video: { url: 'https://files.catbox.moe/ublgrw.mp4'},
+      caption: text,
+      mimetype: 'video/mp4',
       contextInfo: {
         mentionedJid: [m.sender],
         isForwarded: true,
+        forwardingScore: 999,
         forwardedNewsletterMessageInfo: {
           newsletterJid: channelRD.id,
           serverMessageId: 100,
           newsletterName: channelRD.name
-        },
-        externalAdReply: {
-          title: '🌸 𝗥𝗢𝗫𝗬 𝗠𝗗 𝗕𝗢𝗧 🌸',
-          body: '© 𝑃𝑜𝑤𝑒𝑟𝑒𝑑 𝐵𝑦 𝐷𝑒𝑣𝐵𝑟𝑎𝑦𝑎𝑛',
-          mediaUrl: null,
-          description: null,
-          previewType: "PHOTO",
-          thumbnailUrl: 'https://files.catbox.moe/9i5o9z.jpg',
-          sourceUrl: 'https://github.com/El-brayan502/RoxyBot-MD/',
-          mediaType: 1,
-          renderLargerThumbnail: true
-        }
-      }
-    }
-
-let saludo
-let hora = new Date().getUTCHours() - 6 
-
-if (hora < 0) hora += 24 // por si queda en negativo
-
-if (hora >= 5 && hora < 13) {
-  saludo = '🌞 Hola senpai, que tengas un lindo día ✨'
-} else if (hora >= 13 && hora < 18) {
-  saludo = '🍃 Buenas tardes, senpai 🧸'
-} else {
-  saludo = '🌙 ¿Por qué aún no duermes, onii-chan? 💤'
 }
-
-    const body = `
-🎀 Bienvenido a Roxy AI
-${saludo}, *${taguser}*!
-────────────────
-✨ I N F O R M A C I Ó N ✨
-· › 🌺 Nombre del Bot: RoxyBot-MD 
-· › 👤 Nombre de Usuario: *${taguser}*
-· › 🍡 Estado: Gratis
-· › 🍒 *Tiempo en línea* :: *${uptime}*
-────────────────
-
-*【𝕷 𝖎 𝖘 𝖙 𝖆 - 𝕯𝖊 - 𝕮 𝖔 𝖒 𝖆 𝖓 𝖉 𝖔 𝖘】*
-
-◈───≼ _*MAIN & RPG*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ʀᴇɢ <ɴᴏᴍʙʀᴇ ᴇᴅᴀᴅ>
-┝⎆ [  ${usedPrefix}ᴜɴʀᴇɢ
-┝⎆ [  ${usedPrefix}ᴍᴇɴᴜ
-┝⎆ [  ${usedPrefix}ᴊᴜᴇɢᴏs
-┝⎆ [  ${usedPrefix}ᴘɪɴɢ
-┝⎆ [  ${usedPrefix}ɢʀᴜᴘᴏs
-┝⎆ [  ${usedPrefix}ᴏᴡɴᴇʀ
-◈┄──━━┉─࿂
-◈───≼ _*NSFW*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ᴘᴇɴᴇᴛʀᴀʀ
-┝⎆ [  ${usedPrefix}sᴇxᴏ
-┝⎆ [  ${usedPrefix}ᴠɪᴏʟᴀʀ
-┝⎆ [  ${usedPrefix}ғᴏʟʟᴀʀ
-◈┄──━━┉─࿂
-◈───≼ _*FUN*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ᴛᴏᴘ <text>
-┝⎆ [  ${usedPrefix}ɢᴀʏ
-┝⎆ [  ${usedPrefix}ᴘᴀᴊᴇᴀᴍᴇ
-┝⎆ [  ${usedPrefix}ᴅᴏxᴇᴏ @usuario
-┝⎆ [  ${usedPrefix}ᴅᴏxᴜᴇʀ @usuario
-┝⎆ [  ${usedPrefix}ғᴏʀᴍᴀʀᴘᴀʀᴇᴊᴀ
-┝⎆ [  ${usedPrefix}ғᴏʀᴍᴀʀᴘᴀʀᴇᴊᴀ𝟻
-┝⎆ [  ${usedPrefix}ʜᴜᴇᴠᴏ
-◈┄──━━┉─࿂
-
-◈───≼ _*ANIME*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ᴋɪss
-┝⎆ [  ${usedPrefix}ᴀɴɢʀʏ
-┝⎆ [  ${usedPrefix}ʙɪᴛᴇ
-┝⎆ [  ${usedPrefix}ʙᴜᴇɴᴀsɴᴏᴄʜᴇs
-┝⎆ [  ${usedPrefix}ʙᴜᴇɴᴏsᴅɪ́ᴀs
-┝⎆ [  ${usedPrefix}ᴄᴀғᴇ
-┝⎆ [  ${usedPrefix}ᴄʀʏ
-┝⎆ [  ${usedPrefix}ᴄᴜᴅᴅʟᴇ
-┝⎆ [  ${usedPrefix}ʜᴀᴘᴘʏ
-┝⎆ [  ${usedPrefix}ʜᴇʟʟᴏ
-┝⎆ [  ${usedPrefix}ʟᴏʟɪ
-┝⎆ [  ${usedPrefix}ʀᴡ
-┝⎆ [  ${usedPrefix}ᴡ
-┝⎆ [  ${usedPrefix}ʀᴇᴄʟᴀᴍᴀᴡᴀɪғᴜ
-┗━━━━━━━━━━━━━━━━━⪩
-
-
-◈───≼ _*DESCARGAS*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ᴛɪᴋᴛᴏᴋ
-┝⎆ [  ${usedPrefix}ᴘʟᴀʏ
-┝⎆ [  ${usedPrefix}ᴘɪɴᴅʟ <link>
-┝⎆ [  ${usedPrefix}ɪɴsᴛᴀɢʀᴀᴍ <link>
-┝⎆ [  ${usedPrefix}ꜰᴀᴄᴇʙᴏᴏᴋ <link>
-◈┄──━━┉─࿂
-
-◈───≼ _*BUSCADORES*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ʏᴛs
-┝⎆ [  ${usedPrefix}ᴘɪɴᴛᴇʀᴇsᴛ
-┝⎆ [  ${usedPrefix}ᴀᴘᴛᴏɪᴅᴇ<texto>
-┝⎆ [  ${usedPrefix}ᴛɪᴋᴛᴏᴋsᴇᴀʀᴄʜ
-┝⎆ [  ${usedPrefix}sꜱᴡᴇʙ
-┝⎆ [  ${usedPrefix}sᴘᴏᴛɪꜰʏ
-◈┄──━━┉─࿂
-◈───≼ _*GRUPO*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ᴛᴀɢᴛᴇxᴛ
-┝⎆ [  ${usedPrefix}ᴀᴅᴠᴇʀᴛᴇɴᴄɪᴀ <@tag> <text>
-┝⎆ [  ${usedPrefix}ᴘᴇʀғɪʟ
-┝⎆ [  ${usedPrefix}ɢʀᴜᴘᴏᴄᴇʀʀᴀʀ
-┝⎆ [  ${usedPrefix}ɢʀᴜᴘᴏᴀʙʀɪʀ
-┝⎆ [  ${usedPrefix}ɪɴᴠᴏᴄᴀʀ 
-┝⎆ [  ${usedPrefix}sᴇᴛᴘᴘɢʀᴜᴘᴏ 
-┝⎆ [  ${usedPrefix}ᴋɪᴄᴋ <@tag>
-┝⎆ [  ${usedPrefix}ᴛᴀɢ
-┝⎆ [  ${usedPrefix}ᴅᴇʟ
-◈┄──━━┉─࿂
-
-◈───≼ _*IA & ARTE*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ᴍᴀɢɪᴄsᴛᴜᴅɪᴏ <texto>
-┝⎆ [  ${usedPrefix}ᴀɪ <texto>
-┝⎆ [  ${usedPrefix}ᴇᴅɪᴛꜰᴏᴛᴏ <descripción>
-┝⎆ [  ${usedPrefix}ᴡᴘᴡ
-┝⎆ [  ${usedPrefix}ᴘᴏʟʟɪɴᴀᴛɪᴏɴs <texto>
-┝⎆ [  ${usedPrefix}ɢᴇᴍɪɴɪ
-┝⎆ [  ${usedPrefix}ʙɢʀᴇᴍᴏᴠᴇʀ <imagen>
-◈┄──━━┉─࿂
-
-◈───≼ _*INTERNET*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ɴɪᴍᴇɢᴀᴍᴇsᴇᴀʀᴄʜ
-┝⎆ [  ${usedPrefix}ᴍᴇɪᴏ
-◈┄──━━┉─࿂
-
-◈───≼ _*JADIBOT*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ʙᴏᴛs
-┝⎆ [  ${usedPrefix}ᴄᴏᴅᴇ
-◈┄──━━┉─࿂
-
-◈───≼ _*OWNER*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ʀᴇɪɴɪᴄɪᴀʀ
-┝⎆ [  ${usedPrefix}ᴅsᴏᴡɴᴇʀ
-┝⎆ [  ${usedPrefix}sᴇᴛɴᴀᴍᴇ
-┝⎆ [  ${usedPrefix}sᴇᴛᴘᴘ <img>
-┝⎆ [  ${usedPrefix}ʀᴇsᴛᴀʀᴛ
-┝⎆ [  ${usedPrefix}ᴜᴘᴅᴀᴛᴇ
-◈┄──━━┉─࿂
-
-◈───≼ _*STICKER*_ ≽──⊚
-┝⎆ [  ${usedPrefix}sᴛɪᴄᴋᴇʀ <img>
-┝⎆ [  ${usedPrefix}ʙʀᴀᴛ *<texto>*
-◈┄──━━┉─࿂
-
-◈───≼ _*TOOLS*_ ≽──⊚
-┝⎆ [  ${usedPrefix}ɪǫᴄ <texto>
-┝⎆ [  ${usedPrefix}ʀᴠᴏᴄᴀʟ <audio>
-┝⎆ [  ${usedPrefix}ᴛᴏᴜʀʟ2
-┝⎆ [  ${usedPrefix}ʜᴅ
-┝⎆ [  ${usedPrefix}ᴛᴏᴜʀʟ <imagen>
-◈┄──━━┉─࿂
-`.trim()
-
-    // Unir header + body
-    const menu = `${header}\n${body}`
-
-    // Configurar datos para el mensaje
-    const botname = '🌸◌*̥₊ Rᴏxʏ-Mᴅ ◌❐🎋༉'
-    const textbot = '💖 𝙍𝙊𝙓𝙔 𝘽𝙔 𝘿𝙀𝙑 𝘽𝙍𝘼𝙔𝘼𝙉 ✨️'
-    const banner = perfil
-    const redes = 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W'
-    
-    await conn.sendMessage(m.chat, {
-      video: { url: videoUrl },
-      caption: body,
-      gifPlayback: true,
-      mentions: [m.sender],  // Agregamos el array de menciones
-      ...metaMsg
-    })
-
-  } catch (e) {
-    console.error(e)
-    await conn.sendMessage(m.chat, { 
-      text: `✘ Error al enviar el menú: ${e.message}`,
-      mentions: [m.sender]  // También incluimos menciones en el mensaje de error
-    }, { 
-      quoted: metaMsg 
-    })
-  }
 }
+}, { quoted: m});
 
-handler.help = ['menu']
-handler.tags = ['main']
-handler.command = ['menu','help','menú','allmenu','menucompleto']
-handler.register = true
-export default handler
+} catch (e) {
+    console.error('[❌] Error en menú Suki:', e);
+    conn.reply(m.chat, '💢 Ups! Suki_Bot_MD se distrajo viendo anime. Intenta de nuevo, okie~?', m);
+}
+};
+
+handler.help = ['menu'];
+handler.tags = ['main'];
+handler.command = ['menu', 'suki', 'suki_bot_md'];
+handler.register = false;
+export default handler;
 
 function clockString(ms) {
-  const h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
-  const m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
-  const s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-  return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':')
+  let h = isNaN(ms)? '--': Math.floor(ms / 3600000);
+  let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
+  let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
+  return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
 }
