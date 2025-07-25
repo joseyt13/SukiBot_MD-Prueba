@@ -105,7 +105,7 @@ async function showBanner() {
         letterSpacing: 1,
         lineHeight: 1
     })
-    say('powered by Brayan', {
+    say('powered by Fedexyz', {
         font: 'console',
         align: 'center',
         colors: ['blue'],
