@@ -348,7 +348,7 @@ if (opcion == '1' || methodCodeQR) {
 console.log(chalk.bold.yellow(`\n❐ ESCANEA EL CÓDIGO QR EXPIRA EN 45 SEGUNDOS`))}
 }
 if (connection == 'open') {
-console.log(chalk.bold.green('\n✨️ RoxyMD ya esta conectada ✨️'))
+console.log(chalk.bold.green('\n✨️ Suki-Bot-MD ya esta conectada ✨️'))
 }
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
 if (connection === 'close') {
