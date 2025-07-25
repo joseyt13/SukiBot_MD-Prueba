@@ -32,17 +32,17 @@ console.log(`Error : ${e}`)
 global.creador = 'Wa.me/573001533523'
 global.ofcbot = `Wa.me/${conn.user.jid.split('@')[0]}?text=✨️hl`
 global.asistencia = 'Wa.me/50231458537'
-global.namechannel = '🌸◌*̥₊ Rᴏxʏ-Mᴅ ◌❐🎋༉'
-global.namechannel2 = '🌸◌*̥₊ Rᴏxʏ-Mᴅ ◌❐🎋༉'
-global.namegrupo = '𝐑𝐎𝐗𝐘 𝐆𝐑𝐔𝐏𝐎'
-global.namecomu = '𝐓𝐇𝐄 𝐑𝐎𝐗𝐘 𝐂𝐎𝐌𝐔𝐍𝐈𝐓𝐘'
-global.listo = '𝑨𝑸𝑼𝑰 𝑻𝑰𝑬𝑵𝑬 𝑮𝑹𝑨𝑪𝑰𝑨𝑺 𝑿 𝑬𝑺𝑷𝑬𝑹𝑨𝑹 ˃ 𖥦 ˂'
+global.namechannel = '🌸◌sᥙkі_ᑲ᥆𝗍_mძ🍁༉'
+global.namechannel2 = '🌸◌*̥sᥙkі_ᑲ᥆𝗍_mძ🍁༉'
+global.namegrupo = '🍁sᥙkі_ᑲ᥆𝗍_mძ🍁'
+global.namecomu = '⍴᥆ᥕᥱrᥱძ ᑲᥡ 𝖿ᥱძᥱ᥊ᥡz'
+global.listo = 'listo aquí tienes tu pedido 🍁'
 global.fotoperfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => catalogo,)
 
 // ᑕᗩᑎᗩᒪ ᗪᗴ ᒪᗩ ᗷOT
-global.idchannel = '120363312092804854@newsletter'
-global.canalIdM = ["120363312092804854@newsletter", "120363312092804854@newsletter"]
-global.canalNombreM = ["🌸◌*̥₊ Rᴏxʏ-Mᴅ ◌❐🎋༉", "𝗧𝗢𝗖𝗔 𝗔𝗤𝗨𝗜 ✨️"]
+global.idchannel = '120363402097425674@newsletter'
+global.canalIdM = ["120363402097425674@newsletter", "120363402097425674@newsletter"]
+global.canalNombreM = ["👓 sᥙkі_ᑲ᥆𝗍_mძ 🍁", "🍁 SUKII⚘"]
 global.channelRD = await getRandomChannel()
 
 
@@ -120,7 +120,7 @@ global.fake = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo
 
 
 global.icono = [ 
-'https://files.cloudkuimages.guru/images/z4rwLoXF.jpg',
+'https://files.catbox.moe/3ngnnn.jpg',
 'https://files.cloudkuimages.guru/images/z4rwLoXF.jpg',
 'https://files.cloudkuimages.guru/images/FoRfISXZ.jpg',
 'https://files.cloudkuimages.guru/images/fJSweUYE.jpg',
