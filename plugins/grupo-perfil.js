@@ -1,91 +1,57 @@
-import { proto, generateWAMessageContent, generateWAMessageFromContent } from '@whiskeysockets/baileys'
+import fs from 'fs'
 
-let handler = async (m, { conn }) => {
-  if (!m.isGroup) return m.reply('❌ Este comando solo está disponible en grupos.')
-
-  const user = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
-  const username = await conn.getName(user)
-  const number = user.split('@')[0]
-  const isRegistered = global.db.data.users[user]?.registered ? '✅ Registrado' : '❌ No registrado'
-
-  // Obtener foto de perfil o usar imagen por defecto
-  let profilePicUrl
-  try {
-    profilePicUrl = await conn.profilePictureUrl(user, 'image')
-  } catch (e) {
-    profilePicUrl = 'https://files.cloudkuimages.guru/images/7kAcwery.jpg' // Imagen por defecto
-  }
-
-  const { imageMessage } = await generateWAMessageContent({
-    image: { url: profilePicUrl }
-  }, { upload: conn.waUploadToServer })
-
-  const card = {
-    body: proto.Message.InteractiveMessage.Body.fromObject({
-      text: `👤 *Perfil de Usuario*\n\n📛 Nombre: ${username}\n📱 Número: wa.me/${number}\n📝 Registro: ${isRegistered}`
-    }),
-    footer: proto.Message.InteractiveMessage.Footer.fromObject({
-      text: 'Bot: Roxy-MD'
-    }),
-    header: proto.Message.InteractiveMessage.Header.fromObject({
-      hasMediaAttachment: true,
-      imageMessage
-    }),
-    nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
-      buttons: [
-        {
-          name: 'cta_url',
-          buttonParamsJson: JSON.stringify({
-            display_text: '📢 Canal de WhatsApp',
-            url: 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W'
-          })
-        },
-        {
-          name: 'cta_url',
-          buttonParamsJson: JSON.stringify({
-            display_text: '📦 Repositorio del Bot',
-            url: 'https://github.com/El-brayan502/RoxyBot-MD'
-          })
-        },
-        {
-          name: 'cta_url',
-          buttonParamsJson: JSON.stringify({
-            display_text: '🎵 TikTok del Creador',
-            url: 'https://www.tiktok.com/@fantom_uwu_330?_t=ZM-8yBpnlcBH7e&_r=1'
-          })
-        }
-      ]
-    })
-  }
-
-  const msg = generateWAMessageFromContent(m.chat, {
-    viewOnceMessage: {
-      message: {
-        messageContextInfo: {
-          deviceListMetadata: {},
-          deviceListMetadataVersion: 2
-        },
-        interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-          body: proto.Message.InteractiveMessage.Body.create({
-            text: '✨ Información de perfil'
-          }),
-          footer: proto.Message.InteractiveMessage.Footer.create({
-            text: 'Sistema de Perfiles • Roxy-MD'
-          }),
-          carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({
-            cards: [card]
-          })
-        })
-      }
-    }
-  }, {})
-
-  await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
-  await m.react('👤')
+const loadMarriages = () => {
+  const path = './media/database/marry.json'
+  if (fs.existsSync(path)) {
+    const data = JSON.parse(fs.readFileSync(path, 'utf-8'))
+    global.db.data.marriages = data
+} else {
+    global.db.data.marriages = {}
+}
 }
 
-handler.help = ['perfil', 'verperfil']
-handler.tags = ['info']
-handler.command = ['perfil', 'verperfil', 'profile']
+let handler = async (m, { conn}) => {
+  loadMarriages()
+
+  let who = m.quoted?.sender || m.mentionedJid?.[0] || (m.fromMe? conn.user.jid: m.sender)
+  const user = global.db.data.users[who] || {}
+
+  const {
+    registered = false,
+    level = 0,
+    exp = 0,
+    age = 'Sin registrar 🌙',
+    genre = 'No definido 💫',
+    role = 'Novat@',
+    description = '🍃 Sin frase mágica aún~'
+} = user
+
+  const isMarried = global.db.data.marriages?.[who]
+  const partnerName = isMarried? await conn.getName(global.db.data.marriages[who]): '🩷 Sin compañer@'
+
+  const username = await conn.getName(who)
+  const perfilpic = await conn.profilePictureUrl(who, 'image').catch(() => 'https://files.catbox.moe/07fyj3.jpg')
+
+  const mensaje = `
+🌸 ꒰ Perfil encantado de ${username} ꒱
+
+🧋 Nombre: *${username}*
+🎂 Edad: *${registered? age: 'No registrada'}*
+📖 Registro: *${registered? '✅ Activo': '❌ Pendiente'}*
+💫 Rango espiritual: *${role}*
+✨ Nivel: *${level}* | EXP: *${exp}*
+🧠 Género: *${genre}*
+💕 Pareja: *${partnerName}*
+🌷 Frase: *${description}*
+
+🪄 *Sigue brillando en el mundo de Suki_Bot_MD~*`.trim()
+
+  await conn.sendFile(m.chat, perfilpic, 'perfil.jpg', mensaje, m, { mentions: [who]})
+}
+
+handler.help = ['perfil']
+handler.tags = ['info', 'rg']
+handler.command = ['perfil', 'profile']
+handler.register = true
 
 export default handler
