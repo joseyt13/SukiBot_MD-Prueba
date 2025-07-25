@@ -27,18 +27,17 @@ const searchTrack = async (query, token) => {
       headers: { Authorization: `Bearer ${token}`}
 }
 );
-  if (res.data.tracks.items.length === 0) throw new Error("🎶 Canción no encontrada.");
+  if (res.data.tracks.items.length === 0) throw new Error("No se encontró la canción.");
   return res.data.tracks.items[0];
 };
 
 let handler = async (m, { conn, text}) => {
-  if (!text) return m.reply("🎀 Ingresa el nombre de una canción o un link de Spotify para escuchar melodías mágicas~");
-  await m.react("🌸");
+  if (!text) return m.reply("Escribe el nombre de una canción o comparte un enlace de Spotify.");
+  await m.react("🎧");
 
   try {
     const isUrl = /https?:\/\/(open\.)?spotify\.com\/track\/[a-zA-Z0-9]+/.test(text);
     let track;
-
     const token = await getToken();
 
     if (isUrl) {
@@ -52,18 +51,15 @@ let handler = async (m, { conn, text}) => {
 }
 
     const mensaje = `
-🌸 ˗ˏˋ ♬ Información de la canción ♬ ˎˊ˗
+📘 Información de la pista:
 
-🎵 Título: *${track.name}*
-🎤 Artista: *${track.artists.map(a => a.name).join(", ")}*
-💽 Álbum: *${track.album.name}*
-📅 Fecha: *${track.album.release_date}*
-🌟 Popularidad: *${track.popularity}/100*
-⏱️ Duración: *${(track.duration_ms / 60000).toFixed(2)} minutos*
-🆔 ISRC: *${track.external_ids?.isrc || "No disponible"}*
-🔗 Spotify: ${track.external_urls.spotify}
-
-🍓 ¡Suki_Bot_MD ya está preparando el audio para ti~*`.trim();
+• Título: ${track.name}
+• Artista: ${track.artists.map(a => a.name).join(", ")}
+• Álbum: ${track.album.name}
+• Fecha: ${track.album.release_date}
+• Popularidad: ${track.popularity}/100
+• Duración: ${(track.duration_ms / 60000).toFixed(2)} minutos
+• Enlace: ${track.external_urls.spotify}`.trim();
 
     await m.reply(mensaje);
 
@@ -82,28 +78,27 @@ let handler = async (m, { conn, text}) => {
           title: track.name,
           body: `Artista: ${track.artists.map(a => a.name).join(", ")}`,
           thumbnailUrl: track.album.images[0]?.url,
-          sourceUrl: track.external_urls.spotify,
           mediaType: 1,
+          sourceUrl: track.external_urls.spotify,
           renderLargerThumbnail: true
 }
 }
 }, { quoted: m});
 
-    await m.react("🩷");
+    await m.react("✅");
 
 } catch (err) {
     console.error(err);
     await m.react("❌");
-    m.reply("🛑 Suki no pudo obtener la canción. Intenta con otro nombre o link:\n> " + err.message);
+    m.reply("No se pudo obtener la canción. Intenta de nuevo.\n> " + err.message);
 }
 };
 
 handler.help = ["spotify"];
-handler.tags = ["music", "download"];
+handler.tags = ["music", "descargas"];
 handler.command = ["spotify"];
 export default handler;
 
-// 🎵 Clase encantada para convertir Spotify en audio descargable
 class SpotMate {
   constructor() {
     this._cookie = null;
@@ -127,7 +122,7 @@ class SpotMate {
       this._token = $('meta[name="csrf-token"]').attr('content');
       if (!this._token) throw new Error('Token CSRF no encontrado.');
 } catch (error) {
-      throw new Error(`🌐 Error visitando SpotMate: ${error.message}`);
+      throw new Error(`Falló conexión a SpotMate: ${error.message}`);
 }
 }
 
@@ -141,7 +136,7 @@ class SpotMate {
 );
       return response.data;
 } catch (error) {
-      throw new Error(`🔄 Error al convertir la canción: ${error.message}`);
+      throw new Error(`Error al convertir: ${error.message}`);
 }
 }
 
@@ -159,6 +154,5 @@ class SpotMate {
   clear() {
     this._cookie = null;
     this._token = null;
-    console.log('🧹 Token y cookies limpiadas 💫');
 }
 }
