@@ -1,5 +1,3 @@
-# 🌸 Suki-Bot-MD
-
-[![Ver video](https://files.cloudkuimages.guru/videos/GV79kFXr.mp4)](https://files.cloudkuimages.guru/videos/GV79kFXr.mp4)
-
-> Haz clic en la imagen para ver el video demostrativo 🎥
+<p align="center">
+  <img src="https://files.catbox.moe/4v07bp.jpg" alt="NagiBot Banner" width="100%"/>
+</p>
