@@ -1,6 +1,10 @@
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
 
+const textbot = '💖 SUKI_BOT_MD BY FEDEXYZ ✨️';
+const banner = 'https://files.catbox.moe/3ee3ib.jpg';
+const redes = 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W';
+
 const textSuki = (text) => {
   const charset = {
     a:'ᴀ', b:'ʙ', c:'ᴄ', d:'ᴅ', e:'ᴇ', f:'ꜰ', g:'ɢ',
@@ -28,8 +32,7 @@ const welcomeBanner = `
 🌸 Bienvenida a *Suki_Bot_MD* 🌸
 ✨ Donde cada comando es una chispa de ternura.
 
-『 ✦ ✦ ✦ 』
-`.trim();
+『 ✦ ✦ ✦ 』`.trim();
 
 const defaultMenu = {
   before: `
@@ -118,7 +121,15 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
       contextInfo: {
         mentionedJid: [m.sender],
         isForwarded: true,
-        forwardingScore: 999
+        forwardingScore: 999,
+        externalAdReply: {
+          title: '🌸 SUKI_BOT_MD 🌸',
+          body: '© Powered By fedexyz',
+          thumbnailUrl: banner,
+          sourceUrl: redes,
+          mediaType: 1,
+          renderLargerThumbnail: true
+}
 }
 }, { quoted: m});
 
