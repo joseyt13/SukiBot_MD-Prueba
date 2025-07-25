@@ -21,7 +21,7 @@
 ## 🔗 Contacto / Soporte
 
 - 💬 WhatsApp: [Enlace directo](https://wa.me/51999999999)
-- 🌐 GitHub: [El-brayan502](https://github.com/El-brayan502)
+- 🌐 GitHub: [Fedexyz](https://github.com/El-brayan502)
 
 ---
 
