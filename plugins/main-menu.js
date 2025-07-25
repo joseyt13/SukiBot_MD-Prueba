@@ -22,27 +22,26 @@ let tags = {
 
 const welcomeBanner = `
 ╭︿︿︿︿︿︿︿╮
-(｡>﹏<｡)っ 💌 ｡･ﾟ･｡
+(｡>﹏<｡)っ 💌
 ╰︶︶︶︶︶︶╯
 
 🌸 Bienvenida a *Suki_Bot_MD* 🌸
-✨ Donde cada comando es una chispa de ternura.
+✨ Donde cada comando es una chispa de ternura
 
-『 ✦ ✦ ✦ 』
-`.trim();
+『 ✦ ✦ ✦ 』`.trim();
 
 const defaultMenu = {
   before: `
 ${welcomeBanner}
 
-╭─♡ 状態 de Usuario ♡─╮
+╭─♡ Estado del Usuario ♡─╮
 │ 🌈 Nombre: \`%name\`
 │ ⭐ Nivel: %level
 │ ⚡ Exp: %exp/%maxexp
 │ 🎀 Modo: %mode
-│ 🧃 Usuarios: %totalreg
+│ 🧃 Usuarios registrados: %totalreg
 │ 🕰️ Tiempo activo: %muptime
-╰───────────────────╯
+╰───────────────────────╯
 
 ✨ ¡Que tu magia fluya, %name!
 %readmore`.trimStart(),
@@ -50,7 +49,17 @@ ${welcomeBanner}
   header: '\n🌺 %category\n',
   body: '🍡 ➤ %cmd %iscorazones %isPremium',
   footer: '\n',
-  after: '\n꒰🌙꒱━━━━━━━━━━━━━━━━━━'
+  after: `
+╭─✦ 「 𝚂𝚄𝙱-𝙱𝙾𝚃𝚂 」 ✦─╮
+│ 🍓 ¿Quieres formar parte del mundo encantado?
+│ 💫 Hazte Sub-Bot de *Suki_Bot_MD* con amor~
+│ 🎀 Usa *#code* o escanea tu *#Qr mágico*
+│ 📞 Conéctate al número principal:
+│ ┆ ✧ +54 9 11 7642-9275 ✧
+│ 🩵 ¡Comienza tu aventura como ayudante bot!
+╰────────────────────────╯
+
+꒰🌙꒱━━━━━━━━━━━━━━━━━━`
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
@@ -139,4 +148,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-    }
+}
