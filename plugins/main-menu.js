@@ -1,11 +1,6 @@
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
 
-const channelRD = {
-  id: '120363402097425674@newsletter',
-  name: '☁️ Suki_Bot_MD 🌸'
-};
-
 const textSuki = (text) => {
   const charset = {
     a:'ᴀ', b:'ʙ', c:'ᴄ', d:'ᴅ', e:'ᴇ', f:'ꜰ', g:'ɢ',
@@ -19,38 +14,43 @@ const textSuki = (text) => {
 let tags = {
   main: textSuki('🌸 menú principal'),
   group: textSuki('🤍 grupo de amor'),
-  serbot: textSuki('💫 energía suki')
+  serbot: textSuki('💫 energía suki'),
+  util: textSuki('🔧 utilidades mágicas'),
+  fun: textSuki('🎠 diversión kawaii'),
+  power: textSuki('⛩️ poder espiritual')
 };
 
 const welcomeBanner = `
-╭︿︿︿︿︿╮
+╭︿︿︿︿︿︿︿╮
 (｡>﹏<｡)っ 💌 ｡･ﾟ･｡
-╰︶︶︶︶︶╯
+╰︶︶︶︶︶︶╯
 
-♡ Bienvenida a Suki_Bot_MD ♡
-Donde cada comando vibra con ternura 🌸
+🌸 Bienvenida a *Suki_Bot_MD* 🌸
+✨ Donde cada comando es una chispa de ternura.
+
+『 ✦ ✦ ✦ 』
 `.trim();
 
 const defaultMenu = {
   before: `
 ${welcomeBanner}
 
-╭─♡──────────────╮
-│ 💖 Espíritu: \`%name\`
-│ 🌟 Nivel: %level
-│ 🧸 Energía: %exp/%maxexp
-│ 🩵 Modo: %mode
-│ 🫧 Total almas: %totalreg
-│ ⏰ Tiempo activa: %muptime
-╰───────────────♡─╯
+╭─♡ 状態 de Usuario ♡─╮
+│ 🌈 Nombre: \`%name\`
+│ ⭐ Nivel: %level
+│ ⚡ Exp: %exp/%maxexp
+│ 🎀 Modo: %mode
+│ 🧃 Usuarios: %totalreg
+│ 🕰️ Tiempo activo: %muptime
+╰───────────────────╯
 
-🩷 ¡Hoy brillas más que el sol, %name! ✨
+✨ ¡Que tu magia fluya, %name!
 %readmore`.trimStart(),
 
-  header: '\n🌺 ˗ˏˋ %category ˎˊ˗\n',
-  body: '🍓 ➤ %cmd %iscorazones %isPremium',
+  header: '\n🌺 %category\n',
+  body: '🍡 ➤ %cmd %iscorazones %isPremium',
   footer: '\n',
-  after: `\n꒰🌙꒱━━━━━━━━━━━━━━━━━━`
+  after: '\n꒰🌙꒱━━━━━━━━━━━━━━━━━━'
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
@@ -61,7 +61,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const _uptime = process.uptime() * 1000;
     const muptime = clockString(_uptime);
     const totalreg = Object.keys(global.db.data.users).length;
-    const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
+    const mode = global.opts['self']? 'Privado 🔒': 'Público 🌐';
 
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
@@ -112,24 +112,19 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
     await conn.sendMessage(m.chat, {
-      video: { url: 'https://files.catbox.moe/ublgrw.mp4'},
+      video: { url: 'https://files.catbox.moe/w2svrs.mp4'},
       caption: text,
       mimetype: 'video/mp4',
       contextInfo: {
         mentionedJid: [m.sender],
         isForwarded: true,
-        forwardingScore: 999,
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: channelRD.id,
-          serverMessageId: 100,
-          newsletterName: channelRD.name
-}
+        forwardingScore: 999
 }
 }, { quoted: m});
 
 } catch (e) {
     console.error('[❌] Error en menú Suki:', e);
-    conn.reply(m.chat, '💢 Ups! Suki_Bot_MD se distrajo viendo anime. Intenta de nuevo, okie~?', m);
+    conn.reply(m.chat, '💢 Ups! Suki se tropezó en el bosque mágico. Intenta de nuevo, porfis~', m);
 }
 };
 
