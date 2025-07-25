@@ -17,8 +17,8 @@ let crm3 = "SBpbmZvLWRvbmFyLmpz"
 let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 let drm1 = ""
 let drm2 = ""
-let rtx = "𝗘𝗻𝘃𝗶𝗮𝗻𝗱𝗼 𝗲𝗹 𝗰𝗼𝗱𝗲 𝗱𝗲 𝘃𝗶𝗻𝗰𝘂𝗹𝗮𝘃𝗶𝗼𝗻\n𝗦𝗶𝗴𝘂𝗲 𝗲𝗹 𝗰𝗮𝗻𝗮𝗹 𝗽𝗮𝗿𝗮 𝘀𝗮𝗯𝗲𝗿 𝗺𝗮𝘀 𝗱𝗲 𝗯𝗼𝘁\nhttps://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W"
-let rtx2 = "𝗘𝗻𝘃𝗶𝗮𝗻𝗱𝗼 𝗲𝗹 𝗰𝗼𝗱𝗲 𝗱𝗲 𝘃𝗶𝗻𝗰𝘂𝗹𝗮𝘃𝗶𝗼𝗻\n𝗦𝗶𝗴𝘂𝗲 𝗲𝗹 𝗰𝗮𝗻𝗮𝗹 𝗽𝗮𝗿𝗮 𝘀𝗮𝗯𝗲𝗿 𝗺𝗮𝘀 𝗱𝗲 𝗯𝗼𝘁\nhttps://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W"
+let rtx = "𝗘𝗻𝘃𝗶𝗮𝗻𝗱𝗼 𝗲𝗹 𝗰𝗼𝗱𝗲 𝗱𝗲 𝘃𝗶𝗻𝗰𝘂𝗹𝗮𝘃𝗶𝗼𝗻"
+let rtx2 = "𝗘𝗻𝘃𝗶𝗮𝗻𝗱𝗼 𝗲𝗹 𝗰𝗼𝗱𝗲 𝗱𝗲 𝘃𝗶𝗻𝗰𝘂𝗹𝗮𝘃𝗶𝗼𝗻"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -216,7 +216,7 @@ console.log(chalk.bold.cyanBright(`\n❒⸺⸺⸺⸺【• SUB-BOT •】⸺⸺�
 sock.isInit = true
 global.conns.push(sock)
 
-m?.chat ? await conn.sendMessage(m.chat, {text: args[0] ? `@${m.sender.split('@')[0]}, ya estás conectado, leyendo mensajes entrantes...` : `@${m.sender.split('@')[0]}, 𝚐𝚎𝚗𝚒𝚊𝚕 𝚢𝚊 𝚎𝚛𝚎𝚜 𝚙𝚊𝚛𝚝𝚎 𝚍𝚎 𝚕𝚊 𝚏𝚊𝚖𝚒𝚕𝚒𝚊 roxy𝙱𝚘𝚝  𝚂𝚞𝚋-𝙱𝚘𝚝𝚜`, mentions: [m.sender]}, { quoted: m }) : ''
+m?.chat ? await conn.sendMessage(m.chat, {text: args[0] ? `@${m.sender.split('@')[0]}, ya estás conectado, leyendo mensajes entrantes...` : `@${m.sender.split('@')[0]}, 𝚐𝚎𝚗𝚒𝚊𝚕 𝚢𝚊 𝚎𝚛𝚎𝚜 𝚙𝚊𝚛𝚝𝚎 𝚍𝚎 𝚕𝚊 𝚏𝚊𝚖𝚒𝚕𝚒𝚊 Suki_Bot  𝚂𝚞𝚋-𝙱𝚘𝚝𝚜`, mentions: [m.sender]}, { quoted: m }) : ''
 
 }}
 setInterval(async () => {
