@@ -61,11 +61,11 @@ async function showBanner() {
 
     const subtitle = chalk.hex('#00eaff').bold('✦ Suki-Bot-MD ✦').padStart(40)
     const poweredMsg = chalk.hex('#00eaff').italic('powered by Brayan')
-    const aiMsg = chalk.hex('#ffb300').bold('🤖 RoxyAi - Tu compañera virtual')
+    const aiMsg = chalk.hex('#ffb300').bold('🤖 Suki-Bot-MD - Tu compañera virtual')
     const tips = [
         chalk.hex('#ffb300')('💡 Tip: Usa /help para ver los comandos disponibles.'),
         chalk.hex('#00eaff')('� Síguenos en GitHub para actualizaciones.'),
-        chalk.hex('#ff00cc')('✨ Disfruta de la experiencia premium de RoxyAi.')
+        chalk.hex('#ff00cc')('✨ Disfruta de la experiencia premium de Suki-Bot-MD.')
     ]
     const loadingFrames = [
         chalk.magentaBright('⠋ Cargando módulos...'),
