@@ -35,12 +35,12 @@ global.roxyJadibts = true;
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
 // ᗰᗩᖇᑕᗩ ᗪᗴ ᗩᘜᑌᗩ 🗞️
-global.packname = '𝗥𝗼𝘅𝘆-𝗠𝗗 (𝗠𝘂𝗹𝘁𝗶-𝗗𝗲𝘃𝗶𝗰𝗲)';
-global.botname = '🌸◌*̥₊ Rᴏxʏ-Mᴅ ◌❐🎋༉';
-global.wm = '🌸◌*̥₊ Tʜᴇ Rᴏxʏ-Bᴏᴛ ◌❐🎋༉';
-global.dev = '❁ཻུ۪۪ ⎧ ୧ㅤ 𝘉𝘳𝘢𝘺𝘢𝘯ㅤ🎋⋅ ..⃗.';
-global.textbot = 'Rᴏxʏ-Mᴅ Bʏ BʀᴀʏᴀɴXᴅ';
-global.etiqueta = 'Rᴏxʏ-Mᴅ Wʜᴀᴛsᴀᴀᴘ Bᴏᴛ';
+global.packname = 'sᥙkі_ᑲ᥆𝗍 (𝗠𝘂𝗹𝘁𝗶-𝗗𝗲𝘃𝗶𝗰𝗲)';
+global.botname = '👓◌sᥙkі_ᑲ᥆𝗍_mძ 🍁༉';
+global.wm = '👓◌sᥙkі_ᑲ᥆𝗍_mძ 🍁༉';
+global.dev = '👓⎧ ୧⍴᥆ᥕᥱrᥱძ ᑲᥡ 𝖿ᥱძᥱ᥊ᥡz 🍁.⃗';
+global.textbot = 'sᥙkі_ᑲ᥆𝗍_mძ ᑲᥡ 𝖿ᥱძᥱ᥊ᥡz';
+global.etiqueta = 'sᥙkі_ᑲ᥆𝗍_mძ mᥙᥣ𝗍і-ძᥱ᥎іᥴᥱ';
 
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
