@@ -124,7 +124,7 @@ async function showBanner() {
     console.log(
         chalk.bold.cyanBright(
             boxen(
-                chalk.bold('¡Bienvenido a RoxyAi!\n') +
+                chalk.bold('¡Bienvenido a Suki-Bot-MD!\n') +
                 chalk.hex('#00eaff')('La bot está arrancando, por favor espere...') +
                 '\n' +
                 tips.join('\n'),
