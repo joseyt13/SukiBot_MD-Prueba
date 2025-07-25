@@ -1,7 +1,7 @@
 <h1 align="center">🌸 Suki-Bot-MD - WhatsApp Bot 🌸</h1>
 
 <p align="center">
-  <img src="https://n.uguu.se/ZzbXduJq.gif" width="220" alt="RoxyBot" />
+  <img src="https://n.uguu.se/ZzbXduJq.gif" width="220" alt="Suki-Bot-MD" />
 </p>
 
 ---
@@ -21,7 +21,7 @@
 ## 🔗 Contacto / Soporte
 
 - 💬 WhatsApp: [Enlace directo](https://wa.me/5491156178758)
-- 🌐 GitHub: [Fedexyz](https://github.com/El-brayan502)
+- 🌐 GitHub: [Fedexyz](https://github.com/fedexyz13)
 
 ---
 
