@@ -1,43 +1,65 @@
-import moment from 'moment-timezone'
+import { createHash} from 'crypto';
 
-const handler = async (m, { text, command, conn }) => {
-  const user = m.sender
-  const args = text.split(' ')
-  const nombre = args[0]
-  const edad = args[1]
-  const fecha = moment().tz('America/Guatemala').format('DD/MM/YYYY')
-
-  if (!nombre || !edad) {
-    return conn.reply(m.chat, `*👀 ¿CÓMO DESEA REGISTRARSE?*\n\n📑 *REGISTRO RÁPIDO*\n• Insignia de verificación\n• Desbloquear comandos que requieran registro\n\n*Escriba para el registro rápido:*\n#reg1 nombre edad\n\n🗂️ *REGISTRO COMPLETO*\n• Insignia de verificación\n• Desbloquear comandos que requieran registro\n• Premium Temporal Gratis\n• Más opciones para este registro\n\n*Escriba para el registro completo:*\n#nombre\n\n\`\`\`⭐ Considere que tendrá un tiempo para completar en caso de registrarse\`\`\``, m, fake)
-  }
-
-  // Registrar usuario en la base de datos
-  const data = global.db.data.users[user] || {}
-  data.registered = true
-  data.name = nombre
-  data.age = edad
-  data.premium = true
-  data.regTime = Date.now()
-
-  // Enviar mensaje de confirmación tipo "ver canal"
-  const mensaje = `✅ *REGISTRO EXITOSO, MAESTRO*\n\n👤 *Nombre:* ${nombre}\n🎂 *Edad:* ${edad} años\n📆 *Registrado el:* ${fecha}\n\n🎖️ *Ya puedes usar los comandos premium.*`
-
-  return conn.reply(m.chat, mensaje, m, {
-    contextInfo: {
-      externalAdReply: {
-        title: '✅ Registro Completado',
-        body: 'Ahora puedes usar todos los comandos',
-        mediaType: 1,
-        thumbnailUrl: 'https://files.cloudkuimages.guru/images/1P0pUB7c.jpg',
-        renderLargerThumbnail: true,
-        sourceUrl: 'https://github.com/El-brayan502/Roxy-MD--Multi-Device'
-      }
-    }
-  })
+function generarID(sender) {
+  return createHash('md5').update(sender).digest('hex');
 }
 
-handler.command = ['verificar', 'reg'];
-handler.help = ['verificar', 'reg']
-handler.tags = ['main']
-handler.register = false
-export default handler
+let handler = async (m, { conn, text, usedPrefix, command}) => {
+  let user = global.db.data.users[m.sender];
+
+  if (user.registered) {
+    return m.reply(`🩵 ¡Ya estás parte del mundo mágico de *Suki_Bot_MD*!\n✨ Si deseas reiniciar tu aventura, escribe: *${usedPrefix}unreg*`);
+}
+
+  let match = /\|?(.*)([.|] *?)([0-9]*)$/i;
+  let [_, name, __, age] = text.match(match) || [];
+
+  if (!name ||!age) {
+    return m.reply(`🌸 ¡Oh no~! Formato incorrecto 🍥\n\n📖 Usa: *${usedPrefix + command} tuNombre.edad*\n✨ Ejemplo: *${usedPrefix + command} Nako.17*`);
+}
+
+  age = parseInt(age);
+  if (isNaN(age) || age < 5 || age> 100) {
+    return m.reply(`💫 Edad inválida~ Debe estar entre *5 y 100 años kawaii*.`);
+}
+
+  // 🧋 Registro dulce oficial
+  user.name = name.trim();
+  user.age = age;
+  user.regTime = Date.now();
+  user.registered = true;
+  user.exp += 300;
+
+  const sn = generarID(m.sender);
+
+  const mensaje = `
+꒰🌸꒱ *Registro exitoso con Suki_Bot_MD* ✨
+
+👩‍💻 Nombre: *${user.name}*
+🎂 Edad: *${user.age}* años
+🧁 ID Encantado: *${sn}*
+
+💖 ¡Tu aura está conectada al corazón de Suki!
+🧃 Usa *#perfil* para ver tu progreso mágico~`.trim();
+
+  await m.react('🧋');
+
+  await conn.sendMessage(m.chat, {
+    text: mensaje,
+    contextInfo: {
+      externalAdReply: {
+        title: '🍓 Registro Completado en Suki_Bot_MD',
+        body: 'Tu viaje kawaii ha comenzado~',
+        thumbnailUrl: 'https://files.catbox.moe/wav09n.jpg',
+        sourceUrl: 'https://github.com/TuProyectoSuki',
+        mediaType: 1,
+        renderLargerThumbnail: true
+}
+}
+}, { quoted: m});
+};
+
+handler.help = ['reg'];
+handler.tags = ['registro', 'rg'];
+handler.command = ['register', 'reg', 'registrar'];
+export default handler;
