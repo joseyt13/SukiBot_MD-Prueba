@@ -1,23 +1,30 @@
-//▪CÓDIGO POR DEVBRAYAN PRROS XD▪
-//▪ROXY BOT MD▪
+import moment from 'moment-timezone';
 
-import moment from 'moment-timezone'
-
-let handler = async (m, { conn, text }) => {
-  if (!text) return m.reply('Ingresa un texto\nEjemplo: .iqc hola mundo')
-  
-  const position = Math.random() < 0.5 ? 'left' : 'right' // Posición aleatoria del personaje
-  const time = moment().tz('Asia/Jakarta').format('HH:mm') // Hora con zona horaria de Yakarta
-  
-  await conn.sendMessage(m.chat, { 
-    image: { 
-      url: `https://velyn.mom/api/maker/iqc?message=${encodeURIComponent(text)}&position=${position}&jam=${encodeURIComponent(time)}`
-    },
-  }, { quoted: m })
+let handler = async (m, { conn, text}) => {
+  if (!text) {
+    await m.react('💭');
+    return m.reply(`🌸 Escribe un texto para que Suki pueda crear tu imagen mágica~\n\n🧁 Ejemplo: *.iqc hola mundo*`);
 }
 
-handler.help = ['iqc <texto>']
-handler.tags = ['tools']
-handler.command = ['iqc']
+  const position = Math.random() < 0.5? 'left': 'right'; // Aleatorio entre 'left' y 'right'
+  const time = moment().tz('Asia/Jakarta').format('HH:mm'); // Tiempo en zona de Yakarta
 
-export default handler
+  const apiUrl = `https://velyn.mom/api/maker/iqc?message=${encodeURIComponent(text)}&position=${position}&jam=${encodeURIComponent(time)}`;
+
+  await m.react('🧋'); // Reacción kawaii
+  await conn.sendMessage(m.chat, {
+    image: { url: apiUrl},
+    caption: `🩵 Aquí tienes tu imagen generada, ${text.length < 20? 'qué frase tan dulce': '¡wow!'} 🌸`,
+    contextInfo: {
+      mentionedJid: [m.sender]
+}
+}, { quoted: m});
+
+  await m.react('🌺');
+};
+
+handler.help = ['iqc <texto>'];
+handler.tags = ['tools', 'fun', 'kawaii'];
+handler.command = ['iqc', 'bubbletext', 'mensajeanime'];
+
+export default handler;
