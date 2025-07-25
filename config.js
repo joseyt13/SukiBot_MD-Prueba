@@ -12,7 +12,7 @@ import moment from 'moment-timezone'
 // ᑕOᒪᗩᗷOᖇᗩᗪOᖇᗴՏ Y ᑕᖇᗴáᗪOᖇ 🌸
 global.owner = [
 ['5491156178758', '🍁 Creador fedexyz', true],
-['573001533523', 'Brayans', true],
+['573001533523', '✨️ Colaborador Brayans', true],
 ];
 
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
