@@ -1,3 +1,6 @@
+// Código creado por fedexyz 🍁
+// no quites los créditos 💳 
+
 import fetch from "node-fetch"
 import yts from "yt-search"
 
@@ -19,9 +22,10 @@ const handler = async (m, { conn, text, command}) => {
 }
 
     await m.react("🔍")
+
     const videoMatch = text.match(youtubeRegexID)
-    const query = videoMatch? `https://youtu.be/${videoMatch[1]}`: text
-    let result = await yts(query)
+    const searchQuery = videoMatch? `https://youtu.be/${videoMatch[1]}`: text
+    let result = await yts(searchQuery)
 
     if (videoMatch) {
       const videoId = videoMatch[1]
@@ -40,7 +44,7 @@ const handler = async (m, { conn, text, command}) => {
 
     const { title, thumbnail, timestamp, views, ago, url, author} = result
     const thumb = (await conn.getFile(thumbnail)).data
-    const info = `
+    const infoMessage = `
 🌸 *Tu pedido está listo, cielo:*
 🎀 *Título:* ${title}
 📺 *Canal:* ${author.name || "Desconocido"}
@@ -49,7 +53,7 @@ const handler = async (m, { conn, text, command}) => {
 📆 *Publicado:* ${ago || "?"}
 🔗 *Enlace:* ${url}`.trim()
 
-    const preview = {
+    const contextoBonito = {
       contextInfo: {
         forwardedNewsletterMessageInfo: {
           newsletterJid: channelRD.id,
@@ -68,28 +72,25 @@ const handler = async (m, { conn, text, command}) => {
 }
 }
 
-    await conn.sendMessage(m.chat, { text: info, quoted: m,...preview})
+    await conn.sendMessage(m.chat, { text: infoMessage, quoted: m,...contextoBonito})
 
-    // 🎧 Audio (solo para comandos 'play' y 'mp3')
-    if (["play", "mp3"].includes(command)) {
-      try {
-        const api = await (await fetch(`https://api.vreden.my.id/api/ytmp3?url=${url}`)).json()
-        const audioUrl = api.result?.download?.url
-        if (!audioUrl) throw "⛔ Error generando audio"
+    try {
+      const api = await (await fetch(`https://api.vreden.my.id/api/ytmp3?url=${url}`)).json()
+      const audioUrl = api.result?.download?.url
+      if (!audioUrl) throw "⛔ Error generando audio"
 
-        await conn.sendMessage(m.chat, {
-          audio: { url: audioUrl},
-          fileName: `${api.result.title || "descarga"}.mp3`,
-          mimetype: "audio/mpeg"
+      await conn.sendMessage(m.chat, {
+        audio: { url: audioUrl},
+        fileName: `${api.result.title || "descarga"}.mp3`,
+        mimetype: "audio/mpeg"
 }, { quoted: m})
 
-        await m.react("🌸")
+      await m.react("🌸")
 } catch {
-        return conn.sendMessage(m.chat, {
-          text: "💔 No se pudo enviar el audio. Tal vez es muy pesado o hubo un error en la descarga.",
-          quoted: m
+      return conn.sendMessage(m.chat, {
+        text: "💔 No se pudo enviar el audio. Tal vez es muy pesado o hubo un error en la descarga.",
+        quoted: m
 })
-}
 }
 
 } catch (error) {
@@ -101,13 +102,14 @@ const handler = async (m, { conn, text, command}) => {
 }
 }
 
-handler.command = handler.help = ["play", "mp3"]
+handler.command = handler.help = ["play"]
 handler.tags = ["descargas"]
 export default handler
 
+// 🌼 Formato kawaii para vistas
 function formatViews(views = 0) {
   if (views>= 1_000_000_000) return `${(views / 1_000_000_000).toFixed(1)}B (${views.toLocaleString()})`
   if (views>= 1_000_000) return `${(views / 1_000_000).toFixed(1)}M (${views.toLocaleString()})`
   if (views>= 1_000) return `${(views / 1_000).toFixed(1)}k (${views.toLocaleString()})`
   return views.toString()
-  }
+}
