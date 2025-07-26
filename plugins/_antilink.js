@@ -26,13 +26,13 @@ export async function before(m, { conn, isAdmin, isBotAdmin, isOwner, isROwner, 
     }
 
     await conn.sendMessage(m.chat, {
-      text: `⚡✨ *「 Suki-Bot-MD AntiLink 」* ✨⚡\n\n🔗 *Detecté un enlace sospechoso en el grupo...*\n\n👤 Usuario: ${user}\n❌ *Reglas violadas*\n\n💥 Serás eliminado en unos segundos...\n`,
+      text: `🍁 *「 Suki-Bot-MD antiLink 」* 🍁\n\n🔗 *Detecté un enlace sospechoso en el grupo...*\n\n👤 Usuario: ${user}\n❌ *Reglas violadas*\n\n💥 Serás eliminado en unos segundos...\n`,
       mentions: [m.sender]
     }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
 
     if (!isBotAdmin) {
       return conn.sendMessage(m.chat, {
-        text: `⚠️ *El AntiLink está activo*, pero no puedo actuar porque *no soy administrador* del grupo.\n\n👑 *Admins del grupo:*\n${listAdmin}`,
+        text: `⚠️ *El antiLink está activo*, pero no puedo actuar porque *no soy administrador* del grupo.\n\n👑 *Admins del grupo:*\n${listAdmin}`,
         mentions: [...groupAdmins.map(v => v.id)]
       }, { quoted: m });
     }
