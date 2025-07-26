@@ -1,17 +1,20 @@
+// Código creado por fedexyz 🍁
+// no quites creditos xd
+
 import { writeFile, unlink, readFile} from 'fs/promises'
 import { join} from 'path'
 import { fileTypeFromBuffer} from 'file-type'
 
 let handler = async (m, { conn}) => {
-  await conn.sendMessage(m.chat, { react: { text: '🌸', key: m.key}})
+  await conn.sendMessage(m.chat, { react: { text: '🫧', key: m.key}})
 
   try {
     const q = m.quoted? m.quoted: m
     const mime = (q.msg || q).mimetype || ''
-    if (!mime) return m.reply('🌧️ *Suki necesita que respondas a un archivo para convertirlo.*')
+    if (!mime) return m.reply('🌧️ *Suki necesita que respondas a un archivo o media para convertirlo.*')
 
     const media = await q.download()
-    if (!media) return m.reply('☁️ *No pude descargarlo, mi cielo. ¿Me lo vuelves a mandar?*')
+    if (!media) return m.reply('☁️ *No pude descargarlo, mi cielo. ¿Me lo mandás otra vez?*')
 
     const uploads = []
 
@@ -25,9 +28,9 @@ let handler = async (m, { conn}) => {
     if (cloud3) uploads.push({ name: '🌐 CloudImages', url: cloud3})
 
     if (uploads.length === 0)
-      throw '⛈️ *Ninguna nube quiso recibir tu archivo. ¿Lo intentamos de nuevo más tarde?*'
+      throw '⛈️ *Ninguna nube quiso recibir tu archivo… ¿lo intentamos más tarde, cielo?*'
 
-    let texto = `🧁 *Archivo subido con éxito*\n⊹˚｡⋆ Lista de enlaces mágicos:\n\n`
+    let texto = `🧁 *¡Archivo subido con éxito!*\n𖥔₊˚⊹ Enlaces encantados disponibles:\n\n`
     for (const up of uploads) {
       texto += `🌸 *${up.name}*\n🔗 ${up.url}\n\n`
 }
@@ -36,11 +39,12 @@ let handler = async (m, { conn}) => {
       text: texto.trim(),
       contextInfo: {
         externalAdReply: {
-          title: '☁️ Uploader kawaii',
-          body: '✨ Enlaces dulces desde servidores mágicos',
-          thumbnailUrl: uploads[0]?.url,
+          title: '☁️ Uploader mágico de Suki',
+          body: '✨ Tus archivos están a salvo en las nubes',
+          thumbnailUrl: 'https://files.catbox.moe/rkvuzb.jpg',
           mediaType: 1,
-          renderLargerThumbnail: true
+          renderLargerThumbnail: true,
+          sourceUrl: 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W'
 }
 }
 }, { quoted: m})
@@ -49,11 +53,11 @@ let handler = async (m, { conn}) => {
     await conn.sendMessage(m.chat, {
       text: typeof e === 'string'
 ? e
-: '💔 *Ups... algo salió mal en la subida. ¿Probamos nuevamente más tarde?*',
+: '💔 *Ups... algo salió mal en la subida. ¿Volvemos a intentarlo pronto?*',
       quoted: m
 })
 } finally {
-    await conn.sendMessage(m.chat, { react: { text: '🫧', key: m.key}})
+    await conn.sendMessage(m.chat, { react: { text: '🌸', key: m.key}})
 }
 }
 
@@ -65,10 +69,10 @@ handler.register = true
 
 export default handler
 
-// ✧ Función mágica para subir el archivo a una nube
+// 🌷 Función mágica para subir el buffer
 async function uploadTo(url, buffer) {
   const { ext, mime} = await fileTypeFromBuffer(buffer) || {}
-  if (!ext ||!mime) throw new Error('🔒 *Suki no reconoce el tipo de archivo, lo siento...*')
+  if (!ext ||!mime) throw new Error('🔒 *Suki no reconoce el tipo de archivo...*')
 
   const tempPath = join('./tmp', `upload.${ext}`)
   await writeFile(tempPath, buffer)
@@ -93,7 +97,7 @@ async function uploadTo(url, buffer) {
 }
 }
 
-// 🌷 Nubes mágicas disponibles
+// 🌈 Servidores mágicos disponibles
 const uploaderCloudStack = buffer =>
   uploadTo('https://phpstack-1487948-5667813.cloudwaysapps.com/upload.php', buffer)
 
