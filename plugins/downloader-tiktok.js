@@ -3,11 +3,6 @@
 
 import axios from 'axios'
 
-const channelRD = {
-  id: '120363402097425674@newsletter',
-  name: '🌸 Sᴜᴋɪ_Bᴏᴛ_MD • Noticias mágicas'
-}
-
 // 🍥 Obtiene token y cookies necesarias desde tmate.cc
 async function obtenerTokenYCookie() {
   const res = await axios.get('https://tmate.cc/id', {
@@ -71,7 +66,7 @@ let yeon = async (m, { conn, text, usedPrefix, command}) => {
   if (!text) {
     await conn.sendMessage(m.chat, { react: { text: "❌", key: m.key}})
     return conn.sendMessage(m.chat, {
-      text: `🌸 *Senpai*, me falta el enlace de TikTok...\nEjemplo: *${usedPrefix + command}* https://vt.tiktok.com/abcd/`
+      text: `🌸 *!Te falta el enlace de TikTok...\nEjemplo: *${usedPrefix + command}* https://vt.tiktok.com/abcd/`
 })
 }
 
@@ -82,22 +77,8 @@ let yeon = async (m, { conn, text, usedPrefix, command}) => {
     if (resultado.type === 'video') {
       await conn.sendMessage(m.chat, {
         video: { url: resultado.mp4Links[0].href},
-        caption: `🎬 *Video de TikTok listo para vos*\n✨ *Título:* ${resultado.title}`,
-        contextInfo: {
-          forwardedNewsletterMessageInfo: {
-            newsletterJid: channelRD.id,
-            serverMessageId: 100,
-            newsletterName: channelRD.name
-},
-          externalAdReply: {
-            title: '🌸 Sᴜᴋɪ_Bᴏᴛ_MD 🌸',
-            body: '🎀 Canal oficial del reino digital kawaii',
-            sourceUrl: 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W',
-            thumbnailUrl: 'https://files.catbox.moe/rkvuzb.jpg',
-            mediaType: 1,
-            renderLargerThumbnail: true
-}
-  }})
+        caption: `🎬 *Video de TikTok listo para vos*\n✨ *Título:* ${resultado.title}`
+})
 } else if (resultado.type === 'image') {
       for (let i = 0; i < resultado.images.length; i++) {
         await conn.sendMessage(m.chat, {
