@@ -1,7 +1,7 @@
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
 
-const textSuki = (text) => {
+const textFancyCaps = (text) => {
   const charset = {
     a:'ᴀ', b:'ʙ', c:'ᴄ', d:'ᴅ', e:'ᴇ', f:'ꜰ', g:'ɢ',
     h:'ʜ', i:'ɪ', j:'ᴊ', k:'ᴋ', l:'ʟ', m:'ᴍ', n:'ɴ',
@@ -13,56 +13,46 @@ const textSuki = (text) => {
 
 const channelRD = {
   id: '120363402097425674@newsletter',
-  name: '☁️ Suki_Bot_MD 🌸'
+  name: '☁️ ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ 🌸'
 };
 
 let tags = {
-  main: textSuki('🌸 menú principal'),
-  group: textSuki('🤍 grupo de amor'),
-  serbot: textSuki('💫 energía suki'),
-  util: textSuki('🔧 utilidades mágicas'),
-  fun: textSuki('🎠 diversión kawaii'),
-  power: textSuki('⛩️ poder espiritual')
+  main: textFancyCaps('🌷 menú principal'),
+  group: textFancyCaps('🌸 grupo adorable'),
+  serbot: textFancyCaps('💫 energía suki'),
+  util: textFancyCaps('🔧 funciones útiles'),
+  fun: textFancyCaps('🎠 diversión mágica'),
+  power: textFancyCaps('⛩️ poder oculto')
 };
 
 const welcomeBanner = `
-╭︿︿︿︿︿︿︿╮
-(｡>﹏<｡)っ 💌
-╰︶︶︶︶︶︶╯
+╭─────༺🌸༻─────╮
+ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ • ʀᴇᴀʟᴍ ᴏꜰ ᴄʜᴀʀᴍ
+╰─────༺💫༻─────╯
 
-🌸 Bienvenida a *Suki_Bot_MD* 🌸
-✨ Donde cada comando es una chispa de ternura
-
-『 ✦ ✦ ✦ 』`.trim();
+ꜱɪᴇɴᴛᴇ ʟᴀ ᴍᴀɢɪᴀ ᴇɴ ᴄᴀᴅᴀ ᴄᴏᴍᴀɴᴅᴏ ✨
+`.trim();
 
 const defaultMenu = {
   before: `
 ${welcomeBanner}
 
-╭─♡ Estado de Usuario ♡─╮
-│ 🌈 Nombre: \`%name\`
-│ ⭐ Nivel: %level
-│ ⚡ EXP: %exp/%maxexp
-│ 🎀 Modo: %mode
-│ 🧃 Usuarios registrados: %totalreg
-│ 🕰️ Tiempo activo: %muptime
-╰───────────────────────╯
+╭───✧ ɪɴꜰᴏ ᴅᴇ ᴜꜱᴜᴀʀɪᴏ ✧───╮
+│ 💖 ɴᴏᴍʙʀᴇ: \`%name\`
+│ 🌟 ɴɪᴠᴇʟ: %level
+│ ✨ ᴇxᴘ: %exp/%maxexp
+│ 🔐 ᴍᴏᴅᴏ: %mode
+│ 📋 ʀᴇɢɪꜱᴛʀᴏꜱ: %totalreg
+│ ⏳ ᴛɪᴇᴍᴘᴏ ᴀᴄᴛɪᴠᴏ: %muptime
+╰────────────────────────╯
 
-✨ ¡Que tu magia fluya, %name!
+🧁 ꜱɪᴇᴍᴘʀᴇ ᴄᴏɴ ᴄᴀʀɪñᴏ, %name!
 %readmore`.trimStart(),
 
-  header: '\n🌸 ˗ˏˋ %category ˎˊ˗\n',
+  header: '\n☁️ 𝒞ᵃᵗᵉᵍᵒʳᶦᵃ: %category\n',
   body: '🍡 ➤ %cmd %iscorazones %isPremium',
   footer: '\n',
-  after: `
-╭─✧ 「 SUB-BOT 」 ✧─╮
-│ 🍓 ¿Quieres unirte al mundo kawaii?
-│ 🧋 Hazte Sub-Bot de *Suki_Bot_MD*
-│ ✨ Usa *#code* o escanea tu *#Qr mágico*
-│ 📞 Número principal: +54 9 11 7642-9275
-╰──────────────────────╯
-
-꒰🌙꒱━━━━━━━━━━━━━━━━━━`
+  after: ``
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
@@ -73,7 +63,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const _uptime = process.uptime() * 1000;
     const muptime = clockString(_uptime);
     const totalreg = Object.keys(global.db.data.users).length;
-    const mode = global.opts['self']? 'Privado 🔒': 'Público 🌐';
+    const mode = global.opts['self']? '🔒 ᴘʀɪᴠᴀᴅᴏ': '🌍 ᴘᴜ́ʙʟɪᴄᴏ';
 
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
@@ -89,7 +79,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     for (const plugin of help) {
       if (plugin.tags) {
         for (const t of plugin.tags) {
-          if (!(t in tags) && t) tags[t] = textSuki(t);
+          if (!(t in tags) && t) tags[t] = textFancyCaps(t);
 }
 }
 }
@@ -137,19 +127,19 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
           newsletterName: channelRD.name
 },
         externalAdReply: {
-          title: '🌸 Suki_Bot_MD 🌸',
-          body: '✨ Únete al canal oficial de Suki',
+          title: '🌸 ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ 🌸',
+          body: '🌙 Úɴᴇᴛᴇ ᴀʟ ᴄᴀɴᴀʟ ᴏꜰɪᴄɪᴀʟ ᴅᴇ ꜱᴜᴋɪ',
           thumbnailUrl: 'https://files.catbox.moe/rkvuzb.jpg',
           sourceUrl: 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W',
-          mediaType: 1,
+mediaType: 1,
           renderLargerThumbnail: true
 }
 }
 }, { quoted: m});
 
 } catch (e) {
-    console.error('[❌] Error en menú Suki:', e);
-    conn.reply(m.chat, '💢 Ups! Suki se tropezó en el bosque mágico. Intenta de nuevo, porfis~', m);
+    console.error('[⚠️] Error en menú Suki:', e);
+    conn.reply(m.chat, '🍄 ꜱᴜᴋɪ ᴛʀᴏᴘᴇᴢᴏ́ ᴇɴ ᴇʟ ʙᴏꜱǫᴜᴇ ᴍᴀ́ɢɪᴄᴏ... ¡ɪɴᴛᴇɴᴛᴀ ᴅᴇ ɴᴜᴇᴠᴏ! 🌷', m);
 }
 };
 
@@ -164,4 +154,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-    }
+  }
