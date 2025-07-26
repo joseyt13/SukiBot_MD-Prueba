@@ -1,61 +1,60 @@
+import { writeFile, unlink, readFile} from 'fs/promises'
+import { join} from 'path'
+import { fileTypeFromBuffer} from 'file-type'
 
-//▪CÓDIGO BY DEVBRAYAN PRROS XD▪
-//▪ROXY BOT MD▪
-
-import { writeFile, unlink, readFile } from 'fs/promises'
-import { join } from 'path'
-import { fileTypeFromBuffer } from 'file-type'
-
-let handler = async (m, { conn }) => {
-  await conn.sendMessage(m.chat, { react: { text: '☁️', key: m.key } })
+let handler = async (m, { conn}) => {
+  await conn.sendMessage(m.chat, { react: { text: '🌸', key: m.key}})
 
   try {
-    const q = m.quoted ? m.quoted : m
+    const q = m.quoted? m.quoted: m
     const mime = (q.msg || q).mimetype || ''
-    if (!mime) return m.reply('🌧️ *Responde a un archivo o media para subirlo.*')
+    if (!mime) return m.reply('🌧️ *Suki necesita que respondas a un archivo para convertirlo.*')
 
     const media = await q.download()
-    if (!media) return m.reply('⛅ *Error al descargar el archivo.*')
+    if (!media) return m.reply('☁️ *No pude descargarlo, mi cielo. ¿Me lo vuelves a mandar?*')
 
     const uploads = []
 
-    const up1 = await uploaderCloudStack(media).catch(() => null)
-    if (up1) uploads.push({ name: '☁️ CloudStack', url: up1 })
+    const cloud1 = await uploaderCloudStack(media).catch(() => null)
+    if (cloud1) uploads.push({ name: '☁️ CloudStack', url: cloud1})
 
-    const up2 = await uploaderCloudGuru(media).catch(() => null)
-    if (up2) uploads.push({ name: '🌀 CloudGuru', url: up2 })
+    const cloud2 = await uploaderCloudGuru(media).catch(() => null)
+    if (cloud2) uploads.push({ name: '🌀 CloudGuru', url: cloud2})
 
-    const up3 = await uploaderCloudCom(media).catch(() => null)
-    if (up3) uploads.push({ name: '🌐 CloudImages', url: up3 })
+    const cloud3 = await uploaderCloudCom(media).catch(() => null)
+    if (cloud3) uploads.push({ name: '🌐 CloudImages', url: cloud3})
 
-    if (uploads.length === 0) throw '⛈️ *No se pudo subir a ningún servidor. Intenta de nuevo más tarde.*'
+    if (uploads.length === 0)
+      throw '⛈️ *Ninguna nube quiso recibir tu archivo. ¿Lo intentamos de nuevo más tarde?*'
 
-    let texto = `☁️ *Resultado de la Subida*\n*━━━━━━━━━━━━━━━━━━━━*\n\n`
+    let texto = `🧁 *Archivo subido con éxito*\n⊹˚｡⋆ Lista de enlaces mágicos:\n\n`
     for (const up of uploads) {
-      texto += `*${up.name}*\n🔗 ${up.url}\n\n`
-    }
+      texto += `🌸 *${up.name}*\n🔗 ${up.url}\n\n`
+}
 
     await conn.sendMessage(m.chat, {
       text: texto.trim(),
       contextInfo: {
         externalAdReply: {
-          title: 'Uploader Tools ☁️',
-          body: 'Enlaces generados desde servidores externos',
+          title: '☁️ Uploader kawaii',
+          body: '✨ Enlaces dulces desde servidores mágicos',
           thumbnailUrl: uploads[0]?.url,
           mediaType: 1,
           renderLargerThumbnail: true
-        }
-      }
-    }, { quoted: m })
+}
+}
+}, { quoted: m})
 
-  } catch (e) {
+} catch (e) {
     await conn.sendMessage(m.chat, {
-      text: typeof e === 'string' ? e : '⛈️ *Ocurrió un error inesperado durante la subida.*',
+      text: typeof e === 'string'
+? e
+: '💔 *Ups... algo salió mal en la subida. ¿Probamos nuevamente más tarde?*',
       quoted: m
-    })
-  } finally {
-    await conn.sendMessage(m.chat, { react: { text: '', key: m.key } })
-  }
+})
+} finally {
+    await conn.sendMessage(m.chat, { react: { text: '🫧', key: m.key}})
+}
 }
 
 handler.help = ['tourl']
@@ -66,33 +65,35 @@ handler.register = true
 
 export default handler
 
-// Función genérica para subir el buffer a un servidor
+// ✧ Función mágica para subir el archivo a una nube
 async function uploadTo(url, buffer) {
-  const { ext, mime } = await fileTypeFromBuffer(buffer) || {}
-  if (!ext || !mime) throw new Error('Formato de archivo no reconocido.')
+  const { ext, mime} = await fileTypeFromBuffer(buffer) || {}
+  if (!ext ||!mime) throw new Error('🔒 *Suki no reconoce el tipo de archivo, lo siento...*')
 
   const tempPath = join('./tmp', `upload.${ext}`)
   await writeFile(tempPath, buffer)
   const fileData = await readFile(tempPath)
 
   const form = new FormData()
-  form.append('file', new File([fileData], `upload.${ext}`, { type: mime }))
+  form.append('file', new File([fileData], `upload.${ext}`, { type: mime}))
 
   try {
-    const res = await fetch(url, { method: 'POST', body: form })
+    const res = await fetch(url, { method: 'POST', body: form})
     const json = await res.json()
     await unlink(tempPath).catch(() => null)
 
-    if (json?.status !== 'success' || !json?.data?.url) throw new Error('Error al subir el archivo.')
+    if (json?.status!== 'success' ||!json?.data?.url)
+      throw new Error('☁️ *La nube se escondió… no se logró subir.*')
+
     return json.data.url
-  } catch (err) {
-    console.error(`Error subiendo a (${url}):`, err)
+} catch (err) {
+    console.error(`💥 Error en la nube (${url}):`, err)
     await unlink(tempPath).catch(() => null)
     return null
-  }
+}
 }
 
-// URLs de los servicios de subida
+// 🌷 Nubes mágicas disponibles
 const uploaderCloudStack = buffer =>
   uploadTo('https://phpstack-1487948-5667813.cloudwaysapps.com/upload.php', buffer)
 
