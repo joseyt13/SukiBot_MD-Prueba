@@ -91,7 +91,7 @@ const handler = async (m, { conn, text, command}) => {
 }
 
     // 🎥 Video
-    else if (["ytmp3", "ytmp4", "mp4"].includes(command)) {
+    else if (["ytmp3", "playaudio", "play"].includes(command)) {
       try {
         const response = await fetch(`https://api.neoxr.eu/api/youtube?url=${url}&type=video&quality=480p&apikey=GataDios`)
         const json = await response.json()
@@ -121,7 +121,7 @@ const handler = async (m, { conn, text, command}) => {
 }
 }
 
-handler.command = handler.help = ["play", "ytmp3", "ytmp4", "playaudio"]
+handler.command = handler.help = ["play", "ytmp3", "playaudio"]
 handler.tags = ["descargas"]
 export default handler
 
