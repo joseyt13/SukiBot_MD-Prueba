@@ -139,7 +139,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
         externalAdReply: {
           title: '🌸 Suki_Bot_MD 🌸',
           body: '✨ Únete al canal oficial de Suki',
-          thumbnailUrl: 'https://files.catbox.moe/3ee3ib.jpg',
+          thumbnailUrl: 'https://files.catbox.moe/rkvuzb.jpg',
           sourceUrl: 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W',
           mediaType: 1,
           renderLargerThumbnail: true
