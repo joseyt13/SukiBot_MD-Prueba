@@ -114,7 +114,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
     await conn.sendMessage(m.chat, {
-      video: { url: 'https://files.catbox.moe/n9hkux.mp4'},
+      video: { url: 'https://files.catbox.moe/tqtw3t.mp4'},
       caption: text,
       mimetype: 'video/mp4',
       contextInfo: {
