@@ -29,7 +29,7 @@ const handler = async (m, { conn, text, command }) => {
     // Enviar imagen o video con información
     await conn.sendMessage(m.chat, {
       [type]: { url: best.url },
-      caption: `✨ Aquí tienes la mejor calidad que encontré~\n\n🎞️ *Tipo:* ${best.extension.toUpperCase()}\n📁 *Calidad:* ${best.quality || 'por defecto'}\n📦 *Tamaño:* ${best.size ? (best.size / 1024).toFixed(2) + ' KB' : 'Desconocido 🥲'}`
+      caption: `🍁 Aquí tienes la mejor calidad que encontré~\n\n🎞️ *Tipo:* ${best.extension.toUpperCase()}\n📁 *Calidad:* ${best.quality || 'por defecto'}\n📦 *Tamaño:* ${best.size ? (best.size / 1024).toFixed(2) + ' KB' : 'Desconocido 🥲'}`
     }, { quoted: m })
 
     await conn.sendMessage(m.chat, {
