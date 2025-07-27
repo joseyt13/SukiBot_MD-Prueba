@@ -144,9 +144,9 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 }
 }
 
-handler.help = ['menu']
+handler.help = ['menu', 'help']
 handler.tags = ['main']
-handler.command = ['menu', 'suki', 'suki_bot_md']
+handler.command = ['menu', 'suki', 'help']
 handler.register = false
 export default handler
 
