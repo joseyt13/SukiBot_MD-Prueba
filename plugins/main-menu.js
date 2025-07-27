@@ -45,6 +45,7 @@ ${welcomeBanner}
 ꒰ 📋 Registros: %totalreg
 ꒰ ⏳ Activo: %muptime
 ╰─────────────────────╯
+> *únete al grupo ofc:* https://chat.whatsapp.com/FoVnxJ64gYV6EZcfNVQUfJ
 
 🍧 ¡Suki está lista para acompañarte, %name!
 %readmore`.trimStart(),
