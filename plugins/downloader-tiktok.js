@@ -1,3 +1,6 @@
+// Código creado por fedexyz 🍁 
+// no quites los créditos 🍂 
+
 import axios from 'axios';
 
 const sukiIcon = 'https://files.catbox.moe/rkvuzb.jpg';
@@ -44,7 +47,6 @@ async function descargarDeTikTok(urlTikTok) {
 .filter(({ href}) =>!href.includes('play.google.com') &&!vistos.has(href) && vistos.add(href));
 
   const enlacesMp4 = enlaces.filter(v => /download without watermark/i.test(v.label));
-
   const coincidenciasImg = [...html.matchAll(/<img[^>]+src="(https:\/\/tikcdn\.app\/a\/images\/[^"]+)"/gi)];
   const imagenes = [...new Set(coincidenciasImg.map(m => m[1]))];
 
@@ -59,7 +61,17 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
   if (!text) {
     await conn.sendMessage(m.chat, { react: { text: '❌', key: m.key}});
     return conn.sendMessage(m.chat, {
-      text: `🍡 *Oh no, preciosura~* Falta el enlace de TikTok\n✨ Ejemplo:\n${usedPrefix + command} https://vt.tiktok.com/xxxx/`
+      text: `🍡 *Oh no, preciosura~* Falta el enlace de TikTok\n✨ Ejemplo:\n${usedPrefix + command} https://vt.tiktok.com/xxxx/`,
+      contextInfo: {
+        externalAdReply: {
+          title: '🌸 Suki_Bot_MD | Descargador TikTok',
+          body: '¡Déjame el enlace y lo haré kawaii!',
+          thumbnailUrl: sukiIcon,
+          sourceUrl: channelRD,
+          mediaType: 1,
+          renderLargerThumbnail: true
+}
+}
 });
 }
 
@@ -73,7 +85,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
         title: '🎬 Video listo en Suki_Bot_MD',
         body: '¡Descarga completada con ternura!',
         thumbnailUrl: sukiIcon,
-        sourceUrl: channelRD,
+        sourceUrl: '', // Removido el uso de channelRD aquí
         mediaType: 1,
         renderLargerThumbnail: true
 }
