@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 let handler = async (m, { conn, args, usedPrefix, command, isOwner}) => {
   if (!args[0]) {
     throw `
@@ -54,8 +52,8 @@ ${usedPrefix + command} Clash Royale
 }, { quoted: m});
 };
 
-handler.command = ['apk', 'darapk'];
+handler.command = ['apk', 'dapk'];
 handler.group = false;
-handler.help = ['apk', 'darapk'];
+handler.help = ['apk'];
 handler.tags = ['descargas'];
 export default handler;
