@@ -54,8 +54,8 @@ ${usedPrefix + command} Clash Royale
 }, { quoted: m});
 };
 
-handler.command = ['apk', 'dapk'];
+handler.command = ['apk', 'darapk'];
 handler.group = false;
-handler.help = ['apk'];
+handler.help = ['apk', 'darapk'];
 handler.tags = ['descargas'];
 export default handler;
