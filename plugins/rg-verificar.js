@@ -50,7 +50,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
       externalAdReply: {
         title: '🍓 Registro Completado en Suki_Bot_MD',
         body: 'Tu viaje kawaii ha comenzado~',
-        thumbnailUrl: 'https://files.catbox.moe/wav09n.jpg',
+        thumbnailUrl: 'https://files.catbox.moe/rkvuzb.jpg';',
         sourceUrl: 'https://github.com/TuProyectoSuki',
         mediaType: 1,
         renderLargerThumbnail: true
