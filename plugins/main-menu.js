@@ -2,12 +2,25 @@ import { promises} from 'fs';
 import { join} from 'path';
 import { xpRange} from '../lib/levelling.js';
 
-const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'; // 🌐 Canal decorativo
-const imageUrl = 'https://files.catbox.moe/rkvuzb.jpg'; // 🖼 Imagen pastelcore
+const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'; // Canal decorativo
+
+const text = [
+  "*Etiqueta General X SukiBot*",
+  "⊹˚₊‧ 𝖲𝗎𝗄𝗂𝖡𝗈𝗍-𝖬𝖣 𝖮𝖿𝗂𝖼𝗂𝖺𝗅 ‧₊˚⊹",
+  "⊹˚₊‧ 𝖲𝗎𝗄𝗂𝖡𝗈𝗍_MD 𝖡𝗒 𝖣𝖾𝗏_fedexyz.13 ‧₊˚⊹"
+].sort(() => 0.5 - Math.random())[0]; // selección aleatoria
+
+const imgRandom = [
+  "https://files.catbox.moe/rkvuzb.jpg",
+  "https://files.catbox.moe/rkvuzb.jpg"
+].sort(() => 0.5 - Math.random())[0]; // imagen kawaii
 
 const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
   try {
-    await conn.sendMessage(m.chat, { text: `🌸 Enviando menú de *Suki_Bot_MD*...\n🔗 ${channelRD}`});
+    await conn.sendMessage(m.chat, {
+      image: { url: imgRandom},
+      caption: `🌸 Enviando menú de *Suki_Bot_MD*...\n${text}\n🔗 Canal pastelcore: ${channelRD}`
+});
 
     const packageInfo = JSON.parse(await promises.readFile(join(__dirname, '../package.json')));
     const { exp, level} = global.db.data.users[m.sender];
@@ -15,16 +28,6 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
     const name = await conn.getName(m.sender);
     const uptime = clockString(process.uptime() * 1000);
     const totalreg = Object.keys(global.db.data.users).length;
-
-    const text = [
-      "*Etiqueta General X SukiBot*",
-      " ⊹˚₊‧ 𝖲𝗎𝗄𝗂𝖡𝗈𝗍-𝖬𝖣 𝖮𝖿𝗂𝖼𝗂𝖺𝗅 ‧₊˚⊹",
-      "⊹˚₊‧ 𝖲𝗎𝗄𝗂𝖡𝗈𝗍-𝖬𝖣 𝖮𝖿𝗂𝖼𝗂𝖺𝗅 ‧₊˚⊹"
-    ].getRandom();
-    const imgRandom = [
-      "https://files.catbox.moe/rkvuzb.jpg",
-      "https://files.catbox.moe/rkvuzb.jpg"
-    ].getRandom();
 
     const pastelHeader = `
 🩷︵₊˚⊹ Bienvenid@ al universo encantado de *Suki_Bot_MD* ˚₊⊹︵
@@ -85,14 +88,14 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
 ${pastelHeader.trim()}
 ${commands.trim()}
 
-𓆩♡𓆪 *Suki_Bot_MD* powered by Dev_fedexyz13 ✨
-Tu compañer@ digital con ternura pastelcore~ 🌈🧋
+𓆩♡𓆪 *Suki_Bot_MD* powered by Dev_fedexyz13 💖
+Tu compañer@ digital en el universo pastelcore 🌈🧋
 `;
 
     await conn.sendMessage(
       m.chat,
       {
-        image: { url: imageUrl},
+        image: { url: imgRandom},
         caption: menuText.trim()
 },
       { quoted: m}
