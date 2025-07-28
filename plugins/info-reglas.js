@@ -1,34 +1,34 @@
 const handler = async (m, { conn}) => {
   const reglas = `
-🩷︵₊˚⊹𓏲𓈒 *𝑹𝒆𝒈𝒍𝒂𝒔 𝒅𝒆 𝑺𝒖𝒌𝒊_𝑩𝒐𝒕_𝑴𝑫* 𓈒˚₊⊹︵
+🩷︵₊˚⊹𓏲𓈒 𝗥𝗲𝗴𝗹𝗮𝘀 & 𝗔𝘆𝘂𝗱𝗮 de *Suki_Bot_MD* 𓈒˚₊⊹︵
 
-🌷 Este bot fue creado para ofrecerte funciones kawaii, herramientas útiles y estética digital pastelcore~
-Por favor ten en cuenta estas reglas para convivir con dulzura:
+🎀 Este bot fue creado para compartir magia pastelcore, herramientas útiles y funciones kawaii. Por favor sigue estas reglas para mantener la armonía en el reino digital 🌸
 
-──────────── ✧ ────────────
+╭───────────────╮
+🌷 *Normas generales:*
+• No hagas spam o flood de comandos
+• No compartas contenido ofensivo o inapropiado
+• No modifiques ni abuses del bot
+• No robes el código sin permiso
+• Sé respetuos@ con otros usuarios
+╰───────────────╯
 
-✨ *Normas generales:*
+🍡 *Comandos disponibles:*
+⪼.menu — Mostrar menú kawaii
+⪼.sticker — Crear stickers mágicos
+⪼.imagen — Buscar imágenes pastelcore
+⪼.anime — Buscar anime adorables
+⪼.play — Descargar música suave
+⪼.serbot — Convertirse en subbot
 
-• No uses el bot para spam constante (flood)
-• No envíes contenido ofensivo, violento o NSFW
-• No intentes dañar, desconectar o modificar el bot
-• No robes el código sin dar créditos
-• Respeta a otros usuarios si estás en grupo
-
-🍓 *Comandos admitidos:*
-Usa comandos como: `.sticker`, `.imagen`, `.anime`, `.menu`, `.play`, `.serbot`, etc.
-¡Recuerda que Suki responde con ternura! 💫
-
-──────────── ✧ ────────────
-
-🌈 *¿El bot tiene errores o se comporta raro?*
-No entres en pánico pastelcore 🫧
+🪄 *¿Tienes errores o dudas?*
+Suki te escucha con dulzura~ ☁️✨
 
 📞 *Habla con el creador:*
-Wa.me/+5491156178758 — Dev_fedexyz13
+🔗 wa.me/+5491156178758
+👤 Dev: fedexyz13
 
-𓆩♡𓆪 *Suki_Bot_MD* está en constante mejora
-Gracias por confiar en esta compañera mágica~ 💖
+𓆩♡𓆪 Gracias por usar *Suki_Bot_MD*, tu compañera kawaii en este mundo digital pastel 💖
 `;
 
   await conn.sendMessage(
@@ -38,9 +38,9 @@ Gracias por confiar en esta compañera mágica~ 💖
 );
 };
 
-handler.command = ['reglas', 'normas', 'ayuda', 'rules'];
+handler.command = ['reglas', 'ayuda', 'normas', 'rules'];
 handler.help = ['reglas'];
-handler.tags = ['info', 'main'];
+handler.tags = ['main', 'info'];
 handler.register = true;
 
 export default handler;
