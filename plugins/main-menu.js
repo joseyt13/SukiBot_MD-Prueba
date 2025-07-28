@@ -2,16 +2,12 @@ import { promises} from 'fs';
 import { join} from 'path';
 import { xpRange} from '../lib/levelling.js';
 
-const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'; // 🌐 Identificador decorativo
-const imageUrl = 'https://files.catbox.moe/rkvuzb.jpg'; // 🖼 Imagen kawaii en bienvenida
+const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'; // 🌐 Canal decorativo
+const imageUrl = 'https://files.catbox.moe/rkvuzb.jpg'; // 🖼 Imagen pastelcore
 
 const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
   try {
-    // 🩷 Mensaje inicial decorado con imagen
-    await conn.sendMessage(m.chat, {
-      image: { url: imageUrl},
-      caption: `🌸 Enviando menú de *Suki_Bot_MD*...\n🔗 Canal pastelcore: ${channelRD}`
-});
+    await conn.sendMessage(m.chat, { text: `🌸 Enviando menú de *Suki_Bot_MD*...\n🔗 ${channelRD}`});
 
     const packageInfo = JSON.parse(await promises.readFile(join(__dirname, '../package.json')));
     const { exp, level} = global.db.data.users[m.sender];
@@ -21,7 +17,7 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
     const totalreg = Object.keys(global.db.data.users).length;
 
     const pastelHeader = `
-🩷︵₊˚⊹ Bienvenid@ al mundo de *Suki_Bot_MD* ✨
+🩷︵₊˚⊹ Bienvenid@ al universo encantado de *Suki_Bot_MD* ˚₊⊹︵
 
 ╭─❀ INFO DE USUARIO ❀─╮
 🌸 Nombre: ${name}
@@ -31,7 +27,7 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
 
 ╭─❀ INFO DEL BOT ❀─╮
 🎀 Plataforma: Baileys MD
-🕒 Activo: ${uptime}
+🕒 Tiempo activo: ${uptime}
 👥 Usuarios mágicos: ${totalreg}
 ╰────────────────────╯
 
@@ -45,7 +41,7 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
       img: '📸 Imágenes visuales',
       downloader: '📥 Descargas pastel',
       group: '👑 Gestión grupal',
-      search: '🔍 Búsqueda adorable',
+      search: '🔍 Buscador adorable',
       tools: '🧰 Herramientas suaves',
       rpg: '🎮 RPG brillante',
       fun: '🎈 Diversión ligera',
@@ -79,18 +75,21 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
 ${pastelHeader.trim()}
 ${commands.trim()}
 
-𓆩♡𓆪 *Suki_Bot_MD* powered by Dev_fedexyz13 💖
-Tu compañer@ digital en el universo pastelcore 🌈🧋
+𓆩♡𓆪 *Suki_Bot_MD* powered by Dev_fedexyz13 ✨
+Tu compañer@ digital con ternura pastelcore~ 🌈🧋
 `;
 
-    await conn.sendMessage(m.chat, {
-      image: { url: imageUrl},
-      caption: menuText.trim()
-}, { quoted: m});
-
+    await conn.sendMessage(
+      m.chat,
+      {
+        image: { url: imageUrl},
+        caption: menuText.trim()
+},
+      { quoted: m}
+);
 } catch (e) {
     console.error(e);
-    conn.reply(m.chat, '😿 Ups~ ocurrió un error al mostrar el menú encantado...', m);
+    conn.reply(m.chat, '😿 Ups~ ocurrió un error al mostrar el menú pastel...', m);
 }
 };
 
