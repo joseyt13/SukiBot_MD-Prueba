@@ -1,158 +1,120 @@
-import { xpRange} from '../lib/levelling.js'
-import fetch from 'node-fetch'
-
-const channelRD = {
-  id: '120363402097425674@newsletter',
-  name: '☁️ sᴜᴋɪ_ʙᴏᴛ⋆.ᴍᴅ 🌸'
-}
-
-const textFancyCaps = text => {
-  const charset = {
-    a:'ᴀ', b:'ʙ', c:'ᴄ', d:'ᴅ', e:'ᴇ', f:'ꜰ', g:'ɢ',
-    h:'ʜ', i:'ɪ', j:'ᴊ', k:'ᴋ', l:'ʟ', m:'ᴍ', n:'ɴ',
-    o:'ᴏ', p:'ᴘ', q:'ǫ', r:'ʀ', s:'ꜱ', t:'ᴛ', u:'ᴜ',
-    v:'ᴠ', w:'ᴡ', x:'ˣ', y:'ʏ', z:'ᴢ'
-}
-  return text.toLowerCase().split('').map(c => charset[c] || c).join('')
-}
-
-const welcomeBanner = `
-╭───⋆｡˚ ❃ ༘ ──╮
-┃ sᴜᴋɪ_ʙᴏᴛ⋆.ᴍᴅ ᯓ★┃
-╰───⋆｡˚ ❃ ༘ ──╯
-
-💫 ᴅᴏɴᴅᴇ ʟᴀ ᴛᴇʀɴᴜʀᴀ sᴇ ᴄᴏᴍᴀɴᴅᴀ ꒰ෆ꒱
-`.trim()
-
-let tags = {
-  main: '🌷 ᴍᴇɴᴜ́ ᴘʀɪɴᴄɪᴘᴀʟ',
-  group: '🎀 ɢʀᴜᴘᴏ ᴀᴅᴏʀᴀʙʟᴇ',
-  serbot: '✨ ᴇɴᴇʀɢɪ́ᴀ ꜱᴜᴋɪ',
-  util: '🧃 ꜰᴜɴᴄɪᴏɴᴇꜱ ᴜ́ᴛɪʟᴇꜱ',
-  fun: '🎠 ᴅɪᴠᴇʀꜱɪᴏ́ɴ ᴍᴀ́ɢɪᴄᴀ',
-  power: '⛩️ ᴘᴏᴅᴇʀ ᴏᴄᴜʟᴛᴏ'
-}
+import { promises} from 'fs';
+import { join} from 'path';
+import { xpRange} from '../lib/levelling.js';
 
 const defaultMenu = {
-  before: `
-${welcomeBanner}
+  before: `╭───🎀 𝗜𝗡𝗙𝗢 𝗗𝗘 𝗨𝗦𝗨𝗔𝗥𝗜𝗢 🎀─────╮
+🌸 Nombre: %name
+🍡 Nivel: %level
+💫 Experiencia: %exp
+╰───────────────────────╯
 
-╭── ♡ ɪɴꜰᴏ ᴅᴇ ᴜꜱᴜᴀʀɪᴏ ♡ ──╮
-꒰ 💖 Nombre: \`%name\`
-꒰ 🌟 Nivel: %level
-꒰ ✨ EXP: %exp / %maxexp
-꒰ 🔐 Modo: %mode
-꒰ 📋 Registros: %totalreg
-꒰ ⏳ Activo: %muptime
-╰─────────────────────╯
-> *🎀 úɴᴇᴛᴇ ᴀʟ ɢʀᴜᴘᴏ ᴏꜰɪᴄɪᴀʟ:* https://chat.whatsapp.com/FoVnxJ64gYV6EZcfNVQUfJ
+╭───🧋 𝗜𝗡𝗙𝗢 𝗗𝗘 𝗕𝗢𝗧 🧋─────╮
+🌷 Estado: Modo %mode
+🎀 Plataforma: Baileys MD
+⏳ Tiempo activo: %muptime
+👥 Usuarios registrados: %totalreg
+%readmore
+`,
+  header: '┏━━ ❀ %category ❀ ━━┓',
+  body: '┃ ⊹ %cmd',
+  footer: '┗━━━━━━━━━━━━━━━━━━',
+  after: `\n𓆩♡𓆪 Suki_Bot_MD powered by Dev_fedexyz13 ✨`
+};
 
-🍧 ¡Suki está lista para acompañarte, %name!
-%readmore`.trimStart(),
+const tags = {
+  main: '𝗜𝗡𝗙𝗢',
+  juegos: '𝗝𝗨𝗘𝗚𝗢𝗦',
+  anime: '𝗔𝗡𝗜𝗠𝗘',
+  rpg: '𝗥𝗣𝗚',
+  rg: '𝗥𝗘𝗚𝗜𝗦𝗧𝗥𝗢',
+  serbot: '𝗦𝗨𝗕 𝗕𝗢𝗧𝗦',
+  sticker: '𝗦𝗧𝗜𝗖𝗞𝗘𝗥',
+  img: '𝗜𝗠Á𝗚𝗘𝗡𝗘𝗦',
+  group: '𝗚𝗥𝗨𝗣𝗢𝗦',
+  search: '𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔',
+  tools: '𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦',
+  fun: '𝗗𝗜𝗩𝗘𝗥𝗦𝗜Ó𝗡',
+  downloader: '𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦',
+  premium: '𝗣𝗥𝗘𝗠𝗜𝗨𝗠',
+  owner: '𝗖𝗥𝗘𝗔𝗗𝗢𝗥'
+};
 
-  header: '\n🌸 𝒞ᵃᵗᵉᵍᵒʳᶦᵃ: %category\n',
-  body: '💮 ⋆ %cmd %iscorazones %isPremium',
-  footer: '\n𓆩⟡𓆪',
-  after: ''
-}
-
-let handler = async (m, { conn, usedPrefix: _p}) => {
+const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
   try {
-    const { exp = 0, level = 0} = global.db.data.users[m.sender]
-    const { min, xp} = xpRange(level, global.multiplier)
-    const name = await conn.getName(m.sender)
-    const _uptime = process.uptime() * 1000
-    const muptime = clockString(_uptime)
-    const totalreg = Object.keys(global.db.data.users).length
-    const mode = global.opts['self']? '🔒 Privado': '🌍 Público'
+    const packageInfo = JSON.parse(await promises.readFile(join(__dirname, '../package.json')));
+    const { exp, limit, level} = global.db.data.users[m.sender];
+    const { min, xp, max} = xpRange(level, global.multiplier);
+    const name = await conn.getName(m.sender);
+    const uptime = clockString(process.uptime() * 1000);
+    const muptime = clockString(process.uptime() * 1000);
+    const totalreg = Object.keys(global.db.data.users).length;
 
-    let help = Object.values(global.plugins)
+    const help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
 .map(p => ({
         help: Array.isArray(p.help)? p.help: [p.help],
         tags: Array.isArray(p.tags)? p.tags: [p.tags],
         prefix: 'customPrefix' in p,
         limit: p.limit,
-        premium: p.premium,
-        enabled:!p.disabled
-}))
+        premium: p.premium
+}));
 
-    for (const plugin of help) {
-      if (plugin.tags) {
-        for (const t of plugin.tags) {
-          if (!(t in tags) && t) tags[t] = textFancyCaps(t)
+    let menuText = defaultMenu.before + '\n';
+
+    for (let tag of Object.keys(tags)) {
+      const section = help.filter(h => h.tags.includes(tag) && h.help.length);
+      if (!section.length) continue;
+
+      menuText += defaultMenu.header.replace(/%category/g, tags[tag]) + '\n';
+      for (let cmd of section.flatMap(p => p.help)) {
+        menuText += defaultMenu.body.replace(/%cmd/g, `${_p}${cmd}`) + '\n';
 }
-}
+      menuText += defaultMenu.footer + '\n';
 }
 
-    const { before, header, body, footer, after} = defaultMenu
-
-    const _text = [
-      before,
-...Object.keys(tags).map(tag => {
-        const cmds = help
-.filter(menu => menu.tags.includes(tag))
-.map(menu =>
-            menu.help.map(cmd => body.replace(/%cmd/g, menu.prefix? cmd: _p + cmd)).join('\n')
-).join('\n')
-        return `${header.replace(/%category/g, tags[tag])}${cmds}${footer}`
-}),
-      after
-    ].join('\n')
+    menuText += defaultMenu.after;
 
     const replace = {
-      '%': '%',
-      name,
-      level,
-      exp: exp - min,
-      maxexp: xp,
-      totalreg,
-      mode,
-      muptime,
-      readmore: String.fromCharCode(8206).repeat(4001)
-}
+      '%name': name,
+      '%level': level,
+      '%exp': exp - min,
+      '%totalreg': totalreg,
+      '%muptime': muptime,
+      '%mode': global.opts.self? 'Privado': 'Público',
+      '%readmore': readMore
+};
 
-    const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '')
+    menuText = menuText.replace(new RegExp(`%(${Object.keys(replace).join('|')})`, 'g'), (_, key) => replace[key]);
 
-    await conn.sendMessage(m.chat, {
-      video: { url: 'https://files.catbox.moe/tqtw3t.mp4'},
-      caption: text,
-      mimetype: 'video/mp4',
-      contextInfo: {
-        mentionedJid: [m.sender],
-        isForwarded: true,
-        forwardingScore: 999,
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: channelRD.id,
-          serverMessageId: 100,
-          newsletterName: channelRD.name
+    const imageUrl = 'https://files.catbox.moe/rkvuzb.jpg';
+
+    await conn.sendMessage(
+      m.chat,
+      {
+        image: { url: imageUrl},
+        caption: menuText
 },
-        externalAdReply: {
-          title: 'sᴜᴋɪ_ʙᴏᴛ⋆.ᴍᴅ',
-          body: '✨ Canal oficial para soñar en código',
-          thumbnailUrl: 'https://files.catbox.moe/rkvuzb.jpg',
-          sourceUrl: 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W',
-          mediaType: 1,
-          renderLargerThumbnail: true
-}
-}
-}, { quoted: m})
-
+      { quoted: m}
+);
 } catch (e) {
-    console.error('[⚠️] Error en menú Suki:', e)
-    conn.reply(m.chat, '🍄 Suki se tropezó en el bosque mágico... ¿probamos de nuevo? 🌷', m)
+    console.error(e);
+    conn.reply(m.chat, '😿 Ocurrió un error al mostrar el menú encantado...', m);
 }
-}
+};
 
-handler.help = ['menu', 'help']
-handler.tags = ['main']
-handler.command = ['menu', 'suki', 'help']
-handler.register = false
-export default handler
+handler.command = ['menu', 'allmenu', 'ayuda', 'help'];
+handler.help = ['menu'];
+handler.tags = ['main'];
+handler.register = true;
+
+export default handler;
+
+const readMore = String.fromCharCode(8206).repeat(4001);
 
 function clockString(ms) {
-  let h = isNaN(ms)? '--': Math.floor(ms / 3600000)
-  let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60
-  let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60
-  return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':')
+  const h = Math.floor(ms / 3600000);
+  const m = Math.floor(ms / 60000) % 60;
+  const s = Math.floor(ms / 1000) % 60;
+  return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
 }
