@@ -2,58 +2,49 @@ import { promises} from 'fs';
 import { join} from 'path';
 import { xpRange} from '../lib/levelling.js';
 
-const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'; // enlace decorativo
-
 const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
   try {
     const packageInfo = JSON.parse(await promises.readFile(join(__dirname, '../package.json')));
     const { exp, level} = global.db.data.users[m.sender];
-    const { min, xp} = xpRange(level, global.multiplier);
+    const { min, xp, max} = xpRange(level, global.multiplier);
     const name = await conn.getName(m.sender);
     const uptime = clockString(process.uptime() * 1000);
+    const muptime = uptime;
     const totalreg = Object.keys(global.db.data.users).length;
     const imageUrl = 'https://files.catbox.moe/rkvuzb.jpg';
 
-    // 🧋 Animación de carga con canal pastelcore
-    for (let i = 1; i <= 100; i += 10) {
-      const bar = '█'.repeat(i / 10) + '░'.repeat(10 - i / 10);
-      const text = `🎀 Cargando menú de *Suki_Bot_MD*...\n${bar} ${i}%\n🪄 Canal oficial: ${channelRD}`;
-      await conn.sendMessage(m.chat, { text});
-      await delay(500);
-}
-
     const pastelHeader = `
-🩷︵₊˚⊹𓏲𓈒 Bienvenid@ al universo encantado de *Suki_Bot_MD* 𓈒˚₊⊹︵
+🩷︵₊˚⊹𓏲𓈒 Bienvenid@ al mundo pastelcore de Suki_Bot_MD 𓈒˚₊⊹︵
 
-╭── ❀ INFO DE USUARIO ❀ ──╮
-🍡 Nombre: ${name}
-🎀 Nivel: ${level}
-🧃 Experiencia: ${exp}
-╰─────────────────────────╯
+╭─❀ INFO DE USUARIO ❀─╮
+🌸 Nombre: ${name}
+🍡 Nivel: ${level}
+💫 Experiencia: ${exp}
+╰─────────────────────╯
 
-╭── ❀ INFO DEL BOT ❀ ──╮
-🌷 Plataforma: Baileys MD
-🕒 Tiempo activo: ${uptime}
-👥 Usuarios registrados: ${totalreg}
-╰────────────────────────╯
+╭─❀ INFO DEL BOT ❀─╮
+🎀 Plataforma: Baileys MD
+⏳ Tiempo activo: ${muptime}
+👥 Usuarios mágicos: ${totalreg}
+╰────────────────────╯
 
-✨ Comandos pastel disponibles:
+✨ Comandos disponibles:
 `;
 
     const categories = {
       juegos: '🎲 Juegos kawaii',
-      anime: '🎌 Anime encantado',
-      sticker: '🧁 Stickers mágicos',
+      anime: '🎌 Anime mágico',
+      sticker: '🧁 Stickers encantados',
       img: '📸 Imágenes visuales',
-      downloader: '📥 Descargas pastel',
-      group: '👑 Gestión grupal',
-      search: '🔍 Búsqueda encantada',
+      downloader: '📥 Descargas pastelcore',
+      group: '👑 Gestión de grupos',
+      search: '🔍 Buscador adorable',
       tools: '🧰 Herramientas suaves',
-      rpg: '🎮 RPG brillante',
+      rpg: '🎮 RPG Suki',
       fun: '🎈 Diversión ligera',
-      premium: '💎 Opciones premium',
+      premium: '💎 Beneficios premium',
       owner: '🪄 Contacto creador',
-      serbot: '🌪 Subbots mágicos'
+      serbot: '🌪 Subbots'
 };
 
     const help = Object.values(global.plugins)
@@ -65,6 +56,7 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
 }));
 
     let commands = '';
+
     for (const [key, label] of Object.entries(categories)) {
       const filtered = help.filter(h => h.tags.includes(key));
       if (!filtered.length) continue;
@@ -81,8 +73,8 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
 ${pastelHeader.trim()}
 ${commands.trim()}
 
-𓆩♡𓆪 *Suki_Bot_MD* powered by Dev_fedexyz13 ✨
-Tu compañer@ digital en el mundo pastelcore~ 🌈🧋
+𓆩♡𓆪 Suki_Bot_MD powered by Dev_fedexyz13 ✨
+Con ternura, utilidad y estética encantada~ 🌈🧋
 `;
 
     await conn.sendMessage(
@@ -95,7 +87,7 @@ Tu compañer@ digital en el mundo pastelcore~ 🌈🧋
 );
 } catch (e) {
     console.error(e);
-    conn.reply(m.chat, '😿 Ups~ ocurrió un error al mostrar el menú pastel...', m);
+    conn.reply(m.chat, '😿 Ocurrió un error al mostrar el menú encantado...', m);
 }
 };
 
@@ -106,10 +98,11 @@ handler.register = true;
 
 export default handler;
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+const readMore = String.fromCharCode(8206).repeat(4001);
+
 function clockString(ms) {
-  const h = Math.floor(ms / 3600000),
-        m = Math.floor(ms / 60000) % 60,
-        s = Math.floor(ms / 1000) % 60;
+  const h = Math.floor(ms / 3600000);
+  const m = Math.floor(ms / 60000) % 60;
+  const s = Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-}
+      }
