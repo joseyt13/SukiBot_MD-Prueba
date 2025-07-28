@@ -1,20 +1,26 @@
+// Código creado por fedexyz 🍁 
+// no quites los créditos 🍂 
+
 import { promises} from 'fs';
 import { join} from 'path';
 import { xpRange} from '../lib/levelling.js';
 
+const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'; // 🌐 Canal decorativo
+const imageUrl = 'https://files.catbox.moe/rkvuzb.jpg'; // 🖼 Imagen pastelcore
+
 const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
   try {
+    await conn.sendMessage(m.chat, { text: `🌸 Enviando menú de *Suki_Bot_MD*...\n🔗 ${channelRD}`});
+
     const packageInfo = JSON.parse(await promises.readFile(join(__dirname, '../package.json')));
     const { exp, level} = global.db.data.users[m.sender];
-    const { min, xp, max} = xpRange(level, global.multiplier);
+    const { min, xp} = xpRange(level, global.multiplier);
     const name = await conn.getName(m.sender);
     const uptime = clockString(process.uptime() * 1000);
-    const muptime = uptime;
     const totalreg = Object.keys(global.db.data.users).length;
-    const imageUrl = 'https://files.catbox.moe/rkvuzb.jpg';
 
     const pastelHeader = `
-🩷︵₊˚⊹𓏲𓈒 Bienvenid@ al mundo pastelcore de Suki_Bot_MD 𓈒˚₊⊹︵
+🩷︵₊˚⊹ Bienvenid@ al universo encantado de *Suki_Bot_MD* ˚₊⊹︵
 
 ╭─❀ INFO DE USUARIO ❀─╮
 🌸 Nombre: ${name}
@@ -24,7 +30,7 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
 
 ╭─❀ INFO DEL BOT ❀─╮
 🎀 Plataforma: Baileys MD
-⏳ Tiempo activo: ${muptime}
+🕒 Tiempo activo: ${uptime}
 👥 Usuarios mágicos: ${totalreg}
 ╰────────────────────╯
 
@@ -33,18 +39,18 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
 
     const categories = {
       juegos: '🎲 Juegos kawaii',
-      anime: '🎌 Anime mágico',
-      sticker: '🧁 Stickers encantados',
+      anime: '🎌 Anime encantado',
+      sticker: '🧁 Stickers mágicos',
       img: '📸 Imágenes visuales',
-      downloader: '📥 Descargas pastelcore',
-      group: '👑 Gestión de grupos',
+      downloader: '📥 Descargas pastel',
+      group: '👑 Gestión grupal',
       search: '🔍 Buscador adorable',
       tools: '🧰 Herramientas suaves',
-      rpg: '🎮 RPG Suki',
+      rpg: '🎮 RPG brillante',
       fun: '🎈 Diversión ligera',
-      premium: '💎 Beneficios premium',
+      premium: '💎 Opciones premium',
       owner: '🪄 Contacto creador',
-      serbot: '🌪 Subbots'
+      serbot: '🌪 Subbots mágicos'
 };
 
     const help = Object.values(global.plugins)
@@ -56,7 +62,6 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
 }));
 
     let commands = '';
-
     for (const [key, label] of Object.entries(categories)) {
       const filtered = help.filter(h => h.tags.includes(key));
       if (!filtered.length) continue;
@@ -73,8 +78,8 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
 ${pastelHeader.trim()}
 ${commands.trim()}
 
-𓆩♡𓆪 Suki_Bot_MD powered by Dev_fedexyz13 ✨
-Con ternura, utilidad y estética encantada~ 🌈🧋
+𓆩♡𓆪 *Suki_Bot_MD* powered by Dev_fedexyz13 ✨
+Tu compañer@ digital con ternura pastelcore~ 🌈🧋
 `;
 
     await conn.sendMessage(
@@ -87,7 +92,7 @@ Con ternura, utilidad y estética encantada~ 🌈🧋
 );
 } catch (e) {
     console.error(e);
-    conn.reply(m.chat, '😿 Ocurrió un error al mostrar el menú encantado...', m);
+    conn.reply(m.chat, '😿 Ups~ ocurrió un error al mostrar el menú pastel...', m);
 }
 };
 
@@ -98,11 +103,9 @@ handler.register = true;
 
 export default handler;
 
-const readMore = String.fromCharCode(8206).repeat(4001);
-
 function clockString(ms) {
-  const h = Math.floor(ms / 3600000);
-  const m = Math.floor(ms / 60000) % 60;
-  const s = Math.floor(ms / 1000) % 60;
+  const h = Math.floor(ms / 3600000),
+        m = Math.floor(ms / 60000) % 60,
+        s = Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-      }
+}
