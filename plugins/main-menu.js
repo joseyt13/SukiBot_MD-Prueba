@@ -16,6 +16,16 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
     const uptime = clockString(process.uptime() * 1000);
     const totalreg = Object.keys(global.db.data.users).length;
 
+    const text = [
+      "*Etiqueta General X SukiBot*",
+      " ⊹˚₊‧ 𝖲𝗎𝗄𝗂𝖡𝗈𝗍-𝖬𝖣 𝖮𝖿𝗂𝖼𝗂𝖺𝗅 ‧₊˚⊹",
+      "⊹˚₊‧ 𝖲𝗎𝗄𝗂𝖡𝗈𝗍-𝖬𝖣 𝖮𝖿𝗂𝖼𝗂𝖺𝗅 ‧₊˚⊹"
+    ].getRandom();
+    const imgRandom = [
+      "https://files.catbox.moe/rkvuzb.jpg",
+      "https://files.catbox.moe/rkvuzb.jpg"
+    ].getRandom();
+
     const pastelHeader = `
 🩷︵₊˚⊹ Bienvenid@ al universo encantado de *Suki_Bot_MD* ˚₊⊹︵
 
