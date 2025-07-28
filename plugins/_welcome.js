@@ -1,55 +1,94 @@
-export async function before(m, { conn }) {
-  if (!m.isGroup || !m.messageStubType || !m.messageStubParameters) return;
+// 🌸 ᴄᴏ́ᴅɪɢᴏ ᴅᴇ Sᴜᴋɪ_Bᴏᴛ_MD — ʀᴇᴍɪx ᴋᴀᴡᴀɪɪ ʙʏ Bʀᴀʏᴀɴ ✨
 
-  // ← Esta línea verifica si la bienvenida está activada
-  if (!db.data.chats[m.chat].welcome) return;
+export async function before(m, { conn}) {
+  if (!m.isGroup ||!m.messageStubType ||!m.messageStubParameters) return;
 
+  const who = m.messageStubParameters?.[0];
+  if (!who) return;
   const groupMetadata = await conn.groupMetadata(m.chat);
   const participants = m.messageStubParameters || [];
-  const date = new Date();
-  const fecha = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  const fecha = new Date().toLocaleDateString('es-AR');
+
+  const bienvenidaAudios = [
+    'https://files.cloudkuimages.guru/audios/MVdamiSr.mp3'
+  ];
+
+  const despedidaAudios = [
+    'https://files.cloudkuimages.guru/audios/ozBxb1si.mp3'
+  ];
 
   for (const user of participants) {
-    let name = await conn.getName(user);
-    let pp = await conn.profilePictureUrl(user, 'image').catch(() =>
+    const name = await conn.getName(user);
+    const pp = await conn.profilePictureUrl(user, 'image').catch(() =>
       'https://files.catbox.moe/rkvuzb.jpg'
-    );
-    const taguser = '@' + user.split('@')[0];
+);
+    const tag = `@${who.split("@")[0]}`;
 
-    // BIENVENIDA
+    // 🌷 Bienvenida
     if (m.messageStubType === 27 || m.messageStubType === 31) {
-      await conn.sendMessage(m.chat, {
-        text: ` Hola! ¡Bienvenido ${taguser} al grupo *${groupMetadata.subject}*!\n\n🧑 Nombre: *${name}*\n📱 ID: ${user}\n📆 Fecha: ${fecha}\n\nPor favor, lee las reglas y disfruta tu estadía.`,
-        mentions: [user],
-        contextInfo: {
-          externalAdReply: {
-            title: `Nuevo miembro del grupo`,
-            body: `${name} se ha unido 🥳`,
-            thumbnailUrl: pp,
-            mediaType: 1,
-            renderLargerThumbnail: true,
-            sourceUrl: pp
-          }
-        }
-      });
-    }
+      const audioWelcome = bienvenidaAudios[Math.floor(Math.random() * bienvenidaAudios.length)];
 
-    // DESPEDIDA
-    if (m.messageStubType === 28 || m.messageStubType === 32) {
       await conn.sendMessage(m.chat, {
-        text: `👋 ${taguser} ha salido del grupo *${groupMetadata.subject}*.\n\n🧑 Nombre: *${name}*\n📱 ID: ${user}\n📆 Fecha: ${fecha}\n\n¡Buena suerte en tu camino!`,
-        mentions: [user],
+        text: `
+🌸 ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ te da la bienvenida, ${tag} 🎀
+
+💖 Grupo: *${groupMetadata.subject}*
+📛 Nombre mágico: *${name}*
+🆔 ID brillante: *${user}*
+📆 Fecha de entrada: *${fecha}*
+
+Por favor, encontrá tu nube favorita ☁️ y disfrutá con amor. ¡Suki está feliz de tenerte aquí! 🫧`,
+        mentions: [who],
         contextInfo: {
           externalAdReply: {
-            title: 'Se fue un miembro`,
-            body: `${name} se fue 🍁`,
+            title: '🌟 Nuevo miembro encantado',
+            body: `${name} se unió con dulzura 💫`,
             thumbnailUrl: pp,
             mediaType: 1,
             renderLargerThumbnail: true,
             sourceUrl: pp
-          }
-        }
-      });
-    }
-  }
-                                                            }
+}
+}
+});
+
+      await conn.sendMessage(m.chat, {
+        audio: { url: audioWelcome},
+        mimetype: 'audio/mpeg',
+        ptt: true
+});
+}
+
+    // 🕊️ Despedida
+    if (m.messageStubType === 28 || m.messageStubType === 32) {
+      const audioBye = despedidaAudios[Math.floor(Math.random() * despedidaAudios.length)];
+
+      await conn.sendMessage(m.chat, {
+        text: `
+🌙 ${tag} ha dejado el reino *${groupMetadata.subject}* 🫧
+
+🧾 Nombre: *${name}*
+🆔 ID de viajero: *${user}*
+📅 Salida registrada: *${fecha}*
+
+Le deseamos viento a favor en su viaje. Suki te abraza desde la distancia 💞`,
+        mentions: [who],
+        contextInfo: {
+          externalAdReply: {
+            title: '🕊️ Despedida de Suki',
+            body: `${name} se despidió con respeto 🌺`,
+            thumbnailUrl: pp,
+            mediaType: 1,
+            renderLargerThumbnail: true,
+            sourceUrl: pp
+}
+}
+});
+
+      await conn.sendMessage(m.chat, {
+        audio: { url: audioBye},
+        mimetype: 'audio/mpeg',
+        ptt: true
+});
+}
+}
+}
