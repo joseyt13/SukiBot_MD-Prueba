@@ -2,7 +2,7 @@ import { promises} from 'fs';
 import { join} from 'path';
 import { xpRange} from '../lib/levelling.js';
 
-const channelRD = '120363402097425674@newsletter'; // 🌐 Identificador decorativo
+const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'; // 🌐 Identificador decorativo
 const imageUrl = 'https://files.catbox.moe/rkvuzb.jpg'; // 🖼 Imagen kawaii en bienvenida
 
 const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
