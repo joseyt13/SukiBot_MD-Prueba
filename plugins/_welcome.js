@@ -1,10 +1,9 @@
-// 🌸 ᴄᴏ́ᴅɪɢᴏ ᴅᴇ Sᴜᴋɪ_Bᴏᴛ_MD — ʀᴇᴍɪx ᴋᴀᴡᴀɪɪ ʙʏ Bʀᴀʏᴀɴ ✨
-
 export async function before(m, { conn}) {
   if (!m.isGroup ||!m.messageStubType ||!m.messageStubParameters) return;
 
   const who = m.messageStubParameters?.[0];
   if (!who) return;
+
   const groupMetadata = await conn.groupMetadata(m.chat);
   const participants = m.messageStubParameters || [];
   const fecha = new Date().toLocaleDateString('es-AR');
@@ -14,7 +13,7 @@ export async function before(m, { conn}) {
   ];
 
   const despedidaAudios = [
-    'https://files.cloudkuimages.guru/audios/ozBxb1si.mp3'
+    'https://files.cloudkuimages.guru/audios/aTh4HrjO.mp3'
   ];
 
   for (const user of participants) {
@@ -22,27 +21,28 @@ export async function before(m, { conn}) {
     const pp = await conn.profilePictureUrl(user, 'image').catch(() =>
       'https://files.catbox.moe/rkvuzb.jpg'
 );
-    const tag = `@${who.split("@")[0]}`;
+    const tag = `@${user.split("@")[0]}`;
 
-    // 🌷 Bienvenida
-    if (m.messageStubType === 27 || m.messageStubType === 31) {
+    // 🌷 Bienvenida kawaii
+    if ([27, 31].includes(m.messageStubType)) {
       const audioWelcome = bienvenidaAudios[Math.floor(Math.random() * bienvenidaAudios.length)];
 
       await conn.sendMessage(m.chat, {
         text: `
-🌸 ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ te da la bienvenida, ${tag} 🎀
+🫧 ¡Bienvenid@ al Reino pastel de *Suki_Bot_MD* ${tag}~! 🧁
 
-💖 Grupo: *${groupMetadata.subject}*
-📛 Nombre mágico: *${name}*
-🆔 ID brillante: *${user}*
-📆 Fecha de entrada: *${fecha}*
+🎀 Grupo: *${groupMetadata.subject}*
+🌸 Nombre mágico: *${name}*
+🆔 Identificador celestial: *${user}*
+📆 Entrada registrada: *${fecha}*
 
-Por favor, encontrá tu nube favorita ☁️ y disfrutá con amor. ¡Suki está feliz de tenerte aquí! 🫧`,
+☁️ Conecta tu corazón a las estrellas y disfruta el viaje kawaii.
+Suki te abraza con dulzura desde este bot encantado ✨`,
         mentions: [who],
         contextInfo: {
           externalAdReply: {
-            title: '🌟 Nuevo miembro encantado',
-            body: `${name} se unió con dulzura 💫`,
+            title: '💮 Nuevo miembro pastelcore',
+            body: `${name} acaba de aterrizar entre pétalos 💫`,
             thumbnailUrl: pp,
             mediaType: 1,
             renderLargerThumbnail: true,
@@ -58,24 +58,25 @@ Por favor, encontrá tu nube favorita ☁️ y disfrutá con amor. ¡Suki está 
 });
 }
 
-    // 🕊️ Despedida
-    if (m.messageStubType === 28 || m.messageStubType === 32) {
+    // 🕊️ Despedida celestial
+    if ([28, 32].includes(m.messageStubType)) {
       const audioBye = despedidaAudios[Math.floor(Math.random() * despedidaAudios.length)];
 
       await conn.sendMessage(m.chat, {
         text: `
-🌙 ${tag} ha dejado el reino *${groupMetadata.subject}* 🫧
+🌙 ${tag} ha dejado el Reino *${groupMetadata.subject}* 🍃
 
-🧾 Nombre: *${name}*
-🆔 ID de viajero: *${user}*
-📅 Salida registrada: *${fecha}*
+🧾 Nombre estelar: *${name}*
+🆔 ID de viajero astral: *${user}*
+📅 Fecha de salida: *${fecha}*
 
-Le deseamos viento a favor en su viaje. Suki te abraza desde la distancia 💞`,
+Te deseamos constelaciones a favor en tu camino.
+Gracias por compartir tu luz aquí, Suki te recordará con cariño~ 🌸`,
         mentions: [who],
         contextInfo: {
           externalAdReply: {
-            title: '🕊️ Despedida de Suki',
-            body: `${name} se despidió con respeto 🌺`,
+            title: '🌠 Despedida pastel de Suki',
+            body: `${name} continúa su viaje con elegancia 🕊️`,
             thumbnailUrl: pp,
             mediaType: 1,
             renderLargerThumbnail: true,
