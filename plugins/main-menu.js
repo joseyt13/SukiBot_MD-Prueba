@@ -108,7 +108,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-    // Mensaje inicial con enlace
+    // 📩 Primer mensaje con enlace
     await conn.sendMessage(m.chat, {
       text: '📩 Enviando menú de *Suki_Bot_MD*: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N',
       contextInfo: {
@@ -123,8 +123,8 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 }
 }, { quoted: m});
 
-    // Imagen y menú
-    const imageURL = 'https://files.catbox.moe/rkvuzb.jpg';
+    // 🌸 Segundo mensaje con imagen y menú completo
+  const imageURL = 'https://files.catbox.moe/1u7rkx.jpg';
     const imgBuffer = await fetch(imageURL).then(res => res.buffer());
 
     await conn.sendMessage(m.chat, {
