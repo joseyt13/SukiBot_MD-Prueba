@@ -1,51 +1,88 @@
+/*
+* Código creado por fedexyz 🍁 
+* no quites creditos 
+*/
 
 import { googleImage} from '@bochilteam/scraper';
+import baileys from '@whiskeysockets/baileys';
 
-const handler = async (m, { conn, text, usedPrefix, command}) => {
-  if (!text) throw `🌸 Uso correcto: *${usedPrefix + command} personaje anime, objeto, etc.*`;
+// 🌷 Función para enviar álbum de imágenes
+async function sendAlbumMessage(jid, medias, options = {}) {
+  if (typeof jid!== 'string') throw new TypeError(`📛 jid debe ser string`);
+  if (!Array.isArray(medias) || medias.length < 2) throw new Error(`📸 Se necesitan mínimo 2 imágenes para crear un álbum`);
 
-  await m.react(rwait);
+  const caption = options.caption || '';
+  const delay =!isNaN(options.delay)? options.delay: 500;
+  const quoted = options.quoted;
 
-  // 💬 Mensaje inicial kawaii
-  conn.reply(m.chat, '🫧 Buscando imágenes mágicas, espera un momento preciosura~', m, {
-    contextInfo: {
-      externalAdReply: {
-        mediaUrl: null,
-        mediaType: 1,
-        showAdAttribution: true,
-        title: 'Suki_Bot_MD • Imagen kawaii',
-        body: '💖 Buscador encantado por Dev_fedexyz13',
-        previewType: 0,
-        thumbnail: icons,
-        sourceUrl: channel
-}
-}
-});
-
-  // 🖼️ Resultado de búsqueda
-  const res = await googleImage(text);
-
-  const messages = [
-    ['🌸 Imagen 1', 'SukiBot te muestra esta belleza~', await res.getRandom(), [[]], [[]], [[]], [[]]],
-    ['🍡 Imagen 2', 'Aquí va otra ternura digital', await res.getRandom(), [[]], [[]], [[]], [[]]],
-    ['🧋 Imagen 3', 'Pura estética pastelcore', await res.getRandom(), [[]], [[]], [[]], [[]]],
-    ['🎀 Imagen 4', 'Elegancia visual activada~', await res.getRandom(), [[]], [[]], [[]], [[]]]
-  ];
-
-  await conn.sendCarousel(
-    m.chat,
-    `✨ Resultado encantado para: *${text}*`,
-    '🔎 Imagen - Búsqueda mágica por Suki_Bot_MD',
-    null,
-    messages,
-    m
+  const album = baileys.generateWAMessageFromContent(
+    jid,
+    { messageContextInfo: {}, albumMessage: { expectedImageCount: medias.length}},
+    {}
 );
+
+  await conn.relayMessage(album.key.remoteJid, album.message, { messageId: album.key.id});
+
+  for (let i = 0; i < medias.length; i++) {
+    const { type, data} = medias[i];
+
+    const img = await baileys.generateWAMessage(
+      album.key.remoteJid,
+      { [type]: data,...(i === 0? { caption}: {})},
+      { upload: conn.waUploadToServer}
+);
+
+    img.message.messageContextInfo = {
+      messageAssociation: { associationType: 1, parentMessageKey: album.key},
 };
 
-handler.help = ['imagen <término>'];
-handler.tags = ['buscador', 'descargas', 'suki'];
+    await conn.relayMessage(img.key.remoteJid, img.message, { messageId: img.key.id});
+    await baileys.delay(delay);
+}
+
+  return album;
+}
+
+const handler = async (m, { conn, text, usedPrefix, command}) => {
+  if (!text) {
+    return conn.sendMessage(m.chat, {
+      text: `🌸 Usa el comando así:\n${usedPrefix + command} <tema>\nEjemplo:.imagen gatitos kawaii 🐾`,
+}, { quoted: m});
+}
+
+  await m.react('🔍');
+
+  try {
+    const res = await googleImage(text);
+    const images = [];
+
+    for (let i = 0; i < 10; i++) {
+      const image = await res.getRandom();
+      if (image) images.push({ type: 'image', data: { url: image}});
+}
+
+    if (images.length < 2) {
+      return conn.sendMessage(m.chat, {
+        text: `✧ No se encontraron suficientes imágenes para mostrar un álbum pastelcore 🫧`,
+}, { quoted: m});
+}
+
+    const caption = `🌼 *Resultados para:* ${text}`;
+    await sendAlbumMessage(m.chat, images, { caption, quoted: m});
+
+    await m.react('✅');
+} catch (error) {
+    console.error(error);
+    await m.react('❌');
+    conn.sendMessage(m.chat, {
+      text: `⚠︎ Ups~ ocurrió un error al buscar imágenes.`,
+}, { quoted: m});
+}
+};
+
+handler.help = ['imagen <tema>'];
+handler.tags = ['buscador', 'tools', 'descargas'];
 handler.command = ['imagen', 'image', 'img'];
-handler.group = true;
 handler.register = true;
 
 export default handler;
