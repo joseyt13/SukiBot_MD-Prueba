@@ -64,9 +64,9 @@ ${usedPrefix}${command} https://i.imgur.com/cute-anime.png
 }
 };
 
-handler.help = ['sticker <imagen|video|url>'];
+handler.help = ['sticker2 <imagen|video|url>'];
 handler.tags = ['sticker'];
-handler.command = ['sticker', 'stiker', 's'];
+handler.command = ['sticker2', 'stiker2'];
 
 export default handler;
 
