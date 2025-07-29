@@ -19,23 +19,17 @@ const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
     const pastelHeader = `
 🩷︵₊˚⊹ Bienvenid@ al universo encantado de *Suki_Bot_MD* ˚₊⊹︵
 
-🩵 ⟦ 𝗨𝘀𝘂𝗮𝗿𝗶𝗼 ⟧
-╭───────────────༓
-│💠 Nombre: %name
-│🌸 Nivel: %level
-│🔮 EXP: %exp/%maxexp
-│👥 En este grupo: ${groupUserCount}
-│📝 Registro: ${registered? '✅ Sí': '❌ No'}
-╰───────────────༓
+╭─❀ INFO DE USUARIO ❀─╮
+🌸 Nombre: ${name}
+🍡 Nivel: ${level}
+💫 Experiencia: ${exp}
+╰─────────────────────╯
 
-🧿 ⟦ 𝗕𝗼𝘁 ⟧
-╭───────────────༓
-│🌺 Nombre: Suki_Bot_MD
-│🕰️ Activo: %muptime
-│👑 Creador: fedexyz
-│🌐 Modo: %mode
-│📊 Usuarios: %totalreg
-╰───────────────༓
+╭─❀ INFO DEL BOT ❀─╮
+🎀 Plataforma: Baileys MD
+🕒 Tiempo activo: ${uptime}
+👥 Usuarios mágicos: ${totalreg}
+╰────────────────────╯
 
 ✨ Comandos disponibles:
 `;
