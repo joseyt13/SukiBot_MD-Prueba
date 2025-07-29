@@ -1,25 +1,25 @@
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
 
-const channelSuki = {
+const channelRD = {
   id: '120363402097425674@newsletter',
-  name: '🌸 会 Suki_Bot_MD - Noticias'
+  name: '会 Suki_Bot_MD 🧣'
 };
 
-const textFantasy = (text) => {
+const textTanjiro = (text) => {
   const charset = {
-    a:'𝒶', b:'𝒷', c:'𝒸', d:'𝒹', e:'𝑒', f:'𝒻', g:'𝑔',
-    h:'𝒽', i:'𝒾', j:'𝒿', k:'𝓀', l:'𝓁', m:'𝓂', n:'𝓃',
-    o:'𝑜', p:'𝓅', q:'𝓆', r:'𝓇', s:'𝓈', t:'𝓉', u:'𝓊',
-    v:'𝓋', w:'𝓌', x:'𝓍', y:'𝓎', z:'𝓏'
+    a:'ᴀ', b:'ʙ', c:'ᴄ', d:'ᴅ', e:'ᴇ', f:'ꜰ', g:'ɢ',
+    h:'ʜ', i:'ɪ', j:'ᴊ', k:'ᴋ', l:'ʟ', m:'ᴍ', n:'ɴ',
+    o:'ᴏ', p:'ᴘ', q:'ǫ', r:'ʀ', s:'ꜱ', t:'ᴛ', u:'ᴜ',
+    v:'ᴠ', w:'ᴡ', x:'ˣ', y:'ʏ', z:'ᴢ'
 };
   return text.toLowerCase().split('').map(c => charset[c] || c).join('');
 };
 
 let tags = {
-  main: textFantasy('panel solar'),
-  group: textFantasy('respiración grupal'),
-  serbot: textFantasy('clon espiritual')
+  main: textTanjiro('panel solar'),
+  group: textTanjiro('respiración grupal'),
+  serbot: textTanjiro('clon espiritual')
 };
 
 const defaultMenu = {
@@ -59,8 +59,6 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const muptime = clockString(_uptime);
     const totalreg = Object.keys(global.db.data.users).length;
     const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
-    const registered = global.db.data.users[m.sender]?.registered || false;
-    const groupUserCount = m.isGroup? (await conn.groupMetadata(m.chat)).participants.length: 1;
 
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
@@ -74,8 +72,10 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 }));
 
     for (const plugin of help) {
-      for (const t of plugin.tags) {
-        if (!(t in tags)) tags[t] = textFantasy(t);
+      if (plugin.tags) {
+        for (const t of plugin.tags) {
+          if (!(t in tags) && t) tags[t] = textTanjiro(t);
+}
 }
 }
 
@@ -108,23 +108,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-    // 📩 Primer mensaje con enlace
-    await conn.sendMessage(m.chat, {
-      text: '📩 Enviando menú de *Suki_Bot_MD*: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N',
-      contextInfo: {
-        mentionedJid: [m.sender],
-        isForwarded: true,
-        forwardingScore: 999,
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: channelSuki.id,
-          serverMessageId: 102,
-          newsletterName: channelSuki.name
-}
-}
-}, { quoted: m});
-
-    // 🌸 Segundo mensaje con imagen y menú completo
-  const imageURL = 'https://files.catbox.moe/1u7rkx.jpg';
+    const imageURL = 'https://files.catbox.moe/rkvuzb.jpg';
     const imgBuffer = await fetch(imageURL).then(res => res.buffer());
 
     await conn.sendMessage(m.chat, {
@@ -135,16 +119,16 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
         isForwarded: true,
         forwardingScore: 999,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: channelSuki.id,
-          serverMessageId: 103,
-          newsletterName: channelSuki.name
+          newsletterJid: channelRD.id,
+          serverMessageId: 100,
+          newsletterName: channelRD.name
 }
 }
 }, { quoted: m});
 
 } catch (e) {
-    console.error('[❌] Error en menú Suki_Bot_MD:', e);
-    conn.reply(m.chat, '🌪️ El bosque encantado se desvió entre los vientos. Inténtalo de nuevo 🌸', m);
+    console.error('[❌] Error en menú Suki:', e);
+    conn.reply(m.chat, '❎ Ups, el menú tiene un error...', m);
 }
 };
 
@@ -159,4 +143,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-}
+  }
