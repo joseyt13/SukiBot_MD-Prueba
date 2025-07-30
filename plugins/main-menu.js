@@ -63,7 +63,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const totalreg = Object.keys(global.db.data.users).length;
     const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
 
-    await conn.sendMessage(m.chat, { text: '🌸 Enviando el menú de *SukiBot_MD*\nSigue el canal https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N...'}, { quoted: m});
+    await conn.sendMessage(m.chat, { text: '🌸 Enviando el menú de *SukiBot_MD*\nhttps://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'}, { quoted: m});
 
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
