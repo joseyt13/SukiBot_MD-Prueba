@@ -1,48 +1,49 @@
 let handler = async (m, { conn}) => {
-  await m.react('🌸');
+  await m.react('🌺');
 
   const creadorPrincipal = {
     nombre: 'fedexyz.13',
-    rol: '👑 Creador Principal de Suki_Bot_MD',
+    rol: 'Creador Principal de Suki_Bot_MD',
     numero: '+54 9 11 56178758',
     imagen: 'https://files.catbox.moe/rkvuzb.jpg'
 };
 
   const creadorSecundario = {
     nombre: 'DevBrayan',
-    rol: '🧠 Creador Secundario y colaborador técnico',
+    rol: 'Creador Secundario y colaborador técnico',
     numero: '+57 300 1533523',
     imagen: 'https://files.cloudkuimages.guru/images/fJk8xWXl.jpg'
 };
 
-  // Imagen 1: Creador Principal
+  const mensaje = `
+🩵 *Creadores de Suki_Bot_MD* 🩵
+
+╭───── ✦ ─────╮
+🎀 *${creadorPrincipal.nombre}*
+┆ Rol: ${creadorPrincipal.rol}
+┆ Número: ${creadorPrincipal.numero}
+╰─────────────────╯
+
+╭───── ✦ ─────╮
+🎀 *${creadorSecundario.nombre}*
+┆ Rol: ${creadorSecundario.rol}
+┆ Número: ${creadorSecundario.numero}
+╰─────────────────╯
+
+🌸 Gracias por confiar en nuestro proyecto
+🧋 Suki sigue creciendo con ternura digital
+`.trim();
+
   await conn.sendMessage(m.chat, {
     image: { url: creadorPrincipal.imagen},
-    caption: `
-🩵 *${creadorPrincipal.nombre}*
-${creadorPrincipal.rol}
-📱 Número: ${creadorPrincipal.numero}
-
-🌟 Contacto directo para soporte, ideas o proyectos con SukiBot_MD.
-`.trim(),
+    caption: mensaje,
     mentions: [m.sender]
 }, { quoted: m});
 
-  // Imagen 2: Creador Secundario
-  await conn.sendMessage(m.chat, {
-    image: { url: creadorSecundario.imagen},
-    caption: `
-💠 *${creadorSecundario.nombre}*
-${creadorSecundario.rol}
-📱 Número: ${creadorSecundario.numero}
-
-🌸 Agradecimientos por su apoyo técnico y desarrollo.
-`.trim(),
-    mentions: [m.sender]
-}, { quoted: m});
+  await m.react('✅');
 };
 
-handler.help = ['creadores', 'creador'];
+handler.help = ['creador'];
 handler.tags = ['info'];
-handler.command = /^creador(es)?$/i;
+handler.command = ['creador', 'creadores', 'owner', 'creditos'];
 export default handler;
