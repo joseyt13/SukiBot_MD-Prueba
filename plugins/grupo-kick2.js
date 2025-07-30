@@ -2,14 +2,13 @@
 // no quites creditos 
 
 let handler = async (m, { conn, participants, isAdmin, isBotAdmin, args, command}) => {
-  const creatorJID = '521XXXXXXXXXX@s.whatsapp.net'; // ← reemplaza por tu número real
-  const nombreBot = 'SukiBot_MD'; // ← personaliza el nombre del bot
+  const creatorJID = '5491156178758@s.whatsapp.net'; // ← tu número WhatsApp, reemplaza esto
   const targetMentioned = m.mentionedJid && m.mentionedJid[0];
   const sender = m.sender;
 
   if (!m.isGroup) return m.reply('❌ Este comando solo puede usarse en grupos.');
-  if (!isAdmin && sender!== creatorJID) return m.reply(`⛔ Solo administradores o el creador de ${nombreBot} pueden usar este comando.`);
-  if (!isBotAdmin) return m.reply('⚠️ No tengo permisos de administrador para expulsar usuarios.');
+  if (!isAdmin && sender!== creatorJID) return m.reply('⛔ Solo administradores o el creador de SukiBot_MD pueden usar este comando.');
+  if (!isBotAdmin) return m.reply('⚠️ No puedo expulsar porque no tengo permisos de administrador en este grupo.');
 
   let target;
   if (targetMentioned) {
@@ -23,34 +22,18 @@ let handler = async (m, { conn, participants, isAdmin, isBotAdmin, args, command
 }
 
   if (target === sender) return m.reply('🚫 No puedes expulsarte a ti mismo.');
-  if (target === creatorJID) return m.reply(`🛡️ No puedes expulsar al creador de ${nombreBot}.`);
+  if (target === creatorJID) return m.reply('🛡️ No puedes expulsar al creador de SukiBot_MD.');
   const esAdmin = participants.find(p => p.id === target)?.admin;
   if (esAdmin) return m.reply('⚠️ No puedo expulsar a otro administrador.');
 
   try {
-    // Puedes subir tu imagen a un host y reemplazar la URL abajo
-    const imageURL = 'https://files.catbox.moe/1u7rkx.jpg';
-    const buffer = await fetch(imageURL).then(res => res.buffer());
-
-    const mensajeExpulsion = `
-🌸 *${nombreBot} — Panel de Moderación*
-
-✅ Usuario *@${target.split('@')[0]}* ha sido expulsado del grupo.
-🔐 Acción ejecutada por: *@${sender.split('@')[0]}*
-
-Gracias por mantener el bosque libre de caos 🧹✨
-    `.trim();
-
-    await conn.sendMessage(m.chat, {
-      image: buffer,
-      caption: mensajeExpulsion,
-      mentions: [target, sender]
-}, { quoted: m});
-
     await conn.groupParticipantsUpdate(m.chat, [target], 'remove');
+    await m.reply(`✅ Usuario *@${target.split('@')[0]}* ha sido eliminado del grupo.`, null, {
+      mentions: [target]
+});
 } catch (e) {
     console.error('❌ Error al expulsar:', e);
-    m.reply('❌ No pude expulsar al usuario. Puede que haya salido, sea administrador o hubo un error.');
+    m.reply('❌ No pude expulsar al usuario. Puede que ya haya salido, sea administrador o hubo un error.');
 }
 };
 
