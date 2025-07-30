@@ -1,3 +1,6 @@
+// código creado por fedexyz 🍁 
+// no quites creditos 👻
+
 let handler = async (m, { conn}) => {
   await m.react('🌺');
 
@@ -15,35 +18,38 @@ let handler = async (m, { conn}) => {
     imagen: 'https://files.cloudkuimages.guru/images/fJk8xWXl.jpg'
 };
 
-  const mensaje = `
-🩵 *Creadores de Suki_Bot_MD* 🩵
+  const mensajePrincipal = `
+🩵 *${creadorPrincipal.nombre}* 🩵
+👑 Rol: ${creadorPrincipal.rol}
+📱 Número: ${creadorPrincipal.numero}
 
-╭───── ✦ ─────╮
-🎀 *${creadorPrincipal.nombre}*
-┆ Rol: ${creadorPrincipal.rol}
-┆ Número: ${creadorPrincipal.numero}
-╰─────────────────╯
-
-╭───── ✦ ─────╮
-🎀 *${creadorSecundario.nombre}*
-┆ Rol: ${creadorSecundario.rol}
-┆ Número: ${creadorSecundario.numero}
-╰─────────────────╯
-
-🌸 Gracias por confiar en nuestro proyecto
-🧋 Suki sigue creciendo con ternura digital
+📌 Para soporte técnico, colaboraciones o consultas, contáctalo directamente.
 `.trim();
 
+  const mensajeSecundario = `
+💠 *${creadorSecundario.nombre}* 💠
+💻 Rol: ${creadorSecundario.rol}
+📱 Número: ${creadorSecundario.numero}
+
+🌸 Agradecemos su apoyo en el desarrollo continuo de Suki_Bot_MD.
+`.trim();
+
+  // Enviar imagen del creador principal
   await conn.sendMessage(m.chat, {
     image: { url: creadorPrincipal.imagen},
-    caption: mensaje,
+    caption: mensajePrincipal,
     mentions: [m.sender]
 }, { quoted: m});
 
-  await m.react('✅');
+  // Enviar imagen del creador secundario
+  await conn.sendMessage(m.chat, {
+    image: { url: creadorSecundario.imagen},
+    caption: mensajeSecundario,
+    mentions: [m.sender]
+}, { quoted: m});
 };
 
-handler.help = ['creador'];
+handler.help = ['creadores', 'creator'];
 handler.tags = ['info'];
-handler.command = ['creador', 'creadores', 'owner', 'creditos'];
+handler.command = /^creador(es)?$/i;
 export default handler;
