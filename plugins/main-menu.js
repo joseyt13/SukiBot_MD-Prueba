@@ -48,7 +48,7 @@ const defaultMenu = {
 🌺︶︶︶︶︶︶︶︶︶︶︶︶︶
 Gracias por usar *Suki_Bot_MD*
 Creado con cariño por: *fedexyz.13*
-📡 Canal oficial: %channelName
+📡 Canal oficial: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
 🧋 Contacto directo: wa.me/5491156178758
 ╰─𓆩♡𓆪─⬣`
 };
@@ -62,6 +62,8 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const muptime = clockString(_uptime);
     const totalreg = Object.keys(global.db.data.users).length;
     const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
+
+    await conn.sendMessage(m.chat, { text: '🌸 Enviando el menú de *SukiBot_MD*\nSigue el canal https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N...'}, { quoted: m});
 
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
@@ -112,7 +114,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-    const imageURL = 'https://files.catbox.moe/cvpwkk.jpg'; // Fondo pastel decorado
+    const imageURL = 'https://files.catbox.moe/cvpwkk.jpg';
     const imgBuffer = await fetch(imageURL).then(res => res.buffer());
 
     await conn.sendMessage(m.chat, {
