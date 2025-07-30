@@ -1,49 +1,55 @@
-let handler = async (m, { conn}) => {
-  await m.react('🌺');
+import fetch from 'node-fetch';
 
-  const creadorPrincipal = {
-    nombre: 'fedexyz.13',
-    rol: 'Creador Principal de Suki_Bot_MD',
-    numero: '+54 9 11 56178758',
-    imagen: 'https://files.catbox.moe/rkvuzb.jpg'
+const channelRD = {
+  id: '120363402097425674@newsletter',
+  name: '🌸 Suki_Bot_MD Canal Oficial'
 };
 
-  const creadorSecundario = {
-    nombre: 'DevBrayan',
-    rol: 'Creador Secundario y colaborador técnico',
-    numero: '+57 300 1533523',
-    imagen: 'https://files.cloudkuimages.guru/images/fJk8xWXl.jpg'
-};
+const handler = async (m, { conn}) => {
+  await m.react('💫');
 
-  const mensaje = `
-🩵 *Creadores de Suki_Bot_MD* 🩵
+  const imagenURL = 'https://files.catbox.moe/rkvuzb.jpg'; // Imagen decorativa pastel
+  const imgBuffer = await fetch(imagenURL).then(res => res.buffer());
 
-╭───── ✦ ─────╮
-🎀 *${creadorPrincipal.nombre}*
-┆ Rol: ${creadorPrincipal.rol}
-┆ Número: ${creadorPrincipal.numero}
-╰─────────────────╯
+  const textoCreador = `
+🌸 *Panel del Creador — SukiBot_MD* 🧋
 
-╭───── ✦ ─────╮
-🎀 *${creadorSecundario.nombre}*
-┆ Rol: ${creadorSecundario.rol}
-┆ Número: ${creadorSecundario.numero}
-╰─────────────────╯
+𖧷 ꒰ 𝗖𝗥𝗘𝗔𝗗𝗢𝗥𝗘𝗦 ꒱
+• 💌 fedexyz → wa.me/5491156178758
+• 🍁 DevBrayan → wa.me/573001533523
 
-🌸 Gracias por confiar en nuestro proyecto
-🧋 Suki sigue creciendo con ternura digital
+𖧷 ꒰ 𝗖𝗔𝗡𝗔𝗟 𝗢𝗙𝗜𝗖𝗜𝗔𝗟 ꒱
+📡 https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
+
+𖧷 ꒰ 𝗚𝗥𝗨𝗣𝗢 𝗣𝗥𝗜𝗡𝗖𝗜𝗣𝗔𝗟 ꒱
+👥 https://chat.whatsapp.com/FoVnxJ64gYV6EZcfNVQUfJ
+
+𖧷 ꒰ 𝗦𝗜𝗧𝗜𝗢𝗦 𝗠𝗔𝗚𝗜𝗖𝗢𝗦 ꒱
+📚 https://sukibot-site.vercel.app/
+📚 https://sukibot-md-sites.vercel.app/
+
+🌺 Gracias por formar parte del universo pastelcore de *SukiBot_MD*
+Tu compañer@ digital con ternura encantadora ✨
 `.trim();
 
   await conn.sendMessage(m.chat, {
-    image: { url: creadorPrincipal.imagen},
-    caption: mensaje,
-    mentions: [m.sender]
+    image: imgBuffer,
+    caption: textoCreador,
+    contextInfo: {
+      mentionedJid: [m.sender],
+      isForwarded: true,
+      forwardingScore: 888,
+      forwardedNewsletterMessageInfo: {
+        newsletterJid: channelRD.id,
+        serverMessageId: 123,
+        newsletterName: channelRD.name
+}
+}
 }, { quoted: m});
-
-  await m.react('✅');
 };
 
+handler.command = ['creador', 'creator', 'owner'];
 handler.help = ['creador'];
-handler.tags = ['info'];
-handler.command = ['creador', 'creadores', 'owner', 'creditos'];
+handler.tags = ['info', 'suki'];
+
 export default handler;
