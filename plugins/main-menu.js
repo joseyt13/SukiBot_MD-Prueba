@@ -3,7 +3,7 @@ import { join} from 'path';
 import { xpRange} from '../lib/levelling.js';
 
 const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'; // 🌐 Canal decorativo
-const imageUrl = 'https://files.catbox.moe/rkvuzb.jpg'; // 🖼 Imagen pastelcore
+const imageUrl = 'https://files.catbox.moe/cvpwkk.jpg'; // 🖼 Imagen pastelcore
 
 const handler = async (m, { conn, usedPrefix: _p, __dirname}) => {
   try {
