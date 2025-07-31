@@ -3,8 +3,8 @@
 
 import { createHash} from 'crypto';
 
-const sukiIcon = 'https://files.catbox.moe/rkvuzb.jpg';
-const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
+const sukiIcon = 'https://files.catbox.moe/rkvuzb.jpg'; // Imagen estilo Suki
+const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'; // Canal oficial
 
 function generarID(sender) {
   return createHash('md5').update(sender).digest('hex');
@@ -22,10 +22,10 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 );
 }
 
-  let match = /\|?(.*)([.|] *?)([0-9]*)$/i;
-  let [_, nombre, __, edad] = text.match(match) || [];
+  const match = /\|?(.*)([.|] *?)([0-9]*)$/i;
+  const [_, nombre, __, edadTexto] = text.match(match) || [];
 
-  if (!nombre ||!edad) {
+  if (!nombre ||!edadTexto) {
     return conn.reply(
       m.chat,
       `🌸 *Oh no~* Formato incorrecto 🍥\n\n🧃 Usa: *${usedPrefix + command} tuNombre.edad*\n✨ Ejemplo: *${usedPrefix + command} Nako.17*`,
@@ -33,7 +33,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 );
 }
 
-  edad = parseInt(edad);
+  const edad = parseInt(edadTexto);
   if (isNaN(edad) || edad < 5 || edad> 100) {
     return conn.reply(
       m.chat,
@@ -42,12 +42,12 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 );
 }
 
-  // 🌀 Inicio del registro
+  // 🌸 Mensaje de inicio del registro
   await conn.sendMessage(m.chat, {
-    text: `🌸 *Iniciando registro de perfil mágico...*`,
+    text: `🎀 *Iniciando registro de perfil mágico...*`,
 }, { quoted: m});
 
-  // Guardar datos
+  // ✨ Guardar datos
   user.name = nombre.trim();
   user.age = edad;
   user.regTime = Date.now();
@@ -56,16 +56,19 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 
   const sn = generarID(m.sender);
 
-  // 🧋 Mensaje final de registro
   const mensaje = `
-꒰🌸꒱ *Registro exitoso con Suki_Bot_MD* ✨
+꒰🌸꒱ *Registro completado con Suki_Bot_MD* 🍓
 
 👩‍💻 Nombre: *${user.name}*
-🎂 Edad: *${user.age}* años
-🧁 ID Encantado: *${sn}*
+🎂 Edad: *${user.age}* años kawaii
+🧁 ID encantado: *${sn}*
 
-💖 ¡Tu aura está conectada al corazón de Suki nako ga~!
-🧋 Usa *#perfil* para ver tu progreso mágico ✨`.trim();
+🌐 Tu energía mágica ha sido sincronizada con *Suki nako ga~*
+📢 Sigue el canal oficial para sorpresas mágicas:
+${channelRD}
+
+✨ Usa *#perfil* para ver tu progreso encantado.
+🌈 ¡Tu aventura apenas comienza, preciosura~!*`.trim();
 
   await m.react('🧋');
 
@@ -73,8 +76,8 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
     text: mensaje,
     contextInfo: {
       externalAdReply: {
-        title: '🍓 Registro Completado en Suki_Bot_MD',
-        body: 'Tu viaje kawaii ha comenzado~',
+        title: '🌷 Bienvenida a Suki_Bot_MD',
+        body: 'Tu corazón está enlazado al canal de magia',
         thumbnailUrl: sukiIcon,
         sourceUrl: channelRD,
         mediaType: 1,
