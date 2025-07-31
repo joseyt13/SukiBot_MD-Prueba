@@ -3,8 +3,8 @@
 
 import { createHash} from 'crypto';
 
-const sukiIcon = 'https://files.catbox.moe/rkvuzb.jpg'; // Imagen estilo Suki
-const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'; // Canal oficial
+const sukiIcon = 'https://files.catbox.moe/rkvuzb.jpg';
+const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
 
 function generarID(sender) {
   return createHash('md5').update(sender).digest('hex');
@@ -42,12 +42,22 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 );
 }
 
+  // 🚫 Verificar si el nombre + edad ya existen registrados
+  const yaRegistrado = Object.values(global.db.data.users).some(u => u.registered && u.name === nombre.trim() && u.age === edad);
+  if (yaRegistrado) {
+    return conn.reply(
+      m.chat,
+      `🚫 *Ese nombre con edad ya está registrado por otra preciosura.*\n🧃 Usa un nombre diferente o cambia tu edad.`,
+      m
+);
+}
+
   // 🌸 Mensaje de inicio del registro
   await conn.sendMessage(m.chat, {
-    text: `🎀 *Iniciando registro de perfil mágico...*`,
+    text: `🎀 *Un momentito... Suki_Bot_MD está iniciando tu perfil mágico~*`,
 }, { quoted: m});
 
-  // ✨ Guardar datos
+  // 🪄 Guardar datos
   user.name = nombre.trim();
   user.age = edad;
   user.regTime = Date.now();
