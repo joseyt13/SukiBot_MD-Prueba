@@ -53,6 +53,7 @@ let handler = async (m, { conn, command, args, usedPrefix, isOwner, isROwner, is
 
     case 'jadibotmd':
     case 'modejadibot':
+    case 'antiprivado':
       if (!isOwner) throw '⚠️ Solo el dueño del bot puede cambiar esto.';
       bot.jadibotmd = valor;
       globalSetting = true;
@@ -80,7 +81,7 @@ handler.help = [
   'detect', 'detect2',
   'nsfw', 'modoadmin', 'soloadmin',
   'antisubbots', 'antisub', 'antilink', 'antilink2',
-  'jadibotmd', 'modejadibot'
+  'jadibotmd', 'modejadibot', 'antiprivado,
 ];
 handler.tags = ['settings', 'group'];
 handler.command = handler.help;
