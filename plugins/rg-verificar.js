@@ -1,3 +1,6 @@
+// Código creado y mejorado por fedexyz 🍁
+// no quites los créditos 🍂
+
 import { createHash} from 'crypto';
 
 const sukiIcon = 'https://files.catbox.moe/rkvuzb.jpg';
@@ -8,7 +11,7 @@ function generarID(sender) {
 }
 
 let handler = async (m, { conn, text, usedPrefix, command}) => {
-  let user = global.db.data.users[m.sender];
+  const user = global.db.data.users[m.sender];
   const name = conn.getName(m.sender);
 
   if (user.registered) {
@@ -39,6 +42,12 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 );
 }
 
+  // 🌀 Inicio del registro
+  await conn.sendMessage(m.chat, {
+    text: `🌸 *Iniciando registro de perfil mágico...*`,
+}, { quoted: m});
+
+  // Guardar datos
   user.name = nombre.trim();
   user.age = edad;
   user.regTime = Date.now();
@@ -47,6 +56,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 
   const sn = generarID(m.sender);
 
+  // 🧋 Mensaje final de registro
   const mensaje = `
 ꒰🌸꒱ *Registro exitoso con Suki_Bot_MD* ✨
 
