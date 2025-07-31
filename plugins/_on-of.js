@@ -81,7 +81,7 @@ handler.help = [
   'detect', 'detect2',
   'nsfw', 'modoadmin', 'soloadmin',
   'antisubbots', 'antisub', 'antilink', 'antilink2',
-  'jadibotmd', 'modejadibot', 'antiprivado,
+  'jadibotmd', 'modejadibot', 'antiprivado',
 ];
 handler.tags = ['settings', 'group'];
 handler.command = handler.help;
