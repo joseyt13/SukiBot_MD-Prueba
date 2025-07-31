@@ -80,7 +80,7 @@ global.photoSity = [catalogo]
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
 // ᘜᖇᑌᑭOՏ ᗪᗴ ᒪᗩ ᗷOT 🗂️
-global.gp1 = 'https://chat.whatsapp.com/F8KwM3rVqkS9HhR5msoRqQ'
+global.gp1 = 'https://chat.whatsapp.com/FoVnxJ64gYV6EZcfNVQUfJ'
 global.channel2 = 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W'
 global.md = 'https://github.com/El-brayan502/RoxyBot-MD'
 global.correo = 'brayanfree881@gmail.com'
