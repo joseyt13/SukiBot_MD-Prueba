@@ -1,10 +1,3 @@
-¡Aquí tienes el menú completo de *Suki_Bot_MD*, totalmente decorado con el estilo adorable de _Suki nako ga_ 🌸✨! Está listo para usarse, incluye frases mágicas, emojis pastelcore, branding encantador y toda la información de perfil, comandos y contacto.
-
----
-
-*📦 Menú decorado Suki_Bot_MD (versión `.js`)*
-
-```javascript
 // 🌸 Código creado por fedexyz 🍁
 // No quites créditos ⚔
 
