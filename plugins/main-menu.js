@@ -1,6 +1,7 @@
 //código creado por fedexyz 🍁 
 //no quites creditos ⚔ 
 
+
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
 
@@ -57,6 +58,88 @@ Creado con cariño por: *fedexyz.13*
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
+  try {
+    const { exp = 0, level = 0} = global.db.data.users[m.sender];
+    const { min, xp} = xpRange(level, global.multiplier);
+    const name = await conn.getName(m.sender);
+    const _uptime = process.uptime() * 1000;
+    const muptime = clockString(_uptime);
+    const totalreg = Object.keys(global.db.data.users).length;
+    const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
+
+    await conn.sendMessage(m.chat, { text: '🌸 Enviando el menú de *SukiBot_MD*\nhttps://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'}, { quoted: m});
+
+    let help = Object.values(global.plugins)
+.filter(p =>!p.disabled)
+.map(p => ({
+        help: Array.isArray(p.help)? p.help: [p.help],
+        tags: Array.isArray(p.tags)? p.tags: [p.tags],
+        prefix: 'customPrefix' in p,
+        limit: p.limit,
+        premium: p.premium,
+        enabled:!p.disabled
+}));
+
+    for (const plugin of help) {
+      if (plugin.tags) {
+        for (const t of plugin.tags) {
+          if (!(t in tags) && t) tags[t] = textSuki(t);
+}
+}
+}
+
+    const { before, header, body, footer, after} = defaultMenu;
+
+    let _text = [
+      before,
+...Object.keys(tags).map(tag => {
+        const cmds = help
+.filter(menu => menu.tags.includes(tag))
+.map(menu =>
+            menu.help.map(cmd => body.replace(/%cmd/g, menu.prefix? cmd: _p + cmd)).join('\n')
+).join('\n');
+        return `${header.replace(/%category/g, tags[tag])}${cmds}${footer}`;
+}),
+      after
+    ].join('\n');
+
+    let replace = {
+      '%': '%',
+      name,
+      level,
+      exp: exp - min,
+      maxexp: xp,
+      totalreg,
+      mode,
+      muptime,
+      channelName: channelRD.name,
+      readmore: String.fromCharCode(8206).repeat(4001)
+};
+
+    const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
+
+    const imageURL = 'https://files.catbox.moe/cvpwkk.jpg';
+    const imgBuffer = await fetch(imageURL).then(res => res.buffer());
+
+    await conn.sendMessage(m.chat, {
+      image: imgBuffer,
+      caption: text,
+      contextInfo: {
+        mentionedJid: [m.sender],
+        isForwarded: true,
+        forwardingScore: 888,
+        forwardedNewsletterMessageInfo: {
+          newsletterJid: channelRD.id,
+          serverMessageId: 120,
+          newsletterName: channelRD.name
+}
+  }
+      }, { quoted: m});
+
+} catch (e) {
+    console.error('[❌] Error en menú decorado:', e);
+    conn.reply(m.chat, '❎ Suki se tropezó entre pétalos 🌸. Inténtalo otra vez, porfa.', m);
+}
 };
 
 handler.help = ['menu'];
@@ -71,4 +154,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-    }
+  }
