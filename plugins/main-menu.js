@@ -1,6 +1,5 @@
-//código creado por fedexyz 🍁 
-//no quites creditos ⚔ 
-
+// código creado por fedexyz 🍁
+// no quites créditos ⚔️
 
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
@@ -67,7 +66,27 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const totalreg = Object.keys(global.db.data.users).length;
     const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
 
-    await conn.sendMessage(m.chat, { text: '🌸 Enviando el menú de *SukiBot_MD*\nhttps://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'}, { quoted: m});
+    const loadingImage = 'https://files.catbox.moe/qh7p5p.png';
+
+    await conn.sendMessage(m.chat, {
+      text: `
+╭─〔 ⚙️ 𝐒𝐮𝐤𝐢 𝐍𝐚𝐤𝐨 𝐠𝐚 〕─╮
+│ 🧋 *Preparando comandos mágicos...*
+│ 🌐 *Canal Oficial:*
+│ https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
+╰────────────────⬣`,
+      mentions: [m.sender],
+      contextInfo: {
+        externalAdReply: {
+          title: 'Suki Nako ga 🌸',
+          body: '✨ Tu rincón pastelcore en WhatsApp',
+          thumbnailUrl: loadingImage,
+          sourceUrl: 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N',
+          mediaType: 1,
+          renderLargerThumbnail: true
+}
+}
+}, { quoted: m});
 
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
@@ -103,7 +122,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
       after
     ].join('\n');
 
-    let replace = {
+    const replace = {
       '%': '%',
       name,
       level,
@@ -115,7 +134,6 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
       channelName: channelRD.name,
       readmore: String.fromCharCode(8206).repeat(4001)
 };
-
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
     const imageURL = 'https://files.catbox.moe/cvpwkk.jpg';
@@ -133,8 +151,8 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
           serverMessageId: 120,
           newsletterName: channelRD.name
 }
-  }
-      }, { quoted: m});
+}
+}, { quoted: m});
 
 } catch (e) {
     console.error('[❌] Error en menú decorado:', e);
@@ -154,4 +172,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-  }
+}
