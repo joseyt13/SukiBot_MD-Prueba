@@ -67,17 +67,37 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const totalreg = Object.keys(global.db.data.users).length;
     const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
 
-    await conn.sendMessage(m.chat, { text: '🌸 Enviando el menú de *SukiBot_MD*\nhttps://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'}, { quoted: m});
+    // Mensaje de Cargando
+    const loadingImage = 'https://files.catbox.moe/rkvuzb.jpg'; // imagen para el mensaje inicial
 
-    let help = Object.values(global.plugins)
-.filter(p =>!p.disabled)
-.map(p => ({
-        help: Array.isArray(p.help)? p.help: [p.help],
-        tags: Array.isArray(p.tags)? p.tags: [p.tags],
-        prefix: 'customPrefix' in p,
-        limit: p.limit,
-        premium: p.premium,
-        enabled:!p.disabled
+    await conn.sendMessage(m.chat, {
+      text: `
+╭─〔 ⚙️ 𝐒𝐮𝐤𝐢 𝐍𝐚𝐤𝐨 𝐠𝐚 〕─╮
+│ 🧋 *Preparando comandos mágicos...*
+│ 🌐 *Canal Oficial:*
+│ https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
+╰────────────────⬣`,
+      mentions: [m.sender],
+      contextInfo: {
+        externalAdReply: {
+          title: 'Suki Nako ga 🌸',
+          body: '✨ Tu rincón pastelcore en WhatsApp',
+          thumbnailUrl: loadingImage,
+          sourceUrl: 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N',
+          mediaType: 1,
+          renderLargerThumbnail: true
+}
+}
+}, { quoted: m});
+
+    // Armar menú
+    let help = Object.values(global.plugins).filter(p =>!p.disabled).map(p => ({
+      help: Array.isArray(p.help)? p.help: [p.help],
+      tags: Array.isArray(p.tags)? p.tags: [p.tags],
+      prefix: 'customPrefix' in p,
+      limit: p.limit,
+      premium: p.premium,
+      enabled:!p.disabled
 }));
 
     for (const plugin of help) {
@@ -95,15 +115,15 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 ...Object.keys(tags).map(tag => {
         const cmds = help
 .filter(menu => menu.tags.includes(tag))
-.map(menu =>
-            menu.help.map(cmd => body.replace(/%cmd/g, menu.prefix? cmd: _p + cmd)).join('\n')
+.map(menu => menu.help.map(cmd =>
+            body.replace(/%cmd/g, menu.prefix? cmd: _p + cmd)).join('\n')
 ).join('\n');
         return `${header.replace(/%category/g, tags[tag])}${cmds}${footer}`;
 }),
       after
     ].join('\n');
 
-    let replace = {
+    const replace = {
       '%': '%',
       name,
       level,
@@ -118,8 +138,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-    const imageURL = 'https://files.catbox.moe/cvpwkk.jpg';
-    const imgBuffer = await fetch(imageURL).then(res => res.buffer());
+    const imgBuffer = await fetch(loadingImage).then(res => res.buffer());
 
     await conn.sendMessage(m.chat, {
       image: imgBuffer,
@@ -133,8 +152,8 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
           serverMessageId: 120,
           newsletterName: channelRD.name
 }
-  }
-      }, { quoted: m});
+}
+}, { quoted: m});
 
 } catch (e) {
     console.error('[❌] Error en menú decorado:', e);
