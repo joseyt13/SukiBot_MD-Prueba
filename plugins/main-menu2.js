@@ -32,6 +32,7 @@ let handler = async (m, { conn}) => {
 
 𖦹 ꒰ 📦 *Apps & Extras* ꒱ 💠
 ┃ ⊹.apkmod <nombre o enlace>
+┃ ⊹.apk <nombre>
 
 ╭─𓆩 *SukiBot_MD descarga con estilo pastel y glitter digital* 🌈𓆪─╯`;
 
