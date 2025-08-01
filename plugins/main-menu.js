@@ -1,6 +1,12 @@
-//código creado por fedexyz 🍁 
-//no quites creditos ⚔ 
+¡Aquí tienes el menú completo de *Suki_Bot_MD*, totalmente decorado con el estilo adorable de _Suki nako ga_ 🌸✨! Está listo para usarse, incluye frases mágicas, emojis pastelcore, branding encantador y toda la información de perfil, comandos y contacto.
 
+---
+
+*📦 Menú decorado Suki_Bot_MD (versión `.js`)*
+
+```javascript
+// 🌸 Código creado por fedexyz 🍁
+// No quites créditos ⚔
 
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
@@ -33,12 +39,12 @@ const defaultMenu = {
   before: `
 💮︵︵︵︵︵︵︵︵︵︵︵︵︵︵︵
 ˗ˏˋ こんにちは \`%name\` ˎˊ˗
-🧋 Bienvenid@ a *Suki_Bot_MD*
-🎀 Tu guía pastelcore con comandos encantadores
+🧋 Bienvenid@ a *Suki_Bot_MD* — tu guía pastelcore
+🎀 El bot más adorable para automatizar tu mundo
 
 🌸 Perfil de usuario 🌸
 👤 Nombre: *%name*
-🎀 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
+🧠 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
 🔓 Modo: *%mode*
 📈 Registro global: *%totalreg*
 🕐 Tiempo activo: *%muptime*
@@ -50,41 +56,77 @@ const defaultMenu = {
   footer: '\n',
   after: `
 🌺︶︶︶︶︶︶︶︶︶︶︶︶︶
-Gracias por usar *Suki_Bot_MD*
-Creado con cariño por: *fedexyz.13*
+Gracias por usar *Suki_Bot_MD* 🌸
+🧋 Creado con cariño por: *fedexyz.13*
 📡 Canal oficial: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
-🧋 Contacto directo: wa.me/5491156178758
+📞 WhatsApp Business: wa.me/5491156178758
+📷 Instagram: @fedexyz_13
+
+💸 Métodos de pago:
+• 💖 PayPal → https://paypal.me/fedexyzsuki13
+• 🍓 Mercado Pago → https://link.mercadopago.com.ar/fedexyz13
+
+📷 Imagen representativa de Suki nako ga
+🧁 Estado: ✅ Bot funcionando perfectamente
 ╰─𓆩♡𓆪─⬣`
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
   try {
+    // 🎀 Carga visual antes del menú
+    const loadingImage = 'https://files.catbox.moe/q8b2br.jpg';
+    const imgRandom = [
+      'https://iili.io/FKVDVAN.jpg',
+      'https://iili.io/FKVbUrJ.jpg'
+    ];
+    const textInvocacion = [
+      '*✦ 𝐈𝐍𝐕𝐎𝐂𝐀𝐂𝐈𝐎́𝐍 𝐌𝐀𝐒𝐈𝐕𝐀 𝐁𝐘 SukiBot_MD ✦*',
+      '⚜️ 𝐌𝐞𝐧𝐬𝐚𝐣𝐞 𝐞𝐧 𝐜𝐮𝐫𝐬𝐨...',
+      '🔮 𝐄𝐭𝐢𝐪𝐮𝐞𝐭𝐚𝐧𝐝𝐨 𝐚 𝐥𝐚𝐬 𝐚𝐥𝐦𝐚𝐬 𝐩𝐞𝐫𝐝𝐢𝐝𝐚𝐬'
+    ];
+    const fraseElegida = textInvocacion[Math.floor(Math.random() * textInvocacion.length)];
+
+    await conn.sendMessage(m.chat, {
+      text: `╭─〔 ⚙️ 𝐂𝐀𝐑𝐆𝐀𝐍𝐃𝐎 𝐌𝐄𝐍𝐔́ 〕─⬣
+┃ 🛰️ *Conectando a la base de datos...*
+┃ 📡 *Sincronizando comandos pastelcore...*
+┃ 💬 ${fraseElegida}
+╰────────────────⬣`,
+      mentions: [m.sender],
+      contextInfo: {
+        externalAdReply: {
+          title: '🌸 SukiBot_MD — Tu bot adorable',
+          body: '🍁fedexyz13 🍁⚘',
+          thumbnailUrl: loadingImage,
+          sourceUrl: 'https://github.com/Yuji-XDev',
+          mediaType: 1,
+          renderLargerThumbnail: true
+}
+}
+});
+
     const { exp = 0, level = 0} = global.db.data.users[m.sender];
     const { min, xp} = xpRange(level, global.multiplier);
     const name = await conn.getName(m.sender);
     const _uptime = process.uptime() * 1000;
     const muptime = clockString(_uptime);
     const totalreg = Object.keys(global.db.data.users).length;
-    const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
+    const mode = global.opts['self']? 'Privado 🔒': 'Público 🌐';
 
-    await conn.sendMessage(m.chat, { text: '🌸 Enviando el menú de *SukiBot_MD*\nhttps://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'}, { quoted: m});
-
-    let help = Object.values(global.plugins)
-.filter(p =>!p.disabled)
-.map(p => ({
-        help: Array.isArray(p.help)? p.help: [p.help],
-        tags: Array.isArray(p.tags)? p.tags: [p.tags],
-        prefix: 'customPrefix' in p,
-        limit: p.limit,
-        premium: p.premium,
-        enabled:!p.disabled
+    let help = Object.values(global.plugins).filter(p =>!p.disabled).map(p => ({
+      help: Array.isArray(p.help)? p.help: [p.help],
+      tags: Array.isArray(p.tags)? p.tags: [p.tags],
+      prefix: 'customPrefix' in p,
+      limit: p.limit,
+      premium: p.premium,
+      enabled:!p.disabled
 }));
 
     for (const plugin of help) {
       if (plugin.tags) {
         for (const t of plugin.tags) {
           if (!(t in tags) && t) tags[t] = textSuki(t);
-}
+          }
 }
 }
 
@@ -133,8 +175,8 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
           serverMessageId: 120,
           newsletterName: channelRD.name
 }
-  }
-      }, { quoted: m});
+}
+}, { quoted: m});
 
 } catch (e) {
     console.error('[❌] Error en menú decorado:', e);
@@ -152,6 +194,4 @@ export default handler;
 function clockString(ms) {
   let h = isNaN(ms)? '--': Math.floor(ms / 3600000);
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
-  let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
-  return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-  }
+  let s = isNaN(ms)? '--': Math.floor(ms /⁽¹⁾⁽²⁾
