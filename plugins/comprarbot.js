@@ -4,9 +4,6 @@ const handler = async (m, { conn}) => {
   const name = conn.getName(m.sender);
 
   const txt = `
-🖼️ *Imagen Representativa:*
-https://files.catbox.moe/rkvuzb.jpg
-
 ︵˚₊⊹𓏲𓈒 𐂂🧁⋱ *Comprar o Alquilar SukiBot_MD* ⋰🧋𓈒˚₊︵
 
 🌸 *Hola preciosurita ${name}~* Bienvenid@ al mundo adorable de automatización 💫
