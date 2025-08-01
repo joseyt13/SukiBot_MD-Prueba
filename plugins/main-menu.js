@@ -1,9 +1,13 @@
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
 
+// 🌸 Variables globales que pueden ser modificadas con setname y setbaner
+global.menuName = global.menuName || 'SukiBot_MD';
+global.menuBanner = global.menuBanner || 'https://files.catbox.moe/cvpwkk.jpg';
+
 const channelRD = {
   id: '120363402097425674@newsletter',
-  name: '🌸 Suki_Bot_MD Canal Oficial'
+  name: '🌸 SukiBot_MD Canal Oficial'
 };
 
 const textSuki = (text) => {
@@ -29,7 +33,7 @@ const defaultMenu = {
   before: `
 💮︵︵︵︵︵︵︵︵︵︵︵︵︵︵︵
 ˗ˏˋ こんにちは \`%name\` ˎˊ˗
-🧋 Bienvenid@ a *Suki_Bot_MD*
+🧋 Bienvenid@ a *%botname*
 🎀 Tu guía pastelcore con comandos encantadores
 
 🌸 Perfil de usuario 🌸
@@ -46,7 +50,7 @@ const defaultMenu = {
   footer: '\n',
   after: `
 🌺︶︶︶︶︶︶︶︶︶︶︶︶︶
-Gracias por usar *Suki_Bot_MD*
+Gracias por usar *%botname*
 Creado con cariño por: *fedexyz.13*
 📡 Canal oficial: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
 🧋 Contacto directo: wa.me/5491156178758
@@ -58,12 +62,9 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const { exp = 0, level = 0} = global.db.data.users[m.sender];
     const { min, xp} = xpRange(level, global.multiplier);
     const name = await conn.getName(m.sender);
-    const _uptime = process.uptime() * 1000;
-    const muptime = clockString(_uptime);
+    const muptime = clockString(process.uptime() * 1000);
     const totalreg = Object.keys(global.db.data.users).length;
-    const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
-
-    await conn.sendMessage(m.chat, { text: '🌸 Enviando el menú de *SukiBot_MD*\nhttps://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'}, { quoted: m});
+    const mode = global.opts.self? 'Privado 🔒': 'Público 🌐';
 
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
@@ -99,7 +100,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
       after
     ].join('\n');
 
-    let replace = {
+    const replace = {
       '%': '%',
       name,
       level,
@@ -108,14 +109,14 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
       totalreg,
       mode,
       muptime,
+      botname: global.menuName,
       channelName: channelRD.name,
       readmore: String.fromCharCode(8206).repeat(4001)
 };
 
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-    const imageURL = 'https://files.catbox.moe/cvpwkk.jpg';
-    const imgBuffer = await fetch(imageURL).then(res => res.buffer());
+    const imgBuffer = await fetch(global.menuBanner).then(res => res.buffer());
 
     await conn.sendMessage(m.chat, {
       image: imgBuffer,
@@ -129,11 +130,10 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
           serverMessageId: 120,
           newsletterName: channelRD.name
 }
-  }
-      }, { quoted: m});
-
+}
+}, { quoted: m});
 } catch (e) {
-    console.error('[❌] Error en menú decorado:', e);
+    console.error('[❌] Error en el menú decorado:', e);
     conn.reply(m.chat, '❎ Suki se tropezó entre pétalos 🌸. Inténtalo otra vez, porfa.', m);
 }
 };
@@ -146,8 +146,8 @@ handler.register = false;
 export default handler;
 
 function clockString(ms) {
-  let h = isNaN(ms)? '--': Math.floor(ms / 3600000);
-  let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
-  let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
+  const h = isNaN(ms)? '--': Math.floor(ms / 3600000);
+  const m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
+  const s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
 }
