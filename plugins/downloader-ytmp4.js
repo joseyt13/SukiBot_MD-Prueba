@@ -1,78 +1,101 @@
 // Código creado y mejorado por fedexyz 🍁
 // no quites los créditos 🍂
 
-import fetch from 'node-fetch';
+import axios from 'axios'
+import FormData from 'form-data'
+import WebSocket from 'ws'
+import cheerio from 'cheerio'
+import crypto from 'crypto'
+import yts from "yt-search"
+import fs from 'fs'
+import { get} from 'https'
+import { createWriteStream} from 'fs'
+import { promisify} from 'util'
+const unlink = promisify(fs.unlink)
+import fetch from 'node-fetch'
 
-const channelRD = "https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N"; // Canal oficial de Suki_Bot_MD
+const channelRD = {
+  id: '120363402097425674@newsletter',
+  name: '🌸 Suki_Bot_MD Canal Oficial'
+};
 
-let HS = async (m, { conn, text}) => {
-  if (!text) {
-    return conn.sendMessage(m.chat, {
-      image: { url: 'imagen.jpg'},
-      caption: `❌ *Suki_Bot_MD dice:* Por favor, proporciona un enlace válido de YouTube para descargar el video.\n\n🌸 Recuerda que también puedes usar el nombre del video.`,
-}, { quoted: m});
-}
+const imageURL = 'https://files.catbox.moe/cvpwkk.jpg'; // puedes cambiar esta imagen
 
-  const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
-  if (!youtubeRegex.test(text)) {
-    return conn.sendMessage(m.chat, {
-      image: { url: 'imagen.jpg'},
-      caption: `🚫 *Enlace inválido.*\nAsegúrate de que sea un link correcto de YouTube.\n🧠 Ejemplo válido: https://youtu.be/abc123`,
-}, { quoted: m});
+let handler = async (m, { conn, text, args}) => {
+  const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/(?:v|e(?:mbed)?)\/|youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})|(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/
+
+  if (!text ||!youtubeRegex.test(text)) {
+    return conn.reply(m.chat, `🌱 Uso correcto: ytmp4 https://youtube.com/watch?v=DLh9mnfZvc0`, m)
 }
 
   try {
-    await conn.reply(m.chat, '⏳ *Suki_Bot_MD está preparando tu video...*', m);
+    m.react('⏳')
+    const search = await yts(args[0])
+    const video = search.videos[0]
+    if (!video ||!video.url) return conn.reply(m.chat, `No se encontró el video.`, m)
 
-    const api = await fetch(`https://restapi.apibotwa.biz.id/api/ytmp4?url=${text}&quality=360`);
-    if (!api.ok) throw new Error('La API falló en responder correctamente.');
+    const isDoc = /doc$/.test(text)
+    const cap = `
+*⋆｡ﾟ☁︎ Descarga pastelcore activada ☁︎｡ﾟ⋆*
 
-    const json = await api.json();
-    if (!json.data ||!json.data.download) {
-      throw new Error('No se pudo obtener los datos del video. Verifica el enlace.');
+🧋 *Título:* ${video.title}
+🎀 *Canal:* ${video.author.name}
+⏳ *Duración:* ${video.timestamp}
+👀 *Vistas:* ${video.views.toLocaleString()}
+📅 *Publicado:* ${video.ago}
+📡 *Enlace:* ${video.url}
+🌸 *Calidad:* ${args[1] || "360p"}
+🧁 *Bot:* Suki_Bot_MD — inspirado en Suki na Ko 💮
+`.trim()
+
+    const imgBuffer = await fetch(imageURL).then(res => res.buffer())
+
+    await conn.sendMessage(m.chat, {
+      image: imgBuffer,
+      caption: cap,
+      contextInfo: {
+        mentionedJid: [m.sender],
+        isForwarded: true,
+        forwardingScore: 777,
+        forwardedNewsletterMessageInfo: {
+          newsletterJid: channelRD.id,
+          serverMessageId: 88,
+          newsletterName: channelRD.name
 }
+}
+}, { quoted: m})
 
-    const { title} = json.data.metadata;
-    const dl_url = json.data.download.url;
+    const vid = await ytmp4(video.url, args[1] || "360")
+    const path = `/tmp/${Date.now()}.mp4`
 
-    await conn.sendMessage(
-      m.chat,
-      {
-        image: { url: 'imagen.jpg'},
-        caption:
-          `🎥 *Suki_Bot_MD ha invocado tu video*\n\n` +
-          `📌 *Título:* ${title}\n` +
-          `📤 *Video listo para descargar.*\n\n` +
-          `🌐 *Canal oficial:* ${channelRD}\n🔮 *Gracias por confiar en Suki na Ko 💕*`,
-},
-      { quoted: m}
-);
+    await new Promise((resolve, reject) => {
+      const file = createWriteStream(path)
+      get(vid.dl_url, (res) => {
+        res.pipe(file)
+        file.on('finish', () => file.close(resolve))
+        file.on('error', reject)
+}).on('error', reject)
+})
 
-    await conn.sendMessage(
-      m.chat,
-      {
-        document: { url: dl_url},
-        fileName: `${title}.mp4`,
-        mimetype: 'video/mp4',
-},
-      { quoted: m}
-);
+    const stats = fs.statSync(path)
+    const sizeMB = stats.size / (1024 * 1024)
+    const fDoc = sizeMB> 80
 
-    await conn.reply(
-      m.chat,
-      `✅ *Tu video fue enviado con éxito.*\n🎉 *Gracias por usar Suki_Bot_MD* 🌸`,
-      m
-);
+    await conn.sendFile(m.chat, path, `${video.title}.mp4`, (isDoc || fDoc)? "": cap, m, null, {
+      asDocument: isDoc || fDoc,
+      mimetype: "video/mp4"
+})
+
+    await unlink(path)
+    m.react('✅')
 
 } catch (error) {
-    console.error(error);
-    await conn.sendMessage(m.chat, {
-      image: { url: 'imagen.jpg'},
-      caption:
-        `❌ *Error al procesar tu solicitud:*\n${error.message}\n\n🔁 Intenta nuevamente más tarde o revisa el enlace.`,
-}, { quoted: m});
+    console.error(error)
+    return conn.reply(m.chat, `Error al descargar el video.\n\n${error.message}`, m)
 }
-};
+}
 
-HS.command = ['ytmp4'];
-export default HS;
+handler.command = ["ytmp4"]
+handler.help = ["ytmp4"]
+handler.tags = ["download"]
+export default handler
