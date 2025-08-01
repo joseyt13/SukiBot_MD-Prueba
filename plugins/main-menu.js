@@ -1,10 +1,6 @@
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
 
-// 🌸 Variables globales que pueden ser modificadas con setname y setbaner
-global.menuName = global.menuName || 'SukiBot_MD';
-global.menuBanner = global.menuBanner || 'https://files.catbox.moe/cvpwkk.jpg';
-
 const channelRD = {
   id: '120363402097425674@newsletter',
   name: '🌸 SukiBot_MD Canal Oficial'
@@ -64,7 +60,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const name = await conn.getName(m.sender);
     const muptime = clockString(process.uptime() * 1000);
     const totalreg = Object.keys(global.db.data.users).length;
-    const mode = global.opts.self? 'Privado 🔒': 'Público 🌐';
+    const mode = global.opts.self? "Privado 🔒": "Público 🌐";
 
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
