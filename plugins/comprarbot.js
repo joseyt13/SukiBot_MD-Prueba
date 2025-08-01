@@ -30,8 +30,8 @@ const handler = async (m, { conn}) => {
 • 4 Grupos → $20.00 USD
 
 💸 *Formas de pago:*
-• 🌐 PayPal → [paypal.me/fedexyzsuki13](https://paypal.me/fedexyzsuki13)
-• 🛍️ Mercado Pago Argentina → [link.mercadopago.com.ar/fedexyz13](https://link.mercadopago.com.ar/fedexyz13)
+• 🌐 PayPal → https://paypal.me/fedexyzsuki13
+• 🛍️ Mercado Pago Argentina → https://link.mercadopago.com.ar/fedexyz13
 
 📞 *Contacto directo:*
 • WhatsApp Business → wa.me/5491156178758
@@ -54,4 +54,5 @@ const handler = async (m, { conn}) => {
 };
 
 handler.command = /^(comprarbot|comprar|alquilarbot)$/i;
+handler.tags = ["comprar"]
 export default handler;
