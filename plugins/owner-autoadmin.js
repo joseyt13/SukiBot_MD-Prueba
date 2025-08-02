@@ -1,27 +1,17 @@
-const handler = async (m, { conn, isAdmin}) => {
-  const allowedOwner = '+5491156178758';
-  const emoji = '👑';
-  const done = '✅';
-  const error = '❌';
-  const info = 'ℹ️';
-
-  if (!m.isGroup) return m.reply(`${info} Este comando solo puede usarse en grupos.`);
-  if (m.sender!== allowedOwner + '@s.whatsapp.net') return m.reply(`${error} No tienes permiso para usar este comando.`);
-  if (isAdmin) return m.reply(`${emoji} Ya eres administrador.`);
-
+const handler = async (m, {conn, isAdmin, groupMetadata }) => {
+  if (isAdmin) return m.reply(`${emoji} Tu ya eres admin.`);
   try {
     await conn.groupParticipantsUpdate(m.chat, [m.sender], 'promote');
-    await m.react(done);
-    m.reply(`${emoji} Has sido promovido a administrador.`);
-} catch (err) {
-    console.error(err);
-    m.reply(`${error} Ocurrió un error al intentar promoverte.`);
-}
+  await m.react(done)
+   m.reply(`${emoji} Ya te di admin.`);
+  } catch {
+    m.reply(`${msm} Ocurrio un error.`);
+  }
 };
-
-handler.help = ['autoadmin'];
 handler.tags = ['owner'];
+handler.help = ['autoadmin'];
 handler.command = ['autoadmin'];
+handler.mods = true;
 handler.group = true;
 handler.botAdmin = true;
 
