@@ -34,7 +34,6 @@ async function handler(m, { conn}) {
 ? '🌙 No hay SubBots activos en este momento. El cielo pastel está en calma~'
 : `𓆩♡𓆪 𝗟𝗶𝘀𝘁𝗮 𝗱𝗲 𝗦𝘂𝗯𝗕𝗼𝘁𝘀 𝗮𝗰𝘁𝗶𝘃𝗼𝘀 💠\n\n${mensaje}\n\n📡 Canal mágico: ${channelRD.name}\n🔗 https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N`;
 
-  const imgURL = 'https://files.catbox.moe/l7ipq9.jpg';
   const img = await fetch(imgURL).then(res => res.buffer());
 
   await conn.sendFile(m.chat, img, 'suki-subbots.jpg', final, m, false, {
