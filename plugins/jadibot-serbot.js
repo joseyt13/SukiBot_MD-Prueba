@@ -17,8 +17,24 @@ let crm3 = "SBpbmZvLWRvbmFyLmpz"
 let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 let drm1 = ""
 let drm2 = ""
-let rtx = "𝗘𝗻𝘃𝗶𝗮𝗻𝗱𝗼 𝗲𝗹 𝗰𝗼𝗱𝗲 𝗱𝗲 𝘃𝗶𝗻𝗰𝘂𝗹𝗮𝘃𝗶𝗼𝗻"
-let rtx2 = "𝗘𝗻𝘃𝗶𝗮𝗻𝗱𝗼 𝗲𝗹 𝗰𝗼𝗱𝗲 𝗱𝗲 𝘃𝗶𝗻𝗰𝘂𝗹𝗮𝘃𝗶𝗼𝗻"
+let rtx =
+"🌸 𝚂𝚞𝚋𝙱𝚘𝚝 — 𝑉𝑖𝑛𝑐𝑢𝑙𝑜 𝒑𝒐𝒓 𝑸𝑹 💠\n\n" +
+"🪄 Vincúlate como SubBot temporal:\n\n" +
+"`1` » Abre WhatsApp y toca los ⋮ tres puntos\n" +
+"`2` » Selecciona *Dispositivos vinculados*\n" +
+"`3` » Pulsa *Vincular dispositivo*\n" +
+"`4` » Escanea el QR encantado en pantalla\n\n" +
+"⏱️ Este hechizo dura 45 segundos. ¡Activa rápido!\n\n" +
+"📡 𝗘𝘀𝘁𝗮𝗱𝗼: [ QR pastel activo ]"
+let rtx2 =
+"🌙 𝚂𝚞𝚋𝙱𝚘𝚝 — 𝑉𝑖𝑛𝑐𝑢𝑙𝑜 𝒑𝒐𝒓 𝑪𝒐́𝒅𝒊𝒈𝒐 ✧\n\n" +
+"🔐 Vinculación manual por código:\n\n" +
+"`1` » Abre WhatsApp y toca los ⋮ pétalos mágicos\n" +
+"`2` » Ve a *Dispositivos vinculados*\n" +
+"`3` » Elige *Vincular con número de teléfono*\n" +
+"`4` » Ingresa el código otorgado por el bot\n\n" +
+"⚠️ Usa una cuenta secundaria (no tu principal)\n\n" +
+"📡 𝗘𝘀𝘁𝗮𝗱𝗼: [ Código pastel listo ]"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
