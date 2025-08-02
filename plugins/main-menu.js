@@ -1,5 +1,6 @@
-// Código creado y mejorado por fedexyz 🍁
-// no quites los créditos ⚔
+//código creado por fedexyz 🍁 
+//no quites creditos ⚔ 
+
 
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
@@ -9,7 +10,6 @@ const channelRD = {
   name: '🌸 Suki_Bot_MD Canal Oficial'
 };
 
-// Función para texto pastel
 const textSuki = (text) => {
   const charset = {
     a:'ᴀ', b:'ʙ', c:'ᴄ', d:'ᴅ', e:'ᴇ', f:'ꜰ', g:'ɢ',
@@ -20,7 +20,6 @@ const textSuki = (text) => {
   return text.toLowerCase().split('').map(c => charset[c] || c).join('');
 };
 
-// Categorías decoradas con texto suave
 let tags = {
   main: textSuki('Menú principal'),
   group: textSuki('Comandos grupales'),
@@ -30,35 +29,33 @@ let tags = {
   descargas: textSuki('Descargas pastel')
 };
 
-// Menú decorado
 const defaultMenu = {
   before: `
-╔══ ❖•ೋ 🌸 ᴘᴇʀғɪʟ ᴅᴇ ꜱᴜᴋɪ •ೋ🌸 ❖══╗
+💮︵︵︵︵︵︵︵︵︵︵︵︵︵︵︵
+˗ˏˋ こんにちは \`%name\` ˎˊ˗
+🧋 Bienvenid@ a *Suki_Bot_MD*
+🎀 Tu guía pastelcore con comandos encantadores
 
-👋 ᴄᴏɴɴɪᴄʜɪᴡᴀ \`%name\`!
-🎀 ᴛᴜ ᴘᴇʀꜱᴏɴᴀ ᴍᴀɢɪᴄᴀ ʜᴀ ꜱɪᴅᴏ ʀᴇᴄᴏɴᴏᴄɪᴅᴀ:
+🌸 Perfil de usuario 🌸
+👤 Nombre: *%name*
+🍁 Edad: *${user.age}* años kawaii
+🌐 Pais: *${user.country}*
+🔓 Modo: *%mode*
+📈 Registro global: *%totalreg*
+🕐 Tiempo activo: *%muptime*
 
-╭───┤✨ ꜱᴜᴋɪ ꜱᴛᴀᴛꜱ ✨├───╮
-│ 💖 Nombre: *%name*
-│ 🧁 Edad: *${user.age}* años kawaii
-│ 🍓 País: *${user.country || 'Desconocido'}*
-│ 🔒 Modo: *%mode*
-│ 🔥 Tiempo activo: *%muptime*
-│ 🌍 Registro global: *%totalreg*
-╰────────────────────────╯
+%readmore`.trim(),
 
-%readmore
-`.trim(),
-
-  header: '\n┌─「 🌷 %category 」\n',
-  body: '│ 🍡 %cmd %iscorazones %isPremium',
-  footer: '└─────♡',
+  header: '\n𖦹 ꒰ %category ꒱ 💠\n',
+  body: '┃ ⊹ %cmd %iscorazones %isPremium',
+  footer: '\n',
   after: `
-╰═♡ Gracias por usar *Suki_Bot_MD* ♡═╯
-🪄 Creado con ternura por: *fedexyz.13*
-📡 Canal mágico: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
-📬 Contacto directo: wa.me/5491156178758
-`.trim()
+🌺︶︶︶︶︶︶︶︶︶︶︶︶︶
+Gracias por usar *Suki_Bot_MD*
+Creado con cariño por: *fedexyz.13*
+📡 Canal oficial: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
+🧋 Contacto directo: wa.me/5491156178758
+╰─𓆩♡𓆪─⬣`
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
@@ -66,15 +63,13 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const { exp = 0, level = 0} = global.db.data.users[m.sender];
     const { min, xp} = xpRange(level, global.multiplier);
     const name = await conn.getName(m.sender);
-    const muptime = clockString(process.uptime() * 1000);
+    const _uptime = process.uptime() * 1000;
+    const muptime = clockString(_uptime);
     const totalreg = Object.keys(global.db.data.users).length;
     const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
 
-    await conn.sendMessage(m.chat, {
-      text: '🌸 Enviando el menú de *SukiBot_MD*\nhttps://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'
-}, { quoted: m});
+    await conn.sendMessage(m.chat, { text: '🌸 Enviando el menú de *SukiBot_MD*\nhttps://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'}, { quoted: m});
 
-    // Capturar comandos activos
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
 .map(p => ({
@@ -124,7 +119,6 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-    // Imagen decorada del menú
     const imageURL = 'https://files.catbox.moe/cvpwkk.jpg';
     const imgBuffer = await fetch(imageURL).then(res => res.buffer());
 
@@ -140,8 +134,8 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
           serverMessageId: 120,
           newsletterName: channelRD.name
 }
-}
-}, { quoted: m});
+  }
+      }, { quoted: m});
 
 } catch (e) {
     console.error('[❌] Error en menú decorado:', e);
@@ -151,7 +145,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
 handler.help = ['menu'];
 handler.tags = ['main'];
-handler.command = ['menu', 'help', 'menucompleto'];
+handler.command = ['menu', 'menukawaii', 'menucompleto'];
 handler.register = false;
 
 export default handler;
@@ -161,4 +155,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-}
+                         }
