@@ -1,3 +1,6 @@
+// código creado por fedexyz 🍁 
+// no quites creditos ⚔ 
+
 export async function before(m, { conn}) {
   if (!m.isGroup ||!m.messageStubType ||!m.messageStubParameters) return;
 
@@ -16,6 +19,9 @@ export async function before(m, { conn}) {
     'https://files.cloudkuimages.guru/audios/aTh4HrjO.mp3'
   ];
 
+  const sitioSuki = 'https://sukibot-site.vercel.app/';
+  const canalSuki = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
+
   for (const user of participants) {
     const name = await conn.getName(user);
     const pp = await conn.profilePictureUrl(user, 'image').catch(() =>
@@ -23,21 +29,31 @@ export async function before(m, { conn}) {
 );
     const tag = `@${user.split("@")[0]}`;
 
-    // 🌷 Bienvenida kawaii
+    // 🎀 Bienvenida mágica
     if ([27, 31].includes(m.messageStubType)) {
       const audioWelcome = bienvenidaAudios[Math.floor(Math.random() * bienvenidaAudios.length)];
 
       await conn.sendMessage(m.chat, {
         text: `
-🫧 ¡Bienvenid@ al Reino pastel de *Suki_Bot_MD* ${tag}~! 🧁
+🫧 ¡Bienvenid@ al Reino pastel de *Suki_Bot_MD* ${tag}~! 🍓
 
 🎀 Grupo: *${groupMetadata.subject}*
-🌸 Nombre mágico: *${name}*
-🆔 Identificador celestial: *${user}*
-📆 Entrada registrada: *${fecha}*
+🌸 Nombre estelar: *${name}*
+🆔 Identificador mágico: *${user}*
+📆 Fecha de entrada: *${fecha}*
 
-☁️ Conecta tu corazón a las estrellas y disfruta el viaje kawaii.
-Suki te abraza con dulzura desde este bot encantado ✨`,
+▢───────《💮》───────▢
+✨ *¿Qué es Suki_Bot_MD?*
+
+• Un bot pastelcore lleno de comandos encantadores
+• Diseñado para grupos mágicos y aventuras kawaii
+• Administra, diviértete y personaliza tu espacio
+• ¡Más que un bot, es tu compañera de estrella! 💫
+
+🎐 Sitio oficial: ${sitioSuki}
+📡 Canal oficial: ${canalSuki}
+
+Disfruta tu estancia, preciosura. Suki te abraza con dulzura desde este mundo encantado~ 🌷`,
         mentions: [who],
         contextInfo: {
           externalAdReply: {
@@ -46,7 +62,7 @@ Suki te abraza con dulzura desde este bot encantado ✨`,
             thumbnailUrl: pp,
             mediaType: 1,
             renderLargerThumbnail: true,
-            sourceUrl: pp
+            sourceUrl: canalSuki
 }
 }
 });
@@ -58,7 +74,7 @@ Suki te abraza con dulzura desde este bot encantado ✨`,
 });
 }
 
-    // 🕊️ Despedida celestial
+    // 🌙 Despedida celestial
     if ([28, 32].includes(m.messageStubType)) {
       const audioBye = despedidaAudios[Math.floor(Math.random() * despedidaAudios.length)];
 
@@ -70,8 +86,12 @@ Suki te abraza con dulzura desde este bot encantado ✨`,
 🆔 ID de viajero astral: *${user}*
 📅 Fecha de salida: *${fecha}*
 
-Te deseamos constelaciones a favor en tu camino.
-Gracias por compartir tu luz aquí, Suki te recordará con cariño~ 🌸`,
+Gracias por compartir tu luz aquí ✨
+Suki siempre recordará tu esencia mágica~ 🌸
+
+🎀 Si deseas saber más sobre el bot:
+🔮 Web: ${sitioSuki}
+📡 Canal: ${canalSuki}`,
         mentions: [who],
         contextInfo: {
           externalAdReply: {
@@ -80,7 +100,7 @@ Gracias por compartir tu luz aquí, Suki te recordará con cariño~ 🌸`,
             thumbnailUrl: pp,
             mediaType: 1,
             renderLargerThumbnail: true,
-            sourceUrl: pp
+            sourceUrl: canalSuki
 }
 }
 });
