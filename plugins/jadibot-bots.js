@@ -1,37 +1,54 @@
+// creado por fedexyz 🍓
+
 import ws from 'ws';
 import fetch from 'node-fetch';
 
-async function handler(m, { conn: _envio, usedPrefix}) {
-  const uniqueUsers = new Map();
+const channelRD = {
+  id: '120363402097425674@newsletter',
+  name: '🌷 Suki_Bot_MD Canal Oficial'
+};
 
-  global.conns.forEach((conn) => {
-    if (conn.user && conn.ws.socket && conn.ws.socket.readyState!== ws.CLOSED) {
-      uniqueUsers.set(conn.user.jid.replace(/[^0-9]/g, ''), conn.user);
+async function handler(m, { conn: env}) {
+  const subBots = new Map();
+
+  global.conns.forEach(conn => {
+    if (conn.user && conn.ws?.socket?.readyState!== ws.CLOSED) {
+      const id = conn.user.jid.replace(/[^0-9]/g, '');
+      subBots.set(id, conn.user);
 }
 });
 
-  const message = Array.from(uniqueUsers.values()).map((user, index) => `
-╭───────⋆｡˚❀ BOT #${index + 1}
-│ 🍡 Usuario: @${user.jid.replace(/[^0-9]/g, '')}
-│ 💫 Link: wa.me/${user.jid.replace(/[^0-9]/g, '')}
-│ 🩷 Nombre: ${user.name || 'Suki_Bot_MD 🌸'}
-╰───────────────`).join('\n');
+  const estrellas = Array.from(subBots.values()).map((user, index) => `
+🔮 𝗘𝘀𝘁𝗿𝗲𝗹𝗹𝗮 #${index + 1}
+🧁 Nombre: ${user.name || 'Suki_Bot_MD'}
+🪐 Usuario: @${user.jid.replace(/[^0-9]/g, '')}
+🌐 Portal: wa.me/${user.jid.replace(/[^0-9]/g, '')}
+`).join('\n');
 
-  const replyMessage = message.length === 0
-? '🌸 No hay bots activos en este momento en el reino de Suki~'
-: message;
-
-  const responseMessage = `꒰🌙꒱ *Subbots activos con Suki_Bot_MD* ✨\n\n${replyMessage}`;
+  const mensaje = estrellas.length === 0
+? '🌙 No hay SubBots activos en la galaxia pastel de Suki por ahora~'
+: `✧ 𝗖𝗼𝗻𝘀𝘁𝗲𝗹𝗮𝗰𝗶ó𝗻 𝗦𝘂𝗯𝗕𝗼𝘁 ✧\n\n${estrellas}`;
 
   const imageURL = 'https://files.catbox.moe/erkz66.jpg';
-  const img = await (await fetch(imageURL)).buffer();
+  const imageBuffer = await fetch(imageURL).then(res => res.buffer());
 
-  await _envio.sendFile(m.chat, img, 'suki-jadibots.jpg', responseMessage, m, false, {
-    mentions: _envio.parseMention(responseMessage)
+  await env.sendFile(m.chat, imageBuffer, 'constelacion-suki.jpg', mensaje, m, false, {
+    mentions: env.parseMention(mensaje),
+    contextInfo: {
+      forwardingScore: 888,
+      isForwarded: true,
+      forwardedNewsletterMessageInfo: {
+        newsletterJid: channelRD.id,
+        serverMessageId: 120,
+        newsletterName: channelRD.name
+}
+}
 });
 }
 
-handler.command = ['listjadibot', 'bots'];
+handler.command = ['listjadibot', 'bots', 'subbots'];
 handler.help = ['bots'];
 handler.tags = ['serbot'];
+handler.register = false;
+
 export default handler;
