@@ -22,13 +22,14 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 );
 }
 
-  const match = /\|?(.*)([.|] *?)([0-9]*)$/i;
-  const [_, nombre, __, edadTexto] = text.match(match) || [];
+  // ✨ Match para nombre.edad.país (país opcional)
+  const match = /\|?(.*?)[.|] *?(\d{1,3})(?:[.|] *?([A-Za-zÁÉÍÓÚÑáéíóúñ ]+))?/i;
+  const [_, nombre, edadTexto, paisTexto] = text.match(match) || [];
 
   if (!nombre ||!edadTexto) {
     return conn.reply(
       m.chat,
-      `🌸 *Oh no~* Formato incorrecto 🍥\n\n🧃 Usa: *${usedPrefix + command} tuNombre.edad*\n✨ Ejemplo: *${usedPrefix + command} Nako.17*`,
+      `🌸 *Oh no~* Formato incorrecto 🍥\n\n🧃 Usa: *${usedPrefix + command} tuNombre.edad.país(opcional)*\n✨ Ejemplo: *${usedPrefix + command} Nako.17.México* o *${usedPrefix + command} Suki.18*`,
       m
 );
 }
@@ -42,8 +43,9 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 );
 }
 
-  // 🚫 Verificar si el nombre + edad ya existen registrados
-  const yaRegistrado = Object.values(global.db.data.users).some(u => u.registered && u.name === nombre.trim() && u.age === edad);
+  const yaRegistrado = Object.values(global.db.data.users).some(u =>
+    u.registered && u.name === nombre.trim() && u.age === edad
+);
   if (yaRegistrado) {
     return conn.reply(
       m.chat,
@@ -52,14 +54,14 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 );
 }
 
-  // 🌸 Mensaje de inicio del registro
   await conn.sendMessage(m.chat, {
     text: `🎀 *Un momentito... Suki_Bot_MD está iniciando tu perfil mágico~*`,
 }, { quoted: m});
 
-  // 🪄 Guardar datos
+  // ✨ Guardar datos mágicos
   user.name = nombre.trim();
   user.age = edad;
+  user.country = paisTexto? paisTexto.trim(): '🌍 Desconocido';
   user.regTime = Date.now();
   user.registered = true;
   user.exp += 300;
@@ -71,6 +73,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 
 👩‍💻 Nombre: *${user.name}*
 🎂 Edad: *${user.age}* años kawaii
+🌎 País: *${user.country}*
 🧁 ID encantado: *${sn}*
 
 🌐 Tu energía mágica ha sido sincronizada con *Suki nako ga~*
