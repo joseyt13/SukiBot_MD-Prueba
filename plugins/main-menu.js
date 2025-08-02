@@ -38,7 +38,8 @@ const defaultMenu = {
 
 🌸 Perfil de usuario 🌸
 👤 Nombre: *%name*
-🎀 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
+🍁 Edad: *${user.age}* años kawaii
+🌐 Pais: *${user.country}*
 🔓 Modo: *%mode*
 📈 Registro global: *%totalreg*
 🕐 Tiempo activo: *%muptime*
