@@ -75,9 +75,9 @@ ${channelRD.name}
 }, { quoted: m});
 };
 
-handler.help = ['menu2', 'menuconfig'];
+handler.help = ['menu3', 'menuconfig'];
 handler.tags = ['main'];
-handler.command = ['menuconfig', 'menu2'];
+handler.command = ['menuconfig', 'menu3'];
 handler.register = false;
 
 export default handler;
