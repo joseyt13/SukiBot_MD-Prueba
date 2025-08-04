@@ -1,59 +1,117 @@
-// código creado por fedexyz 🍁 
+// 🧠 Código adaptado por @fedexyz 🍁 No quites créditos ⚔️
 
+import {
+  readdirSync, statSync, unlinkSync, existsSync, readFileSync, watch, rmSync,
+  promises as fsPromises
+} from 'fs';
+const fs = {...fsPromises, existsSync};
+import path from 'path';
 import ws from 'ws';
-import fetch from 'node-fetch';
-import moment from 'moment-timezone';
 
-const channelRD = {
-  id: '120363402097425674@newsletter',
-  name: '🌷 Suki_Bot_MD Canal Oficial'
+let handler = async (m, { conn: _envio, command, usedPrefix, args, text, isOwner}) => {
+  const isDeleteSession = /^(deletesesion|deletebot|deletesession|deletesesaion)$/i.test(command);
+  const isPauseBot = /^(stop|pausarbot|detenersuki)$/i.test(command);
+  const isListBots = /^(bots|listjadibots|subbots|sukibots)$/i.test(command);
+
+  const reportError = async (e) => {
+    await m.reply(`❌ Ups... algo falló en el sistema de SukiBot_MD 🌸`);
+    console.error(e);
 };
 
-async function handler(m, { conn}) {
-  const subList = new Map();
+  switch (true) {
+    case isDeleteSession: {
+      const mentionedJid = m.mentionedJid?.[0] || (m.fromMe? conn.user.jid: m.sender);
+      const uniqid = mentionedJid.split('@')[0];
+      const sessionPath = `./${jadi}/${uniqid}`;
 
-  global.conns.forEach(bot => {
-    if (bot.user && bot.ws?.socket?.readyState!== ws.CLOSED) {
-      const id = bot.user.jid.replace(/[^0-9]/g, '');
-      subList.set(id, bot.user);
-}
-});
-
-  const ahora = moment().tz('America/Argentina/Buenos_Aires').format('HH:mm:ss');
-
-  const mensaje = Array.from(subList.values()).map((user, i) => `
-╭─🌙 SUBBOT #${i + 1}
-│ 🧸 Usuario: @${user.jid.replace(/[^0-9]/g, '')}
-│ 🔗 Link: wa.me/${user.jid.replace(/[^0-9]/g, '')}
-│ 💖 Nombre: ${user.name || '🌸 Suki_Bot_MD'}
-│ 🕒 Hora de conexión: ${ahora}
-│ 📡 Estado: 🔛 En línea
-╰─────────────────────────`).join('\n');
-
-  const final = mensaje.length === 0
-? '🌙 No hay SubBots activos en este momento. El cielo pastel está en calma~'
-: `𓆩♡𓆪 𝗟𝗶𝘀𝘁𝗮 𝗱𝗲 𝗦𝘂𝗯𝗕𝗼𝘁𝘀 𝗮𝗰𝘁𝗶𝘃𝗼𝘀 💠\n\n${mensaje}\n\n📡 Canal mágico: ${channelRD.name}\n🔗 https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N`;
-
-  const imgURL = 'https://files.catbox.moe/erkz66.jpg';
-  const img = await fetch(imgURL).then(res => res.buffer());
-
-  await conn.sendFile(m.chat, img, 'suki-subbots.jpg', final, m, false, {
-    mentions: conn.parseMention(final),
-    contextInfo: {
-      forwardingScore: 777,
-      isForwarded: true,
-      forwardedNewsletterMessageInfo: {
-        newsletterJid: channelRD.id,
-        serverMessageId: 120,
-        newsletterName: channelRD.name
-}
-}
-});
+      if (!fs.existsSync(sessionPath)) {
+        await conn.sendMessage(m.chat, {
+          text: `📦 No se encontró ninguna sesión activa.
+🧋 Usa: *${usedPrefix}${command}*
+🆔 Si tienes ID, puedes ejecutar:\n${usedPrefix + command} \`\`\`(ID)\`\`\``
+}, { quoted: m});
+        return;
 }
 
-handler.command = ['listjadibot', 'bots', 'subbots'];
-handler.help = ['bots'];
-handler.tags = ['serbot'];
-handler.register = false;
+      if (global.conn.user.jid!== conn.user.jid) {
+        await conn.sendMessage(m.chat, {
+          text: `🔐 Este comando solo está disponible desde el bot principal.
+🌸 Pulsa aquí para ir al core:\nhttps://wa.me/${global.conn.user.jid.split('@')[0]}?text=${usedPrefix}${command}`
+}, { quoted: m});
+        return;
+}
+
+      await conn.sendMessage(m.chat, {
+        text: `💫 Sesión SukiBot_MD finalizada.
+📚 El vínculo escolar fue cerrado correctamente.`
+}, { quoted: m});
+
+      try {
+        fs.rmdir(`./${jadi}/${uniqid}`, { recursive: true, force: true});
+        await conn.sendMessage(m.chat, {
+          text: `✅ SubBot eliminado.
+🧋 La unidad ha sido desconectada del grupo de estudio.`
+}, { quoted: m});
+} catch (e) {
+        reportError(e);
+}
+      break;
+}
+
+    case isPauseBot: {
+      if (global.conn.user.jid === conn.user.jid) {
+        conn.reply(m.chat, `👑 Eres el bot principal, y no puedes ser pausado por ti mismo 💅`, m);
+} else {
+        await conn.reply(m.chat, `💤 SubBot detenido.
+🧃 SukiBot_MD ha pausado este nodo temporalmente.`, m);
+        conn.ws.close();
+}
+      break;
+}
+
+    case isListBots: {
+      const botsActivos = global.conns.filter(conn =>
+        conn.user && conn.ws.socket && conn.ws.socket.readyState!== ws.CLOSED
+);
+
+      const formatUptime = (ms) => {
+        const seg = Math.floor(ms / 1000),
+              min = Math.floor(seg / 60),
+              hr = Math.floor(min / 60),
+              day = Math.floor(hr / 24);
+        return `${day? `${day}d `: ''}${hr % 24}h ${min % 60}m ${seg % 60}s`;
+};
+
+      const listado = botsActivos.map((bot, i) => {
+        const jid = bot.user.jid.replace(/[^0-9]/g, '');
+        return `📖 「 ${i + 1} 」
+👤 Nombre: ${bot.user.name || 'SubBot'}
+⏱️ Activo: ${bot.uptime? formatUptime(Date.now() - bot.uptime): 'Desconocido'}
+📎 Enlace: https://wa.me/${jid}?text=${usedPrefix}serbot%20--code`;
+}).join('\n\n🍓──────────────────🍓\n\n');
+
+      const mensajeFinal = `🌸 *SukiBot_MD | SubBots en línea*
+
+🧋 ¿Quieres conectarte como ayudante pastelcore?
+Pulsa en alguno de los enlaces y únete a la clase 🍑
+
+📊 SubBots activos: *${botsActivos.length || '0'}*
+
+${listado || '🚫 Ningún SubBot está en línea en este momento.'}`;
+
+      await _envio.sendMessage(m.chat, {
+        text: mensajeFinal,
+        mentions: _envio.parseMention(mensajeFinal)
+}, { quoted: m});
+      break;
+}
+}
+};
+
+handler.command = [
+  'deletesesion', 'deletebot', 'deletesession', 'deletesesaion',
+  'stop', 'pausarbot', 'detenersuki',
+  'bots', 'listjadibots', 'subbots', 'sukibots'
+];
 
 export default handler;
