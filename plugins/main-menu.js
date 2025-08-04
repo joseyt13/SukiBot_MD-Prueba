@@ -25,7 +25,7 @@ let tags = {
 
 const defaultMenu = {
   before: `
-💮︵︵︵︵︵︵︵︵︵︵︵︵︵︵︵
+❀───────𓆩♡𓆪───────❀
 ˗ˏˋ こんにちは \`%name\` ˎˊ˗
 🧋 Bienvenid@ a *Suki_Bot_MD*
 🎀 Tu guía pastelcore con comandos encantadores
@@ -43,13 +43,7 @@ const defaultMenu = {
   header: '\n𖦹 ꒰ %category ꒱ 💠\n',
   body: '┃ ⊹ %cmd %iscorazones %isPremium',
   footer: '\n',
-  after: `
-❀───────𓆩♡𓆪───────❀
-Gracias por usar *Suki_Bot_MD*
-Creado con cariño por: *fedexyz.13*
-📡 Canal oficial: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
-🧋 Contacto directo: wa.me/5491156178758
-╰───╮🌷 𝑻𝒆 𝒒𝒖𝒊𝒆𝒓𝒐 𝒆𝒏𝒄𝒂𝒏𝒕𝒂𝒅𝒐 🌷╭───╯`
+  after: `╰─𓆩♡𓆪─⬣`
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
@@ -62,13 +56,8 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const totalreg = Object.keys(global.db.data.users).length;
     const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
 
-    // 💬 Menú de bienvenida decorado
     await conn.sendMessage(m.chat, {
-      text: `❀───────🌸───────❀
-🍓 *Hola, %name*
-🧋 Suki_Bot_MD te da la bienvenida con pétalos y dulzura
-🌈 Preparando tu menú mágico pastelcore...
-📡 Canal oficial: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N`,
+      text: '🌸 Menú kawaii de *SukiBot_MD* enviado 💖\n📡 Canal: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'
 }, { quoted: m});
 
     let help = Object.values(global.plugins)
