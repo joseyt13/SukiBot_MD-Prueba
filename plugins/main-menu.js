@@ -43,7 +43,7 @@ const defaultMenu = {
 📈 Registro global: *%totalreg*
 🕐 Tiempo activo: *%muptime*
 
-
+🧋『 𝗠𝗘𝗡𝗨 𝗘𝗡𝗖𝗔𝗡𝗧𝗔𝗗𝗢 』🧋
 %readmore`.trim(),
 
   header: '\n𖦹 ꒰ %category ꒱ 💠\n',
