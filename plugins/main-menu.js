@@ -31,7 +31,7 @@ let tags = {
 
 const defaultMenu = {
   before: `
-💮︵︵︵︵︵︵︵︵︵︵︵︵︵︵︵
+❀───────𓆩♡𓆪───────❀
 ˗ˏˋ こんにちは \`%name\` ˎˊ˗
 🧋 Bienvenid@ a *Suki_Bot_MD*
 🎀 Tu guía pastelcore con comandos encantadores
@@ -43,6 +43,7 @@ const defaultMenu = {
 > 📈 Registro global: *%totalreg*
 > 🕐 Tiempo activo: *%muptime*
 
+╰─🍓𓆩 𝑺𝒖𝒌𝒊_𝑩𝒐𝒕_𝑴𝑫 𓆪🍰─╯
 %readmore`.trim(),
 
   header: '\n𖦹 ꒰ %category ꒱ 💠\n',
