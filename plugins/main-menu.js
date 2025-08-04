@@ -1,21 +1,15 @@
-//código creado por fedexyz 🍁 
-//no quites creditos ⚔ 
-
+// 🌸 Código creado por fedexyz 🍁
+// No quites créditos ⚔️
 
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
 
-const channelRD = {
-  id: '120363402097425674@newsletter',
-  name: '🌸 Suki_Bot_MD Canal Oficial'
-};
-
 const textSuki = (text) => {
   const charset = {
-    a:'ᴀ', b:'ʙ', c:'ᴄ', d:'ᴅ', e:'ᴇ', f:'ꜰ', g:'ɢ',
-    h:'ʜ', i:'ɪ', j:'ᴊ', k:'ᴋ', l:'ʟ', m:'ᴍ', n:'ɴ',
-    o:'ᴏ', p:'ᴘ', q:'ǫ', r:'ʀ', s:'ꜱ', t:'ᴛ', u:'ᴜ',
-    v:'ᴠ', w:'ᴡ', x:'ˣ', y:'ʏ', z:'ᴢ'
+    a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ꜰ', g: 'ɢ',
+    h: 'ʜ', i: 'ɪ', j: 'ᴊ', k: 'ᴋ', l: 'ʟ', m: 'ᴍ', n: 'ɴ',
+    o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ', s: 'ꜱ', t: 'ᴛ', u: 'ᴜ',
+    v: 'ᴠ', w: 'ᴡ', x: 'ˣ', y: 'ʏ', z: 'ᴢ'
 };
   return text.toLowerCase().split('').map(c => charset[c] || c).join('');
 };
@@ -31,7 +25,7 @@ let tags = {
 
 const defaultMenu = {
   before: `
-❀───────𓆩♡𓆪───────❀
+💮︵︵︵︵︵︵︵︵︵︵︵︵︵︵︵
 ˗ˏˋ こんにちは \`%name\` ˎˊ˗
 🧋 Bienvenid@ a *Suki_Bot_MD*
 🎀 Tu guía pastelcore con comandos encantadores
@@ -50,12 +44,12 @@ const defaultMenu = {
   body: '┃ ⊹ %cmd %iscorazones %isPremium',
   footer: '\n',
   after: `
-🌺︶︶︶︶︶︶︶︶︶︶︶︶︶
+❀───────𓆩♡𓆪───────❀
 Gracias por usar *Suki_Bot_MD*
 Creado con cariño por: *fedexyz.13*
 📡 Canal oficial: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
 🧋 Contacto directo: wa.me/5491156178758
-╰─𓆩♡𓆪─⬣`
+╰───╮🌷 𝑻𝒆 𝒒𝒖𝒊𝒆𝒓𝒐 𝒆𝒏𝒄𝒂𝒏𝒕𝒂𝒅𝒐 🌷╭───╯`
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
@@ -68,7 +62,14 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const totalreg = Object.keys(global.db.data.users).length;
     const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
 
-    await conn.sendMessage(m.chat, { text: '🌸 Enviando el menú de *SukiBot_MD*\nhttps://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'}, { quoted: m});
+    // 💬 Menú de bienvenida decorado
+    await conn.sendMessage(m.chat, {
+      text: `❀───────🌸───────❀
+🍓 *Hola, %name*
+🧋 Suki_Bot_MD te da la bienvenida con pétalos y dulzura
+🌈 Preparando tu menú mágico pastelcore...
+📡 Canal oficial: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N`,
+}, { quoted: m});
 
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
@@ -113,7 +114,6 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
       totalreg,
       mode,
       muptime,
-      channelName: channelRD.name,
       readmore: String.fromCharCode(8206).repeat(4001)
 };
 
@@ -128,14 +128,9 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
       contextInfo: {
         mentionedJid: [m.sender],
         isForwarded: true,
-        forwardingScore: 888,
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: channelRD.id,
-          serverMessageId: 120,
-          newsletterName: channelRD.name
+        forwardingScore: 888
 }
-  }
-      }, { quoted: m});
+}, { quoted: m});
 
 } catch (e) {
     console.error('[❌] Error en menú decorado:', e);
@@ -155,4 +150,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-    }
+}
