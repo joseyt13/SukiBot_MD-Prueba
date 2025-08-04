@@ -30,20 +30,16 @@ let tags = {
 };
 
 const defaultMenu = {
-  before: `🌸『 𝗜𝗡𝗙𝗢 - 𝗨𝗦𝗘𝗥 』🌸
-  
-˗ˏˋ こんにちは \`%name\` ˎˊ˗
-🧋 Bienvenid@ a *Suki_Bot_MD*
-🎀 Tu guía pastelcore con comandos encantadores
+  before: `
+  ╭─────🌸【ＳＵＫＩＢＯＴ＿ＭＤ ＭＥＮＵ】🌸─────╮
 
-🌸 Perfil de usuario 🌸
-👤 Nombre: *%name*
-🎀 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
-🔓 Modo: *%mode*
-📈 Registro global: *%totalreg*
-🕐 Tiempo activo: *%muptime*
+🎀 𝗜𝗡𝗙𝗢 - 𝗨𝗦𝗘𝗥 🎀
+╰─ 💕 Nombre: `%name`
+╰─ 🌟 Nivel: `%level` | ✨ EXP: `%exp/%maxexp`
+╰─ 🔓 Modo: `%mode`
+╰─ 📈 Registro total: `%totalreg`
+╰─ ⏱️ Tiempo activo: `%muptime`
 
-🧋『 𝗠𝗘𝗡𝗨 𝗘𝗡𝗖𝗔𝗡𝗧𝗔𝗗𝗢 』🧋
 %readmore`.trim(),
 
   header: '\n𖦹 ꒰ %category ꒱ 💠\n',
