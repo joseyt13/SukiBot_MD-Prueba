@@ -30,34 +30,26 @@ let tags = {
 };
 
 const defaultMenu = {
-  before: `
-🌸『 𝗜𝗡𝗙𝗢 - 𝗨𝗦𝗘𝗥 』🌸
-> 🎀 Hola: `${taguser}`
-> 💫 Nivel: `${user.level}`
-> ✨ EXP: `${exp}`
-> 👥 En este chat: `${groupUserCount}`
-> 📌 Registrado: `${registered? '✅': '❌'}`
+  before: `🌸『 𝗜𝗡𝗙𝗢 - 𝗨𝗦𝗘𝗥 』🌸
+  
+˗ˏˋ こんにちは \`%name\` ˎˊ˗
+🧋 Bienvenid@ a *Suki_Bot_MD*
+🎀 Tu guía pastelcore con comandos encantadores
 
-🍡『 𝗜𝗡𝗙𝗢 - 𝗕𝗢𝗧 』🍡
-> 🤖 Nombre del Bot: *Suki_Bot_MD*
-> ⏱️ Uptime: `${uptime}`
-> 👑 Owner: *Brayan*
-> 🌐 Modo: *Public*
-> 🗂️ Total de usuarios: `${totalreg}`
+🌸 Perfil de usuario 🌸
+👤 Nombre: *%name*
+🎀 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
+🔓 Modo: *%mode*
+📈 Registro global: *%totalreg*
+🕐 Tiempo activo: *%muptime*
 
-🧋『 𝗠𝗘𝗡𝗨 𝗘𝗡𝗖𝗔𝗡𝗧𝗔𝗗𝗢 』🧋
+
 %readmore`.trim(),
 
   header: '\n𖦹 ꒰ %category ꒱ 💠\n',
   body: '┃ ⊹ %cmd %iscorazones %isPremium',
   footer: '\n',
-  after: `
-🌺︶︶︶︶︶︶︶︶︶︶︶︶︶
-Gracias por usar *Suki_Bot_MD*
-Creado con cariño por: *fedexyz.13*
-📡 Canal oficial: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
-🧋 Contacto directo: wa.me/5491156178758
-╰─𓆩♡𓆪─⬣`
+  after: `╰─𓆩♡𓆪─⬣`
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
@@ -157,4 +149,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-  }
+    }
