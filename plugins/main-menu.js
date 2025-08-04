@@ -31,18 +31,21 @@ let tags = {
 
 const defaultMenu = {
   before: `
-💮︵︵︵︵︵︵︵︵︵︵︵︵︵︵︵
-˗ˏˋ こんにちは \`%name\` ˎˊ˗
-🧋 Bienvenid@ a *Suki_Bot_MD*
-🎀 Tu guía pastelcore con comandos encantadores
+🌸『 𝗜𝗡𝗙𝗢 - 𝗨𝗦𝗘𝗥 』🌸
+> 🎀 Hola: `${taguser}`
+> 💫 Nivel: `${user.level}`
+> ✨ EXP: `${exp}`
+> 👥 En este chat: `${groupUserCount}`
+> 📌 Registrado: `${registered? '✅': '❌'}`
 
-🌸 Perfil de usuario 🌸
-👤 Nombre: *%name*
-🎀 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
-🔓 Modo: *%mode*
-📈 Registro global: *%totalreg*
-🕐 Tiempo activo: *%muptime*
+🍡『 𝗜𝗡𝗙𝗢 - 𝗕𝗢𝗧 』🍡
+> 🤖 Nombre del Bot: *Suki_Bot_MD*
+> ⏱️ Uptime: `${uptime}`
+> 👑 Owner: *Brayan*
+> 🌐 Modo: *Public*
+> 🗂️ Total de usuarios: `${totalreg}`
 
+🧋『 𝗠𝗘𝗡𝗨 𝗘𝗡𝗖𝗔𝗡𝗧𝗔𝗗𝗢 』🧋
 %readmore`.trim(),
 
   header: '\n𖦹 ꒰ %category ꒱ 💠\n',
