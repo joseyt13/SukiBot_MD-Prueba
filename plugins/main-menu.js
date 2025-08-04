@@ -1,4 +1,4 @@
-ñ//código creado por fedexyz 🍁 
+//código creado por fedexyz 🍁 
 //no quites creditos ⚔ 
 
 
@@ -31,24 +31,30 @@ let tags = {
 
 const defaultMenu = {
   before: `
+💮︵︵︵︵︵︵︵︵︵︵︵︵︵︵︵
 ˗ˏˋ こんにちは \`%name\` ˎˊ˗
 🧋 Bienvenid@ a *Suki_Bot_MD*
 🎀 Tu guía pastelcore con comandos encantadores
 
 🌸『 𝗜𝗡𝗙𝗢 - 𝗨𝗦𝗘𝗥 』🌸
-> 👤 Nombre: *%name*
-> 🎀 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
-> 🔓 Modo: *%mode*
-> 📈 Registro global: *%totalreg*
-> 🕐 Tiempo activo: *%muptime*
+👤 Nombre: *%name*
+🎀 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
+🔓 Modo: *%mode*
+📈 Registro global: *%totalreg*
+🕐 Tiempo activo: *%muptime*
 
-🧋『 𝗠𝗘𝗡𝗨 𝗘𝗡𝗖𝗔𝗡𝗧𝗔𝗗𝗢 』🧋
 %readmore`.trim(),
 
   header: '\n𖦹 ꒰ %category ꒱ 💠\n',
   body: '┃ ⊹ %cmd %iscorazones %isPremium',
   footer: '\n',
-  after: `╰─𓆩♡𓆪─⬣`
+  after: `
+🌺︶︶︶︶︶︶︶︶︶︶︶︶︶
+Gracias por usar *Suki_Bot_MD*
+Creado con cariño por: *fedexyz.13*
+📡 Canal oficial: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
+🧋 Contacto directo: wa.me/5491156178758
+╰─𓆩♡𓆪─⬣`
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
