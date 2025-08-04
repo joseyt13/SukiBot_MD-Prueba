@@ -56,10 +56,6 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const totalreg = Object.keys(global.db.data.users).length;
     const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
 
-    await conn.sendMessage(m.chat, {
-      text: '🌸 Menú kawaii de *SukiBot_MD* enviado 💖\n📡 Canal: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'
-}, { quoted: m});
-
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
 .map(p => ({
@@ -111,7 +107,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const imageURL = 'https://files.catbox.moe/rkvuzb.jpg';
     const imgBuffer = await fetch(imageURL).then(res => res.buffer());
 
-    await conn.sendMessage(m.chat, {
+    const menuMessage = await conn.sendMessage(m.chat, {
       image: imgBuffer,
       caption: text,
       contextInfo: {
@@ -120,6 +116,11 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
         forwardingScore: 888
 }
 }, { quoted: m});
+
+    // 🎀 Reaccionar al mensaje del menú con un emoji kawaii
+    await conn.sendMessage(m.chat, {
+      react: { text: '🌷', key: menuMessage.key}
+});
 
 } catch (e) {
     console.error('[❌] Error en menú decorado:', e);
