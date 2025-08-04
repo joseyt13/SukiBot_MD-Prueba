@@ -87,7 +87,7 @@ let handler = async (m, { conn: _envio, command, usedPrefix, args, text, isOwner
         return `📖 「 ${i + 1} 」
 👤 Nombre: ${bot.user.name || 'SubBot'}
 ⏱️ Activo: ${bot.uptime? formatUptime(Date.now() - bot.uptime): 'Desconocido'}
-📎 Enlace: https://wa.me/${jid}?text=${usedPrefix}serbot%20--code`;
+📎 Enlace: https://wa.me/${jid}?text=${usedPrefix}code`;
 }).join('\n\n🍓──────────────────🍓\n\n');
 
       const mensajeFinal = `🌸 *SukiBot_MD | SubBots en línea*
