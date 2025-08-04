@@ -108,7 +108,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-    const imageURL = 'https://files.catbox.moe/cvpwkk.jpg';
+    const imageURL = 'https://files.catbox.moe/rkvuzb.jpg';
     const imgBuffer = await fetch(imageURL).then(res => res.buffer());
 
     await conn.sendMessage(m.chat, {
