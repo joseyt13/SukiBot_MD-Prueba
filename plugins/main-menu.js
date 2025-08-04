@@ -37,11 +37,11 @@ const defaultMenu = {
 🎀 Tu guía pastelcore con comandos encantadores
 
 🌸『 𝗜𝗡𝗙𝗢 - 𝗨𝗦𝗘𝗥 』🌸
-👤 Nombre: *%name*
-🎀 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
-🔓 Modo: *%mode*
-📈 Registro global: *%totalreg*
-🕐 Tiempo activo: *%muptime*
+> 👤 Nombre: *%name*
+> 🎀 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
+> 🔓 Modo: *%mode*
+> 📈 Registro global: *%totalreg*
+> 🕐 Tiempo activo: *%muptime*
 
 %readmore`.trim(),
 
