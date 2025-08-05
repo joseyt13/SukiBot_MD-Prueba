@@ -110,18 +110,6 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const menuMessage = await conn.sendMessage(m.chat, {
       image: imgBuffer,
       caption: text,
-      buttons: [
-        {
-          buttonId: '.reg.fede13',
-          buttonText: { displayText: '🌸 Registrar FEDE.13'},
-          type: 1
-},
-        {
-          buttonId: '.ping',
-          buttonText: { displayText: '📶 Ping'},
-          type: 1
-}
-      ],
       contextInfo: {
         mentionedJid: [m.sender],
         isForwarded: true,
@@ -129,6 +117,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 }
 }, { quoted: m});
 
+    // 🎀 Reaccionar al mensaje del menú con un emoji kawaii
     await conn.sendMessage(m.chat, {
       react: { text: '🌷', key: menuMessage.key}
 });
@@ -151,4 +140,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-}
+                   }
