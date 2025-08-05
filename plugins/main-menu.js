@@ -56,6 +56,18 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const totalreg = Object.keys(global.db.data.users).length;
     const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
 
+    // 🌸 Obtener imagen de perfil o imagen de respaldo
+    let perfil = await conn.profilePictureUrl(conn.user.jid, 'image')
+.catch(() => 'https://files.catbox.moe/9i5o9z.jpg');
+
+    // 🎞️ Selección aleatoria de video decorativo
+    const vids = [
+      'https://files.cloudkuimages.guru/videos/RhnYWAae.mp4',
+      'https://files.cloudkuimages.guru/videos/RhnYWAae.mp4',
+      'https://files.cloudkuimages.guru/videos/RhnYWAae.mp4'
+    ];
+    let videoUrl = vids[Math.floor(Math.random() * vids.length)];
+
     let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
 .map(p => ({
@@ -104,9 +116,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-    const imageURL = 'https://files.catbox.moe/rkvuzb.jpg';
-    const imgBuffer = await fetch(imageURL).then(res => res.buffer());
-
+    const imgBuffer = await fetch(perfil).then(res => res.buffer());
     const menuMessage = await conn.sendMessage(m.chat, {
       image: imgBuffer,
       caption: text,
@@ -117,10 +127,13 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 }
 }, { quoted: m});
 
-    // 🎀 Reaccionar al mensaje del menú con un emoji kawaii
+    // 🌷 Reaccionar con toque pastel
     await conn.sendMessage(m.chat, {
       react: { text: '🌷', key: menuMessage.key}
 });
+
+    // 🎬 Enviar video decorativo opcional (si lo deseas usar)
+    // await conn.sendMessage(m.chat, { video: { url: videoUrl}, mimetype: 'video/mp4'});
 
 } catch (e) {
     console.error('[❌] Error en menú decorado:', e);
