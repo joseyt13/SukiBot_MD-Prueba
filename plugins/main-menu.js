@@ -15,7 +15,7 @@ const textSuki = (text) => {
 };
 
 // 🌷 Emojis pastelcore únicos por categoría
-const pastelEmojis = ['ᰨ', 'ᰍ', 'ׅ', '🌱', '᪲', '᤻', 'ׄ', '᎒', '᎓'];
+const pastelEmojis = ['ᰨ',🍀'ᰍ', 'ׅ💖', '🌱', '᪲', '᤻', 'ׄ🍒', 🍁'᎒', '᎓'];
 let emojiIndex = 0;
 const tags = {};
 
