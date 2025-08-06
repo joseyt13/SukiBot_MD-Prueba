@@ -1,47 +1,51 @@
-// 🌸 Código creado por fedexyz 🍁
-// No quites créditos ⚔️
+// 🌸 𝖢𝗈́𝖽𝗂𝗀𝗈 𝖼𝗋𝖾𝖺𝖽𝗈 𝗉𝗈𝗋 𝖿𝖾𝖽𝖾𝗑𝗒𝗓 🍁
+// 𝖭𝗈 𝗊𝗎𝗂𝗍𝖾𝗌 𝗅𝗈𝗌 𝖼𝗋𝖾𝖽𝗂𝗍𝗈𝗌 ⚔️
 
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
 
-const textSuki = (text) => {
-  const charset = {
-    a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ꜰ', g: 'ɢ',
-    h: 'ʜ', i: 'ɪ', j: 'ᴊ', k: 'ᴋ', l: 'ʟ', m: 'ᴍ', n: 'ɴ',
-    o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ', s: 'ꜱ', t: 'ᴛ', u: 'ᴜ',
-    v: 'ᴠ', w: 'ᴡ', x: 'ˣ', y: 'ʏ', z: 'ᴢ'
+const toSerifBold = (text) => {
+  const map = {
+    a: '𝗮', b: '𝗯', c: '𝗰', d: '𝗱', e: '𝗲', f: '𝗳', g: '𝗴',
+    h: '𝗵', i: '𝗶', j: '𝗷', k: '𝗸', l: '𝗹', m: '𝗺', n: '𝗻',
+    o: '𝗼', p: '𝗽', q: '𝗾', r: '𝗿', s: '𝘀', t: '𝘁', u: '𝘂',
+    v: '𝘃', w: '𝘄', x: '𝘅', y: '𝘆', z: '𝘇',
+    A: '𝗔', B: '𝗕', C: '𝗖', D: '𝗗', E: '𝗘', F: '𝗙', G: '𝗚',
+    H: '𝗛', I: '𝗜', J: '𝗝', K: '𝗞', L: '𝗟', M: '𝗠', N: '𝗡',
+    O: '𝗢', P: '𝗣', Q: '𝗤', R: '𝗥', S: '𝗦', T: '𝗧', U: '𝗨',
+    V: '𝗩', W: '𝗪', X: '𝗫', Y: '𝗬', Z: '𝗭'
 };
-  return text.toLowerCase().split('').map(c => charset[c] || c).join('');
+  return text.split('').map(c => map[c] || c).join('');
 };
 
 let tags = {
-  main: textSuki('Menú principal'),
-  group: textSuki('Comandos grupales'),
-  serbot: textSuki('Función clon'),
-  tools: textSuki('Herramientas mágicas'),
-  kawaii: textSuki('Anime encantado'),
-  descargas: textSuki('Descargas pastel')
+  main: toSerifBold('Menú principal'),
+  group: toSerifBold('Comandos grupales'),
+  serbot: toSerifBold('Función clon'),
+  tools: toSerifBold('Herramientas mágicas'),
+  kawaii: toSerifBold('Anime encantado'),
+  descargas: toSerifBold('Descargas pastel')
 };
 
 const defaultMenu = {
   before: `
 ❀───────𓆩♡𓆪───────❀
 ˗ˏˋ こんにちは \`%name\` ˎˊ˗
-🧋 Bienvenid@ a *Suki_Bot_MD*
-🎀 Tu guía pastelcore con comandos encantadores
+🧋 𝖡𝗂𝖾𝗇𝗏𝖾𝗇𝗂𝖽@ 𝖺 𝖲𝗎𝗄𝗂_𝖡𝗈𝗍_𝖬𝖣
+🎀 𝖳𝗎 𝗀𝗎𝗂́𝖺 𝗉𝖺𝗌𝗍𝖾𝗅𝖼𝗈𝗋𝖾 𝖼𝗈𝗇 𝖼𝗈𝗆𝖺𝗇𝖽𝗈𝗌 𝖾𝗇𝖼𝖺𝗇𝗍𝖺𝖽𝗈𝗋𝖾𝗌
 
-🌸『 𝗜𝗡𝗙𝗢 - 𝗨𝗦𝗘𝗥 』🌸
-> 👤 Nombre: *%name*
-> 🎀 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
-> 🔓 Modo: *%mode*
-> 📈 Registro global: *%totalreg*
-> 🕐 Tiempo activo: *%muptime*
+🌸『 𝖨𝖭𝖥𝖮 - 𝖴𝖲𝖤𝖱 』🌸
+> 👤 𝖭𝗈𝗆𝖻𝗋𝖾: *%name*
+> 🎀 𝖭𝗂𝗏𝖾𝗅: *%level* | ✨ 𝖤𝗑𝗉: *%exp/%maxexp*
+> 🔓 𝖬𝗈𝖽𝗈: *%mode*
+> 📈 𝖱𝖾𝗀𝗂𝗌𝗍𝗋𝗈 𝗀𝗅𝗈𝖻𝖺𝗅: *%totalreg*
+> 🕐 𝖳𝗂𝖾𝗆𝗉𝗈 𝖺𝖼𝗍𝗂𝗏𝗈: *%muptime*
 
-╰─🍓𓆩 𝑺𝒖𝒌𝒊_𝑩𝒐𝒕_𝑴𝑫 𓆪🍰─╯
+╰─🍓𓆩 𝖲𝗎𝗄𝗂_𝖡𝗈𝗍_𝖬𝖣 𓆪🍰─╯
 %readmore`.trim(),
 
   header: '\n꒰꒰ 🍁̸̶ֻ   `%category` 🍥̸̶ֻ   ꒱꒱\n',
-  body: 'ᰨᰍ ׅ🌱᤻᪲ׄ᎒᎓ %cmd %iscorazones %isPremium',
+  body: '┃ ⊹ %cmd %iscorazones %isPremium',
   footer: '\n',
   after: `╰─𓆩♡𓆪─⬣`
 };
@@ -51,12 +55,11 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const { exp = 0, level = 0} = global.db.data.users[m.sender];
     const { min, xp} = xpRange(level, global.multiplier);
     const name = await conn.getName(m.sender);
-    const _uptime = process.uptime() * 1000;
-    const muptime = clockString(_uptime);
+    const muptime = clockString(process.uptime() * 1000);
     const totalreg = Object.keys(global.db.data.users).length;
-    const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
+    const mode = global.opts["self"]? "𝖯𝗋𝗂𝗏𝖺𝖽𝗈 🔒": "𝖯𝗎́𝖻𝗅𝗂𝖼𝗈 🌐";
 
-    let help = Object.values(global.plugins)
+    const help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
 .map(p => ({
         help: Array.isArray(p.help)? p.help: [p.help],
@@ -70,7 +73,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     for (const plugin of help) {
       if (plugin.tags) {
         for (const t of plugin.tags) {
-          if (!(t in tags) && t) tags[t] = textSuki(t);
+          if (!(t in tags) && t) tags[t] = toSerifBold(t);
 }
 }
 }
@@ -90,7 +93,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
       after
     ].join('\n');
 
-    let replace = {
+    const replace = {
       '%': '%',
       name,
       level,
@@ -114,18 +117,17 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
         mentionedJid: [m.sender],
         isForwarded: true,
         forwardingScore: 888
-}
-}, { quoted: m});
+  }
+      }, { quoted: m});
 
-    // 🎀 Reaccionar al mensaje del menú con un emoji kawaii
     await conn.sendMessage(m.chat, {
       react: { text: '🌷', key: menuMessage.key}
 });
 
 } catch (e) {
-    console.error('[❌] Error en menú decorado:', e);
-    conn.reply(m.chat, '❎ Suki se tropezó entre pétalos 🌸. Inténtalo otra vez, porfa.', m);
-}
+    console.error('[❌] 𝖤𝗋𝗋𝗈𝗋 𝖾𝗇 𝗆𝖾𝗇𝗎 𝖽𝖾𝖼𝗈𝗋𝖺𝖽𝗈:', e);
+    conn.reply(m.chat, '❎ 𝖲𝗎𝗄𝗂 𝗌𝖾 𝗍𝗋𝗈𝗉𝖾𝗓𝗈́ 𝖾𝗇𝗍𝗋𝖾 𝗉𝖾́𝗍𝖺𝗅𝗈𝗌 🌸. 𝖨𝗇𝗍𝖾𝗇𝗍𝖺𝗅𝗈 𝗈𝗍𝗋𝖺 𝗏𝖾𝗓, 𝗉𝗈𝗋𝖿𝖺.', m);
+    }
 };
 
 handler.help = ['menu'];
