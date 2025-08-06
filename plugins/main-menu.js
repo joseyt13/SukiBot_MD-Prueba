@@ -14,25 +14,14 @@ const textSuki = (text) => {
   return text.toLowerCase().split('').map(c => charset[c] || c).join('');
 };
 
-// 🌷 Emojis pastelcore únicos por categoría
-const pastelEmojis = ['ᰨ',🍀'ᰍ', 'ׅ💖', '🌱', '᪲', '᤻', 'ׄ🍒', 🍁'᎒', '᎓'];
-let emojiIndex = 0;
-const tags = {};
-
-const categorias = [
-  ['main', 'Menú principal'],
-  ['group', 'Comandos grupales'],
-  ['serbot', 'Función clon'],
-  ['tools', 'Herramientas mágicas'],
-  ['kawaii', 'Anime encantado'],
-  ['descargas', 'Descargas pastel']
-];
-
-for (const [id, nombre] of categorias) {
-  const emoji = pastelEmojis[emojiIndex % pastelEmojis.length];
-  tags[id] = `${emoji} ${textSuki(nombre)}`;
-  emojiIndex++;
-}
+let tags = {
+  main: textSuki('Menú principal'),
+  group: textSuki('Comandos grupales'),
+  serbot: textSuki('Función clon'),
+  tools: textSuki('Herramientas mágicas'),
+  kawaii: textSuki('Anime encantado'),
+  descargas: textSuki('Descargas pastel')
+};
 
 const defaultMenu = {
   before: `
@@ -62,11 +51,12 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const { exp = 0, level = 0} = global.db.data.users[m.sender];
     const { min, xp} = xpRange(level, global.multiplier);
     const name = await conn.getName(m.sender);
-    const muptime = clockString(process.uptime() * 1000);
+    const _uptime = process.uptime() * 1000;
+    const muptime = clockString(_uptime);
     const totalreg = Object.keys(global.db.data.users).length;
     const mode = global.opts["self"]? "Privado 🔒": "Público 🌐";
 
-    const help = Object.values(global.plugins)
+    let help = Object.values(global.plugins)
 .filter(p =>!p.disabled)
 .map(p => ({
         help: Array.isArray(p.help)? p.help: [p.help],
@@ -93,16 +83,14 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
         const cmds = help
 .filter(menu => menu.tags.includes(tag))
 .map(menu =>
-            menu.help
-.map(cmd => body.replace(/%cmd/g, menu.prefix? cmd: _p + cmd))
-.join('\n')
+            menu.help.map(cmd => body.replace(/%cmd/g, menu.prefix? cmd: _p + cmd)).join('\n')
 ).join('\n');
         return `${header.replace(/%category/g, tags[tag])}${cmds}${footer}`;
 }),
       after
     ].join('\n');
 
-    const replace = {
+    let replace = {
       '%': '%',
       name,
       level,
@@ -129,6 +117,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 }
 }, { quoted: m});
 
+    // 🎀 Reaccionar al mensaje del menú con un emoji kawaii
     await conn.sendMessage(m.chat, {
       react: { text: '🌷', key: menuMessage.key}
 });
@@ -147,8 +136,8 @@ handler.register = false;
 export default handler;
 
 function clockString(ms) {
-  const h = isNaN(ms)? '--': Math.floor(ms / 3600000);
-  const m = isNaN(ms)? '--': Math.floor((ms / 60000) % 60);
-  const s = isNaN(ms)? '--': Math.floor((ms / 1000) % 60);
+  let h = isNaN(ms)? '--': Math.floor(ms / 3600000);
+  let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
+  let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-}
+    }
