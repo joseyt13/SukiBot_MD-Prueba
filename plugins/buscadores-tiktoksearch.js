@@ -1,108 +1,91 @@
 import axios from 'axios';
 const {
   proto,
-  generateWAMessageFromContent,
-  prepareWAMessageMedia,
   generateWAMessageContent,
-  getDevice
-} = (await import("@whiskeysockets/baileys")).default;
+  generateWAMessageFromContent
+} = (await import('@whiskeysockets/baileys')).default;
 
-let handler = async (message, { conn, text, usedPrefix, command }) => {
+let handler = async (m, { conn, text}) => {
   if (!text) {
-    return conn.reply(message.chat, "🍁 Por favor, ingrese un texto para realizar una búsqueda en tiktok.", message, rcanal);
-  }
+    return conn.reply(m.chat, '❀ Ingresa un texto para realizar la búsqueda en TikTok.', m);
+}
 
-  async function createVideoMessage(url) {
-    const { videoMessage } = await generateWAMessageContent({
-      video: { url }
-    }, {
-      upload: conn.waUploadToServer
-    });
-    return videoMessage;
-  }
-
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
+  const fuente = 'https://apis-starlights-team.koyeb.app/starlight/tiktoksearch?text=' + encodeURIComponent(text);
+  let res, videos;
 
   try {
-    conn.reply(message.chat, '✧ *ENVIANDO SUS RESULTADOS..*', message, {
-      contextInfo: { 
-        externalAdReply: { 
-          mediaUrl: null, 
-          mediaType: 1, 
-          showAdAttribution: true,
-          title: '♡  ͜ ۬︵࣪᷼⏜݊᷼𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖𝙨⏜࣪᷼︵۬ ͜ ',
-          body: dev,
-          previewType: 0, 
-          thumbnail: avatar,
-          sourceUrl: redes 
-        }
-      }
-    });
+    res = await axios.get(fuente);
+    videos = res?.data?.data || [];
+} catch (e) {
+    return conn.reply(m.chat, `❌ Error al obtener datos: ${e.message}`, m);
+}
 
-    let results = [];
-    let { data } = await axios.get("https://apis-starlights-team.koyeb.app/starlight/tiktoksearch?text=" + text);
-    let searchResults = data.data;
-    shuffleArray(searchResults);
-    let topResults = searchResults.splice(0, 7);
+  if (!videos.length) {
+    return conn.reply(m.chat, '🔍 No se encontraron resultados para tu búsqueda.', m);
+}
 
-    for (let result of topResults) {
-      results.push({
-        body: proto.Message.InteractiveMessage.Body.fromObject({ text: null }),
-        footer: proto.Message.InteractiveMessage.Footer.fromObject({ text: dev }),
-        header: proto.Message.InteractiveMessage.Header.fromObject({
-          title: '' + result.title,
-          hasMediaAttachment: true,
-          videoMessage: await createVideoMessage(result.nowm)
-        }),
-        nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({ buttons: [] })
-      });
-    }
+  // Aleatoriza resultados
+  shuffle(videos);
+  const topVideos = videos.slice(0, 5);
 
-    const messageContent = generateWAMessageFromContent(message.chat, {
-      viewOnceMessage: {
-        message: {
-          messageContextInfo: {
-            deviceListMetadata: {},
-            deviceListMetadataVersion: 2
-          },
-          interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-            body: proto.Message.InteractiveMessage.Body.create({
-              text: "✧ RESULTADO DE: " + text
-            }),
-            footer: proto.Message.InteractiveMessage.Footer.create({
-              text: dev
-            }),
-            header: proto.Message.InteractiveMessage.Header.create({
-              hasMediaAttachment: false
-            }),
-            carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({
-              cards: [...results]
-            })
-          })
-        }
-      }
-    }, {
-      quoted: message
-    });
+  // Construye los elementos del carrusel
+  const cards = await Promise.all(topVideos.map(async (video) => {
+    const videoMessage = (await generateWAMessageContent({
+      video: { url: video.nowm}
+}, { upload: conn.waUploadToServer})).videoMessage;
 
-     await message.react('💜');
-      await conn.relayMessage(message.chat, messageContent.message, {
-      messageId: messageContent.key.id
-    });
-  } catch (error) {
-    conn.reply(message.chat, `⚠︎ *OCURRIÓ UN ERROR:* ${error.message}`, message);
-  }
+    return {
+      body: proto.Message.InteractiveMessage.Body.create({ text: ''}),
+      footer: proto.Message.InteractiveMessage.Footer.create({ text: 'SukiBot_MD'}),
+      header: proto.Message.InteractiveMessage.Header.create({
+        title: video.title || 'Video TikTok',
+        hasMediaAttachment: true,
+        videoMessage
+}),
+      nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({ buttons: []})
+};
+}));
+
+  const content = generateWAMessageFromContent(m.chat, {
+    viewOnceMessage: {
+      message: {
+        messageContextInfo: {
+          deviceListMetadata: {},
+          deviceListMetadataVersion: 2
+},
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          body: proto.Message.InteractiveMessage.Body.create({
+            text: `🎬 Resultados de búsqueda para: ${text}`
+}),
+          footer: proto.Message.InteractiveMessage.Footer.create({
+            text: 'SukiBot_MD'
+}),
+          header: proto.Message.InteractiveMessage.Header.create({
+            hasMediaAttachment: false
+}),
+          carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.create({
+            cards
+})
+})
+}
+}
+}, { quoted: m});
+
+  await conn.relayMessage(m.chat, content.message, { messageId: content.key.id});
 };
 
-handler.help = ["tiktoksearch <txt>"];
-handler.register = true
-handler.group = true
-handler.tags = ["buscador"];
-handler.command = ["tiktoksearch", "ttss", "tiktoks"];
+handler.command = ['tiktoksearch', 'ttss', 'tiktoks'];
+handler.tags = ['buscador'];
+handler.help = ['tiktoksearch <texto>'];
+handler.group = true;
+handler.register = true;
 
 export default handler;
+
+// Auxiliares
+function shuffle(arr) {
+  for (let i = arr.length - 1; i> 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+}
+}
