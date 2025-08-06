@@ -26,19 +26,16 @@ let tags = {
 const defaultMenu = {
   before: `
 ❀───────𓆩♡𓆪───────❀
-˗ˏˋ こんにちは \`%name\` ˎˊ˗
-🧋 Bienvenid@ a *Suki_Bot_MD*
-🎀 Tu guía pastelcore con comandos encantadores
-
-🌸『 𝗜𝗡𝗙𝗢 - 𝗨𝗦𝗘𝗥 』🌸
-> 👤 Nombre: *%name*
-> 🎀 Nivel: *%level* | ✨ Exp: *%exp/%maxexp*
-> 🔓 Modo: *%mode*
-> 📈 Registro global: *%totalreg*
-> 🕐 Tiempo activo: *%muptime*
-
+ᯓ *𝖧𝗈𝗅𝖺 \`%name\` — 𝚂𝚞𝚔𝚒 𝚗𝚊𝚔𝚘 𝚐𝚊* 🌸
+ᯓ *𝐁𝐢𝐞𝐧𝐯𝐞𝐧𝐢𝐝@ 𝐚 𝚂𝚞𝚔𝚒𝙱𝚘𝚝_𝙈𝙳* 💖
+ᯓ *𝐂𝐫𝐞𝐚𝐝𝐨 𝐩𝐨𝐫: fedexyz* 🎀
+ᯓ *𝐏𝐫𝐞𝐟𝐢𝐣𝐨 𝐝𝐞 𝐜𝐨𝐦𝐚𝐧𝐝𝐨𝐬:* [. ] 🍓
+ᯓ *𝐌𝐨𝐝𝐨 𝐝𝐞 𝐮𝐬𝐨:* %mode ✨
+ᯓ *𝐄𝐱𝐩𝐞𝐫𝐢𝐞𝐧𝐜𝐢𝐚:* %exp/%maxexp 🍬
+ᯓ *𝐑𝐞𝐠𝐢𝐬𝐭𝐫𝐨 𝐠𝐥𝐨𝐛𝐚𝐥:* %totalreg 🗂️
+ᯓ *𝐓𝐢𝐞𝐦𝐩𝐨 𝐚𝐜𝐭𝐢𝐯𝐨:* %muptime ⏰
 ╰─🍓𓆩 𝑺𝒖𝒌𝒊_𝑩𝒐𝒕_𝑴𝑫 𓆪🍰─╯
-%readmore`.trim(),
+%readmore
 
   header: '\n꒰꒰ 🍁̸̶ֻ   `%category` 🍥̸̶ֻ   ꒱꒱\n',
   body: 'ᰨᰍ ׅ🌱᤻᪲ׄ᎒᎓ %cmd %iscorazones %isPremium',
