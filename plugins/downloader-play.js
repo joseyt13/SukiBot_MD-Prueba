@@ -1,54 +1,54 @@
-// Código creado y mejorado por fedexyz 🍁
-// no quites los créditos 🍂
+// ✨ 𝖢𝗈́𝖽𝗂𝗀𝗈 𝖼𝗋𝖾𝖺𝖽𝗈 𝗒 𝗆𝖾𝗃𝗈𝗋𝖺𝖽𝗈 𝗉𝗈𝗋 𝖿𝖾𝖽𝖾𝗑𝗒𝗓 🍁
+// 𝗇𝗈 𝗊𝗎𝗂𝗍𝖾𝗌 𝗅𝗈𝗌 𝖼𝗋𝖾𝖽𝗂𝗍𝗈𝗌 🍂
 
-import fetch from "node-fetch"
-import yts from "yt-search"
+import fetch from "node-fetch";
+import yts from "yt-search";
 
 const channelRD = {
   id: "120363402097425674@newsletter",
-  name: "🌷 Sᴜᴋɪ_ʙᴏᴛ_MD • Noticias mágicas"
-}
+  name: "🌷 𝖲𝗎𝗄𝗂_𝖡𝗈𝗍_𝖬𝖣 • 𝖭𝗈𝗍𝗂𝖼𝗂𝖺𝗌 𝗆𝖺́𝗀𝗂𝖼𝖺𝗌"
+};
 
-const youtubeRegexID = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/
+const youtubeRegexID = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/;
 
 const handler = async (m, { conn, text, command}) => {
   try {
     if (!text.trim()) {
-      await conn.sendMessage(m.chat, { react: { text: "📡", key: m.key}})
+      await conn.sendMessage(m.chat, { react: { text: "📡", key: m.key}});
       return conn.sendMessage(m.chat, {
-        text: `🌸 *Suki necesita una canción para comenzar su magia.*\n🎶 Ejemplo: *${command} Un Verano Sin Ti*`,
+        text: `🌸 *𝖲𝗎𝗄𝗂 𝗇𝖾𝖼𝖾𝗌𝗂𝗍𝖺 𝗎𝗇𝖺 𝖼𝖺𝗇𝖼𝗂𝗈́𝗇 𝗉𝖺𝗋𝖺 𝖾𝗇𝖼𝖾𝗇𝖽𝖾𝗋 𝗌𝗎 𝗆𝖺𝗀𝗂𝖺.*\n🎶 𝖤𝗃𝖾𝗆𝗉𝗅𝗈: *${command} 𝖴𝗇 𝖵𝖾𝗋𝖺𝗇𝗈 𝖲𝗂𝗇 𝖳𝗂*`,
         quoted: m
-})
+});
 }
 
-    await m.react("🔍")
-    const videoIdMatch = text.match(youtubeRegexID)
-    const searchQuery = videoIdMatch? `https://youtu.be/${videoIdMatch[1]}`: text
-    let result = await yts(searchQuery)
+    await m.react("🔍");
+    const videoIdMatch = text.match(youtubeRegexID);
+    const searchQuery = videoIdMatch? `https://youtu.be/${videoIdMatch[1]}`: text;
+    let result = await yts(searchQuery);
 
     if (videoIdMatch) {
-      const videoId = videoIdMatch[1]
-      result = result.all.find(v => v.videoId === videoId) || result.videos.find(v => v.videoId === videoId)
+      const videoId = videoIdMatch[1];
+      result = result.all.find(v => v.videoId === videoId) || result.videos.find(v => v.videoId === videoId);
 } else {
-      result = result.videos?.[0] || result.all?.[0] || result
+      result = result.videos?.[0] || result.all?.[0] || result;
 }
 
     if (!result) {
       return conn.sendMessage(m.chat, {
-        text: `😿 *Suki no encontró nada con ese nombre.*`,
+        text: `😿 *𝖲𝗎𝗄𝗂 𝗇𝗈 𝖾𝗇𝖼𝗈𝗇𝗍𝗋𝗈́ 𝗇𝖺𝖽𝖺 𝖼𝗈𝗇 𝖾𝗌𝖾 𝗇𝗈𝗆𝖻𝗋𝖾.*`,
         quoted: m
-})
+});
 }
 
-    const { title, thumbnail, timestamp, views, ago, url, author} = result
-    const thumb = (await conn.getFile(thumbnail)).data
+    const { title, thumbnail, timestamp, views, ago, url, author} = result;
+    const thumb = (await conn.getFile(thumbnail)).data;
     const infoMessage = `
-🌷 *Tu pedido está listo, cariño:*
-📺 *Canal:* ${author.name || "Desconocido"}
-👁️ *Vistas:* ${formatViews(views)}
-⏳ *Duración:* ${timestamp || "?"}
-📆 *Publicado:* ${ago || "?"}
-🔗 *Enlace:* ${url}`.trim()
+🌷 *𝖳𝗎 𝗉𝖾𝖽𝗂𝖽𝗈 𝖾𝗌𝗍𝖺́ 𝗅𝗂𝗌𝗍𝗈, 𝖼𝖺𝗋𝗂𝗇𝗈:*
+📺 *𝖢𝖺𝗇𝖺𝗅:* ${author.name || "𝖣𝖾𝗌𝖼𝗈𝗇𝗈𝖼𝗂𝖽𝗈"}
+👁️ *𝖵𝗂𝗌𝗍𝖺𝗌:* ${formatViews(views)}
+⏳ *𝖣𝗎𝗋𝖺𝖼𝗂𝗈́𝗇:* ${timestamp || "?"}
+📆 *𝖯𝗎𝖻𝗅𝗂𝖼𝖺𝖽𝗈:* ${ago || "?"}
+🔗 *𝖤𝗇𝗅𝖺𝗰𝗂𝗌𝗍𝗈:* ${url}`.trim();
 
     const contextoBonito = {
       contextInfo: {
@@ -58,8 +58,8 @@ const handler = async (m, { conn, text, command}) => {
           newsletterName: channelRD.name
 },
         externalAdReply: {
-          title: "🎀 Sᴜᴋɪ te trae música mágica",
-          body: `📻 ${author.name || "Artista desconocido"} • ✨ ${title}`,
+          title: "🎀 𝖲𝗎𝗄𝗂 𝗍𝖾 𝗍𝗋𝖺𝖾 𝗆𝗎́𝗌𝗂𝖼𝖺 𝗆𝖺́𝗀𝗂𝖼𝖺",
+          body: `📻 ${author.name || "𝖠𝗋𝗍𝗂𝗌𝗍𝖺 𝖽𝖾𝗌𝖼𝗈𝗇𝗈𝖼𝗂𝖽𝗈"} • ✨ ${title}`,
           thumbnailUrl: "https://files.catbox.moe/rkvuzb.jpg",
           mediaUrl: url,
           sourceUrl: url,
@@ -67,68 +67,69 @@ const handler = async (m, { conn, text, command}) => {
           renderLargerThumbnail: true
 }
 }
-}
+};
 
-    await conn.sendMessage(m.chat, { text: infoMessage, quoted: m,...contextoBonito})
+    await conn.sendMessage(m.chat, { text: infoMessage, quoted: m,...contextoBonito});
 
     // 🎧 Audio
     if (["play", "yta", "ytmp3", "playaudio"].includes(command)) {
       try {
-        const api = await (await fetch(`https://api.vreden.my.id/api/ytmp3?url=${url}`)).json()
-        const audioUrl = api.result?.download?.url
-        if (!audioUrl) throw "⛔ Error generando audio"
+        const api = await (await fetch(`https://api.vreden.my.id/api/ytmp3?url=${url}`)).json();
+        const audioUrl = api.result?.download?.url;
+        if (!audioUrl) throw "⛔ 𝖤𝗋𝗋𝗈𝗋 𝗀𝖾𝗇𝖾𝗋𝖺𝗇𝖽𝗈 𝖾𝗅 𝖺𝗎𝖽𝗂𝗈";
         await conn.sendMessage(m.chat, {
           audio: { url: audioUrl},
-          fileName: `${api.result.title || "descarga"}.mp3`,
+          fileName: `${api.result.title || "𝖽𝖾𝗌𝖼𝖺𝗋𝗀𝖺"}.mp3`,
           mimetype: "audio/mpeg"
-}, { quoted: m})
+}, { quoted: m});
 } catch {
         return conn.sendMessage(m.chat, {
-          text: "💔 No se pudo enviar el audio. Tal vez es muy pesado o hubo un error con el enlace.",
+          text: "💔 𝖭𝗈 𝗌𝖾 𝗉𝗎𝖽𝗈 𝖾𝗇𝗏𝗂𝖺𝗋 𝖾𝗅 𝖺𝗎𝖽𝗂𝗈. 𝖳𝖺𝗅 𝗏𝖾𝗓 𝖾𝗌 𝗆𝖺𝗌 𝗉𝖾𝗌𝖺𝖽𝗈 𝗈 𝗁𝗎𝗏𝗈 𝗎𝗇 𝖾𝗋𝗋𝗈𝗋.",
           quoted: m
-})
+});
 }
 }
 
     // 🎥 Video
     else if (["ytmp3", "playaudio", "play"].includes(command)) {
       try {
-        const response = await fetch(`https://api.neoxr.eu/api/youtube?url=${url}&type=video&quality=480p&apikey=GataDios`)
-        const json = await response.json()
-        await conn.sendFile(m.chat, json.data.url, `${json.title}.mp4`, `📹 *${title}*`, m)
+        const response = await fetch(`https://api.neoxr.eu/api/youtube?url=${url}&type=video&quality=480p&apikey=GataDios`);
+        const json = await response.json();
+        await conn.sendFile(m.chat, json.data.url, `${json.title}.mp4`, `📹 *${title}*`, m);
 } catch {
         return conn.sendMessage(m.chat, {
-          text: "💔 No se pudo enviar el video. Intenta con otro título o revisá el tamaño.",
-          quoted: m
-})
-}
-}
-
-    else {
-      return conn.sendMessage(m.chat, {
-        text: "✨ Comando no reconocido, pero Suki está lista para ayudarte 💫",
-        quoted: m
-})
-}
-
-    await m.react("🌸")
-} catch (error) {
-    await conn.sendMessage(m.chat, {
-      text: `💥 Ups, ocurrió un error:\n> \`${error.message || error}\``,
+          
+      text: "💔 𝖭𝗈 𝗌𝖾 𝗉𝗎𝖽𝗈 𝖾𝗇𝗏𝗂𝖺𝗋 𝖾𝗅 𝗏𝗂𝖽𝖾𝗈. 𝖨𝗇𝗍𝖾𝗇𝗍𝖺 𝗈𝗍𝗋𝗈 𝗍𝗂́𝗍𝗎𝗅𝗈 𝗈 𝗋𝖾𝗏𝗂𝗌𝖺 𝖾𝗅 𝗍𝖺𝗆𝖺𝗇𝗈.",
       quoted: m
-})
-    await m.react("💫")
+});
 }
 }
 
-handler.command = handler.help = ["play", "ytmp3", "playaudio"]
-handler.tags = ["descargas"]
-export default handler
+else {
+  return conn.sendMessage(m.chat, {
+    text: "✨ 𝖢𝗈𝗆𝖺𝗇𝖽𝗈 𝗇𝗈 𝗋𝖾𝖼𝗈𝗇𝗈𝖼𝗂𝖽𝗈, 𝗉𝖾𝗋𝗈 𝖲𝗎𝗄𝗂 𝖾𝗌𝗍𝖺́ 𝗅𝗂𝗌𝗍𝖺 𝗉𝖺𝗋𝖺 𝖺𝗒𝗎𝖽𝖺𝗋𝗍𝖾 💫",
+    quoted: m
+});
+}
 
-// 🌼 Formato dulce para vistas
+await m.react("🌸");
+} catch (error) {
+  await conn.sendMessage(m.chat, {
+    text: `💥 𝖴𝗉𝗌, 𝗈𝖼𝗎𝗋𝗋𝗂𝗈́ 𝗎𝗇 𝖾𝗋𝗋𝗈𝗋:\n> \`${error.message || error}\``,
+    quoted: m
+});
+  await m.react("💫");
+}
+};
+
+handler.command = handler.help = ["play", "ytmp3", "playaudio"];
+handler.tags = ["descargas"];
+export default handler;
+
+// 🌼 𝖥𝗈𝗋𝗆𝖺𝗍𝗈 𝖽𝗎𝗅𝖼𝖾 𝗉𝖺𝗋𝖺 𝗏𝗂𝗌𝗍𝖺𝗌
 function formatViews(views = 0) {
-  if (views>= 1_000_000_000) return `${(views / 1_000_000_000).toFixed(1)}B (${views.toLocaleString()})`
-  if (views>= 1_000_000) return `${(views / 1_000_000).toFixed(1)}M (${views.toLocaleString()})`
-  if (views>= 1_000) return `${(views / 1_000).toFixed(1)}k (${views.toLocaleString()})`
-  return views.toString()
-      }
+  if (views>= 1_000_000_000) return `${(views / 1_000_000_000).toFixed(1)}B (${views.toLocaleString()})`;
+  if (views>= 1_000_000) return `${(views / 1_000_000).toFixed(1)}M (${views.toLocaleString()})`;
+  if (views>= 1_000) return `${(views / 1_000).toFixed(1)}k (${views.toLocaleString()})`;
+  return views.toString();
+}
