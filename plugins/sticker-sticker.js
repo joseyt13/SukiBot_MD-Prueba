@@ -21,7 +21,7 @@ let handler = async (m, { conn, args, usedPrefix, command}) => {
 }
 
       let img = await q.download?.()
-      if (!img) return conn.reply(m.chat, `'🍁 Por favor, envía una imagen o video para hacer un sticker...'`, m)
+      if (!img) return conn.reply(m.chat, `🍁 Por favor, envía una imagen o video para hacer un sticker.`, m)
 
       let out
       try {
@@ -53,7 +53,7 @@ let handler = async (m, { conn, args, usedPrefix, command}) => {
     if (stiker) {
       conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
 } else {
-      return conn.reply(m.chat, ```🍁 Por favor, envía una imagen o video para hacer un sticker...```, m)
+      return conn.reply(m.chat, `🍁 Por favor, envía una imagen o video para hacer un sticker.`, m)
 }
 }
 }
