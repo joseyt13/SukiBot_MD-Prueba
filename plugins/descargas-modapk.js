@@ -83,8 +83,8 @@ let handler = async (m, { conn, usedPrefix, command, text}) => {
 };
 
 handler.tags = ['descargas'];
-handler.help = ['apk2'];
-handler.command = ['apk2'];
+handler.help = ['apk'];
+handler.command = ['apk'];
 handler.group = true;
 handler.register = true;
 handler.coin = 5;
