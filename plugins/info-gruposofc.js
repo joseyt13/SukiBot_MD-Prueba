@@ -8,10 +8,10 @@ let handler = async (m, { conn}) => {
 
   // enlaces personalizados
   const namegrupo = 'Grupo Oficial';
-  const gp1 = 'https://chat.whatsapp.com/ABC123456789XYZ';
+  const gp1 = 'https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV';
 
   const namecomu = 'Comunidad Pastelcore';
-  const comunidad1 = 'https://chat.whatsapp.com/DEF987654321LMN';
+  const comunidad1 = 'https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV';
 
   const namechannel = 'Canal de Noticias';
   const channel = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
