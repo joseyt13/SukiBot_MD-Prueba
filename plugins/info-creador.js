@@ -1,55 +1,91 @@
-import fetch from 'node-fetch';
+import PhoneNumber from 'awesome-phonenumber';
 
-const channelRD = {
-  id: '120363402097425674@newsletter',
-  name: '🌸 Suki_Bot_MD Canal Oficial'
+let handler = async (m, { conn}) => {
+  const nombreBot = 'ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ';
+  const creador = 'ꜰᴇᴅᴇxʏᴢ';
+  const nomorown = '5491156178758'; // número del creador
+  const dev = '୧ㅤꜰᴇᴅᴇxʏᴢㅤ🎋'';
+  const packname = '🌸 SukiBot_MD';
+  const yt = 'https://youtube.com/@fedexyz';
+  const github = 'https://github.com/sukiprivado';
+
+  const who = m.mentionedJid?.[0] || m.fromMe? conn.user.jid: m.sender;
+  const pp = await conn.profilePictureUrl(who).catch(_ => 'https://files.catbox.moe/rkvuzb.jpg');
+  const bioCreador = await conn.fetchStatus(nomorown + '@s.whatsapp.net').catch(_ => 'Sin Biografía');
+  const bioBot = await conn.fetchStatus(conn.user.jid).catch(_ => 'Sin Biografía');
+
+  const bio1 = bioCreador.status?.toString() || 'Sin Biografía';
+  const bio2 = bioBot.status?.toString() || 'Sin Biografía';
+
+  const contactos = [
+    [
+      `${nomorown}`,
+      `👑 Propietario`,
+      dev,
+      '📩 fedelanyt20@gmail.com',
+      '🇻🇪 Venezuela',
+      yt,
+      bio1
+    ],
+    [
+      `${conn.user.jid.split('@')[0]}`,
+      `🤖 Bot Oficial`,
+      packname,
+      '📵 No hacer spam',
+      '📩 fedelanyt20@gmail.com',
+      '🇺🇸 U.S.A',
+      github,
+      bio2
+    ]
+  ];
+
+  await sendContactArray(conn, m.chat, contactos, m);
+  await m.react('🌸');
 };
 
-const handler = async (m, { conn}) => {
-  await m.react('💫');
-
-  const imagenURL = 'https://files.catbox.moe/rkvuzb.jpg'; // Imagen decorativa pastel
-  const imgBuffer = await fetch(imagenURL).then(res => res.buffer());
-
-  const textoCreador = `
-🌸 *Panel del Creador — SukiBot_MD* 🧋
-
-𖧷 ꒰ 𝗖𝗥𝗘𝗔𝗗𝗢𝗥𝗘𝗦 ꒱
-• 💌 fedexyz → wa.me/5491156178758
-• 🍁 DevBrayan → wa.me/573001533523
-
-𖧷 ꒰ 𝗖𝗔𝗡𝗔𝗟 𝗢𝗙𝗜𝗖𝗜𝗔𝗟 ꒱
-📡 https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
-
-𖧷 ꒰ 𝗚𝗥𝗨𝗣𝗢 𝗣𝗥𝗜𝗡𝗖𝗜𝗣𝗔𝗟 ꒱
-👥 https://chat.whatsapp.com/FoVnxJ64gYV6EZcfNVQUfJ
-
-𖧷 ꒰ 𝗦𝗜𝗧𝗜𝗢𝗦 𝗠𝗔𝗚𝗜𝗖𝗢𝗦 ꒱
-📚 https://sukibot-site.vercel.app/
-📚 https://sukibot-md-sites.vercel.app/
-
-🌺 Gracias por formar parte del universo pastelcore de *SukiBot_MD*
-Tu compañer@ digital con ternura encantadora ✨
-`.trim();
-
-  await conn.sendMessage(m.chat, {
-    image: imgBuffer,
-    caption: textoCreador,
-    contextInfo: {
-      mentionedJid: [m.sender],
-      isForwarded: true,
-      forwardingScore: 888,
-      forwardedNewsletterMessageInfo: {
-        newsletterJid: channelRD.id,
-        serverMessageId: 123,
-        newsletterName: channelRD.name
-}
-}
-}, { quoted: m});
-};
-
-handler.command = ['creador', 'creator', 'owner'];
-handler.help = ['creador'];
-handler.tags = ['info', 'suki'];
-
+handler.help = ['creador', 'owner'];
+handler.tags = ['info'];
+handler.command = /^(owner|creador)$/i;
 export default handler;
+
+async function sendContactArray(conn, jid, data, quoted, options) {
+  if (!Array.isArray(data[0]) && typeof data[0] === 'string') data = [data];
+  let contacts = [];
+
+  for (let [number, name, org, email, region, link, bio] of data) {
+    number = number.replace(/[^0-9]/g, '');
+    let vcard = `
+BEGIN:VCARD
+VERSION:3.0
+N:Sy;Bot;;;
+FN:${name}
+item.ORG:${org}
+item1.TEL;waid=${number}:${PhoneNumber('+' + number).getNumber('international')}
+item1.X-ABLabel:Contacto
+item2.EMAIL;type=INTERNET:${email}
+item2.X-ABLabel:📧 Email
+item3.ADR:;;${region};;;;
+item3.X-ABADR:ac
+item3.X-ABLabel:🌍 Región
+item4.URL:${link}
+item4.X-ABLabel:🌐 Enlace
+item5.X-ABLabel:${bio}
+END:VCARD`.trim();
+
+    contacts.push({ vcard, displayName: name});
+}
+
+  return await conn.sendMessage(
+    jid,
+    {
+      contacts: {
+        displayName: contacts.length> 1? '🌸 Contactos mágicos': contacts[0].displayName,
+        contacts
+}
+},
+    {
+      quoted,
+...options
+}
+);
+}
