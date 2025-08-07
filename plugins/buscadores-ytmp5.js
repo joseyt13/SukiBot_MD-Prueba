@@ -80,7 +80,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
     return m.reply('🚫 Enlace de YouTube inválido');
 }
 
-  await m.react('📀');
+  await m.react('🍒');
   try {
     const { url, title} = await ytdl(text);
     const size = await getSize(url);
@@ -88,7 +88,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
     if (!size) throw new Error('No se pudo determinar el tamaño del video');
     if (size> MAX_FILE_SIZE) throw new Error('🌧️ El archivo supera el límite permitido para descarga');
 
-    await m.react('✅️');
+    await m.react('🍁');
     const caption = `
 🎬 *${title}*
 ⚖️ *Tamaño:* ${formatSize(size)}
