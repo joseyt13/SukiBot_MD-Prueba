@@ -1,10 +1,20 @@
-let handler = async (m, { conn }) => {
+let handler = async (m, { conn}) => {
   const start = performance.now();
-  await m.reply('🏓 *Probando velocidad...*');
+  await m.reply('🏓 𓆩 ꒰ Probando velocidad ꒱ 𓆪');
   const end = performance.now();
   const ping = end - start;
 
-  await m.reply(`✅ *Suki_Bot está activo*\n📡 *Velocidad:* ${ping.toFixed(2)} ms`);
+  const respuesta = `
+𓆩𖥧𖥣𖥧𓆪 ꒰ 𝖲𝗎𝗄𝗂𝖡𝗈𝗍_𝖬𝖣 ꒱ 𖥔˚₊
+
+✅ *Estado:* Activo y con energía mágica
+📡 *Velocidad:* ${ping.toFixed(2)} ms
+🧁 *Latido pastelcore:* Estable y encantador
+
+✨ Usa *.menu* para explorar mis comandos mágicos.
+`.trim();
+
+  await conn.sendMessage(m.chat, { text: respuesta}, { quoted: m});
 };
 
 handler.command = ['ping', 'p'];
