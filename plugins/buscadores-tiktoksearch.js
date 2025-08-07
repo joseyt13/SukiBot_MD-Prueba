@@ -7,28 +7,28 @@ const {
 
 let handler = async (m, { conn, text}) => {
   if (!text) {
-    return conn.reply(m.chat, '❀ Ingresa un texto para realizar la búsqueda en TikTok.', m);
+    return conn.reply(m.chat, '🌸 Por favor, escribe algo para buscar en TikTok.', m);
 }
 
-  const fuente = 'https://apis-starlights-team.koyeb.app/starlight/tiktoksearch?text=' + encodeURIComponent(text);
+  const fuente = `https://apis-starlights-team.koyeb.app/starlight/tiktoksearch?text=${encodeURIComponent(text)}`;
   let res, videos;
 
   try {
     res = await axios.get(fuente);
     videos = res?.data?.data || [];
 } catch (e) {
-    return conn.reply(m.chat, `❌ Error al obtener datos: ${e.message}`, m);
+    return conn.reply(m.chat, `❌ Error al obtener resultados: ${e.message}`, m);
 }
 
   if (!videos.length) {
-    return conn.reply(m.chat, '🔍 No se encontraron resultados para tu búsqueda.', m);
+    return conn.reply(m.chat, '🔍 No se encontraron videos relacionados con tu búsqueda.', m);
 }
 
-  // Aleatoriza resultados
+  // Mezcla aleatoria de resultados
   shuffle(videos);
   const topVideos = videos.slice(0, 5);
 
-  // Construye los elementos del carrusel
+  // Construcción del carrusel
   const cards = await Promise.all(topVideos.map(async (video) => {
     const videoMessage = (await generateWAMessageContent({
       video: { url: video.nowm}
@@ -36,9 +36,9 @@ let handler = async (m, { conn, text}) => {
 
     return {
       body: proto.Message.InteractiveMessage.Body.create({ text: ''}),
-      footer: proto.Message.InteractiveMessage.Footer.create({ text: 'SukiBot_MD'}),
+      footer: proto.Message.InteractiveMessage.Footer.create({ text: '🌷 SukiBot_MD'}),
       header: proto.Message.InteractiveMessage.Header.create({
-        title: video.title || 'Video TikTok',
+        title: video.title || '🎬 Video TikTok',
         hasMediaAttachment: true,
         videoMessage
 }),
@@ -55,10 +55,10 @@ let handler = async (m, { conn, text}) => {
 },
         interactiveMessage: proto.Message.InteractiveMessage.create({
           body: proto.Message.InteractiveMessage.Body.create({
-            text: `🎬 Resultados de búsqueda para: ${text}`
+            text: `🎀 Resultados para: *${text}*`
 }),
           footer: proto.Message.InteractiveMessage.Footer.create({
-            text: 'SukiBot_MD'
+            text: 'SukiBot_MD • powered by ꜰᴇᴅᴇxʏᴢ'
 }),
           header: proto.Message.InteractiveMessage.Header.create({
             hasMediaAttachment: false
@@ -82,7 +82,7 @@ handler.register = true;
 
 export default handler;
 
-// Auxiliares
+// 🎀 Función auxiliar para mezclar resultados
 function shuffle(arr) {
   for (let i = arr.length - 1; i> 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
