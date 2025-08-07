@@ -1,62 +1,55 @@
-import PhoneNumber from 'awesome-phonenumber'
+import fetch from 'node-fetch';
 
-let handler = async (m, { conn, usedPrefix, text, args, command }) => {
-//m.react('⚙️')
-let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-let pp = await conn.profilePictureUrl(who).catch(_ => 'https://files.catbox.moe/rkvuzb.jpg')
-let biografia = await conn.fetchStatus('584120346669' +'@s.whatsapp.net').catch(_ => 'Sin Biografía')
-let biografiaBot = await conn.fetchStatus(`${conn.user.jid.split('@')[0]}` +'@s.whatsapp.net').catch(_ => 'Sin Biografía')
-let bio = biografia.status?.toString() || 'Sin Biografía'
-let biobot = biografiaBot.status?.toString() || 'Sin Biografía'
-let name = await conn.getName(who)
+const channelRD = {
+  id: '120363402097425674@newsletter',
+  name: '🌸 Suki_Bot_MD Canal Oficial'
+};
 
-  await sendContactArray(conn, m.chat, [
-     [`${nomorown}`, `👑 Propietario`, `✨ ꜰᴇᴅᴇxʏᴢ`, dev, 'fedelanyt20@gmail.com', `🇦🇷 Argentina`, `${global.yt}`, bio],
-[`${conn.user.jid.split('@')[0]}`, `Es Un Bot 🌟`, `${packname}`, `📵 No Hacer Spam`, 'fedelanyt20@gmail.com', `🇺🇸 U.S.A`, `https://github.com/The-King-Destroy/Yuki_Suou-Bot`, biobot]
-], m)
-  //m.reply(`Hola @${m.sender.split(`@`)[0]} este es el contacto de mi creador, no hagas spam!!`)
-  } 
+const handler = async (m, { conn}) => {
+  await m.react('💫');
 
-handler.help = ["creador","owner"]
-handler.tags = ["info"]
-handler.command = /^(owner|creador)$/i
-export default handler
+  const imagenURL = 'https://files.catbox.moe/rkvuzb.jpg'; // Imagen decorativa pastel
+  const imgBuffer = await fetch(imagenURL).then(res => res.buffer());
 
-async function sendContactArray(conn, jid, data, quoted, options) {
-        if (!Array.isArray(data[0]) && typeof data[0] === 'string') data = [data]
-                let contacts = []
-        for (let [number, name, isi, isi1, isi2, isi3, isi4, isi5] of data) {
-            number = number.replace(/[^0-9]/g, '')
-            let njid = number + '@s.whatsapp.net'
-            let biz = await conn.getBusinessProfile(njid).catch(_ => null) || {}
-            // N:;${name.replace(/\n/g, '\\n').split(' ').reverse().join(';')};;;
-            let vcard = `
-BEGIN:VCARD
-VERSION:3.0
-N:Sy;Bot;;;
-FN:${name.replace(/\n/g, '\\n')}
-item.ORG:${isi}
-item1.TEL;waid=${number}:${PhoneNumber('+' + number).getNumber('international')}
-item1.X-ABLabel:${isi1}
-item2.EMAIL;type=INTERNET:${isi2}
-item2.X-ABLabel:📧 Email
-item3.ADR:;;${isi3};;;;
-item3.X-ABADR:ac
-item3.X-ABLabel:🏷 Region
-item4.URL:${isi4}
-item4.X-ABLabel:Website
-item5.X-ABLabel:${isi5}
-END:VCARD`.trim()
-            contacts.push({ vcard, displayName: name })
-        }
-        return await conn.sendMessage(jid, {
-            contacts: {
-                displayName: (contacts.length > 1 ? `2013 kontak` : contacts[0].displayName) || null,
-                contacts,
-            }
-        },
-        {
-            quoted,
-            ...options
-        })
-  }
+  const textoCreador = `
+🌸 *Panel del Creador — SukiBot_MD* 🧋
+
+𖧷 ꒰ 𝗖𝗥𝗘𝗔𝗗𝗢𝗥𝗘𝗦 ꒱
+• 💌 fedexyz → wa.me/5491156178758
+• 🍁 DevBrayan → wa.me/573001533523
+
+𖧷 ꒰ 𝗖𝗔𝗡𝗔𝗟 𝗢𝗙𝗜𝗖𝗜𝗔𝗟 ꒱
+📡 https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
+
+𖧷 ꒰ 𝗚𝗥𝗨𝗣𝗢 𝗣𝗥𝗜𝗡𝗖𝗜𝗣𝗔𝗟 ꒱
+👥 https://chat.whatsapp.com/FoVnxJ64gYV6EZcfNVQUfJ
+
+𖧷 ꒰ 𝗦𝗜𝗧𝗜𝗢𝗦 𝗠𝗔𝗚𝗜𝗖𝗢𝗦 ꒱
+📚 https://sukibot-site.vercel.app/
+📚 https://sukibot-md-sites.vercel.app/
+
+🌺 Gracias por formar parte del universo pastelcore de *SukiBot_MD*
+Tu compañer@ digital con ternura encantadora ✨
+`.trim();
+
+  await conn.sendMessage(m.chat, {
+    image: imgBuffer,
+    caption: textoCreador,
+    contextInfo: {
+      mentionedJid: [m.sender],
+      isForwarded: true,
+      forwardingScore: 888,
+      forwardedNewsletterMessageInfo: {
+        newsletterJid: channelRD.id,
+        serverMessageId: 123,
+        newsletterName: channelRD.name
+}
+}
+}, { quoted: m});
+};
+
+handler.command = ['creador', 'creator', 'owner'];
+handler.help = ['creador'];
+handler.tags = ['info', 'suki'];
+
+export default handler;
