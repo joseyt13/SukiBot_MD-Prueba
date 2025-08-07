@@ -4,7 +4,7 @@ let handler = async (m, { conn}) => {
   const nombreBot = 'ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ';
   const creador = 'ꜰᴇᴅᴇxʏᴢ';
   const nomorown = '5491156178758'; // número del creador
-  const dev = '୧ㅤꜰᴇᴅᴇxʏᴢㅤ🎋'';
+  const dev = 'ꜰᴇᴅᴇxʏᴢ'';
   const packname = '🌸 SukiBot_MD';
   const yt = 'https://youtube.com/@fedexyz';
   const github = 'https://github.com/sukiprivado';
