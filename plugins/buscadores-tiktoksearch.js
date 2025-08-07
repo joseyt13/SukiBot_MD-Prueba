@@ -10,6 +10,8 @@ let handler = async (m, { conn, text}) => {
     return conn.reply(m.chat, '🌸 Por favor, escribe algo para buscar en TikTok.', m);
 }
 
+  await conn.reply(m.chat, '🔍 𓆩 ꒰ Iniciando búsqueda en TikTok ꒱ 𓆪', m);
+
   const fuente = `https://apis-starlights-team.koyeb.app/starlight/tiktoksearch?text=${encodeURIComponent(text)}`;
   let res, videos;
 
