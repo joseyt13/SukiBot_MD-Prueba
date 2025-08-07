@@ -11,7 +11,7 @@ const formatosAudio = ['mp3', 'm4a', 'webm', 'acc', 'flac', 'opus', 'ogg', 'wav'
 const formatosVideo = ['360', '480', '720', '1080', '1440', '4k'];
 
 const creador = 'ꜰᴇᴅᴇxʏᴢ';
-const icono = 'https://i.ibb.co/fX7YWTk/tanjiro-icon.jpg';
+const icono = 'https://files.catbox.moe/rkvuzb.jpg';
 const canalOficial = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
 
 const ddownr = {
