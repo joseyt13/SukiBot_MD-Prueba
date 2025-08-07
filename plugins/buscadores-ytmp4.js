@@ -132,7 +132,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
       await conn.reply(m.chat, '🧁 Procesando archivo grande, ten paciencia...', m);
 }
 
-    await m.react('✅️');
+    await m.react('🎉');
     const caption = `
 🎬 _${title}_
 ⚖️ _Tamaño:_ ${formatSize(size)}
