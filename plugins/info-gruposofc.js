@@ -1,31 +1,47 @@
-import fetch from 'node-fetch'
+import fetch from 'node-fetch';
 
-let handler  = async (m, { conn, usedPrefix, command }) => {
+let handler = async (m, { conn}) => {
+  const nombreBot = 'ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ';
+  const creador = 'ꜰᴇᴅᴇxʏᴢ';
+  const catalogo = 'https://files.catbox.moe/rkvuzb.jpg'; // imagen decorativa
+  const emojis = '🌸';
 
-let grupos = `*Hola!, te invito a unirte a los grupos oficiales del Bot para convivir con la comunidad.....*
+  // enlaces personalizados
+  const namegrupo = 'Grupo Oficial';
+  const gp1 = 'https://chat.whatsapp.com/ABC123456789XYZ';
 
-- ${namegrupo}
-> *❀* ${gp1}
+  const namecomu = 'Comunidad Pastelcore';
+  const comunidad1 = 'https://chat.whatsapp.com/DEF987654321LMN';
 
-${namecomu}
-> *❀* ${comunidad1}
+  const namechannel = 'Canal de Noticias';
+  const channel = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
 
-*ׄ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ*
+  const dev = `👨🏻‍💻 𝘾𝙧𝙚𝙖𝙙𝙤𝙧: ${creador}`;
 
-⚘ Enlace anulado? entre aquí! 
+  const texto = `
+╭─❀ 𝖦𝗋𝗎𝗉𝗈𝗌 𝗈𝖿𝗂𝖼𝗂𝖺𝗅𝗂𝗌 ❀─╮
 
-- ${namechannel}
-> *❀* ${channel}
+🌷 ¡Hola! Te invito a unirte a los espacios mágicos de *${nombreBot}* para compartir, aprender y disfrutar con la comunidad:
 
-> ${dev}`
+🍡 ${namegrupo}
+↳ *❀* ${gp1}
 
-await conn.sendFile(m.chat, catalogo, "grupos.jpg", grupos, m)
+🍰 ${namecomu}
+↳ *❀* ${comunidad1}
 
-await m.react(emojis)
+🧋 ¿Enlace roto? Aquí tienes el canal oficial:
+📡 ${namechannel}
+↳ *❀* ${channel}
 
-}
-handler.help = ['grupos']
-handler.tags = ['info']
-handler.command = ['grupos', 'links', 'groups']
+╰─❀ ${dev} ❀─╯
+`.trim();
 
-export default handler
+  await conn.sendFile(m.chat, catalogo, 'grupos.jpg', texto, m);
+  await m.react(emojis);
+};
+
+handler.help = ['grupos'];
+handler.tags = ['info'];
+handler.command = ['grupos', 'links', 'groups'];
+
+export default handler;
