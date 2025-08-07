@@ -105,21 +105,21 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 }
 
   if (!isValidYouTubeUrl(text)) {
-    await m.react('🔴');
+    await m.react('🥺');
     return m.reply('🚫 Enlace de YouTube inválido');
 }
 
   if (isCooldown ||!checkRequestLimit()) {
-    await m.react('🔴');
+    await m.react('🍒');
     return conn.reply(m.chat, '⏳ Has hecho muchas solicitudes seguidas. Espera 2 minutos.', m);
 }
 
   if (isProcessingHeavy) {
-    await m.react('🔴');
+    await m.react('🍀');
     return conn.reply(m.chat, '⏳ Estoy procesando un archivo pesado. Espera un momento.', m);
 }
 
-  await m.react('📀');
+  await m.react('🍁');
   try {
     const { url, title} = await ytdl(text);
     const size = await getSize(url);
@@ -154,10 +154,10 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 }
 );
 
-    await m.react('🟢');
+    await m.react('🍂');
     isProcessingHeavy = false;
 } catch (e) {
-    await m.react('🔴');
+    await m.react('🥺');
     await m.reply(`❌ Error: ${e.message || 'No se pudo procesar la solicitud'}`);
     isProcessingHeavy = false;
 }
