@@ -13,7 +13,7 @@ import moment from 'moment-timezone'
 global.owner = [
 ['5491156178758', '🍁 Creador fedexyz', true],
 ['573001533523', '✨️ Colaborador Brayans', true],
-['5351691118', '🍂 alex', true],
+['5491176429275', '🍂 SukiBot', true],
 ];
 
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
@@ -39,8 +39,8 @@ global.sukiJadibts = true;
 global.packname = 'Sᴜᴋɪ𝐁𝐨𝐭_MD  (𝗠𝘂𝗹𝘁𝗶-𝗗𝗲𝘃𝗶𝗰𝗲)';
 global.botname = '🎄 Sᴜᴋɪ𝐁𝐨𝐭_MD 🎋';
 global.wm = '🎄 Sᴜᴋɪ𝐁𝐨𝐭_MD 🎋';
-global.dev = '👓 ୧𝖿ᥱძᥱ᥊ᥡz 🍁.⃗';
-global.textbot = '🎄 Sᴜᴋɪ𝐁𝐨𝐭_MD  ᑲᥡ 𝖿ᥱძᥱ᥊ᥡz';
+global.dev = '୧ ꜰᴇᴅᴇxʏᴢㅤ🎋';
+global.textbot = '🎄 Sᴜᴋɪ𝐁𝐨𝐭_MD  𝐁ᥡ ꜰᴇᴅᴇxʏᴢ';
 global.etiqueta = '🎄 Sᴜᴋɪ𝐁𝐨𝐭_MD  mᥙᥣ𝗍і-ძᥱ᥎іᥴᥱ';
 
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
