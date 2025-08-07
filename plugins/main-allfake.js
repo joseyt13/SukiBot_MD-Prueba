@@ -29,12 +29,12 @@ console.log(`Error : ${e}`)
 }}
 
 // IᖴᑎᖴOᖇᗰᗩᑕIOᑎ ᗪᗴ ᒪᗩ ᗷOT
-global.creador = 'Wa.me/573001533523'
+global.creador = 'Wa.me/5491156178759'
 global.ofcbot = `Wa.me/${conn.user.jid.split('@')[0]}?text=✨️hl`
 global.asistencia = 'Wa.me/50231458537'
-global.namechannel = '🌸◌sᥙkі_ᑲ᥆𝗍_mძ🍁༉'
-global.namechannel2 = '🌸◌*̥sᥙkі_ᑲ᥆𝗍_mძ🍁༉'
-global.namegrupo = '🍁sᥙkі_ᑲ᥆𝗍_mძ🍁'
+global.namechannel = '🍒 Sᴜᴋɪ𝐁𝐨𝐭_MD 🍁'
+global.namechannel2 = '🍒 Sᴜᴋɪ𝐁𝐨𝐭_MD 🍁'
+global.namegrupo = '🍒 Sᴜᴋɪ𝐁𝐨𝐭_MD 🍁'
 global.namecomu = '⍴᥆ᥕᥱrᥱძ ᑲᥡ 𝖿ᥱძᥱ᥊ᥡz'
 global.listo = 'listo aquí tienes tu pedido 🍁'
 global.fotoperfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => catalogo,)
@@ -42,7 +42,7 @@ global.fotoperfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => c
 // ᑕᗩᑎᗩᒪ ᗪᗴ ᒪᗩ ᗷOT
 global.idchannel = '120363402097425674@newsletter'
 global.canalIdM = ["120363402097425674@newsletter", "120363402097425674@newsletter"]
-global.canalNombreM = ["👓 sᥙkі_ᑲ᥆𝗍_mძ 🍁", "🍁 SUKII⚘"]
+global.canalNombreM = ["🍁 Sᴜᴋɪ𝐁𝐨𝐭_MD 🍒", "🍁 Sᴜᴋɪ 🍀"]
 global.channelRD = await getRandomChannel()
 
 
