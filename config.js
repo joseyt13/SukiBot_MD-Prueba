@@ -36,12 +36,17 @@ global.sukiJadibts = true;
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
 // ᗰᗩᖇᑕᗩ ᗪᗴ ᗩᘜᑌᗩ 🗞️
-global.packname = 'sᥙkі_ᑲ᥆𝗍 (𝗠𝘂𝗹𝘁𝗶-𝗗𝗲𝘃𝗶𝗰𝗲)';
-global.botname = '👓◌sᥙkі_ᑲ᥆𝗍_mძ 🍁༉';
-global.wm = '👓◌sᥙkі_ᑲ᥆𝗍_mძ 🍁༉';
-global.dev = '👓 ୧𝖿ᥱძᥱ᥊ᥡz 🍁.⃗';
-global.textbot = 'sᥙkі_ᑲ᥆𝗍_mძ ᑲᥡ 𝖿ᥱძᥱ᥊ᥡz';
-global.etiqueta = 'sᥙkі_ᑲ᥆𝗍_mძ mᥙᥣ𝗍і-ძᥱ᥎іᥴᥱ';
+global.packname = '🎄 Sᴜᴋɪ𝐁𝐨𝐭_MD 🎋'
+global.botname = 'Sᴜᴋɪ𝐁𝐨𝐭_MD'
+global.wm = 'Sᴜᴋɪ𝐁𝐨𝐭_MD'
+global.author = 'Sᴜᴋɪ𝐁𝐨𝐭_MD X ꜰᴇᴅᴇxʏᴢ'
+global.dev = '୧ㅤ ꜰᴇᴅᴇxʏᴢㅤ🎋'
+global.textbot = '𝕊𝕦𝕜𝕚𝔹𝕠𝕥_𝕄𝔻 X ꜰᴇᴅᴇxʏᴢ ⌬'
+global.etiqueta = '@ꜰᴇᴅᴇxʏᴢ'
+global.titulowm = 'Whatsapp Multi Device';
+global.titulowm2 = '𝘚𝘶𝘱𝘦𝘳 𝘉𝘰𝘵 𝘋𝘦 𝘞𝘩𝘢𝘵𝘴𝘢𝘱𝘱'
+global.igfg = '@ꜰᴇᴅᴇxʏᴢ'
+global.gt = 'ᶜʳᵉᵃᵗᵉᵈ ᴮʸ ꜰᴇᴅᴇxʏᴢ';
 
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
