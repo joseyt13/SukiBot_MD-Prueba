@@ -2,8 +2,7 @@ export async function before(m, { conn}) {
   try {
     if (!m.text ||!global.prefix ||!global.prefix.test(m.text)) return;
 
-    const Buffer = global.Buffer || ((...args) => new Uint8Array(...args));
-    const metanombre = global.metanombre || 'Suki_Bot_MD';
+    const metanombre = global.metanombre || 'ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ';
 
     if (!Array.prototype.getRandom) {
       Array.prototype.getRandom = function () {
@@ -12,15 +11,11 @@ export async function before(m, { conn}) {
 }
 
     global.fkontak = {
-      key: {
-        participant: '0@s.whatsapp.net',
-...(m.chat? { remoteJid: 'status@broadcast'}: {})
-},
+      key: { participant: '0@s.whatsapp.net'},
       message: {
         contactMessage: {
           displayName: metanombre,
-          vcard: `BEGIN:VCARD\nVERSION:3.0\nN:XL;${metanombre},;;;\nFN:${metanombre}\nEND:VCARD`,
-          sendEphemeral: true
+          vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:${metanombre}\nEND:VCARD`
 }
 }
 };
@@ -35,68 +30,39 @@ export async function before(m, { conn}) {
       message: {
         contactMessage: {
           displayName: metanombre,
-          vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:Suki_Bot_MD\nORG:Reino de los Encantamientos\nEND:VCARD`,
-          jpegThumbnail: Buffer.from([]),
-          contextInfo: {
-            forwardingScore: 999,
-            isForwarded: true
-}
+          vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:${metanombre}\nORG:ꜰᴇᴅᴇxʏᴢ\nEND:VCARD`
 }
 }
 };
 
     const usedPrefix = global.prefix.exec(m.text)[0];
     const command = m.text.slice(usedPrefix.length).trim().split(' ')[0].toLowerCase();
-    if (!command) return;
+    if (!command || command === 'bot') return;
 
-    const validCommand = (cmd, plugins) => {
-      return Object.values(plugins).some(plugin =>
-        plugin?.command &&
-        (Array.isArray(plugin.command)? plugin.command: [plugin.command]).includes(cmd)
+    const isValid = Object.values(global.plugins).some(p =>
+      p?.command && (Array.isArray(p.command)? p.command: [p.command]).includes(command)
 );
-};
 
-    if (command === 'bot') return;
+    const chat = global.db.data.chats[m.chat];
+    const user = global.db.data.users[m.sender];
 
-    if (validCommand(command, global.plugins)) {
-      const chat = global.db.data.chats[m.chat];
-      const user = global.db.data.users[m.sender];
-
+    if (isValid) {
       if (chat?.isBanned) {
-        const reply = {
-          text: `🔒 Oh no~ *Suki_Bot_MD* ha sido silenciada aquí…\n🌸 Solo un *guardian celestial* puede restaurarla con:\n🎀 *${usedPrefix}bot on*`,
-          contextInfo: {
-            mentionedJid: [m.sender]
+        return conn.sendMessage(m.chat, {
+          text: `🔒 ${metanombre} está desactivado aquí.\n🧁 Usa *${usedPrefix}bot on*`,
+          quoted: global.fakeMetaMsg
+});
 }
-};
-
-        try {
-          await conn.sendMessage(m.chat, reply, { quoted: global.fakeMetaMsg});
-} catch {
-          await m.reply(`🌸 *Suki_Bot_MD* está dormidita en este chat.\n✨ Usa *${usedPrefix}bot on* para despertarla~`);
-}
-        return;
-}
-
       if (user) user.commands = (user.commands || 0) + 1;
-
 } else {
-      const comando = m.text.trim().split(' ')[0];
-      const reply = {
-        text: `💫 El hechizo *${comando}* no está en el grimorio mágico...\n🧁 Consulta el menú con *${usedPrefix}menu* para ver tus poderes disponibles 🌷`,
-        contextInfo: {
-          mentionedJid: [m.sender]
-}
-};
-
-      try {
-        await conn.sendMessage(m.chat, reply, { quoted: global.fakeMetaMsg});
-} catch {
-        await m.reply(`❌ El comando *${comando}* no existe por ahora~\n🪄 Revisa el panel con *${usedPrefix}menu* para ver qué puedes invocar!`);
-}
+      const cmd = m.text.trim().split(' ')[0];
+      return conn.sendMessage(m.chat, {
+        text: `❌ Comando *${cmd}* no existe.\n🌸 Usa *${usedPrefix}menu*`,
+        quoted: global.fakeMetaMsg
+});
 }
 
-} catch (error) {
-    console.error(`⚠️ Error en validCommand.js de Suki_Bot_MD: ${error}`);
+} catch (e) {
+    console.error(`⚠️ Error en before: ${e}`);
 }
 }
