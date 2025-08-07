@@ -15,7 +15,7 @@ export async function before(m, { conn}) {
   const audioDespedida = 'https://files.cloudkuimages.guru/audios/aTh4HrjO.mp3';
 
   const canalSuki = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
-  const grupoOficial = 'https://chat.whatsapp.com/ABC123456789XYZ'; // reemplaza con tu link real
+  const grupoOficial = 'https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV'; // reemplaza con tu link real
 
   for (const user of participants) {
     const name = await conn.getName(user);
