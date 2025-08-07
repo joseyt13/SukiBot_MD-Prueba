@@ -45,7 +45,7 @@ const defaultMenu = {
 %readmore`.trim(),
 
   header: '\n꒰꒰ 🍁̸̶ֻ   `%category` 🍥̸̶ֻ   ꒱꒱\n',
-  body: '┃ ⊹ %cmd %iscorazones %isPremium',
+  body: 'ᰨᰍ ׅ🌱᤻᪲ׄ᎒᎓ %cmd %iscorazones %isPremium',
   footer: '\n',
   after: `╰─𓆩♡𓆪─⬣`
 };
