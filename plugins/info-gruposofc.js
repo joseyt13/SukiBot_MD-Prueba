@@ -1,31 +1,31 @@
-import fetch from 'node-fetch';
-import { gruposOficiales as cfg} from '../config.js';
+import fetch from 'node-fetch'
 
-let handler = async (m, { conn}) => {
-  const texto = `
-╭─❀ 𝖦𝗋𝗎𝗉𝗈𝗌 𝗈𝖿𝗂𝖼𝗂𝖺𝗅𝗂𝗌 ❀─╮
+let handler  = async (m, { conn, usedPrefix, command }) => {
 
-🌷 ¡Hola! Te invito a unirte a los espacios mágicos de *${cfg.nombreBot}* para compartir, aprender y disfrutar con la comunidad:
+let grupos = `╭─❀ 𝖦𝗋𝗎𝗉𝗈𝗌 𝗈𝖿𝗂𝖼𝗂𝖺𝗅𝗂𝗌 ❀─╮
 
-🍡 ${cfg.grupoPrincipal.nombre}
-↳ *❀* ${cfg.grupoPrincipal.link}
+- ${namegrupo}
+↳ *❀* ${gp1}
 
-🍰 ${cfg.comunidad.nombre}
-↳ *❀* ${cfg.comunidad.link}
+${namecomu}
+↳ *❀* ${comunidad1}
 
-🧋 ¿Enlace roto? Aquí tienes el canal oficial:
-📡 ${cfg.canal.nombre}
-↳ *❀* ${cfg.canal.link}
+*ׄ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ*
 
-╰─❀ 👨🏻‍💻 𝘾𝙧𝙚𝙖𝙙𝙤𝙧: ${cfg.creador} ❀─╯
-`.trim();
+⚘ Enlace anulado? entre aquí! 
 
-  await conn.sendFile(m.chat, cfg.catalogo, 'grupos.jpg', texto, m);
-  await m.react(cfg.emoji);
-};
+- ${namechannel}
+↳ *❀* ${channel}
 
-handler.help = ['grupos'];
-handler.tags = ['info'];
-handler.command = ['grupos', 'links', 'groups'];
+> ${dev}`
 
-export default handler;
+await conn.sendFile(m.chat, catalogo, "grupos.jpg", grupos, m)
+
+await m.react(emojis)
+
+}
+handler.help = ['grupos']
+handler.tags = ['info']
+handler.command = ['grupos', 'links', 'groups']
+
+export default handler
