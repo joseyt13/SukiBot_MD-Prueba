@@ -1,5 +1,5 @@
-// código creado por fedexyz 🍁 
-// no quites creditos ⚔ 
+// 🌸 código creado por ꜰᴇᴅᴇxʏᴢ 🍁
+// no quites créditos ⚔️
 
 export async function before(m, { conn}) {
   if (!m.isGroup ||!m.messageStubType ||!m.messageStubParameters) return;
@@ -11,54 +11,42 @@ export async function before(m, { conn}) {
   const participants = m.messageStubParameters || [];
   const fecha = new Date().toLocaleDateString('es-AR');
 
-  const bienvenidaAudios = [
-    'https://files.cloudkuimages.guru/audios/MVdamiSr.mp3'
-  ];
+  const audioBienvenida = 'https://files.cloudkuimages.guru/audios/MVdamiSr.mp3';
+  const audioDespedida = 'https://files.cloudkuimages.guru/audios/aTh4HrjO.mp3';
 
-  const despedidaAudios = [
-    'https://files.cloudkuimages.guru/audios/aTh4HrjO.mp3'
-  ];
-
-  const sitioSuki = 'https://sukibot-site.vercel.app/';
   const canalSuki = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
+  const grupoOficial = 'https://chat.whatsapp.com/ABC123456789XYZ'; // reemplaza con tu link real
 
   for (const user of participants) {
     const name = await conn.getName(user);
-    const pp = await conn.profilePictureUrl(user, 'image').catch(() =>
-      'https://files.catbox.moe/rkvuzb.jpg'
-);
-    const tag = `@${user.split("@")[0]}`;
+    const pp = await conn.profilePictureUrl(user, 'image').catch(() => 'https://files.catbox.moe/rkvuzb.jpg');
+    const tag = `@${user.split('@')[0]}`;
 
-    // 🎀 Bienvenida mágica
+    // 🎀 Bienvenida
     if ([27, 31].includes(m.messageStubType)) {
-      const audioWelcome = bienvenidaAudios[Math.floor(Math.random() * bienvenidaAudios.length)];
-
       await conn.sendMessage(m.chat, {
         text: `
-🫧 ¡Bienvenid@ al Reino pastel de *Suki_Bot_MD* ${tag}~! 🍓
+╭─❀ ʙɪᴇɴᴠᴇɴɪᴅ@ ❀─╮
 
-🎀 Grupo: *${groupMetadata.subject}*
-🌸 Nombre estelar: *${name}*
-🆔 Identificador mágico: *${user}*
-📆 Fecha de entrada: *${fecha}*
+🌸 ʜᴏʟᴀ ${tag}, ʙᴏᴛ ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ ᴛᴇ ᴀʙʀᴀᴢᴀ~
+🍓 ɢʀᴜᴘᴏ: *${groupMetadata.subject}*
+🧁 ɴᴏᴍʙʀᴇ: *${name}*
+📆 ᴇɴᴛʀᴀᴅᴀ: *${fecha}*
 
-▢───────《💮》───────▢
-✨ *¿Qué es Suki_Bot_MD?*
+╰─❀───────────────❀─╯
 
-• Un bot pastelcore lleno de comandos encantadores
-• Diseñado para grupos mágicos y aventuras kawaii
-• Administra, diviértete y personaliza tu espacio
-• ¡Más que un bot, es tu compañera de estrella! 💫
+📡 ᴄᴀɴᴀʟ:
+${canalSuki}
 
-🎐 Sitio oficial: ${sitioSuki}
-📡 Canal oficial: ${canalSuki}
+🎀 ɢʀᴜᴘᴏ ᴏꜰɪᴄɪᴀʟ:
+${grupoOficial}
 
-Disfruta tu estancia, preciosura. Suki te abraza con dulzura desde este mundo encantado~ 🌷`,
+ꜱᴜᴋɪ ᴛᴇ ᴅᴀ ʟᴀ ʙɪᴇɴᴠᴇɴɪᴅᴀ ᴄᴏɴ ᴅᴜʟᴢᴜʀᴀ 🌷`,
         mentions: [who],
         contextInfo: {
           externalAdReply: {
-            title: '💮 Nuevo miembro pastelcore',
-            body: `${name} acaba de aterrizar entre pétalos 💫`,
+            title: '🌷 ɴᴜᴇᴠ@ ᴇɴ ᴇʟ ʀᴇɪɴᴏ',
+            body: `${name} ʟʟᴇɢᴏ́ ᴄᴏɴ ᴇsᴛɪʟᴏ 💫`,
             thumbnailUrl: pp,
             mediaType: 1,
             renderLargerThumbnail: true,
@@ -68,45 +56,37 @@ Disfruta tu estancia, preciosura. Suki te abraza con dulzura desde este mundo en
 });
 
       await conn.sendMessage(m.chat, {
-        audio: { url: audioWelcome},
+        audio: { url: audioBienvenida},
         mimetype: 'audio/mpeg',
         ptt: true
 });
 }
 
-    // 🌙 Despedida celestial
+    // 🌙 Despedida sin enlaces
     if ([28, 32].includes(m.messageStubType)) {
-      const audioBye = despedidaAudios[Math.floor(Math.random() * despedidaAudios.length)];
-
       await conn.sendMessage(m.chat, {
         text: `
-🌙 ${tag} ha dejado el Reino *${groupMetadata.subject}* 🍃
+╭─❀ ᴅᴇsᴘᴇᴅɪᴅᴀ ❀─╮
 
-🧾 Nombre estelar: *${name}*
-🆔 ID de viajero astral: *${user}*
-📅 Fecha de salida: *${fecha}*
+🍃 ${tag} sᴀʟɪó ᴅᴇ *${groupMetadata.subject}*
+🧁 ɴᴏᴍʙʀᴇ: *${name}*
+📆 ꜱᴀʟɪᴅᴀ: *${fecha}*
 
-Gracias por compartir tu luz aquí ✨
-Suki siempre recordará tu esencia mágica~ 🌸
-
-🎀 Si deseas saber más sobre el bot:
-🔮 Web: ${sitioSuki}
-📡 Canal: ${canalSuki}`,
+ꜱᴜᴋɪ ᴛᴇ ʀᴇᴄᴏʀᴅᴀʀᴀ́ ᴄᴏɴ ᴄᴀʀɪɴ̃ᴏ 🌸`,
         mentions: [who],
         contextInfo: {
           externalAdReply: {
-            title: '🌠 Despedida pastel de Suki',
-            body: `${name} continúa su viaje con elegancia 🕊️`,
+            title: '🌙 ᴅᴇsᴘᴇᴅɪᴅᴀ ᴅᴇ ꜱᴜᴋɪ',
+            body: `${name} ᴄᴏɴᴛɪɴᴜ́ᴀ sᴜ ᴠɪᴀᴊᴇ 🕊️`,
             thumbnailUrl: pp,
             mediaType: 1,
-            renderLargerThumbnail: true,
-            sourceUrl: canalSuki
+            renderLargerThumbnail: true
 }
 }
 });
 
       await conn.sendMessage(m.chat, {
-        audio: { url: audioBye},
+        audio: { url: audioDespedida},
         mimetype: 'audio/mpeg',
         ptt: true
 });
