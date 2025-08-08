@@ -1,4 +1,4 @@
-const channelRD = 'Canal Oficial SukiBot_MD'; // Nombre decorativo o institucional
+/* const channelRD = 'Canal Oficial SukiBot_MD'; // Nombre decorativo o institucional
 
 const handler = async (m, { conn}) => {
   const name = conn.getName(m.sender);
