@@ -42,7 +42,7 @@ const handler = async (m, { conn, text, command}) => {
 }
 
     // 🌸 Imagen decorativa personalizada
-    const res2 = await fetch('https://files.cloudkuimages.guru/images/XhUWEVnu.jpg');
+    const res2 = await fetch('https://files.cloudkuimages.guru/images/9m6kTLQt.jpg');
     const thumb2 = await res2.buffer();
     const Shadow = {
       key: {
