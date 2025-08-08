@@ -60,6 +60,7 @@ async function showBanner() {
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
     `.split('\n').map(line => chalk.hex('#ff00cc').bold(line)).join('\n')
+    
     const subtitle = chalk.hex('#00eaff').bold('✦ Suki-Bot-MD ✦').padStart(40)
     const poweredMsg = chalk.hex('#00eaff').italic('powered by Brayan')
     const aiMsg = chalk.hex('#ffb300').bold('🤖 Suki-Bot-MD - Tu compañera virtual')
