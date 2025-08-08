@@ -1,7 +1,8 @@
 // Código creado por fedexyz 🍁
-// no quites los créditos 💳 
+// no quites los créditos 💳
 
 import axios from 'axios'
+import fetch from 'node-fetch'
 
 const channelRD = {
   id: '120363402097425674@newsletter',
@@ -36,11 +37,31 @@ let handler = async (m, { text, conn, args}) => {
 })
 }
 
+    // 🌸 Imagen decorativa personalizada
+    const res2 = await fetch('https://files.catbox.moe/qzp733.jpg')
+    const thumb2 = await res2.buffer()
+    const Shadow = {
+      key: {
+        participants: "0@s.whatsapp.net",
+        remoteJid: "status@broadcast",
+        fromMe: false,
+        id: "Halo"
+},
+      message: {
+        locationMessage: {
+          name: `DESCARGA COMPLETA\n[▓▓▓▓▓▓▓▓░░░░] 100%`,
+          jpegThumbnail: thumb2
+}
+},
+      participant: "0@s.whatsapp.net"
+}
+
     await conn.sendMessage(m.chat, {
       video: { url: videoUrl},
       caption: `🪷 *Aquí tenés tu video mágico de Instagram*\n🌐 Enlace: ${url}`,
       fileName: 'instagram.mp4',
       mimetype: 'video/mp4',
+      quoted: Shadow,
       contextInfo: {
         forwardedNewsletterMessageInfo: {
           newsletterJid: channelRD.id,
