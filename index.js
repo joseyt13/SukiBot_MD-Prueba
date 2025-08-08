@@ -42,11 +42,10 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 async function showBanner() {
   const title = '🌸 𝖲𝗎𝗄𝗂Bot_MD está listo para ti';
-  const subtitle = '✨ Dev: fedexyz13';
+  const devInfo = '✨ Dev: fedexyz13';
 
   console.clear();
   console.log(chalk.hex('#ffb6c1').bold('\n🌷 Iniciando 𝖲𝗎𝗄𝗂Bot_MD... por favor espera 🌷\n'));
-
   console.log(chalk.hex('#ff69b4').bold(title));
   await sleep(300);
   console.log(chalk.hex('#ff69b4').bold(subtitle));
