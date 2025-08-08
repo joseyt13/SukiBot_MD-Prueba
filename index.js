@@ -53,7 +53,6 @@ async function showBanner() {
   await sleep(300);
 
   console.log(chalk.hex('#ffb6c1')('\n💖 ¡𝖲𝗎𝗄𝗂 está lista para encantar tu consola!'));
-                                        }
 
   for (const line of lines) {
     console.log(chalk.hex('#ff69b4').bold(line));
