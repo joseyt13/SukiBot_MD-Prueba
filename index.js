@@ -49,6 +49,13 @@ async function showBanner() {
   console.clear();
   console.log(chalk.hex('#ffb6c1').bold('\n🌷 Iniciando 𝖲𝗎𝗄𝗂Bot_MD... por favor espera 🌷\n'));
 
+  for (const line of lines) {
+    console.log(chalk.hex('#ff69b4').bold(line));
+    await sleep(300);
+}
+
+  console.log(chalk.hex('#ffb6c1')('\n💖 ¡𝖲𝗎𝗄𝗂 está lista para encantar tu consola!'));
+
     const subtitle = chalk.hex('#00eaff').bold('✦ Suki-Bot-MD ✦').padStart(40)
     const poweredMsg = chalk.hex('#00eaff').italic('powered by Brayan')
     const aiMsg = chalk.hex('#ffb300').bold('🤖 Suki-Bot-MD - Tu compañera virtual')
