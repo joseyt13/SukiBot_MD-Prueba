@@ -1,89 +1,60 @@
-import fs from 'fs';
-import acrcloud from 'acrcloud';
+// 🌸 Código decorado por fedexyz 🍁
+// No quites los créditos si usas este módulo 💖
+
 import fetch from 'node-fetch';
 
-const acr = new acrcloud({
-  host: 'identify-eu-west-1.acrcloud.com',
-  access_key: 'c33c767d683f78bd17d4bd4991955d81',
-  access_secret: 'bvgaIAEtADBTbLwiPGYlxupWqkNGIjT7J9Ag2vIu'
-});
-
-const channelRD = {
-  id: '120363402097425674@newsletter',
-  name: '🌸 Suki_Bot_MD Canal Oficial'
-};
-
-const handler = async (m, { conn}) => {
-  const q = m.quoted || m;
-  const mime = (q.msg || q).mimetype || '';
+const handler = async (m, { conn, usedPrefix, command}) => {
+  const quoted = m.quoted || m;
+  const mime = quoted.mimetype || quoted.msg?.mimetype || '';
 
   if (!/audio|video/.test(mime)) {
-    throw '💭 Por favor, responde a un *audio* o *video corto* para que pueda identificar la melodía~ 🎶';
+    await conn.sendMessage(m.chat, { react: { text: '🎧', key: m.key}});
+    return m.reply(`🌸 𝖯𝗈𝗋 𝖿𝖺𝗏𝗈𝗋 𝖾𝗇𝖵𝗂𝖺 𝗈 𝗋𝖾𝗌𝗉𝗈𝗇𝖽𝖾 𝖺 𝗎𝗇 𝖺𝗎𝖽𝗂𝗈 𝗈 𝗇𝗈𝗍𝖺 𝖽𝖾 𝗏𝗈𝗓\n✨ 𝖴𝗌𝖺: *${usedPrefix + command}*`);
 }
 
   try {
-    const media = await q.download();
-    const ext = mime.split('/')[1];
-    const tempPath = `./tmp/${m.sender}.${ext}`;
-    fs.writeFileSync(tempPath, media);
+    await m.react('🔍');
+    const audio = await quoted.download();
 
-    const res = await acr.identify(fs.readFileSync(tempPath));
-    fs.unlinkSync(tempPath);
+    const formData = new FormData();
+    formData.append('audio', audio, { filename: 'audio.mp3'});
 
-    const { code, msg} = res.status;
-    if (code!== 0) throw `😿 Error: ${msg}`;
-
-    const music = res.metadata?.music[0];
-    if (!music) throw '🧁 No encontré coincidencias musicales... prueba con otro fragmento más clarito~';
-
-    const {
-      title,
-      artists = [],
-      album = {},
-      genres = [],
-      release_date
-} = music;
-
-    const responseText = `
-🧋 *Suki_Bot_MD — Resultado Musical* 💫
-
-• 🌸 *Título*: ${title || 'No encontrado'}
-• 🎤 *Artista*: ${artists.map(v => v.name).join(', ') || 'No encontrado'}
-• 💽 *Álbum*: ${album.name || 'No encontrado'}
-• 🍡 *Género*: ${genres.map(v => v.name).join(', ') || 'No encontrado'}
-• 📅 *Lanzamiento*: ${release_date || 'No encontrado'}
-
-✨ ¿Quieres que te envíe un link si está disponible en YouTube o Spotify?~ 🩷
-`.trim();
-
-    // Imagen decorativa
-    const imageURL = 'https://files.catbox.moe/rkvuzb.jpg';
-    const imgBuffer = await fetch(imageURL).then(res => res.buffer());
-
-    await conn.sendMessage(m.chat, {
-      image: imgBuffer,
-      caption: responseText,
-      contextInfo: {
-        mentionedJid: [m.sender],
-        isForwarded: true,
-        forwardingScore: 777,
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: channelRD.id,
-          serverMessageId: 122,
-          newsletterName: channelRD.name
+    const res = await fetch('https://api.audd.io/', {
+      method: 'POST',
+      body: formData,
+      headers: {
+...formData.getHeaders(),
+        'api-token': 'tu_token_aqui' // Reemplaza con tu token de Audd.io
 }
-}
-}, { quoted: m});
+});
 
-} catch (e) {
-    console.error(e);
-    throw '😿 Ocurrió un error al intentar identificar la canción~ Intenta de nuevo con otro audio mágico 🎶';
+    const json = await res.json();
+
+    if (!json.result) {
+      throw new Error('No se pudo identificar la canción.');
+}
+
+    const { title, artist, album, release_date} = json.result;
+
+    const info = `
+🎶 𝖢𝖺𝗇𝖼𝗂𝗈𝗇 𝗂𝖽𝖾𝗇𝗍𝗂𝖿𝗂𝖼𝖺𝖽𝖺:
+
+🌸 𝖳𝗂𝗍𝗎𝗅𝗈: *${title}*
+🎤 𝖠𝗋𝗍𝗂𝗌𝗍𝖺: *${artist}*
+💿 𝖠𝗅𝖻𝗎𝗆: ${album || 'Desconocido'}
+📅 𝖥𝖾𝖼𝗁𝖺: ${release_date || 'No disponible'}
+    `.trim();
+
+    await conn.sendMessage(m.chat, { text: info}, { quoted: m});
+    await m.react('✅');
+} catch (err) {
+    await m.react('❌');
+    m.reply(`❌ 𝖲𝗎𝗄𝗂 no pudo identificar la canción:\n${err.message || err}`);
 }
 };
 
-handler.command = ['quemusica', 'quemusicaes', 'whatmusic'];
-handler.help = ['quemusica <responde audio>'];
-handler.tags = ['tools', 'buscador', 'suki'];
-handler.register = true;
+handler.help = ['whatmusic'];
+handler.tags = ['tools', 'audio'];
+handler.command = ['whatmusic', 'idmusic', 'musica'];
 
 export default handler;
