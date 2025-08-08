@@ -107,21 +107,38 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-    const imageURL = 'https://files.catbox.moe/rkvuzb.jpg';
-    const imgBuffer = await fetch(imageURL).then(res => res.buffer());
+    // 🌸 Imagen decorativa personalizada
+    const res2 = await fetch('https://files.catbox.moe/qzp733.jpg');
+    const thumb2 = await res2.buffer();
+    const Shadow = {
+      key: {
+        participants: "0@s.whatsapp.net",
+        remoteJid: "status@broadcast",
+        fromMe: false,
+        id: "Halo"
+},
+      message: {
+        locationMessage: {
+          name: `MENU COMPLETO`,
+          jpegThumbnail: thumb2
+}
+},
+      participant: "0@s.whatsapp.net"
+};
 
-    const menuMessage = await conn.sendMessage(m.chat, {
-      image: imgBuffer,
+    await conn.sendMessage(m.chat, {
+      image: thumb2,
       caption: text,
+      quoted: Shadow,
       contextInfo: {
         mentionedJid: [m.sender],
         isForwarded: true,
         forwardingScore: 888
-  }
-      }, { quoted: m});
+}
+});
 
     await conn.sendMessage(m.chat, {
-      react: { text: '🌷', key: menuMessage.key}
+      react: { text: '🌷', key: m.key}
 });
 
 } catch (e) {
@@ -142,4 +159,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-  }
+}
