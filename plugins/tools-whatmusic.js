@@ -1,7 +1,5 @@
-// 🌸 Código decorado por fedexyz 🍁
-// No quites los créditos si usas este módulo 💖
-
 import fetch from 'node-fetch';
+import FormData from 'form-data';
 
 const handler = async (m, { conn, usedPrefix, command}) => {
   const quoted = m.quoted || m;
@@ -9,23 +7,26 @@ const handler = async (m, { conn, usedPrefix, command}) => {
 
   if (!/audio|video/.test(mime)) {
     await conn.sendMessage(m.chat, { react: { text: '🎧', key: m.key}});
-    return m.reply(`🌸 𝖯𝗈𝗋 𝖿𝖺𝗏𝗈𝗋 𝖾𝗇𝖵𝗂𝖺 𝗈 𝗋𝖾𝗌𝗉𝗈𝗇𝖽𝖾 𝖺 𝗎𝗇 𝖺𝗎𝖽𝗂𝗈 𝗈 𝗇𝗈𝗍𝖺 𝖽𝖾 𝗏𝗈𝗓\n✨ 𝖴𝗌𝖺: *${usedPrefix + command}*`);
+    return m.reply(`🌸 𝖯𝗈𝗋 𝖿𝖺𝗏𝗈𝗋 𝖾𝗇𝗏𝗂𝖺 𝗈 𝗋𝖾𝗌𝗉𝗈𝗇𝖽𝖾 𝖺 𝗎𝗇 𝖺𝗎𝖽𝗂𝗈 𝗈 𝗇𝗈𝗍𝖺 𝖽𝖾 𝗏𝗈𝗓\n✨ 𝖴𝗌𝖺: *${usedPrefix + command}*`);
 }
 
   try {
-    await m.react('🔍');
-    const audio = await quoted.download();
+    await conn.sendMessage(m.chat, { react: { text: '🔍', key: m.key}});
 
-    const formData = new FormData();
-    formData.append('audio', audio, { filename: 'audio.mp3'});
+    const audioBuffer = await quoted.download(); // esto es un Buffer
+
+    const form = new FormData();
+    form.append('file', audioBuffer, {
+      filename: 'audio.mp3',
+      contentType: mime
+});
+    form.append('return', 'apple_music,spotify');
+    form.append('api_token', 'tu_token_aqui'); // Reemplaza con tu token de Audd.io
 
     const res = await fetch('https://api.audd.io/', {
       method: 'POST',
-      body: formData,
-      headers: {
-...formData.getHeaders(),
-        'api-token': 'tu_token_aqui' // Reemplaza con tu token de Audd.io
-}
+      body: form,
+      headers: form.getHeaders()
 });
 
     const json = await res.json();
@@ -46,9 +47,9 @@ const handler = async (m, { conn, usedPrefix, command}) => {
     `.trim();
 
     await conn.sendMessage(m.chat, { text: info}, { quoted: m});
-    await m.react('✅');
+    await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key}});
 } catch (err) {
-    await m.react('❌');
+    await conn.sendMessage(m.chat, { react: { text: '❌', key: m.key}});
     m.reply(`❌ 𝖲𝗎𝗄𝗂 no pudo identificar la canción:\n${err.message || err}`);
 }
 };
