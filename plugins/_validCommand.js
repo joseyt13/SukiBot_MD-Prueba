@@ -2,7 +2,7 @@ export async function before(m, { conn}) {
   try {
     if (!m.text ||!global.prefix ||!global.prefix.test(m.text)) return;
 
-    const metanombre = global.metanombre || 'ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ';
+    const metanombre = global.metanombre || '𓆩 SukiBot_MD 🌸';
     const creador = 'ꜰᴇᴅᴇxʏᴢ';
     const Buffer = global.Buffer || ((...args) => new Uint8Array(...args));
 
@@ -59,7 +59,7 @@ export async function before(m, { conn}) {
     if (isValid) {
       if (chat?.isBanned) {
         return conn.sendMessage(m.chat, {
-          text: `🔒 *${metanombre}* está silenciado aquí.\n🌸 Usa *${usedPrefix}bot on* para activarlo.`,
+          text: `🔒 *${metanombre}* está silenciado en este grupo.\n🌸 Usa *${usedPrefix}bot on* para activarlo.`,
           quoted: global.fakeMetaMsg
 });
 }
@@ -67,17 +67,33 @@ export async function before(m, { conn}) {
       if (user) {
         user.commands = (user.commands || 0) + 1;
         user.lastCommand = command;
-        user.lastActive = new Date() * 1;
+        user.lastActive = Date.now();
+        user.errores = 0; // Reinicia contador de errores
 }
-
 } else {
       const cmd = m.text.trim().split(' ')[0];
-      return conn.sendMessage(m.chat, {
-        text: `❌ El hechizo *${cmd}* no existe.\n🧁 Usa *${usedPrefix}menu* para ver tus poderes disponibles\n🧐Usa bien los pinches comandos...`,
-        quoted: global.fakeMetaMsg
-});
+      const errores = (user.errores = (user.errores || 0) + 1);
+
+      let respuesta;
+      if (errores>= 3) {
+        respuesta = `
+🚫 *¿Estás bien?*
+Has escrito mal los comandos *${errores} veces seguidas*.
+🌸 Usa *${usedPrefix}menu* antes de seguir lanzando hechizos fallidos.
+
+🧁 SukiBot_MD también se cansa de tus intentos fallidos.
+`.trim();
+} else {
+        respuesta = `
+❌ El hechizo *${cmd}* no existe.
+
+🌷 Usa *${usedPrefix}menu* para ver tus poderes disponibles.
+🧁 Si necesitas ayuda, puedes usar *${usedPrefix}ayuda*.
+`.trim();
 }
 
+      return conn.sendMessage(m.chat, { text: respuesta}, { quoted: global.fakeMetaMsg});
+}
 } catch (e) {
     console.error(`⚠️ Error en before: ${e}`);
     await m.reply(`💥 Ups... ocurrió un error mágico.\n🔧 Detalles: ${e.message}`);
