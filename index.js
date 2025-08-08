@@ -41,13 +41,19 @@ let { say } = cfonts
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 async function showBanner() {
-  const lines = [
-    '🌸 𝖲𝗎𝗄𝗂Bot_MD está listo para ti',
-    '✨ Dev: fedexyz13'
-  ];
+  const title = '🌸 𝖲𝗎𝗄𝗂Bot_MD está listo para ti';
+  const subtitle = '✨ Dev: fedexyz13';
 
   console.clear();
   console.log(chalk.hex('#ffb6c1').bold('\n🌷 Iniciando 𝖲𝗎𝗄𝗂Bot_MD... por favor espera 🌷\n'));
+
+  console.log(chalk.hex('#ff69b4').bold(title));
+  await sleep(300);
+  console.log(chalk.hex('#ff69b4').bold(subtitle));
+  await sleep(300);
+
+  console.log(chalk.hex('#ffb6c1')('\n💖 ¡𝖲𝗎𝗄𝗂 está lista para encantar tu consola!'));
+                                        }
 
   for (const line of lines) {
     console.log(chalk.hex('#ff69b4').bold(line));
