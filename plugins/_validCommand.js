@@ -73,7 +73,7 @@ export async function before(m, { conn}) {
 } else {
       const cmd = m.text.trim().split(' ')[0];
       return conn.sendMessage(m.chat, {
-        text: `❌ El hechizo *${cmd}* no existe.\n🧁 Usa *${usedPrefix}menu* para ver tus poderes disponibles\nUsa bien los pinches comandos...`,
+        text: `❌ El hechizo *${cmd}* no existe.\n🧁 Usa *${usedPrefix}menu* para ver tus poderes disponibles\n🧐Usa bien los pinches comandos...`,
         quoted: global.fakeMetaMsg
 });
 }
