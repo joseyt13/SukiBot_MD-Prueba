@@ -21,8 +21,8 @@ const handler = async (m, { conn, text, usedPrefix, command}) => {
       return conn.reply(m.chat, '✧ *No se encontraron resultados para tu búsqueda.*', m);
 }
 
-    // 🖼️ Miniatura personalizada
-    const res2 = await fetch('https://files.catbox.moe/qzp733.jpg');
+    // 🖼️ Miniatura decorativa (imagen.jpg)
+    const res2 = await fetch('https://commons.wikimedia.org/wiki/File:Cat03.jpg'); // Imagen decorativa
     const thumb2 = await res2.buffer();
     const Shadow = {
       key: {
@@ -114,7 +114,7 @@ const handler = async (m, { conn, text, usedPrefix, command}) => {
         await m.react('✅');
         await conn.sendFile(m.chat, json.download, `${json.title || 'video'}.mp4`,
           `📥 *Video descargado con éxito.*\n\n` +
-          `🎬 *Título:* ${json.title}\n` +
+                            `🎬 *Título:* ${json.title}\n` +
           `⏱️ *Duración:* ${timestamp}\n` +
           `📽️ *Calidad:* ${json.quality}\n` +
           `🔗 *Enlace:* ${url}`, Shadow);
