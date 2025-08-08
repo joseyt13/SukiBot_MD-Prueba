@@ -42,18 +42,8 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 async function showBanner() {
   const lines = [
-    '╭───────────────────────𓆩♡𓆪────────╮',
-    '│                                                   
-    '│     🌸 𝖲𝗎𝗄𝗂Bot_MD está despertando con dulzura...  
-    '│                                                  
-    '│     🧁 Magia pastelcore activada con éxito       
-    '│     🪄 Comandos listos para brillar con ternura  
-    '│     💖 Bienvenid@ al reino digital kawaii         
-    '│                                                   
-    `│     ✨ Dev: ${chalk.hex('#ffb6c1')('fedexyz13')}                       
-    `│     📦 Versión: ${chalk.hex('#ffb6c1')('1.0.0')}             
-    `│     📅 Fecha: ${chalk.hex('#ffb6c1')(new Date().toLocaleDateString())}
-    '╰───────────────────────𓆩♡𓆪─────────────────────╯'
+    '🌸 𝖲𝗎𝗄𝗂Bot_MD está listo para ti',
+    '✨ Dev: fedexyz13'
   ];
 
   console.clear();
