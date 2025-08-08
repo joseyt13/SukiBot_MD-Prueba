@@ -13,15 +13,15 @@ const handler = async (m, { conn, usedPrefix, command}) => {
   try {
     await conn.sendMessage(m.chat, { react: { text: '🔍', key: m.key}});
 
-    const audioBuffer = await quoted.download(); // esto es un Buffer
+    const audioBuffer = await quoted.download();
 
     const form = new FormData();
     form.append('file', audioBuffer, {
       filename: 'audio.mp3',
       contentType: mime
 });
-    form.append('return', 'apple_music,spotify');
     form.append('api_token', 'tu_token_aqui'); // Reemplaza con tu token de Audd.io
+    form.append('return', 'spotify,apple_music');
 
     const res = await fetch('https://api.audd.io/', {
       method: 'POST',
@@ -31,8 +31,9 @@ const handler = async (m, { conn, usedPrefix, command}) => {
 
     const json = await res.json();
 
-    if (!json.result) {
-      throw new Error('No se pudo identificar la canción.');
+    if (!json.result ||!json.result.title) {
+      await conn.sendMessage(m.chat, { react: { text: '⚠️', key: m.key}});
+      return m.reply(`❌ 𝖲𝗎𝗄𝗂 no pudo identificar la canción.\n🎧 Intenta con un audio más claro o más largo.`);
 }
 
     const { title, artist, album, release_date} = json.result;
