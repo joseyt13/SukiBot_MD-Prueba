@@ -113,8 +113,7 @@ const handler = async (m, { conn, text, usedPrefix, command}) => {
 
         await m.react('✅');
         await conn.sendFile(m.chat, json.download, `${json.title || 'video'}.mp4`,
-          `📥 *Video descargado con éxito.*\n\n` +
-                            `🎬 *Título:* ${json.title}\n` +
+          `📥 *Video descargado con éxito.*\n\n` + `🎬 *Título:* ${json.title}\n` +
           `⏱️ *Duración:* ${timestamp}\n` +
           `📽️ *Calidad:* ${json.quality}\n` +
           `🔗 *Enlace:* ${url}`, Shadow);
