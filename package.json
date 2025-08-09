@@ -1,7 +1,7 @@
 {
-"name": "the-suki-md",
-"version": "2.2.0",
-"description": "WhatsApp Bot Multi Device ",
+"name": "Suki_Bot_MD",
+"version": "1.0.5",
+"description": "El Mejor bot de WhatsApp",
 "main": "index.js",
 "type": "module",
 "directories": {
@@ -13,14 +13,12 @@
 "start": "node index.js",
 "qr": "node index.js qr",
 "code": "node index.js code",
-"test": "node test.js",
-"test2": "nodemon index.js", 
 "eslint": "eslint .",
 "eslintfix": "eslint --fix ."
 },
 "homepage": "https://github.com/El-brayan502/RoxyBot-MD",
 "author": {
-"name": "Fedexyz"
+"name": "thecarlos19"
 },
 "repository": {
 "type": "git",
@@ -31,7 +29,7 @@
 },
 "license": "GPL-3.0-or-later",
 "dependencies": {
-"@whiskeysockets/baileys": "github:JoseXrl15k/XrlBaileyszzz",
+"@whiskeysockets/baileys": "github:EdderBot02/bail",
 "@adiwajshing/keyed-db": "^0.2.4",
 "@bochilteam/scraper": "^4.2.4",
 "@bochilteam/scraper-sosmed": "^1.0.5",
