@@ -38,7 +38,7 @@ let handler = async (m, { conn, usedPrefix, command}) => {
     txt += `│ 📅 *Lanzamiento:* ${release_date}\n`;
     txt += `╰─────────────❀`;
 
-    const imgBuffer = await fetch('https://files.catbox.moe/g5liji.jpg').then(res => res.buffer());
+    const imgBuffer = await fetch('https://files.catbox.moe/rkvuzb.jpg').then(res => res.buffer());
 
     await conn.sendMessage(m.chat, {
       image: imgBuffer,
