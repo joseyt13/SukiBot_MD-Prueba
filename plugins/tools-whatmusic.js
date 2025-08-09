@@ -1,62 +1,55 @@
-import fetch from 'node-fetch';
-import FormData from 'form-data';
+// código creado por fedexyz 
+// no quites creditos pajero xd
 
-const handler = async (m, { conn, usedPrefix, command}) => {
-  const quoted = m.quoted || m;
-  const mime = quoted.mimetype || quoted.msg?.mimetype || '';
+import acrcloud from 'acrcloud';
 
-  if (!/audio|video/.test(mime)) {
-    await conn.sendMessage(m.chat, { react: { text: '🎧', key: m.key}});
-    return m.reply(`🌸 𝖯𝗈𝗋 𝖿𝖺𝗏𝗈𝗋 𝖾𝗇𝗏𝗂𝖺 𝗈 𝗋𝖾𝗌𝗉𝗈𝗇𝖽𝖾 𝖺 𝗎𝗇 𝖺𝗎𝖽𝗂𝗈 𝗈 𝗇𝗈𝗍𝖺 𝖽𝖾 𝗏𝗈𝗓\n✨ 𝖴𝗌𝖺: *${usedPrefix + command}*`);
+const acr = new acrcloud({
+  host: 'identify-eu-west-1.acrcloud.com',
+  access_key: 'c33c767d683f78bd17d4bd4991955d81',
+  access_secret: 'bvgaIAEtADBTbLwiPGYlxupWqkNGIjT7J9Ag2vIu'
+});
+
+let handler = async (m, { conn, usedPrefix, command}) => {
+  const q = m.quoted? m.quoted: m;
+  const mime = (q.msg || q).mimetype || q.mediaType || '';
+
+  if (!/video|audio/.test(mime)) {
+    return conn.reply(
+      m.chat,
+      `🎧 *SukiTip:* Responde a un audio o video corto con *${usedPrefix + command}* para descubrir qué canción es 🌸`,
+      m
+);
 }
 
   try {
-    await conn.sendMessage(m.chat, { react: { text: '🔍', key: m.key}});
+    const buffer = await q.download();
+    const { status, metadata} = await acr.identify(buffer);
 
-    const audioBuffer = await quoted.download();
+    if (status.code!== 0) throw new Error(status.msg);
 
-    const form = new FormData();
-    form.append('file', audioBuffer, {
-      filename: 'audio.mp3',
-      contentType: mime
-});
-    form.append('api_token', 'tu_token_aqui'); // Reemplaza con tu token de Audd.io
-    form.append('return', 'spotify,apple_music');
+    const { title, artists, album, genres, release_date} = metadata.music[0];
 
-    const res = await fetch('https://api.audd.io/', {
-      method: 'POST',
-      body: form,
-      headers: form.getHeaders()
-});
+    let txt = `╭───❀「 *SukiBot_MD - WhatMusic* 」❀\n`;
+    txt += `│ 🎶 *Título:* ${title}\n`;
+    if (artists) txt += `│ 👤 *Artista:* ${artists.map(v => v.name).join(', ')}\n`;
+    if (album) txt += `│ 📀 *Álbum:* ${album.name}\n`;
+    if (genres) txt += `│ 🪷 *Género:* ${genres.map(v => v.name).join(', ')}\n`;
+    txt += `│ 📅 *Lanzamiento:* ${release_date}\n`;
+    txt += `╰─────────────❀`;
 
-    const json = await res.json();
-
-    if (!json.result ||!json.result.title) {
-      await conn.sendMessage(m.chat, { react: { text: '⚠️', key: m.key}});
-      return m.reply(`❌ 𝖲𝗎𝗄𝗂 no pudo identificar la canción.\n🎧 Intenta con un audio más claro o más largo.`);
-}
-
-    const { title, artist, album, release_date} = json.result;
-
-    const info = `
-🎶 𝖢𝖺𝗇𝖼𝗂𝗈𝗇 𝗂𝖽𝖾𝗇𝗍𝗂𝖿𝗂𝖼𝖺𝖽𝖺:
-
-🌸 𝖳𝗂𝗍𝗎𝗅𝗈: *${title}*
-🎤 𝖠𝗋𝗍𝗂𝗌𝗍𝖺: *${artist}*
-💿 𝖠𝗅𝖻𝗎𝗆: ${album || 'Desconocido'}
-📅 𝖥𝖾𝖼𝗁𝖺: ${release_date || 'No disponible'}
-    `.trim();
-
-    await conn.sendMessage(m.chat, { text: info}, { quoted: m});
-    await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key}});
-} catch (err) {
-    await conn.sendMessage(m.chat, { react: { text: '❌', key: m.key}});
-    m.reply(`❌ 𝖲𝗎𝗄𝗂 no pudo identificar la canción:\n${err.message || err}`);
+    await conn.reply(m.chat, txt, m);
+} catch (e) {
+    console.error('[❌] Error en whatmusic:', e);
+    await conn.reply(
+      m.chat,
+      '❎ Suki no pudo reconocer la canción... ¿Seguro que es un audio o video corto? 🍃',
+      m
+);
 }
 };
 
-handler.help = ['whatmusic'];
-handler.tags = ['tools', 'audio'];
-handler.command = ['whatmusic', 'idmusic', 'musica'];
+handler.help = ['whatmusic <audio/video>'];
+handler.tags = ['tools'];
+handler.command = ['shazam', 'whatmusic'];
 
 export default handler;
