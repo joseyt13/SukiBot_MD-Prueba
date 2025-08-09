@@ -113,7 +113,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const menuMessage = await conn.sendMessage(m.chat, {
       document: imgBuffer,
       fileName: "fedexyz",
-      mimetype: "image/png",
+      mimetype: "SukiBot_MD/zip",
       caption: text,
       contextInfo: {
         mentionedJid: [m.sender],
