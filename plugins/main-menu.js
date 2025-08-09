@@ -109,7 +109,6 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     // Imagen desde URL
     const imageURL = 'https://files.catbox.moe/rkvuzb.jpg'; // Puedes cambiarla por otra
-    const imgBuffer = await fetch(imageURL).then(res => res.buffer());
     const menuMessage = await conn.sendMessage(m.chat, {
       document: imgBuffer,
       fileName: "fedexyz",
