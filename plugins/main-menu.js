@@ -3,7 +3,6 @@
 
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
-import fs from 'fs/promises';
 
 const toSerifBold = (text) => {
   const map = {
@@ -108,8 +107,9 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-    const imgBuffer = await fs.readFile('./src/imagen.jpg');
-
+    // Imagen desde URL
+    const imageURL = 'https://files.catbox.moe/rkvuzb.jpg'; // Puedes cambiarla por otra
+    const imgBuffer = await fetch(imageURL).then(res => res.buffer());
     const menuMessage = await conn.sendMessage(m.chat, {
       document: imgBuffer,
       fileName: "fedexyz",
@@ -142,5 +142,4 @@ export default handler;
 function clockString(ms) {
   let h = isNaN(ms)? '--': Math.floor(ms / 3600000);
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
-  let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
-  return [h, m, s].map(v => v.toString().padStart(2, '0')).⁽¹⁾⁽²⁾
+  let s = isNaN(ms)? '--': Math.floor(ms / 1000⁽¹⁾⁽²⁾
