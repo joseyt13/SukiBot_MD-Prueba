@@ -47,6 +47,7 @@ const defaultMenu = {
   header: '\n🍁 `/%category/` 乂\n',
   body: '.꒷🍁.𖦹˙ %cmd %iscorazones %isPremium',
   footer: '\n',
+  after: ''
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
@@ -110,14 +111,16 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const imgBuffer = await fetch(imageURL).then(res => res.buffer());
 
     const menuMessage = await conn.sendMessage(m.chat, {
-      image: imgBuffer,
+      document: imgBuffer,
+      fileName: "fedexyz",
+      mimetype: "image/png",
       caption: text,
       contextInfo: {
         mentionedJid: [m.sender],
         isForwarded: true,
         forwardingScore: 888
-  }
-      }, { quoted: m});
+}
+}, { quoted: m});
 
     await conn.sendMessage(m.chat, {
       react: { text: '🌷', key: menuMessage.key}
@@ -141,4 +144,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-      }
+  }
