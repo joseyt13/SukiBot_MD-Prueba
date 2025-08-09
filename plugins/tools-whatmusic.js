@@ -2,6 +2,7 @@
 // no quites creditos pajero xd
 
 import acrcloud from 'acrcloud';
+import fetch from 'node-fetch';
 
 const acr = new acrcloud({
   host: 'identify-eu-west-1.acrcloud.com',
@@ -16,7 +17,7 @@ let handler = async (m, { conn, usedPrefix, command}) => {
   if (!/video|audio/.test(mime)) {
     return conn.reply(
       m.chat,
-      `🎧 *SukiTip:* Responde a un audio o video corto con *${usedPrefix + command}* para descubrir qué canción es 🌸`,
+      `🎧 *Responde a un audio o video corto con *${usedPrefix + command}* para descubrir qué canción es 🌸`,
       m
 );
 }
@@ -37,7 +38,18 @@ let handler = async (m, { conn, usedPrefix, command}) => {
     txt += `│ 📅 *Lanzamiento:* ${release_date}\n`;
     txt += `╰─────────────❀`;
 
-    await conn.reply(m.chat, txt, m);
+    const imgBuffer = await fetch('https://files.catbox.moe/g5liji.jpg').then(res => res.buffer());
+
+    await conn.sendMessage(m.chat, {
+      image: imgBuffer,
+      caption: txt,
+      contextInfo: {
+        mentionedJid: [m.sender],
+        isForwarded: true,
+        forwardingScore: 777
+}
+}, { quoted: m});
+
 } catch (e) {
     console.error('[❌] Error en whatmusic:', e);
     await conn.reply(
