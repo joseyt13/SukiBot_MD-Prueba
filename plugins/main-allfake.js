@@ -29,9 +29,9 @@ console.log(`Error : ${e}`)
 }}
 
 // IᖴᑎᖴOᖇᗰᗩᑕIOᑎ ᗪᗴ ᒪᗩ ᗷOT
-global.creador = 'Wa.me/5491156178759'
+global.creador = 'Wa.me/5491156178758'
 global.ofcbot = `Wa.me/${conn.user.jid.split('@')[0]}?text=✨️hl`
-global.asistencia = 'Wa.me/50231458537'
+global.asistencia = 'Wa.me/5491176429275'
 global.namechannel = '🍒 Sᴜᴋɪ𝐁𝐨𝐭_MD 🍁'
 global.namechannel2 = '🍒 Sᴜᴋɪ𝐁𝐨𝐭_MD 🍁'
 global.namegrupo = '🍒 Sᴜᴋɪ𝐁𝐨𝐭_MD 🍁'
@@ -110,7 +110,7 @@ var more = String.fromCharCode(8206)
 global.readMore = more.repeat(850)
 
 //Fakes
-let pp = null; try { pp = await conn.profilePictureUrl('50231458537@s.whatsapp.net', 'image') } catch (e) { pp = null } global.fkontak = { key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: `120363402481697721@g.us` } : {}) }, message: { 'contactMessage': { 'displayName': `DevBrayan owner ✨`, 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;DevBrayan owner✨,;;;\nFN:DevBrayan creador\nitem1.TEL;waid=50231458537:50231458537\nitem1.X-ABLabel:Ponsel\nEND:VCARD`, 'jpegThumbnail': pp ? await (await fetch(pp)).buffer() : null, thumbnail: null, sendEphemeral: true }}}
+let pp = null; try { pp = await conn.profilePictureUrl('5491156178758@s.whatsapp.net', 'image') } catch (e) { pp = null } global.fkontak = { key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: `120363402481697721@g.us` } : {}) }, message: { 'contactMessage': { 'displayName': `fedexyz owner 🍁`, 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;fedexyz owner🍁,;;;\nFN:DevBrayan creador\nitem1.TEL;waid=5491156178758:5491156178758\nitem1.X-ABLabel:Ponsel\nEND:VCARD`, 'jpegThumbnail': pp ? await (await fetch(pp)).buffer() : null, thumbnail: null, sendEphemeral: true }}}
 
 global.fake = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: channelRD.id, newsletterName: channelRD.name, serverMessageId: -1 }
 }}, { quoted: m }
