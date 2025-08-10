@@ -44,9 +44,9 @@ const defaultMenu = {
 %readmore`.trim(),
 
   header: '\n`🍁 %category 乂`\n',
-  body: '.🍁.𖦹˙ %cmd %iscorazones %isPremium',
+  body: '.🍂.𖦹˙ %cmd %iscorazones %isPremium',
   footer: '\n',
-  after: `> ${dev}`,
+  after: ``,
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
