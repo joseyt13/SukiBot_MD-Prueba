@@ -116,8 +116,8 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
         mentionedJid: [m.sender],
         isForwarded: true,
         forwardingScore: 888
-  }
-      }, { quoted: m});
+}
+}, { quoted: m});
 
     await conn.sendMessage(m.chat, {
       react: { text: '🌷', key: menuMessage.key}
@@ -125,20 +125,16 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
 } catch (e) {
     console.error('[❌] 𝖤𝗋𝗋𝗈𝗋 𝖾𝗇 𝗆𝖾𝗇𝗎 𝖽𝖾𝖼𝗈𝗋𝖺𝖽𝗈:', e);
-    conn.reply(m.chat, '❎ 𝖲𝗎𝗄𝗂 𝗌𝖾 𝗍𝗋𝗈𝗉𝖾𝗓𝗈́ 𝖾𝗇𝗍𝗋𝖾 𝗉𝖾́𝗍𝖺𝗅𝗈𝗌 🌸. 𝖨𝗇𝗍𝖾𝗇𝗍𝖺𝗅𝗈 𝗈𝗍𝗋𝖺 𝗏𝖾𝗓, 𝗉𝗈𝗋𝖿𝖺.', m);
-    }
+    conn.reply(m.chat, '❎ 𝖲𝗎𝗄𝗂 𝗌𝖾 𝗍𝗋𝗈𝗉𝖾𝗓𝗈́ 𝖾𝗇𝗍𝗋𝖾 𝗉𝖾́𝗍𝖺𝗅𝗈𝗌 🌸. 𝖨𝗇𝗍𝖾𝗇𝖙𝖺𝗅𝗈 𝗈𝗍𝗋𝖺 𝗏𝖾𝗓, 𝗉𝗈𝗋𝖿𝖺.', m);
+}
 };
 
 handler.help = ['menu'];
 handler.tags = ['main'];
-handler.command = ['menu', 'menukawaii', 'menucompleto'];
+handler.command = /^\.?(menu|menú)$/i;
 handler.register = false;
 
 export default handler;
 
 function clockString(ms) {
-  let h = isNaN(ms)? '--': Math.floor(ms / 3600000);
-  let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
-  let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
-  return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-}
+  let h = isNaN(ms)?⁽¹⁾
