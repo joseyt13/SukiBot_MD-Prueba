@@ -19,12 +19,12 @@ const toSerifBold = (text) => {
 };
 
 let tags = {
-  main: toSerifBold('Menú principal'),
-  group: toSerifBold('Comandos grupales'),
-  serbot: toSerifBold('Función clon'),
-  tools: toSerifBold('Herramientas mágicas'),
-  kawaii: toSerifBold('Anime encantado'),
-  descargas: toSerifBold('Descargas pastel')
+  main: toSerifBold('🌸 Menú encantado'),
+  group: toSerifBold('👥 Magia grupal'),
+  serbot: toSerifBold('🪄 Sub Bots & Clones'),
+  tools: toSerifBold('🔧 Hechizos útiles'),
+  kawaii: toSerifBold('🎀 Anime & Kawaii'),
+  descargas: toSerifBold('📥 Descargas mágicas')
 };
 
 const defaultMenu = {
