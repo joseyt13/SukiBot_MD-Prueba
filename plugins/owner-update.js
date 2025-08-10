@@ -48,9 +48,9 @@ let handler = async (m, { conn, args}) => {
 }
 };
 
-handler.customPrefix = /^fix', 'up', 'update$/i;
-handler.command = new RegExp;
-handler.tags = ['owner'];
+handler.customPrefix = /^(fix|update|up)$/i;
+handler.command = /^(fix|update|up)$/i;
+handler.group = true;
 handler.register = true;
 
 export default handler;
