@@ -30,9 +30,9 @@ let tags = {
 const defaultMenu = {
   before: `
 ❀───────𓆩♡𓆪───────❀
-🌷 𝖧𝗈𝗅𝖺 preciosura~ ¿𝖢𝗈́𝗆𝗈 𝖾𝗌𝗍𝖺́𝗌 𝗁𝗈𝗒?
-@${taguser} 𝖲𝗈𝗒 𝖲𝗎𝗄𝗂𝖡𝗈𝗍_𝖬𝖣 🍓
-${ucapan()}
+˗ˏˋ こんにちは \`%name\` ˎˊ˗
+🧋 𝖡𝗂𝖾𝗇𝗏𝖾𝗇𝗂𝖽@ 𝖺 𝖲𝗎𝗄𝗂_𝖡𝗈𝗍_𝖬𝖣
+🎀 𝖳𝗎 𝗀𝗎𝗂́𝖺 𝗉𝖺𝗌𝗍𝖾𝗅𝖼𝗈𝗋𝖾 𝖼𝗈𝗇 𝖼𝗈𝗆𝖺𝗇𝖽𝗈𝗌 𝖾𝗇𝖼𝖺𝗇𝗍𝖺𝖽𝗈𝗋𝖾𝗌
 
 🌸『 𝖨𝖭𝖥𝖮 - 𝖴𝖲𝖤𝖱 』🌸
 > 👤 𝖭𝗈𝗆𝖻𝗋𝖾: *%name*
@@ -136,9 +136,28 @@ handler.register = false;
 
 export default handler;
 
-function clockString(ms) {
-  let h = isNaN(ms)? '--': Math.floor(ms / 3600000);
-  let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
-  let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
-  return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
+function ucapan() {
+    const time = moment.tz('America/Lima').format('HH')
+    let res = "Lɪɴᴅᴀ Nᴏᴄʜᴇ 🌉"
+    if (time >= 5) {
+        res = "Bᴜᴇɴᴀ Mᴀᴅʀᴜɢᴀᴅᴀ 🏙️"
+    }
+    if (time > 10) {
+        res = "Bᴜᴇɴ Dɪ́ᴀ 🏞️"
+    }
+    if (time >= 12) {
+        res = "Hᴇʀᴍᴏsᴀ Tᴀʀᴅᴇ 🌆"
+    }
+    if (time >= 19) {
+        res = "Lɪɴᴅᴀ Nᴏᴄʜᴇ 🌃"
+    }
+    return res
 }
+
+const more = String.fromCharCode(8206)
+const readMore = more.repeat(4001)
+function clockString(ms) {
+let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
+let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
+let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
+return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')}
