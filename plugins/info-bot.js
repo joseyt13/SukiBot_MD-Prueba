@@ -21,8 +21,9 @@ const handler = async (m, { conn}) => {
 }
 };
 
-handler.customPrefix = /^(bug|pene|lento|bot)$/i;
+handler.customPrefix = /^(bug|lento|pene|bot)$/i;
 handler.command = new RegExp;
 handler.group = true;
+handler.register = true;
 
 export default handler;.
