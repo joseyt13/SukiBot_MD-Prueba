@@ -5,7 +5,8 @@ import { execSync} from 'child_process';
 
 let handler = async (m, { conn, args}) => {
   try {
-    await conn.reply(m.chat, '🌸 *SukiBot_MD-V2 está buscando actualizaciones mágicas...*', m);
+    const encabezado = '🎀 *𝖡𝖴𝖲𝖢𝖠𝖭𝖣𝖮 𝖠𝖢𝖳𝖴𝖠𝖫𝖨𝖹𝖠𝖢𝖨𝖮𝖭...*';
+    await conn.reply(m.chat, `${encabezado}\n\n🌸 *SukiBot_MD-V2 está buscando actualizaciones mágicas...*`, m);
 
     const output = execSync('git pull' + (args.length? ' ' + args.join(' '): '')).toString();
     const response = output.includes('Already up to date')
@@ -40,8 +41,8 @@ let handler = async (m, { conn, args}) => {
 }
 };
 
-handler.help = ['update', 'actualizar', 'fix', 'up'];
-handler.command = ['update', 'actualizar', 'fix', 'up'];
+handler.help = ['update', 'actualizar'];
+handler.command = ['update', 'actualizar'];
 handler.tags = ['owner'];
 handler.rowner = true;
 
