@@ -1,14 +1,17 @@
+// Código refinado por 𝖋𝖊𝖉𝖊𝖝𝖞𝖟 🍁
+// no quites los créditos 🍂
+
 let handler = async (m, { conn}) => {
   const user = global.db.data.users[m.sender];
 
   if (!user.registered) {
-    return m.reply(`🛑 Aún no te has unido al mundo mágico de *Suki_Bot_MD*~\n\n✨ Para comenzar tu aventura escribe:\n*.reg TuNombre Edad*\n🍓 Ejemplo: *.reg Nako 16*`);
+    return m.reply(`🛑 *𝖠𝗎́𝗇 𝗇𝗈 𝖾𝗌𝗍𝖺́𝗌 𝗋𝖾𝗀𝗂𝗌𝗍𝗋𝖺𝖽𝗈 𝖾𝗇 𝖾𝗅 𝗆𝗎𝗇𝖽𝗈 𝗆𝖺́𝗀𝗂𝖼𝗈 𝖽𝖾 𝖲𝗎𝗄𝗂𝖡𝗈𝗍_𝖬𝖣*~\n\n✨ 𝖯𝖺𝗋𝖺 𝖼𝗈𝗆𝖾𝗇𝗓𝖺𝗋 𝗍𝗎 𝖺𝗏𝖾𝗇𝗍𝗎𝗋𝖺 𝖾𝗌𝖼𝗋𝗂𝖻𝖾:\n*.reg TuNombre Edad*\n🍓 𝖤𝗃𝖾𝗆𝗉𝗅𝗈: *.reg Suki 18*`);
 }
 
-  const nombre = user.name || 'Desconocido';
+  const nombre = user.name || '𝖣𝖾𝗌𝖼𝗈𝗇𝗈𝖼𝗂𝖽𝗈';
   const edad = user.age || '???';
 
-  // 💨 Resetear datos del usuario
+  // 💨 Resetear datos mágicos
   user.registered = false;
   user.name = '';
   user.age = 0;
@@ -23,21 +26,21 @@ let handler = async (m, { conn}) => {
 
   await conn.sendMessage(m.chat, {
     text: `
-🍂 *Tu aura ha sido liberada exitosamente* 🍃
+🍂 *𝖳𝗎 𝖺𝗎𝗋𝖺 𝗁𝖺 𝗌𝗂𝖽𝗈 𝗅𝗂𝖻𝖾𝗋𝖺𝖽𝖺 𝖾𝖷𝗂𝗍𝗈𝗌𝖺𝗆𝖾𝗇𝗍𝖾* 🍃
 
-👩‍💻 Nombre anterior: *${nombre}*
-🎂 Edad: *${edad} años*
+👩‍💻 𝖭𝗈𝗆𝖻𝗋𝖾 𝖺𝗇𝗍𝖾𝗋𝗂𝗈𝗋: *${nombre}*
+🎂 𝖤𝖽𝖺𝖽: *${edad} 𝖺𝗇̃𝗈𝗌*
 
-🌷 Esperamos verte de nuevo, estrellita~
+🌷 𝖤𝗌𝗉𝖾𝗋𝖺𝗆𝗈𝗌 𝗏𝖾𝗋𝗍𝖾 𝖽𝖾 𝗇𝗎𝖾𝗏𝗈, 𝖾𝗌𝗍𝗋𝖾𝗅𝗅𝗂𝗍𝖺~
 
-✨ Puedes registrarte nuevamente escribiendo:
+✨ 𝖯𝗎𝖾𝖽𝖾𝗌 𝗋𝖾𝗀𝗂𝗌𝗍𝗋𝖺𝗋𝗍𝖾 𝗇𝗎𝖾𝗏𝖺𝗆𝖾𝗇𝗍𝖾 𝖾𝗌𝖼𝗋𝗂𝖻𝗂𝖾𝗇𝖽𝗈:
 *.reg TuNombre Edad*
 `.trim(),
     mentions: [m.sender],
     contextInfo: {
       externalAdReply: {
-        title: '🩵 Registro Eliminado en Suki_Bot_MD',
-        body: `Nombre: ${nombre} • Edad: ${edad} años`,
+        title: '🩵 𝖱𝖾𝗀𝗂𝗌𝗍𝗋𝗈 𝖾𝗅𝗂𝗆𝗂𝗇𝖺𝖽𝗈 𝖾𝗇 𝖲𝗎𝗄𝗂𝖡𝗈𝗍_𝖬𝖣',
+        body: `𝖭𝗈𝗆𝖻𝗋𝖾: ${nombre} • 𝖤𝖽𝖺𝖽: ${edad} 𝖺𝗇̃𝗈𝗌`,
         thumbnailUrl: pp,
         mediaType: 1,
         renderLargerThumbnail: true,
@@ -47,7 +50,7 @@ let handler = async (m, { conn}) => {
 }, { quoted: m});
 };
 
-handler.command = ['unreg', 'únreg', 'deleteprofile'];
+handler.command = ['unreg', 'únreg', 'delperfil'];
 handler.register = true;
 
 export default handler;
