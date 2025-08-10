@@ -1,10 +1,7 @@
-// Código creado por fedexyz 🍁 
-// no quites los créditos 🍂 
+// Código creado por 𝒇𝒆𝒅𝒆𝒙𝒚𝒛 🍁
+// no quites los créditos 🍂
 
 import axios from 'axios';
-
-const sukiIcon = 'https://files.catbox.moe/rkvuzb.jpg';
-const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
 
 // 🍥 Obtiene token y cookie mágica desde tmate.cc
 async function obtenerTokenYCookie() {
@@ -14,7 +11,7 @@ async function obtenerTokenYCookie() {
   const cookie = res.headers['set-cookie']?.map(c => c.split(';')[0]).join('; ') || '';
   const tokenMatch = res.data.match(/<input[^>]+name="token"[^>]+value="([^"]+)"/i);
   const token = tokenMatch?.[1];
-  if (!token) throw new Error('No se encontró el token mágico 💔');
+  if (!token) throw new Error('𝖭𝗈 𝗌𝖾 𝖾𝗇𝖼𝗈𝗇𝗍𝗋ó 𝖾𝗅 𝗍𝗈𝗄𝖾𝗇 𝗆𝖺𝗀𝗂𝖼𝗈 💔');
   return { token, cookie};
 }
 
@@ -36,10 +33,10 @@ async function descargarDeTikTok(urlTikTok) {
 });
 
   const html = res.data?.data;
-  if (!html) throw new Error('No se recibió ninguna respuesta 🌧️');
+  if (!html) throw new Error('𝖭𝗈 𝗌𝖾 𝗋𝖾𝖼𝗂𝖻𝗂ó 𝗇𝗂𝗇𝗀𝗎𝗇𝖺 𝗋𝖾𝗌𝗉𝗎𝖾𝗌𝗍𝖺 🌧️');
 
   const tituloMatch = html.match(/<h1[^>]*>(.*?)<\/h1>/i);
-  const titulo = tituloMatch?.[1]?.replace(/<[^>]+>/g, '').trim() || 'Sin título';
+  const titulo = tituloMatch?.[1]?.replace(/<[^>]+>/g, '').trim() || '𝖲𝗂𝗇 𝗍𝗂́𝗍𝗎𝗅𝗈';
 
   const coincidencias = [...html.matchAll(/<a[^>]+href="(https:\/\/[^"]+)"[^>]*>\s*<span>\s*<span>([^<]*)<\/span><\/span><\/a>/gi)];
   const vistos = new Set();
@@ -53,25 +50,15 @@ async function descargarDeTikTok(urlTikTok) {
   if (enlacesMp4.length> 0) return { type: 'video', title: titulo, mp4Links: enlacesMp4};
   if (imagenes.length> 0) return { type: 'image', title: titulo, images: imagenes};
 
-  throw new Error('Nada fue encontrado, tal vez el enlace está triste 😢');
+  throw new Error('𝖭𝖺𝖽𝖺 𝖿𝗎𝖾 𝖾𝗇𝖼𝗈𝗇𝗍𝗋𝖺𝖽𝗈, 𝗍𝖺𝗅 𝗏𝖾𝗓 𝖾𝗅 𝖾𝗇𝗅𝖺𝖼𝖾 𝖾𝗌𝗍𝖺́ 𝗍𝗋𝗂𝗌𝗍𝖾 😢');
 }
 
-// 🎀 Comando principal de Suki nako ga
+// 🎀 Comando principal de SukiBot_MD-V2
 let handler = async (m, { conn, text, usedPrefix, command}) => {
   if (!text) {
     await conn.sendMessage(m.chat, { react: { text: '❌', key: m.key}});
     return conn.sendMessage(m.chat, {
-      text: `🍡 *Oh no, preciosura~* Falta el enlace de TikTok\n✨ Ejemplo:\n${usedPrefix + command} https://vt.tiktok.com/xxxx/`,
-      contextInfo: {
-        externalAdReply: {
-          title: '🌸 Suki_Bot_MD | Descargador TikTok',
-          body: '¡Déjame el enlace y lo haré kawaii!',
-          thumbnailUrl: sukiIcon,
-          sourceUrl: channelRD,
-          mediaType: 1,
-          renderLargerThumbnail: true
-}
-}
+      text: `🍡 *𝖮𝗁 𝗇𝗈, 𝗉𝗋𝖾𝖼𝗂𝗈𝗌𝗎𝗋𝖺~* Falta el enlace de TikTok\n✨ Ejemplo:\n${usedPrefix + command} https://vt.tiktok.com/xxxx/`
 });
 }
 
@@ -82,10 +69,8 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 
     const contextInfo = {
       externalAdReply: {
-        title: '🎬 Video listo en Suki_Bot_MD',
-        body: '¡Descarga completada con ternura!',
-        thumbnailUrl: sukiIcon,
-        sourceUrl: '', // Removido el uso de channelRD aquí
+        title: '🎬 𝖵𝗂𝖽𝖾𝗈 𝗅𝗂𝗌𝗍𝗈 𝖾𝗇 SukiBot_MD-V2',
+        body: '𝖣𝖾𝗌𝖼𝖺𝗋𝗀𝖺 𝖼𝗈𝗆𝗉𝗅𝖾𝗍𝖺𝖽𝖺 𝖼𝗈𝗇 𝗍𝖾𝗋𝗇𝗎𝗋𝖺',
         mediaType: 1,
         renderLargerThumbnail: true
 }
@@ -94,16 +79,16 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
     if (resultado.type === 'video') {
       await conn.sendMessage(m.chat, {
         video: { url: resultado.mp4Links[0].href},
-        caption: `🎥 *Tu video mágico está listo~*\n✨ *Título:* ${resultado.title}`,
+        caption: `🎥 *𝖳𝗎 𝗏𝗂𝖽𝖾𝗈 𝗆𝖺́𝗀𝗂𝖼𝗈 𝖾𝗌𝗍𝖺́ 𝗅𝗂𝗌𝗍𝗈~*\n✨ *𝖳𝗂́𝗍𝗎𝗅𝗈:* ${resultado.title}`,
         contextInfo
 }, { quoted: m});
 } else if (resultado.type === 'image') {
       for (let i = 0; i < resultado.images.length; i++) {
         await conn.sendMessage(m.chat, {
           image: { url: resultado.images[i]},
-          caption: `🖼️ *Imagen ${i + 1}*\n✨ *Título:* ${resultado.title}`,
+          caption: `🖼️ *𝖨𝗆𝖺𝗀𝖾𝗇 ${i + 1}*\n✨ *𝖳𝗂́𝗍𝗎𝗅𝗈:* ${resultado.title}`,
           contextInfo
-}, { quoted: m});
+          }, { quoted: m});
 }
 }
 
@@ -112,7 +97,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 } catch (e) {
     await conn.sendMessage(m.chat, { react: { text: '💥', key: m.key}});
     await conn.sendMessage(m.chat, {
-      text: `😿 *Upss, Suki no pudo completar la magia...*\n💬 \`${e.message}\`\n¿Podrías intentar con otro enlace, porfi~?`
+      text: `😿 *𝖴𝗉𝗌𝗌, Suki 𝗇𝗈 𝗉𝗎𝖽𝗈 𝖼𝗈𝗆𝗉𝗅𝖾𝗍𝖺𝗋 𝗅𝖺 𝗆𝖺𝗀𝗂𝖺...*\n💬 \`${e.message}\`\n¿𝖯𝗈𝖽𝗋𝗂́𝖺𝗌 𝗂𝗇𝗍𝖾𝗇𝗍𝖺𝗋 𝖼𝗈𝗇 𝗈𝗍𝗋𝗈 𝖾𝗇𝗅𝖺𝖼𝖾, 𝗉𝗈𝗋𝖿𝗂~?`
 });
 }
 };
