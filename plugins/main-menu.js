@@ -3,6 +3,7 @@
 
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
+import moment from 'moment-timezone';
 
 const toSerifBold = (text) => {
   const map = {
@@ -19,32 +20,33 @@ const toSerifBold = (text) => {
 };
 
 let tags = {
-  main: toSerifBold('🌸 Menú encantado'),
-  group: toSerifBold('👥 Magia grupal'),
-  serbot: toSerifBold('🪄 Sub Bots & Clones'),
-  tools: toSerifBold('🔧 Hechizos útiles'),
-  kawaii: toSerifBold('🎀 Anime & Kawaii'),
-  descargas: toSerifBold('📥 Descargas mágicas')
+  main: toSerifBold('🌸 𝖬𝖾𝗇𝗎 𝖾𝗇𝖼𝖺𝗇𝗍𝖺𝖽𝗈'),
+  group: toSerifBold('👥 𝖬𝖺𝗀𝗂𝖺 𝗀𝗋𝗎𝗉𝖺𝗅'),
+  serbot: toSerifBold('🪄 𝖲𝗎𝖻 𝖡𝗈𝗍𝗌 & 𝖢𝗅𝗈𝗇𝖾𝗌'),
+  tools: toSerifBold('🔧 𝖧𝖾𝖈𝗁𝗂𝗓𝗈𝗌 𝗎́𝗍𝗂𝗅𝗂𝗌'),
+  kawaii: toSerifBold('🎀 𝖠𝗇𝗂𝗆𝖾 & 𝖪𝖺𝗐𝖺𝗂𝗂'),
+  descargas: toSerifBold('📥 𝖣𝖾𝗌𝖼𝖺𝗋𝗀𝖺𝗌 𝗆𝖺́𝗀𝗂𝖼𝖺𝗌')
 };
 
 const defaultMenu = {
   before: `
 ❀───────𓆩♡𓆪───────❀
-「🍁」 ¡𝖧𝗈𝗅𝖺, *_%name*~! %greeting ˎˊ˗_
+「🍁」 ¡𝖧𝗈𝗅𝖺, *%name*~! ${ucapan()} ˎˊ˗
 
 🌸『 𝖨𝖭𝖥𝖮 - 𝖴𝖲𝖤𝖱 』🌸
-> 👤 𝖭𝗈𝗆𝖻𝗋𝖾: *%name*
-> 🎀 𝖭𝗂𝗏𝖾𝗅: *%level* | ✨ 𝖤𝗑𝗉: *%exp/%maxexp*
-> 🔓 𝖬𝗈𝖽𝗈: *%mode*
-> 📈 𝖱𝖾𝗀𝗂𝗌𝗍𝗋𝗈 𝗀𝗅𝗈𝖻𝖺𝗅: *%totalreg*
-> 🕐 𝖳𝗂𝖾𝗆𝗉𝗈 𝖺𝖼𝗍𝗂𝗏𝗈: *%muptime*
+👤 𝖭𝗈𝗆𝖻𝗋𝖾: *%name*
+🎀 𝖭𝗂𝗏𝖾𝗅: *%level* | ✨ 𝖤𝗑𝗉: *%exp/%maxexp*
+🔓 𝖬𝗈𝖽𝗈: *%mode*
+📈 𝖱𝖾𝗀𝗂𝗌𝗍𝗋𝗈 𝗀𝗅𝗈𝖻𝖺𝗅: *%totalreg*
+🕐 𝖳𝗂𝖾𝗆𝗉𝗈 𝖺𝖼𝗍𝗂𝗏𝗈: *%muptime*
 
+╰─🍓𓆩 𝖲𝗎𝗄𝗂_𝖡𝗈𝗍_𝖬𝖣 𓆪🍰─╯
 %readmore`.trim(),
 
   header: '\n`🍁 %category 乂`\n',
   body: '.🍁.𖦹˙ %cmd %iscorazones %isPremium',
   footer: '\n',
-  after: `> ${dev}`,
+  after: ''
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
