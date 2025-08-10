@@ -1,22 +1,6 @@
-let activarAntiprivado = false; // Estado inicial del sistema
-
-const handler = async (m, { conn, command}) => {
-  const isPrivate =!m.isGroup;
-
-  // Activar el sistema con.antiprivado
-  if (command === 'antipri') {
-    activarAntiprivado = true;
-    return conn.reply(m.chat, '✅ *Antiprivado activado.*\n🔒 Los usuarios que escriban al bot en privado serán bloqueados automáticamente.', m);
-}
-
-  // Desactivar el sistema con.delantiprivado
-  if (command === 'delantiprivado') {
-    activarAntiprivado = false;
-    return conn.reply(m.chat, '❎ *Antiprivado desactivado.*\n🔓 El bot ya no bloqueará en privado.', m);
-}
-
-  // Si está activado y el mensaje es privado (y no es del dueño)
-  if (activarAntiprivado && isPrivate &&!m.fromMe) {
+const handler = async (m, { conn}) => {
+  // Detecta si el mensaje es privado y no es del dueño del bot
+  if (!m.isGroup &&!m.fromMe) {
     await conn.reply(m.chat, `
 👋 ¡Hola!
 
@@ -32,8 +16,5 @@ https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV
 }
 };
 
-handler.command = ['antipri', 'delantiprivado'];
-handler.tags = ['owner'];
-handler.rowner = true; // Solo el dueño puede usar estos comandos
-
+handler.all = true; // Se ejecuta en todos los mensajes
 export default handler;
