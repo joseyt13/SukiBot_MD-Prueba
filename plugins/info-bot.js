@@ -1,28 +1,28 @@
 // Código creado por 𝖋𝖊𝖉𝖊𝖝𝖞𝖟 🍁
 // no quites los créditos 🍂
 
-let handler = async (m, { conn}) => {
-  const texto = m.text?.trim().toLowerCase();
+const handler = async (m, { conn}) => {
+  if (!m.isGroup) return; // Solo responde en grupos
 
-  // Detecta si el mensaje es exactamente "bot"
-  if (texto === 'bot') {
-    const respuestas = [
-      '🌸 *𝖧𝗈𝗅𝖺, 𝖺𝗎𝗋𝖺 𝖾𝗇𝖼𝖺𝗇𝗍𝖺𝖽𝖺~*',
-      '✨ *𝖲𝗎𝗄𝗂𝖡𝗈𝗍_𝖬𝖣 está despierta y lista para ayudarte*',
-      '🧋 *¿Me invocaste? Estoy aquí, preciosura~*',
-      '🍃 *𝖤𝗅 𝗏𝗂𝖾𝗇𝗍𝗈 𝗆𝖾 𝗍𝗋𝖺𝗃𝗈... ¿𝗇𝖾𝖼𝖾𝗌𝗂𝗍𝖺𝗌 𝖺𝗒𝗎𝖽𝖺?*',
-      '🌷 *𝖲𝗎𝗄𝗂 está flotando por aquí~*'
-    ];
+  const texto = m.text?.toLowerCase();
+  if (!texto) return;
 
-    const respuesta = respuestas[Math.floor(Math.random() * respuestas.length)];
+  const respuestas = {
+    bug: '🐞 Tu mamá tiene más bugs que mi código 💻',
+    pene: '🍆 Te gusta comer... snacks raros 🤨',
+    lento: '🐢 Tu abuela corre en modo tortuga 🐌',
+    bot: '🤖 ¿Bot? Tu existencia fue programada por error 💥'
+};
 
-    return conn.sendMessage(m.chat, { text: respuesta}, { quoted: m});
+  for (const palabra in respuestas) {
+    if (texto.includes(palabra)) {
+      return conn.reply(m.chat, respuestas[palabra], m);
+}
 }
 };
 
-handler.customPrefix = /^bot$/i;
+handler.customPrefix = /^(bug|pene|lento|bot)$/i;
 handler.command = new RegExp;
 handler.group = true;
-handler.register = true;
 
-export default handler;
+export default handler;.
