@@ -42,7 +42,7 @@ const defaultMenu = {
 ╰─🍓𓆩 𝖲𝗎𝗄𝗂_𝖡𝗈𝗍_𝖬𝖣 𓆪🍰─╯
 %readmore`.trim(),
 
-  header: '\n🍁 `/%category/` 乂\n',
+  header: '\n```🍁 %category 乂```\n',
   body: '.꒷🍁.𖦹˙ %cmd %iscorazones %isPremium',
   footer: '\n',
   after: `> ${dev}`,
