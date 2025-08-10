@@ -86,9 +86,9 @@ const handler = async (m, { text, conn, args}) => {
 }
 };
 
-handler.help = ['instagram', 'insta'];
+handler.help =  ['ig', 'instagram', 'igdl'];
 handler.tags = ['descargas'];
-handler.command = /^(instagramdl|instagram|insta|igdl|ig|instagramdl2|instagram2|igdl2|ig2|instagramdl3|instagram3|igdl3|ig3)$/i;
+handler.command = ['ig', 'instagram', 'igdl']
 handler.register = true;
 
 export default handler;
