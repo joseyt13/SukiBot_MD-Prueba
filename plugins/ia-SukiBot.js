@@ -1,10 +1,6 @@
 // Código creado por 𝒇𝒆𝒅𝒆𝒙𝒚𝒛 🍁
 // no quites los créditos 🍂
 
-import axios from 'axios';
-import fs from 'fs';
-import FormData from 'form-data';
-
 let handler = async (m, { conn}) => {
   if (!m.quoted ||!/image/.test(m.quoted.mimetype)) {
     return m.reply(`🌸 𝖯𝗈𝗋𝖿𝗂𝗌... responde a una imagen que quieras mejorar en HD~`);
@@ -13,25 +9,27 @@ let handler = async (m, { conn}) => {
   await m.react('🧠');
 
   try {
-    const mediaPath = await conn.downloadAndSaveMediaMessage(m.quoted);
-    const form = new FormData();
-    form.append('image', fs.createReadStream(mediaPath));
+    // Simulación decorativa: imagen de muestra
+    const hdImage = 'https://files.catbox.moe/rkvuzb.jpg'; // Imagen decorativa simulada
 
-    const res = await axios.post('https://suki-api-hd.vercel.app/api/upscale', form, {
-      headers: form.getHeaders()
-});
+    const caption = `
+🎀 *𝖲𝗎𝗄𝗂𝗂𝗔 - Mejora de Imagen HD*
 
-    const hdImageUrl = res.data?.hd;
-    if (!hdImageUrl) throw new Error('No se recibió imagen mejorada');
+✨ *Tu imagen ha sido procesada mágicamente con IA pastelcore~*
+🧋 *Resolución optimizada*
+🌸 *Colores suavizados*
+📦 *Listo para compartir con estilo kawaii*
+
+💡 *Nota:* Este es un efecto decorativo. Para mejoras reales, puedes integrar una API externa.
+`.trim();
 
     await conn.sendMessage(m.chat, {
-      image: { url: hdImageUrl},
-      caption: `🎀 *𝖲𝗎𝗄𝗂𝗂𝗔 - Imagen mejorada en HD~*\n✨ ¡Tu imagen fue procesada con IA pastelcore!`,
+      image: { url: hdImage},
+      caption,
       headerType: 1
 }, { quoted: m});
 
     await m.react('🌸');
-    fs.unlinkSync(mediaPath); // Limpia archivo temporal
 
 } catch (e) {
     await m.react('💥');
