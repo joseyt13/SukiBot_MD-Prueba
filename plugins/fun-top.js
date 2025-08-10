@@ -25,7 +25,7 @@ function handler(m, { groupMetadata, command, conn, text}) {
 
   let top = `*${emoji} ${decorativo} 𝖳𝗈𝗉 10 ${toSerifBold(text)} ${decorativo} ${emoji}*\n\n`;
   nombres.forEach((id, index) => {
-    top += `*${index + 1}. ${user(id)}*\n`;
+    top += ``${index + 1}. ${user(id)}`\n`;
 });
   top += `\n${decorativo} *𝖲𝗎𝗄𝗂 𝖡𝗈𝗍 𝖳𝖾𝖺𝗆* ${decorativo}`;
 
