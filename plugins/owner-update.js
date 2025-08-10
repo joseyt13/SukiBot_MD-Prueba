@@ -5,7 +5,7 @@ import { execSync} from 'child_process';
 
 let handler = async (m, { conn, args}) => {
   try {
-    const encabezado = '🎀 `*𝖡𝖴𝖲𝖢𝖠𝖭𝖣𝖮 𝖠𝖢𝖳𝖴𝖠𝖫𝖨𝖹𝖠𝖢𝖨𝖮𝖭...`';
+    const encabezado = '🎀 `𝖡𝖴𝖲𝖢𝖠𝖭𝖣𝖮 𝖠𝖢𝖳𝖴𝖠𝖫𝖨𝖹𝖠𝖢𝖨𝖮𝖭...`';
     const inicio = '🌸 *𝖤𝖲𝖯𝖤𝖱𝖤 𝖤𝖲𝖳𝖮𝖸 𝖡𝖴𝖲𝖢𝖠𝖭𝖣𝖮...*';
     await conn.reply(m.chat, `${encabezado}\n\n${inicio}`, m);
 
