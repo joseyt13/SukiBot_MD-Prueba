@@ -135,6 +135,3 @@ handler.command = /^\.?(menu|menú)$/i;
 handler.register = false;
 
 export default handler;
-
-function clockString(ms) {
-  let h = isNaN(ms)?⁽¹⁾
