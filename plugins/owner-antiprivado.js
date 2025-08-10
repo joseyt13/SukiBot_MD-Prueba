@@ -4,7 +4,7 @@ const handler = async (m, { conn, command}) => {
   const isPrivate =!m.isGroup;
 
   // Activar el sistema con.antiprivado
-  if (command === 'antiprivado') {
+  if (command === 'antipri') {
     activarAntiprivado = true;
     return conn.reply(m.chat, '✅ *Antiprivado activado.*\n🔒 Los usuarios que escriban al bot en privado serán bloqueados automáticamente.', m);
 }
@@ -32,7 +32,7 @@ https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV
 }
 };
 
-handler.command = ['antiprivado', 'delantiprivado'];
+handler.command = ['antipri', 'delantiprivado'];
 handler.tags = ['owner'];
 handler.rowner = true; // Solo el dueño puede usar estos comandos
 
