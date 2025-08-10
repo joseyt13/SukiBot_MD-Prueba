@@ -50,6 +50,7 @@ let handler = async (m, { conn, args}) => {
 
 
 handler.customPrefix = /^(fix|update|up)$/i;
+handler.command = new RegExp;
 handler.owner = true;
 handler.register = true;
 
