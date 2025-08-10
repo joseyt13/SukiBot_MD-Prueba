@@ -46,7 +46,7 @@ ${ucapan()}
 
   header: '\n╭╌┈╼◈`/%category/` ◈╾┈╌★\n',
   body: '.│ %cmd %iscorazones %isPremium',
-  footer: '╰ ˚₊·˚₊· ͟͟͞͞➳❥\n',
+  footer: '╰┈┈┈┈┈╌★\n',
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
