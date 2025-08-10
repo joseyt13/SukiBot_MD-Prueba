@@ -5,7 +5,7 @@ import { execSync} from 'child_process';
 
 let handler = async (m, { conn, args}) => {
   try {
-    const encabezado = '🎀 *𝖡𝖴𝖲𝖢𝖠𝖭𝖣𝖮 𝖠𝖢𝖳𝖴𝖠𝖫𝖨𝖹𝖠𝖢𝖨𝖮𝖭...*';
+    const encabezado = '🎀 `*𝖡𝖴𝖲𝖢𝖠𝖭𝖣𝖮 𝖠𝖢𝖳𝖴𝖠𝖫𝖨𝖹𝖠𝖢𝖨𝖮𝖭...`';
     const inicio = '🌸 *𝖡𝖴𝖲𝖢𝖠𝖭𝖣𝖮𝖮𝖮...*';
     await conn.reply(m.chat, `${encabezado}\n\n${inicio}`, m);
 
@@ -14,7 +14,7 @@ let handler = async (m, { conn, args}) => {
     const actualizado = output.includes('Already up to date');
 
     const mensajeFinal = actualizado
-? '✨ *El bot ya está actualizado con la última ternura pastelcore~*'
+? '✨ _𝖤𝗅 𝖻𝗈𝗍 𝗒𝖺 𝖾𝗌𝗍𝖺́ 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝗈 𝖼𝗈𝗇 𝗅𝖺 𝗎́𝗅𝗍𝗂𝗆𝖺 𝗍𝖾𝗋𝗇𝗎𝗋𝖺 𝗉𝖺𝗌𝗍𝖾𝗅𝖼𝗈𝗋𝖾~_'
 : `*⚙ ᴄᴏᴍᴘʟᴇᴛᴀɴᴅᴏ ᴀᴄᴛᴜᴀʟɪ𝘇𝘢𝘤𝘪𝘰́𝘯...*\n\n\`\`\`${output}\`\`\`\n\n🔧 *𝘙𝘦𝘪𝘯𝘪𝘤𝘪𝘢𝘯𝘥𝘰 𝘦𝘭 𝘴𝘦𝘳𝘷𝘪𝘥𝘰𝘳 𝘦𝘴𝘱𝘦𝘳𝘦..*`;
 
     await conn.reply(m.chat, mensajeFinal, m);
