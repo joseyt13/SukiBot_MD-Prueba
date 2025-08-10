@@ -39,7 +39,6 @@ const defaultMenu = {
 > 📈 𝖱𝖾𝗀𝗂𝗌𝗍𝗋𝗈 𝗀𝗅𝗈𝖻𝖺𝗅: *%totalreg*
 > 🕐 𝖳𝗂𝖾𝗆𝗉𝗈 𝖺𝖼𝗍𝗂𝗏𝗈: *%muptime*
 
-*Para Ser Un Sub Bots Usa #code para codigo de 8 dígitos y #qr para codigo qr*
 %readmore`.trim(),
 
   header: '\n`🍁 %category 乂`\n',
