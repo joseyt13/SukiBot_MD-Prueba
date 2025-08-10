@@ -12,7 +12,7 @@ let handler = async (m, { conn, usedPrefix, command}) => {
   let fakeHD = 'https://files.catbox.moe/rkvuzb.jpg'; // Imagen decorativa simulada
 
   let caption = `
-🎀 *𝖲𝗎𝗄𝗂𝗂𝗔 - Mejora de Imagen HD*
+🎀 *𝖲𝗎𝗄𝗂‐𝗂𝗔 - Mejora de Imagen HD*
 
 ✨ *Tu imagen ha sido procesada mágicamente con IA pastelcore~*
 🧋 *Resolución optimizada*
