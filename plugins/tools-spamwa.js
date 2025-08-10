@@ -41,6 +41,6 @@ const handler = async (m, { conn, text}) => {
 handler.help = ['spamwa <número>|<mensaje>|<cantidad>'];
 handler.tags = ['tools'];
 handler.command = ['spam', 'spamwa'];
-handler.premium = true;
+handler.register = true;
 
 export default handler;
