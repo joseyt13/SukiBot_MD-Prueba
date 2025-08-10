@@ -132,6 +132,4 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 handler.help = ['menu'];
 handler.tags = ['main'];
 handler.command = /^\.?(menu|menú)$/i;
-handler.register = false;
-
-export default handler;
+handler.customPrefix =⁽¹⁾
