@@ -1,44 +1,47 @@
-import { execSync } from 'child_process';
+// Código creado por 𝒇𝒆𝒅𝒆𝒙𝒚𝒛 🍁
+// no quites los créditos 🍂
 
-let handler = async (m, { conn, args }) => { 
-    try { 
-        await conn.reply(m.chat, '✨️ Actualizando el bot, por favor espere...', m, fake)
+import { execSync} from 'child_process';
 
-        const output = execSync('git pull' + (args.length ? ' ' + args.join(' ') : '')).toString();
-        let response = output.includes('Already up to date') 
-            ? '✨️ El bot ya está actualizado.' 
-            : `✨️ Se han aplicado actualizaciones:\n\n${output}`;
+let handler = async (m, { conn, args}) => {
+  try {
+    await conn.reply(m.chat, '🌸 *SukiBot_MD-V2 está buscando actualizaciones mágicas...*', m);
 
-        await conn.reply(m.chat, response, m, fake);
+    const output = execSync('git pull' + (args.length? ' ' + args.join(' '): '')).toString();
+    const response = output.includes('Already up to date')
+? '✨ *El bot ya está actualizado con la última ternura pastelcore~*'
+: `🎀 *Actualización aplicada con éxito:*\n\n\`\`\`${output}\`\`\``;
 
-    } catch (error) { 
-        try { 
-            const status = execSync('git status --porcelain').toString().trim(); 
-            if (status) { 
-                const conflictedFiles = status.split('\n').filter(line => 
-                    !line.includes('roxySession/') && 
-                    !line.includes('.cache/') && 
-                    !line.includes('tmp/')
-                ); 
+    await conn.reply(m.chat, response, m);
 
-                if (conflictedFiles.length > 0) { 
-                    const conflictMsg = `⚠️ Conflictos detectados en los siguientes archivos:\n\n` +
-                        conflictedFiles.map(f => '• ' + f.slice(3)).join('\n') +
-                        `\n\n🔹 Para solucionar esto, reinstala el bot o actualiza manualmente.`;
+} catch (error) {
+    try {
+      const status = execSync('git status --porcelain').toString().trim();
+      if (status) {
+        const conflictedFiles = status.split('\n').filter(line =>
+!line.includes('roxySession/') &&
+!line.includes('.cache/') &&
+!line.includes('tmp/')
+);
 
-                    return await conn.reply(m.chat, conflictMsg, m, fake); 
-                } 
-            } 
-        } catch (statusError) { 
-            console.error(statusError); 
-        }
+        if (conflictedFiles.length> 0) {
+          const conflictMsg = `⚠️ *Conflictos detectados en los siguientes archivos:*\n\n` +
+            conflictedFiles.map(f => '• ' + f.slice(3)).join('\n') +
+            `\n\n🔧 *Para solucionarlo:*\n- Reinstala el bot\n- O actualiza manualmente los archivos afectados`;
 
-        await conn.reply(m.chat, `❌ Error al actualizar: ${error.message || 'Error desconocido.'}`, m, fake);
-    } 
+          return await conn.reply(m.chat, conflictMsg, m);
+}
+}
+} catch (statusError) {
+      console.error('🌧️ Error al verificar conflictos:', statusError);
+}
+
+    await conn.reply(m.chat, `❌ *Upss... ocurrió un error al actualizar:*\n\`\`\`${error.message || 'Error desconocido.'}\`\`\``, m);
+}
 };
 
-handler.help = ['update', 'actualizar'];
-handler.command = ['update', 'actualizar']
+handler.help = ['update', 'actualizar', 'fix', 'up'];
+handler.command = ['update', 'actualizar', 'fix', 'up'];
 handler.tags = ['owner'];
 handler.rowner = true;
 
