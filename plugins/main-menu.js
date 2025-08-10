@@ -45,6 +45,7 @@ const defaultMenu = {
   header: '\n🍁 `/%category/` 乂\n',
   body: '.꒷🍁.𖦹˙ %cmd %iscorazones %isPremium',
   footer: '\n',
+  after: `> ${dev}`,
 };
 
 let handler = async (m, { conn, usedPrefix: _p}) => {
