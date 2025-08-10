@@ -1,35 +1,45 @@
-// Código creado por 𝒇𝒆𝒅𝒆𝒙𝒚𝒛 🍁
-// no quites los créditos 🍂
+/* Código creado por 𝒇𝒆𝒅𝒆𝒙𝒚𝒛 🍁
+/* no quites los créditos 🍂
 
-let handler = async (m, { conn, usedPrefix, command}) => {
+import axios from 'axios';
+import fs from 'fs';
+import FormData from 'form-data';
+
+let handler = async (m, { conn}) => {
   if (!m.quoted ||!/image/.test(m.quoted.mimetype)) {
-    return m.reply(`🌸 𝖯𝗈𝗋𝖿𝗂𝗌... responde a una imagen que quieras mejorar en HD~\n💡 Ejemplo:\n${usedPrefix + command}`);
+    return m.reply(`🌸 𝖯𝗈𝗋𝖿𝗂𝗌... responde a una imagen que quieras mejorar en HD~`);
 }
 
   await m.react('🧠');
 
-  let media = await conn.downloadAndSaveMediaMessage(m.quoted);
-  let fakeHD = 'https://files.catbox.moe/rkvuzb.jpg'; // Imagen decorativa simulada
+  try {
+    const mediaPath = await conn.downloadAndSaveMediaMessage(m.quoted);
+    const form = new FormData();
+    form.append('image', fs.createReadStream(mediaPath));
 
-  let caption = `
-🎀 *𝖲𝗎𝗄𝗂‐𝗂𝗔 - Mejora de Imagen HD*
+    const res = await axios.post('https://api.upscale.media/api/v1/upscale', form, {
+      headers: {
+...form.getHeaders(),
+        'Authorization': 'Bearer TU_API_KEY_AQUI' // ← Reemplaza con tu API Key real
+}
+});
 
-✨ *Tu imagen ha sido procesada mágicamente con IA pastelcore~*
-🧋 *Resolución optimizada*
-🌸 *Colores suavizados*
-📦 *Listo para compartir con estilo kawaii*
+    const hdImageUrl = res.data?.output?.url;
+    if (!hdImageUrl) throw new Error('No se recibió imagen mejorada');
 
-💡 *Nota:* Este es un ejemplo decorativo. Puedes integrar una API real para mejorar imágenes automáticamente.
-`.trim();
-
-  await conn.sendMessage(m.chat, {
-    image: { url: fakeHD},
-    caption,
-    footer: '🍁 SukiBot_MD-V2 • Devfedexyz13',
-    headerType: 1
+    await conn.sendMessage(m.chat, {
+      image: { url: hdImageUrl},
+      caption: `🎀 *𝖲𝗎𝗄𝗂𝗂𝗔 - Imagen mejorada en HD~*\n✨ ¡Tu imagen fue procesada con IA pastelcore!`,
+      headerType: 1
 }, { quoted: m});
 
-  await m.react('🌸');
+    await m.react('🌸');
+    fs.unlinkSync(mediaPath); // Limpia archivo temporal
+
+} catch (e) {
+    await m.react('💥');
+    m.reply(`😿 *Upss... ocurrió un error*\n💬 \`${e.message}\``);
+}
 };
 
 handler.help = ['iahd'];
