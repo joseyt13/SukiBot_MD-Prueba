@@ -1,17 +1,14 @@
-// Código creado por 𝖋𝖊𝖉𝖊𝖝𝖞𝖟 🍁
-// no quites los créditos 🍂
-
 const handler = async (m, { conn}) => {
   if (!m.isGroup) return; // Solo responde en grupos
+  if (!m.text) return;
 
-  const texto = m.text?.toLowerCase();
-  if (!texto) return;
+  const texto = m.text.toLowerCase();
 
+  // Frases de broma automáticas
   const respuestas = {
-    bug: '🐞 Tu mamá tiene más bugs que mi código 💻',
-    pene: '🍆 Te gusta comer... snacks raros 🤨',
-    lento: '🐢 Tu abuela corre en modo tortuga 🐌',
-    bot: '🤖 ¿Bot? Tu existencia fue programada por error 💥'
+    bug: '🐞 Tu mamá tiene más bugs que mi código, we 💻',
+    pene: '🍆 Te gusta comer... ya sabes qué 😏',
+    lento: '🐢 Tu abuela pendejo, va en modo tortuga 🐌'
 };
 
   for (const palabra in respuestas) {
@@ -21,9 +18,8 @@ const handler = async (m, { conn}) => {
 }
 };
 
-handler.customPrefix = /^(bug|lento|pene|bot)$/i;
-handler.command = new RegExp;
+handler.customPrefix = /^(bug|pene|lento)$/i;
+handler.command = new RegExp; // Sin prefijo
 handler.group = true;
-handler.register = true;
 
-export default handler;.
+export default handler;
