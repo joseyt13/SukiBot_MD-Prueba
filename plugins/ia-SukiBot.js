@@ -1,5 +1,5 @@
-/* Código creado por 𝒇𝒆𝒅𝒆𝒙𝒚𝒛 🍁
-/* no quites los créditos 🍂
+// Código creado por 𝒇𝒆𝒅𝒆𝒙𝒚𝒛 🍁
+// no quites los créditos 🍂
 
 import axios from 'axios';
 import fs from 'fs';
@@ -17,14 +17,11 @@ let handler = async (m, { conn}) => {
     const form = new FormData();
     form.append('image', fs.createReadStream(mediaPath));
 
-    const res = await axios.post('https://api.upscale.media/api/v1/upscale', form, {
-      headers: {
-...form.getHeaders(),
-        'Authorization': 'Bearer TU_API_KEY_AQUI' // ← Reemplaza con tu API Key real
-}
+    const res = await axios.post('https://suki-api-hd.vercel.app/api/upscale', form, {
+      headers: form.getHeaders()
 });
 
-    const hdImageUrl = res.data?.output?.url;
+    const hdImageUrl = res.data?.hd;
     if (!hdImageUrl) throw new Error('No se recibió imagen mejorada');
 
     await conn.sendMessage(m.chat, {
