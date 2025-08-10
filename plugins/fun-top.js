@@ -19,13 +19,15 @@ function handler(m, { groupMetadata, command, conn, text}) {
   const ps = groupMetadata.participants.map(v => v.id);
   const nombres = Array.from({ length: 10}, () => ps.getRandom());
   const emoji = pickRandom(['🤓','😅','😂','😳','😎','🥵','😱','🤑','🙄','💩','🍑','🤨','🥴','🔥','👇🏻','😔','👀','🌚']);
+  const decorativo = '♡';
   const sonido = Math.floor(Math.random() * 70);
   const vn = `https://hansxd.nasihosting.com/sound/sound${sonido}.mp3`;
 
-  let top = `*${emoji} 𝖳𝗈𝗉 10 ${toSerifBold(text)} ${emoji}*\n\n`;
+  let top = `*${emoji} ${decorativo} 𝖳𝗈𝗉 10 ${toSerifBold(text)} ${decorativo} ${emoji}*\n\n`;
   nombres.forEach((id, index) => {
     top += `*${index + 1}. ${user(id)}*\n`;
 });
+  top += `\n${decorativo} *𝖲𝗎𝗄𝗂 𝖡𝗈𝗍 𝖳𝖾𝖺𝗆* ${decorativo}`;
 
   m.reply(top.trim(), null, { mentions: nombres});
 }
