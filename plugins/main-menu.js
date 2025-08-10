@@ -129,9 +129,9 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     }
 };
 
-handler.customPrefix = /^menu$/i;
-handler.command = new RegExp;
-handler.tags = ['main'];
+handler.customPrefix = /^(menu|menú|help)$/i;
+handler.command = /^(menu|menú|help)$/i;
+handler.main = true;
 handler.register = true;
 
 export default handler;
@@ -141,4 +141,4 @@ function clockString(ms) {
   let m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   let s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
-  }
+      }
