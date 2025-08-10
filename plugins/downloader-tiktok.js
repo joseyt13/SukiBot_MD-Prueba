@@ -123,4 +123,4 @@ async function extractAudio(videoUrl) {
   await writeFile(tempVideo, res.data);
 
   return new Promise((resolve, reject) => {
-    exec(`ffmpeg -i "${tempVideo}" -vn -acodec lib
+    exec(`ffmpeg -i "${tempVideo}" -vn -acodec libmp3lame
