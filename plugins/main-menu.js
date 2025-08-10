@@ -30,7 +30,7 @@ let tags = {
 const defaultMenu = {
   before: `
 ❀───────𓆩♡𓆪───────❀
-˗ˏˋ 𝖡𝗂𝖾𝗇𝗏𝖾𝗇𝗂𝖽@ \`%name\` *${ucapan()}*
+「🍁」 ¡𝖧𝗈𝗅𝖺, *%name*~! %greeting 🍓 Tu energía mágica está activa ✨ 📖 Para ver tu perfil encantado, escribe: *#perfil*
 
 🌸『 𝖨𝖭𝖥𝖮 - 𝖴𝖲𝖤𝖱 』🌸
 > 👤 𝖭𝗈𝗆𝖻𝗋𝖾: *%name*
