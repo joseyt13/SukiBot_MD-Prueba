@@ -2,6 +2,10 @@
 // no quites los créditos 🍂
 
 import axios from 'axios';
+import { exec} from 'child_process';
+import { writeFile, unlink, readFile} from 'fs/promises';
+import { tmpdir} from 'os';
+import { join} from 'path';
 
 // 🍥 Obtiene token y cookie mágica desde tmate.cc
 async function obtenerTokenYCookie() {
@@ -88,7 +92,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
           image: { url: resultado.images[i]},
           caption: `🖼️ *𝖨𝗆𝖺𝗀𝖾𝗇 ${i + 1}*\n✨ *𝖳𝗂́𝗍𝗎𝗅𝗈:* ${resultado.title}`,
           contextInfo
-          }, { quoted: m});
+}, { quoted: m});
 }
 }
 
@@ -109,3 +113,14 @@ handler.register = true;
 handler.limit = true;
 
 export default handler;
+
+// 🎶 Extrae audio desde un video TikTok
+async function extractAudio(videoUrl) {
+  const tempVideo = join(tmpdir(), `tiktok_video_${Date.now()}.mp4`);
+  const tempAudio = join(tmpdir(), `tiktok_audio_${Date.now()}.mp3`);
+
+  const res = await axios.get(videoUrl, { responseType: 'arraybuffer'});
+  await writeFile(tempVideo, res.data);
+
+  return new Promise((resolve, reject) => {
+    exec(`ffmpeg -i "${tempVideo}" -vn -acodec lib
