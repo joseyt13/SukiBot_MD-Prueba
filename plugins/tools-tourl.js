@@ -61,9 +61,9 @@ let handler = async (m, { conn}) => {
 }
 }
 
-handler.help = ['tourl']
+handler.help = ['tourl'];
 handler.tags = ['tools']
-handler.command = /^(tourl|url)$/i
+handler.command = ['tourl', 'url']
 handler.limit = true
 handler.register = true
 
