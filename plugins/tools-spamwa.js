@@ -9,7 +9,7 @@ const handler = async (m, { conn, text}) => {
 #spamwa número|mensaje|cantidad
 
 📍 *Ejemplo:*
-#spamwa 51987654321|Hola, ¿cómo estás?|5
+#spamwa 51987654321|Hola!, ¿cómo estás?|5
 `, m);
 }
 
