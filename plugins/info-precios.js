@@ -24,7 +24,7 @@ Transforma tu experiencia con funciones mágicas, estilo pastelcore y control to
 🧚 \`𝗖𝗢𝗠𝗣𝗥𝗔\`
 🔗 Grupo de prueba y compra: https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV?mode=ac_t
 
-> ╭─❀ 𝖲ᴜᴋ𝗂Bot_MD ❀─╮
+> 𝖲ᴜᴋ𝗂Bot_MD
 `.trim();
 
   const buffer = await fetch(imagen).then(res => res.buffer());
