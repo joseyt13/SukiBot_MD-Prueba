@@ -1,6 +1,3 @@
-// 🌸 𝖢𝗈́𝖽𝗂𝗀𝗈 𝖼𝗋𝖾𝖺𝖽𝗈 𝗉𝗈𝗋 𝖿𝖾𝖽𝖾𝗑𝗒𝗓 🍁
-// 𝖭𝗈 𝗊𝗎𝗂𝗍𝖾𝗌 𝗅𝗈𝗌 𝖼𝗋𝖾𝖽𝗂𝗍𝗈𝗌 ⚔️
-
 import { xpRange} from '../lib/levelling.js';
 import fetch from 'node-fetch';
 import moment from 'moment-timezone';
@@ -109,24 +106,33 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const imageURL = 'https://files.catbox.moe/rkvuzb.jpg';
     const imgBuffer = await fetch(imageURL).then(res => res.buffer());
 
+    const buttons = [
+      { buttonId: `${_p}p`, buttonText: { displayText: '🍁 ping'}, type: 1},
+      { buttonId: `${_p}grupos`, buttonText: { displayText: '🌐 Grupos'}, type: 1},
+      { buttonId: `${_p}ayuda`, buttonText: { displayText: '💖 Reglas'}, type: 1}
+    ];
+
     const menuMessage = await conn.sendMessage(m.chat, {
       image: imgBuffer,
       caption: text,
+      footer: '╰─🍓𓆩 𝖲𝗎𝗄𝗂_𝖡𝗈𝗍_𝖬𝖣 𓆪🍰─╯',
+      buttons: buttons,
+      headerType: 4,
       contextInfo: {
         mentionedJid: [m.sender],
         isForwarded: true,
         forwardingScore: 888
-  }
-      }, { quoted: m});
+}
+}, { quoted: m});
 
     await conn.sendMessage(m.chat, {
       react: { text: '🌷', key: menuMessage.key}
 });
 
 } catch (e) {
-    console.error('[❌] 𝖤𝗋𝗋𝗈𝗋 𝖾𝗇 𝗆𝖾𝗇𝗎 𝖽𝖾𝖼𝗈𝗋𝖺𝖽𝗈:', e);
-    conn.reply(m.chat, '❎ 𝖲𝗎𝗄𝗂 𝗌𝖾 𝗍𝗋𝗈𝗉𝖾𝗓𝗈́ 𝖾𝗇𝗍𝗋𝖾 𝗉𝖾́𝗍𝖺𝗅𝗈𝗌 🌸. 𝖨𝗇𝗍𝖾𝗇𝗍𝖺𝗅𝗈 𝗈𝗍𝗋𝖺 𝗏𝖾𝗓, 𝗉𝗈𝗋𝖿𝖺.', m);
-    }
+    console.error('[❌] Error en menú decorado:', e);
+    conn.reply(m.chat, '❎ Suki se tropezó entre pétalos 🌸. Inténtalo otra vez, porfa.', m);
+}
 };
 
 handler.help = ['menucompleto'];
