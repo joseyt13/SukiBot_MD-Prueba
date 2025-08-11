@@ -35,9 +35,9 @@ let handler = async (m, { conn}) => {
   const imagenBuffer = await fetch(bannerURL).then(res => res.buffer());
 
   const buttons = [
-    { buttonId: '.menu', buttonText: { displayText: '📜 Menú principal'}, type: 1},
-    { buttonId: '.code', buttonText: { displayText: '🌸 serbot'}, type: 1},
-    { buttonId: '.grupos', buttonText: { displayText: '👥 Grupos oficiales'}, type: 1}
+    { buttonId: '.menu', buttonText: { displayText: '📜 Mᴇɴᴜ Pʀɪɴᴄɪᴘᴀʟ'}, type: 1},
+    { buttonId: '.code', buttonText: { displayText: '🌸 Sᴇʀʙᴏᴛ'}, type: 1},
+    { buttonId: '.grupos', buttonText: { displayText: '👥 Gʀᴜᴘᴏs Oғᴄ'}, type: 1}
   ];
 
   await conn.sendMessage(m.chat, {
