@@ -1,5 +1,5 @@
 // 🎀 Código creado por 𝖋𝖊𝖉𝖾𝗑𝗒𝗓 🍁
-// Descarga de video YouTube con estilo pastelcore y firma de 𝖲𝗎𝗄𝗂
+// no quites creditos 
 
 import fetch from 'node-fetch';
 import axios from 'axios';
@@ -97,7 +97,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
       caption,
       footer: '🌸 𝖲𝗎𝗄𝗂𝖡𝗈𝗍_𝖬𝖣 • Descarga mágica completada',
       buttons: [
-        { buttonId: '.code', buttonText: { displayText: '🍁 serbot'}, type: 1}
+        { buttonId: '.code', buttonText: { displayText: '🍁 ꜱᴇʀ‐ʙᴏᴛ ᴄᴏᴅᴇ'}, type: 1}
       ],
       headerType: 4
 }, { quoted: m});
