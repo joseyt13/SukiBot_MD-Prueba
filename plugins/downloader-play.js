@@ -16,7 +16,7 @@ const handler = async (m, { conn, text, command}) => {
     if (!text.trim()) {
       await conn.sendMessage(m.chat, { react: { text: "📡", key: m.key}});
       return conn.sendMessage(m.chat, {
-        text: `🌸 *𝖲𝗎𝗄𝗂 𝗇𝖾𝖼𝖾𝗌𝗂𝗍𝖺 𝗎𝗇𝖺 𝖼𝖺𝗇𝖼𝗂𝗈́𝗇 𝗉𝖺𝗋𝖺 𝖾𝗇𝖼𝖾𝗇𝖽𝖾𝗋 𝗌𝗎 𝗆𝖺𝗀𝗂𝖺.*\n🎶 𝖤𝗃𝖾𝗆𝗉𝗅𝗈: *${command} 𝖴𝗇 𝖵𝖾𝗋𝖺𝗇𝗈 𝖲𝗂𝗇 𝖳𝗂*`,
+        text: `🌸 *𝖲𝗎𝗄𝗂 𝗇𝖾𝖼𝖾𝗌𝗂𝖳𝖺 𝗎𝗇𝖺 𝖼𝖺𝗇𝖼𝗂𝗈́𝗇 𝗉𝖺𝗋𝖺 𝖾𝗇𝖼𝖾𝗇𝖽𝖾𝗋 𝗌𝗎 𝗆𝖺𝗀𝗂𝖺.*\n🎶 𝖤𝗃𝖾𝗆𝗉𝗅𝗈: *${command} 𝖴𝗇 𝖵𝖾𝗋𝖺𝗇𝗈 𝖲𝗂𝗇 𝖳𝗂*`,
         quoted: m
 });
 }
@@ -36,12 +36,11 @@ const handler = async (m, { conn, text, command}) => {
 
     if (!result) {
       return conn.sendMessage(m.chat, {
-        text: `😿 *𝖲𝗎𝗄𝗂 𝗇𝗈 𝖾𝗇𝖼𝗈𝗇𝗍𝗋𝗈́ 𝗇𝖺𝖽𝗮 𝖼𝗈𝗇 𝖾𝗌𝖾 𝗇𝗈𝗆𝖻𝗋𝖾.*`,
+        text: `😿 *𝖲𝗎𝗄𝗂 𝗇𝗈 𝖾𝗇𝖼𝗈𝗇𝗍𝗋𝗈́ 𝗇𝖺𝖽𝗮 𝖼𝗈𝗇 𝖾𝗌𝖾 𝗇𝖮𝗆𝖻𝗋𝖾.*`,
         quoted: m
 });
 }
 
-    // 🌸 Imagen decorativa personalizada
     const res2 = await fetch('https://files.cloudkuimages.guru/images/9m6kTLQt.jpg');
     const thumb2 = await res2.buffer();
     const Shadow = {
@@ -90,9 +89,17 @@ const handler = async (m, { conn, text, command}) => {
 }
 };
 
-    await conn.sendMessage(m.chat, { text: infoMessage, quoted: m,...contextoBonito});
+    await conn.sendMessage(m.chat, {
+      image: thumb,
+      caption: infoMessage,
+      footer: "ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ • Descargas encantadas",
+      buttons: [
+        { buttonId: '.menu', buttonText: { displayText: '📜 Mᴇɴᴜ Pʀɪɴᴄɪᴘᴀʟ'}, type: 1}
+      ],
+      headerType: 4,
+...contextoBonito
+}, { quoted: m});
 
-    // 🎧 Audio
     if (["play", "yta", "ytmp3", "playaudio"].includes(command)) {
       try {
         const api = await (await fetch(`https://api.vreden.my.id/api/ytmp3?url=${url}`)).json();
