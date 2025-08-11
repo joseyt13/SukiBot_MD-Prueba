@@ -15,9 +15,9 @@ const handler = async (m, { conn, text}) => {
   conn.fakeReply(m.chat, mensaje.trim(), '0@s.whatsapp.net', '🌟 PREFIJO NUEVO 🌟');
 };
 
-handler.customPrefix = /^prefix [símbolo]$/i;
-handler.command = new RegExp;
-handler.owner = true;
-handler.register = true;
+handler.help = ['prefix [símbolo]'];
+handler.tags = ['owner'];
+handler.command = ['prefix'];
+handler.rowner = true;
 
 export default handler;
