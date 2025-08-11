@@ -18,7 +18,7 @@ Transforma tu experiencia con funciones mágicas, estilo pastelcore y control to
 • 🎨 Desde 50 MIL 🇦🇷 (con diseño y funciones a medida)
 
 🧚 \`𝗣𝗥𝗨𝗘𝗁𝗔 & 𝗖𝗢𝗠𝗣𝗥𝗔\`
-🔗 [Grupo de prueba y compra](https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV?mode=ac_t)
+🔗 https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV?mode=ac_t
 
 ╭─❀ 𝖲ᴜᴋ𝗂Bot_MD ❀─╮
 𝖯𑄜𝗐𝖾𝗋𝖾𝖽 𝖻𝗒 𝖲ᴜᴋ𝗂′𝗌 𝖢𝗅𝗎𝖻 🌸
