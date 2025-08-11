@@ -118,9 +118,9 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 }
 };
 
-handler.help = ['ytmp5 <url>'];
+handler.help = ['ytmp4 <url>'];
 handler.tags = ['downloader', 'youtube'];
-handler.command = ['ytmp5'];
+handler.command = ['ytmp4'];
 handler.register = true;
 
 export default handler;
