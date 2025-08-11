@@ -2,7 +2,7 @@ const handler = async (m, { conn, usedPrefix}) => {
   const name = await conn.getName(m.sender);
   const number = m.sender.split('@')[0];
   const user = global.db.data.users[m.sender];
-  const imagen = 'https://qu.ax/STCTA.jpg'; // Puedes cambiarla por una imagen pastelcore
+  const imagen = 'https://files.catbox.moe/rkvuzb.jpg'; // Puedes cambiarla por una imagen pastelcore
 
   const info = `
 ╭─╼ ❀ 𝖯𝖠𝖭𝖤𝖫 𝖣𝖤 𝖴𝖲𝖴𝖠𝖱𝖨𝖮 ❀ ╾─╮
@@ -26,9 +26,9 @@ const handler = async (m, { conn, usedPrefix}) => {
     caption: info,
     footer: '🌸 𝖲𝗎𝗄𝗂𝗕𝗈𝗍_𝖬𝖣 • Fedexyz  🐾',
     buttons: [
-      { buttonId: `${usedPrefix}help`, buttonText: { displayText: '📜 Menú Encantado'}, type: 1},
+      { buttonId: `${usedPrefix}menucompleto`, buttonText: { displayText: '📜 Menú completo'}, type: 1},
       { buttonId: `${usedPrefix}grupos`, buttonText: { displayText: '🎋 Grupos Oficiales'}, type: 1},
-      { buttonId: `${usedPrefix}reg soyGay.444`, buttonText: { displayText: '🌐 Auto Verificar'}, type: 1}
+      { buttonId: `${usedPrefix}reg soyGay 444`, buttonText: { displayText: '🌐 Auto Verificar'}, type: 1}
     ],
     headerType: 4
 }, { quoted: m});
