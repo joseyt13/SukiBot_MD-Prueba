@@ -31,23 +31,23 @@ let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 let drm1 = ""
 let drm2 = ""
 let rtx =
-"🌸 𝚂𝚞𝚋𝙱𝚘𝚝 — 𝑉𝑖𝑛𝑐𝑢𝑙𝑜 𝒑𝒐𝒓 𝑸𝑹 💠\n\n" +
-"🪄 Vincúlate como SubBot temporal:\n\n" +
-"`1` » Abre WhatsApp y toca los ⋮ tres puntos\n" +
-"`2` » Selecciona *Dispositivos vinculados*\n" +
-"`3` » Pulsa *Vincular dispositivo*\n" +
-"`4` » Escanea el QR encantado en pantalla\n\n" +
-"⏱️ Este hechizo dura 45 segundos. ¡Activa rápido!\n\n" +
-"📡 𝗘𝘀𝘁𝗮𝗱𝗼: [ QR pastel activo ]"
+"🌸 SᴜʙBᴏᴛ — Vɪɴᴄᴜʟᴏ ᴘᴏʀ Qʀ 💠\n\n" +
+"🪄 Vɪɴᴄᴜ́ʟᴀᴛᴇ ᴄᴏᴍᴏ SᴜʙBᴏᴛ ᴛᴇᴍᴘᴏʀᴀʟ:\n\n" +
+"`1` » Aʙʀᴇ WʜᴀᴛsAᴘᴘ ʏ ᴛᴏᴄᴀ ʟᴏs ⋮ ᴛʀᴇs ᴘᴜɴᴛᴏs\n" +
+"`2` » Sᴇʟᴇᴄᴄɪᴏɴᴀ *Dɪsᴘᴏsɪᴛɪᴠᴏs ᴠɪɴᴄᴜʟᴀᴅᴏs*\n" +
+"`3` » Pᴜʟsᴀ *Vɪɴᴄᴜʟᴀʀ ᴅɪsᴘᴏsɪᴛɪᴠᴏ*\n" +
+"`4` » Esᴄᴀɴᴇᴀ ᴇʟ Qʀ ᴇɴᴄᴀɴᴛᴀᴅᴏ ᴇɴ ᴘᴀɴᴛᴀʟʟᴀ\n\n" +
+"⏱️ Esᴛᴇ ʜᴇᴄʜɪᴢᴏ ᴅᴜʀᴀ 45 sᴇɢᴜɴᴅᴏs. ¡Aᴄᴛɪᴠᴀ ʀᴀ́ᴘɪᴅᴏ!\n\n" +
+"📡 Esᴛᴀᴅᴏ: [ Qʀ ᴘᴀsᴛᴇʟ ᴀᴄᴛɪᴠᴏ ]";
 let rtx2 =
-"🌙 𝚂𝚞𝚋𝙱𝚘𝚝 — 𝑉𝑖𝑛𝑐𝑢𝑙𝑜 𝒑𝒐𝒓 𝑪𝒐́𝒅𝒊𝒈𝒐 ✧\n\n" +
-"🔐 Vinculación manual por código:\n\n" +
-"`1` » Abre WhatsApp y toca los ⋮ pétalos mágicos\n" +
-"`2` » Ve a *Dispositivos vinculados*\n" +
-"`3` » Elige *Vincular con número de teléfono*\n" +
-"`4` » Ingresa el código otorgado por el bot\n\n" +
-"⚠️ Usa una cuenta secundaria (no tu principal)\n\n" +
-"📡 𝗘𝘀𝘁𝗮𝗱𝗼: [ Código pastel listo ]"
+"🌙 SᴜʙBᴏᴛ — Vɪɴᴄᴜʟᴏ ᴘᴏʀ Cᴏ́ᴅɪɢᴏ ✧\n\n" +
+"🔐 Vɪɴᴄᴜʟᴀᴄɪᴏ́ɴ ᴍᴀɴᴜᴀʟ ᴘᴏʀ ᴄᴏ́ᴅɪɢᴏ:\n\n" +
+"`1` » Aʙʀᴇ WʜᴀᴛsAᴘᴘ ʏ ᴛᴏᴄᴀ ʟᴏs ⋮ ᴘᴇ́ᴛᴀʟᴏs ᴍᴀ́ɢɪᴄᴏs\n" +
+"`2` » Vᴇ ᴀ *Dɪsᴘᴏsɪᴛɪᴠᴏs ᴠɪɴᴄᴜʟᴀᴅᴏs*\n" +
+"`3` » Eʟɪɢᴇ *Vɪɴᴄᴜʟᴀʀ ᴄᴏɴ ɴᴜ́ᴍᴇʀᴏ ᴅᴇ ᴛᴇʟᴇ́ғᴏɴᴏ*\n" +
+"`4` » Iɴɢʀᴇsᴀ ᴇʟ ᴄᴏ́ᴅɪɢᴏ ᴏᴛᴏʀɢᴀᴅᴏ ᴘᴏʀ ᴇʟ ʙᴏᴛ\n\n" +
+"⚠️ Usᴀ ᴜɴᴀ ᴄᴜᴇɴᴛᴀ sᴇᴄᴜɴᴅᴀʀɪᴀ (ɴᴏ ᴛᴜ ᴘʀɪɴᴄɪᴘᴀʟ)\n\n" +
+"📡 Esᴛᴀᴅᴏ: [ Cᴏ́ᴅɪɢᴏ ᴘᴀsᴛᴇʟ ʟɪsᴛᴏ ]"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const blackJBOptions = {}
