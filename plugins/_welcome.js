@@ -46,8 +46,8 @@ ${grupoOficial}
         mentions: [who],
         footer: '🌸 ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ • Bienvenida mágica',
         buttons: [
-          { buttonId: '.menu', buttonText: { displayText: '📜 Ver menú'}, type: 1},
-          { buttonId: '.grupo', buttonText: { displayText: '🧩 Grupo oficial'}, type: 1}
+          { buttonId: '.menu', buttonText: { displayText: '📜 Mᴇɴᴜ Pʀɪɴᴄɪᴘᴀʟ'}, type: 1},
+          { buttonId: '.reg soy pendejo 50', buttonText: { displayText: '🧩 Aᴜᴛᴏ Vᴇʀɪғɪᴄᴀʀ'}, type: 1}
         ],
         headerType: 4,
         contextInfo: {
