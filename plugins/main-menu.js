@@ -109,7 +109,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const buttons = [
       { buttonId: `${_p}p`, buttonText: { displayText: '🍁 ping'}, type: 1},
       { buttonId: `${_p}grupos`, buttonText: { displayText: '🌐 Grupos'}, type: 1},
-      { buttonId: `${_p}ayuda`, buttonText: { displayText: '💖 Reglas'}, type: 1}
+      { buttonId: `${_p}reg soyPendejo 50`, buttonText: { displayText: '💖 Auto Verificar'}, type: 1}
     ];
 
     const menuMessage = await conn.sendMessage(m.chat, {
@@ -135,9 +135,9 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 }
 };
 
-handler.help = ['menucompleto'];
+handler.help = ['menu'];
 handler.tags = ['main'];
-handler.command = ['menucompleto'];
+handler.command = ['menu'];
 handler.register = false;
 
 export default handler;
