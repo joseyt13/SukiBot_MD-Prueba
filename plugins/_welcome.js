@@ -15,7 +15,7 @@ export async function before(m, { conn}) {
   const audioDespedida = 'https://files.cloudkuimages.guru/audios/aTh4HrjO.mp3';
 
   const canalSuki = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
-  const grupoOficial = 'https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV'; // reemplaza con tu link real
+  const grupoOficial = 'https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV';
 
   for (const user of participants) {
     const name = await conn.getName(user);
@@ -25,7 +25,8 @@ export async function before(m, { conn}) {
     // 🎀 Bienvenida
     if ([27, 31].includes(m.messageStubType)) {
       await conn.sendMessage(m.chat, {
-        text: `
+        image: { url: pp},
+        caption: `
 ╭─❀ ʙɪᴇɴᴠᴇɴɪᴅ@ ❀─╮
 
 🌸 ʜᴏʟᴀ ${tag}, ʙᴏᴛ ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ ᴛᴇ ᴀʙʀᴀᴢᴀ~
@@ -43,6 +44,12 @@ ${grupoOficial}
 
 ꜱᴜᴋɪ ᴛᴇ ᴅᴀ ʟᴀ ʙɪᴇɴᴠᴇɴɪᴅᴀ ᴄᴏɴ ᴅᴜʟᴢᴜʀᴀ 🌷`,
         mentions: [who],
+        footer: '🌸 ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ • Bienvenida mágica',
+        buttons: [
+          { buttonId: '.menu', buttonText: { displayText: '📜 Ver menú'}, type: 1},
+          { buttonId: '.grupo', buttonText: { displayText: '🧩 Grupo oficial'}, type: 1}
+        ],
+        headerType: 4,
         contextInfo: {
           externalAdReply: {
             title: '🌷 ɴᴜᴇᴠ@ ᴇɴ ᴇʟ ʀᴇɪɴᴏ',
@@ -62,7 +69,7 @@ ${grupoOficial}
 });
 }
 
-    // 🌙 Despedida sin enlaces
+    // 🌙 Despedida sin botones
     if ([28, 32].includes(m.messageStubType)) {
       await conn.sendMessage(m.chat, {
         text: `
