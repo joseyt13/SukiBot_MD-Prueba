@@ -1,14 +1,14 @@
+// 🎀 Código creado por 𝖋𝖊𝖉𝖾𝗑𝗒𝗓 🍁
+// Descarga de video YouTube con estilo pastelcore y firma de 𝖲𝗎𝗄𝗂
+
 import fetch from 'node-fetch';
 import axios from 'axios';
 
-// 🌸 Constantes
-const MAX_FILE_SIZE = 280 * 1024 * 1024; // 280 MB
+const MAX_FILE_SIZE = 280 * 1024 * 1024;
 
-// 🎀 Validación de enlace YouTube
 const isValidYouTubeUrl = (url) =>
   /^(?:https?:\/\/)?(?:www\.|m\.|music\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)\&?/.test(url);
 
-// 📦 Formateo de tamaño
 function formatSize(bytes) {
   if (!bytes || isNaN(bytes)) return 'Desconocido';
   const units = ['B', 'KB', 'MB', 'GB', 'TB'];
@@ -21,7 +21,6 @@ function formatSize(bytes) {
   return `${bytes.toFixed(2)} ${units[i]}`;
 }
 
-// 📽️ Descarga de video
 async function ytdl(url) {
   const headers = {
     accept: '*/*',
@@ -29,35 +28,30 @@ async function ytdl(url) {
     'referrer-policy': 'strict-origin-when-cross-origin'
 };
 
-  try {
-    const initRes = await fetch(`https://d.ymcdn.org/api/v1/init?p=y&23=1llum1n471&_=${Date.now()}`, { headers});
-    if (!initRes.ok) throw new Error('Fallo al inicializar la solicitud');
-    const init = await initRes.json();
+  const initRes = await fetch(`https://d.ymcdn.org/api/v1/init?p=y&23=1llum1n471&_=${Date.now()}`, { headers});
+  if (!initRes.ok) throw new Error('Fallo al inicializar la solicitud');
+  const init = await initRes.json();
 
-    const videoId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/))([^&?/]+)/)?.[1];
-    if (!videoId) throw new Error('ID de video no encontrado');
+  const videoId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/))([^&?/]+)/)?.[1];
+  if (!videoId) throw new Error('ID de video no encontrado');
 
-    const convertRes = await fetch(`${init.convertURL}&v=${videoId}&f=mp4&_=${Date.now()}`, { headers});
-    if (!convertRes.ok) throw new Error('Fallo al convertir el video');
-    const convert = await convertRes.json();
+  const convertRes = await fetch(`${init.convertURL}&v=${videoId}&f=mp4&_=${Date.now()}`, { headers});
+  if (!convertRes.ok) throw new Error('Fallo al convertir el video');
+  const convert = await convertRes.json();
 
-    let info;
-    for (let i = 0; i < 3; i++) {
-      const progressRes = await fetch(convert.progressURL, { headers});
-      if (!progressRes.ok) throw new Error('Fallo al obtener el progreso');
-      info = await progressRes.json();
-      if (info.progress === 3) break;
-      await new Promise(resolve => setTimeout(resolve, 1000));
+  let info;
+  for (let i = 0; i < 3; i++) {
+    const progressRes = await fetch(convert.progressURL, { headers});
+    if (!progressRes.ok) throw new Error('Fallo al obtener el progreso');
+    info = await progressRes.json();
+    if (info.progress === 3) break;
+    await new Promise(resolve => setTimeout(resolve, 1000));
 }
 
-    if (!info ||!convert.downloadURL) throw new Error('No se pudo obtener la URL de descarga');
-    return { url: convert.downloadURL, title: info.title || 'Video sin título'};
-} catch (e) {
-    throw new Error(`Error en la descarga: ${e.message}`);
-}
+  if (!info ||!convert.downloadURL) throw new Error('No se pudo obtener la URL de descarga');
+  return { url: convert.downloadURL, title: info.title || 'Video sin título'};
 }
 
-// 📏 Obtener tamaño del archivo
 async function getSize(url) {
   try {
     const response = await axios.head(url, { timeout: 10000});
@@ -69,18 +63,17 @@ async function getSize(url) {
 }
 }
 
-// 🧁 Handler principal
 let handler = async (m, { conn, text, usedPrefix, command}) => {
   if (!text) {
     return conn.reply(m.chat, `🌸 Uso correcto:\n${usedPrefix}${command} https://youtube.com/watch?v=abc123`, m);
 }
 
   if (!isValidYouTubeUrl(text)) {
-    await m.react('🔴');
+    await m.react('❌');
     return m.reply('🚫 Enlace de YouTube inválido');
 }
 
-  await m.react('🍒');
+  await m.react('🧙‍♀️');
   try {
     const { url, title} = await ytdl(text);
     const size = await getSize(url);
@@ -88,7 +81,8 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
     if (!size) throw new Error('No se pudo determinar el tamaño del video');
     if (size> MAX_FILE_SIZE) throw new Error('🌧️ El archivo supera el límite permitido para descarga');
 
-    await m.react('🍁');
+    await m.react('📦');
+
     const caption = `
 🎬 *${title}*
 ⚖️ *Tamaño:* ${formatSize(size)}
@@ -96,12 +90,24 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 📁 *Formato:* Documento
 `.trim();
 
+    const image = await fetch('https://files.catbox.moe/rkvuzb.jpg').then(res => res.buffer());
+
+    await conn.sendMessage(m.chat, {
+      image,
+      caption,
+      footer: '🌸 𝖲𝗎𝗄𝗂𝖡𝗈𝗍_𝖬𝖣 • Descarga mágica completada',
+      buttons: [
+        { buttonId: '.code', buttonText: { displayText: '🍁 serbot'}, type: 1}
+      ],
+      headerType: 4
+}, { quoted: m});
+
     const buffer = await (await fetch(url)).buffer();
     await conn.sendFile(
       m.chat,
       buffer,
       `${title}.mp4`,
-      caption,
+      undefined,
       m,
       null,
       {
@@ -110,10 +116,9 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
         filename: `${title}.mp4`
 }
 );
-
-    await m.react('🟢');
+    await m.react('✅');
 } catch (e) {
-    await m.react('🔴');
+    await m.react('❌');
     await m.reply(`❌ Error: ${e.message || 'No se pudo procesar la solicitud'}`);
 }
 };
