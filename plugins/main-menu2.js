@@ -1,10 +1,5 @@
 import fetch from 'node-fetch';
 
-const channelRD = {
-  id: '120363402097425674@newsletter',
-  name: '🌸 SukiBot_MD Canal Oficial'
-};
-
 let handler = async (m, { conn}) => {
   const textoDescargas = `
 *⊹˚₊‧ 🧋 𝒟𝑒𝓈𝒸𝒶𝓇𝑔𝒶𝓈 𝒫𝒶𝓈𝓉𝑒𝓁 ‧₊˚⊹*
@@ -34,28 +29,28 @@ let handler = async (m, { conn}) => {
 ┃ ⊹.apkmod <nombre o enlace>
 ┃ ⊹.apk <nombre>
 
-╭─𓆩 *SukiBot_MD descarga con estilo pastel y glitter digital* 🌈𓆪─╯`;
+╰─𓆩 *SukiBot_MD descarga con estilo pastel y glitter digital* 🌈𓆪─╯`.trim();
 
-  const bannerURL = 'https://files.catbox.moe/cvpwkk.jpg'; // Puedes cambiar esta imagen
+  const bannerURL = 'https://files.catbox.moe/cvpwkk.jpg';
   const imagenBuffer = await fetch(bannerURL).then(res => res.buffer());
+
+  const buttons = [
+    { buttonId: '.menu', buttonText: { displayText: '📜 Menú principal'}, type: 1},
+    { buttonId: '.code', buttonText: { displayText: '🌸 serbot'}, type: 1},
+    { buttonId: '.grupos', buttonText: { displayText: '👥 Grupos oficiales'}, type: 1}
+  ];
 
   await conn.sendMessage(m.chat, {
     image: imagenBuffer,
     caption: textoDescargas,
-    contextInfo: {
-      mentionedJid: [m.sender],
-      isForwarded: true,
-      forwardingScore: 777,
-      forwardedNewsletterMessageInfo: {
-        newsletterJid: channelRD.id,
-        serverMessageId: 100,
-        newsletterName: channelRD.name
-}
-}
+    footer: 'ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ • Descargas encantadas',
+    buttons: buttons,
+    headerType: 4
 }, { quoted: m});
 };
 
 handler.command = ['menu2', 'menudl'];
 handler.tags = ['menu'];
 handler.help = ['menu2', 'menudl'];
+
 export default handler;
