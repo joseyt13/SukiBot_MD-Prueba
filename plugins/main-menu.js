@@ -143,22 +143,39 @@ handler.register = false;
 export default handler;
 
 function ucapan() {
-    const time = moment.tz('America/Lima').format('HH')
-    let res = "Lɪɴᴅᴀ Nᴏᴄʜᴇ 🌉"
-    if (time >= 5) {
-        res = "Bᴜᴇɴᴀ Mᴀᴅʀᴜɢᴀᴅᴀ 🏙️"
-    }
-    if (time > 10) {
-        res = "Bᴜᴇɴ Dɪ́ᴀ 🏞️"
-    }
-    if (time >= 12) {
-        res = "Hᴇʀᴍᴏsᴀ Tᴀʀᴅᴇ 🌆"
-    }
-    if (time >= 19) {
-        res = "Lɪɴᴅᴀ Nᴏᴄʜᴇ 🌃"
-    }
-    return res
+  const time = moment.tz('America/Lima').format('HH');
+  let res = "🌌 Lɪɴᴅᴀ Nᴏᴄʜᴇ";
+
+  if (time>= 0 && time < 4) {
+    res = "🌙 Dᴜʟᴄᴇs Sᴜᴇɴ̃ᴏs";
 }
+  if (time>= 4 && time < 6) {
+    res = "🌄 Aᴍᴀɴᴇᴄᴇ ᴄᴏɴ ᴍᴀɢɪᴀ";
+}
+  if (time>= 6 && time < 9) {
+    res = "🏞️ Bᴜᴇɴᴏs Dɪ́ᴀs, ᴇɴᴄᴀɴᴛᴏ";
+}
+  if (time>= 9 && time < 12) {
+    res = "🌤️ Mᴀñᴀɴᴀ ʀᴀᴅɪᴀɴᴛᴇ";
+}
+  if (time>= 12 && time < 14) {
+    res = "🌞 Mᴇᴅɪᴏᴅɪ́ᴀ ᴍᴀ́ɢɪᴄᴏ";
+}
+  if (time>= 14 && time < 17) {
+    res = "🌺 Tᴀʀᴅᴇ ᴅᴇ ᴘᴇᴛᴀʟᴏs";
+}
+  if (time>= 17 && time < 19) {
+    res = "🌇 Cʀᴇᴘᴜ́sᴄᴜʟᴏ ᴅᴏʀᴀᴅᴏ";
+}
+  if (time>= 19 && time < 21) {
+    res = "🌃 Nᴏᴄʜᴇ ᴅᴇ ᴇsᴛʀᴇʟʟᴀs";
+}
+  if (time>= 21 && time < 24) {
+    res = "🌌 Sɪʟᴇɴᴄɪᴏ ɴᴏᴄᴛᴜʀɴᴏ";
+}
+
+  return res;
+      }
 
 const more = String.fromCharCode(8206)
 const readMore = more.repeat(4001)
