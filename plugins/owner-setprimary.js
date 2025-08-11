@@ -37,6 +37,6 @@ let handler = async (m, { conn, args, usedPrefix, command}) => {
 handler.help = ['setprimary <@usuario | número>'];
 handler.tags = ['owner'];
 handler.command = ['setprimary'];
-handler.rowner = true;
+handler.owner = true;
 
 export default handler;
