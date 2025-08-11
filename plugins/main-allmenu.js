@@ -9,6 +9,7 @@ const handler = async (m, { conn, usedPrefix}) => {
 │
 │ 🌸 𝖭𝗈𝗆𝖻𝗋𝖾: ${name}
 │ 📱 𝖭𝗎́𝗆𝖾𝗋𝗈: wa.me/${number}
+│ 🍁 Channel: https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
 │
 ╰─╼ ❀ 𝖲𝗎𝗄𝗂𝗕𝗈𝗍_𝖬𝖣 ❀ ╾─╯
 
@@ -23,7 +24,7 @@ const handler = async (m, { conn, usedPrefix}) => {
     buttons: [
       { buttonId: `${usedPrefix}menucompleto`, buttonText: { displayText: '📜 Menú completo'}, type: 1},
       { buttonId: `${usedPrefix}grupos`, buttonText: { displayText: '🎋 Grupos Oficiales'}, type: 1},
-      { buttonId: `${usedPrefix}reg soyGay 444`, buttonText: { displayText: '🌐 Auto Verificar'}, type: 1}
+      { buttonId: `${usedPrefix}reg soyGay 90`, buttonText: { displayText: '🌐 Auto Verificar'}, type: 1}
     ],
     headerType: 4
 }, { quoted: m});
