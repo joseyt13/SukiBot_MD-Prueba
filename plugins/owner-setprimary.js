@@ -1,9 +1,12 @@
-
 // ✨ Código creado por 𝖋𝖊𝖉𝖾𝗑𝗒𝗓 🍁
 
 let handler = async (m, { conn, args, usedPrefix, command}) => {
-  const isOwner = global.owner?.includes(m.sender);
-  if (!isOwner) {
+  // Número del dueño registrado
+  const ownerNumber = '5491156178758';
+  const senderNumber = m.sender.split('@')[0];
+
+  // Verificar si el usuario es el owner
+  if (senderNumber!== ownerNumber) {
     return conn.reply(m.chat, '🚫 Este comando solo puede usarlo el dueño del bot.', m);
 }
 
@@ -17,7 +20,7 @@ let handler = async (m, { conn, args, usedPrefix, command}) => {
 }
 
   if (!user) {
-    return conn.reply(m.chat, `🌸 Uso correcto:\n${usedPrefix}${command} @usuario\n${usedPrefix}${command} 51987654321`, m);
+    return conn.reply(m.chat, `🌸 Uso correcto:\n${usedPrefix}${command} @usuario\n${usedPrefix}${command} 5491156178758`, m);
 }
 
   // Guardar en base de datos
@@ -37,6 +40,6 @@ let handler = async (m, { conn, args, usedPrefix, command}) => {
 handler.help = ['setprimary <@usuario | número>'];
 handler.tags = ['owner'];
 handler.command = ['setprimary'];
-handler.owner = true;
+handler.rowner = true;
 
 export default handler;
