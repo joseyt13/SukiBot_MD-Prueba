@@ -107,9 +107,9 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     const imgBuffer = await fetch(imageURL).then(res => res.buffer());
 
     const buttons = [
-      { buttonId: `${_p}p`, buttonText: { displayText: '🍁 ping'}, type: 1},
-      { buttonId: `${_p}grupos`, buttonText: { displayText: '🌐 Grupos'}, type: 1},
-      { buttonId: `${_p}reg soyPendejo 50`, buttonText: { displayText: '💖 Auto Verificar'}, type: 1}
+      { buttonId: `${_p}p`, buttonText: { displayText: '📶 Pɪɴɢ'}, type: 1},
+      { buttonId: `${_p}grupos`, buttonText: { displayText: '👥 Gʀᴜᴘᴏs'}, type: 1},
+      { buttonId: `${_p}reg soyPendejo 50`, buttonText: { displayText: '🍒 Aᴜᴛᴏ Vᴇʀɪғɪᴄᴀʀ'}, type: 1}
     ];
 
     const menuMessage = await conn.sendMessage(m.chat, {
