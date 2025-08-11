@@ -31,13 +31,13 @@ const defaultMenu = {
 「🍁」 ¡𝖧𝗈𝗅𝖺, *%name*~! ${ucapan()} ˎˊ˗
 
 🌸『 𝖨𝖭𝖥𝖮 - 𝖴𝖲𝖤𝖱 』🌸
-👤 𝖭𝗈𝗆𝖻𝗋𝖾: *%name*
-🎀 𝖭𝗂𝗏𝖾𝗅: *%level* | ✨ 𝖤𝗑𝗉: *%exp/%maxexp*
-🔓 𝖬𝗈𝖽𝗈: *%mode*
-📈 𝖱𝖾𝗀𝗂𝗌𝗍𝗋𝗈 𝗀𝗅𝗈𝖻𝖺𝗅: *%totalreg*
-🕐 𝖳𝗂𝖾𝗆𝗉𝗈 𝖺𝖼𝗍𝗂𝗏𝗈: *%muptime*
+👤 Nᴏᴍʙʀᴇ: *%name*
+🎀 Nɪᴠᴇʟ: *%level* | ✨ 𝖤𝗑𝗉: *%exp/%maxexp*
+🔓 Mᴏᴅᴏ: *%mode*
+📈 Rᴇɢɪsᴛʀᴏ ɢʟᴏʙᴀʟ: *%totalreg*
+🕐 Tɪᴇᴍᴘᴏ ᴀᴄᴛɪᴠᴏ: *%muptime*
 
-╰─🍓𓆩 SᴜᴋɪBᴏᴛ_MD 𓆪🍰─╯
+╰─╼🍁 SᴜᴋɪBᴏᴛ_MD 🍁╾─╯
 %readmore`.trim(),
 
   header: '\n` %category 乂`\n',
