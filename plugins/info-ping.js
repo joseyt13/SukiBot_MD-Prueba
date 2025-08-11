@@ -1,25 +1,30 @@
+import speed from 'performance-now';
+import { exec} from 'child_process';
+
 let handler = async (m, { conn}) => {
-  const start = performance.now();
-  await m.reply('🏓 𓆩 ꒰ Probando velocidad ꒱ 𓆪');
-  const end = performance.now();
-  const ping = end - start;
+  let timestamp = speed();
+  let latencia = speed() - timestamp;
 
-  const respuesta = `
-𓆩𖥧𖥣𖥧𓆪 ꒰ 𝖲𝗎𝗄𝗂𝖡𝗈𝗍_𝖬𝖣 ꒱ 𖥔˚₊
+  exec(`neofetch --stdout`, (error, stdout, stderr) => {
+    let info = stdout.toString("utf-8").replace(/Memory:/, "Ram:");
 
-✅ *Estado:* Activo y con energía mágica
-📡 *Velocidad:* ${ping.toFixed(2)} ms
-🧁 *Latido pastelcore:* Estable y encantador
+    const respuesta = `
+╭─❀ 𝖲𝗎𝗄𝗂Bot_MD ❀─╮
+┃ ✨ 𝖯𝗂𝗇𝗀 𝖾𝗇𝖼𝖺𝗇𝗍𝖺𝖽𝗈
+┃ 🕐 𝖳𝗂𝖾𝗆𝗉𝗈 𝖽𝖾 𝗋𝖾𝗌𝗉𝗎𝖾𝗌𝗍𝖺: *${latencia.toFixed(4)} ms*
+┃ 📊 𝖨𝗇𝖿𝗈 𝗌𝗂𝗌𝗍𝖾𝗆𝖺:
+╰───────────────╯
 
-✨ Usa *.menu* para explorar mis comandos mágicos.
+${info}
 `.trim();
 
-  await conn.sendMessage(m.chat, { text: respuesta}, { quoted: m});
+    conn.reply(m.chat, respuesta, m);
+});
 };
 
-handler.command = ['ping', 'p'];
-handler.tags = ['info'];
 handler.help = ['ping'];
+handler.tags = ['info'];
+handler.command = ['ping', 'p'];
 handler.register = true;
 
 export default handler;
