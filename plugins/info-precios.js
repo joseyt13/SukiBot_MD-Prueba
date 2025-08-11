@@ -1,6 +1,10 @@
+import fetch from 'node-fetch';
+
 let handler = async (m, { conn}) => {
+  const imagen = 'https://files.catbox.moe/rkvuzb.jpg'; // Puedes cambiarla por otra si lo deseas
+
   const texto = `
-╭─❀ 🍒 𝖡𝗂𝖾𝗇𝗏𝖾𝗇𝗂𝖽𝗈 𝗮 𝗦𝘂𝗸𝗶𝗕𝗼𝘁_𝗠𝗗 ❀─╮
+╭─❀ 🍒 𝖡𝗂𝖾𝗇𝗏𝖾𝗇𝗂𝖽𝗈 𝗮 𝖲ᴜᴋ𝗂Bot_MD ❀─╮
 
 ¿Quieres dominar WhatsApp con el bot más encantado y poderoso del reino digital?
 ✨ *¡Suki está aquí para ti!* ✨
@@ -17,19 +21,23 @@ Transforma tu experiencia con funciones mágicas, estilo pastelcore y control to
 🌷 \`𝗣𝗘𝗥𝗦𝗢𝗡𝗔𝗟𝗜𝗭𝗔𝗗𝗢\`
 • 🎨 Desde 50 MIL 🇦🇷 (con diseño y funciones a medida)
 
-🧚 \`𝗣𝗥𝗨𝗘𝗁𝗔 & 𝗖𝗢𝗠𝗣𝗥𝗔\`
-🔗 https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV?mode=ac_t
+🧚 \`𝗖𝗢𝗠𝗣𝗥𝗔\`
+🔗 [Grupo de prueba y compra](https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV?mode=ac_t)
 
 ╭─❀ 𝖲ᴜᴋ𝗂Bot_MD ❀─╮
 𝖯𑄜𝗐𝖾𝗋𝖾𝖽 𝖻𝗒 𝖲ᴜᴋ𝗂′𝗌 𝖢𝗅𝗎𝖻 🌸
 ╰────────────────────╯
 `.trim();
 
-  await conn.reply(m.chat, texto, m);
+  const buffer = await fetch(imagen).then(res => res.buffer());
+  await conn.sendMessage(m.chat, {
+    image: buffer,
+    caption: texto
+}, { quoted: m});
 };
 
 handler.help = ['precios', 'info'];
 handler.tags = ['info'];
-handler.command = ['precios', 'info bot', 'botinfo'];
+handler.command = ['precios', 'infobot', 'botinfo'];
 
 export default handler;
