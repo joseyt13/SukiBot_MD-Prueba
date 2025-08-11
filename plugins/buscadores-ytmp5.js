@@ -87,7 +87,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 🎬 *${title}*
 ⚖️ *Tamaño:* ${formatSize(size)}
 🔗 *Enlace:* ${text}
-📁 *Formato:* Documento
+📁 *Formato:* Video normal
 `.trim();
 
     const image = await fetch('https://files.catbox.moe/rkvuzb.jpg').then(res => res.buffer());
@@ -103,19 +103,12 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 }, { quoted: m});
 
     const buffer = await (await fetch(url)).buffer();
-    await conn.sendFile(
-      m.chat,
-      buffer,
-      `${title}.mp4`,
-      undefined,
-      m,
-      null,
-      {
-        mimetype: 'video/mp4',
-        asDocument: true,
-        filename: `${title}.mp4`
-}
-);
+    await conn.sendMessage(m.chat, {
+      video: buffer,
+      fileName: `${title}.mp4`,
+      mimetype: 'video/mp4'
+}, { quoted: m});
+
     await m.react('✅');
 } catch (e) {
     await m.react('❌');
