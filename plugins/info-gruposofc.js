@@ -1,43 +1,46 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn}) => {
-  const nombreBot = 'ꜱᴜᴋɪ_ʙᴏᴛ_ᴍᴅ';
-  const creador = 'ꜰᴇᴅᴇxʏᴢ';
-  const catalogo = 'https://files.catbox.moe/rkvuzb.jpg'; // imagen decorativa
-  const emojis = '🌸';
+  const nombreBot = '𝖲ᴜᴋɪ_𝖡𝗈𝖙_𝖬𝖣';
+  const creador = '𝖥𝖾𝖽𝖾𝗑𝗒𝗓';
+  const imagenDecorativa = 'https://files.catbox.moe/rkvuzb.jpg';
+  const emoji = '🌸';
 
-  // enlaces personalizados
-  const namegrupo = 'Grupo Oficial';
-  const gp1 = 'https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV';
-
-  const namecomu = 'Comunidad Pastelcore';
-  const comunidad1 = 'https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV';
-
-  const namechannel = 'Canal de Noticias';
-  const channel = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
-
-  const dev = `👨🏻‍💻 𝘾𝙧𝙚𝙖𝙙𝙤𝙧: ${creador}`;
+  // Enlaces mágicos
+  const enlaces = {
+    grupoOficial: {
+      nombre: '𝖦𝗋𝗎𝗉𝗈 𝖮𝖿𝗂𝖼𝗂𝖺𝗅',
+      url: 'https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV'
+},
+    comunidadPastel: {
+      nombre: '𝖢𝗈𝗆𝗎𝗇𝗂𝖽𝖺𝖽 𝖯𝖺𝗌𝗍𝖾𝗅𝖼𝗈𝗋𝖾',
+      url: 'https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV'
+},
+    canalNoticias: {
+      nombre: '𝖢𝖺𝗇𝖺𝗅 𝖽𝖾 𝖭𝗈𝗍𝗂𝖼𝗂𝖺𝗌',
+      url: 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'
+}
+};
 
   const texto = `
-╭─❀ 𝖦𝗋𝗎𝗉𝗈𝗌 𝗈𝖿𝗂𝖼𝗂𝖺𝗅𝗂𝗌 ❀─╮
+╭─❀ 𝖫𝗂𝗇𝗄𝗌 𝖤𝗇𝖼𝖺𝗇𝗍𝖺𝖽𝗈𝗌 ❀─╮
 
-🌷 ¡Hola! Te invito a unirte a los espacios mágicos de *${nombreBot}* para compartir, aprender y disfrutar con la comunidad:
+🌷 ¡Bienvenid@ al mundo de *${nombreBot}*! Aquí tienes los portales mágicos para unirte a nuestra comunidad:
 
-🍡 ${namegrupo}
-↳ *❀* ${gp1}
+🍡 ${enlaces.grupoOficial.nombre}
+↳ *${emoji}* ${enlaces.grupoOficial.url}
 
-🍰 ${namecomu}
-↳ *❀* ${comunidad1}
+🍰 ${enlaces.comunidadPastel.nombre}
+↳ *${emoji}* ${enlaces.comunidadPastel.url}
 
-🧋 ¿Enlace roto? Aquí tienes el canal oficial:
-📡 ${namechannel}
-↳ *❀* ${channel}
+📡 ${enlaces.canalNoticias.nombre}
+↳ *${emoji}* ${enlaces.canalNoticias.url}
 
-╰─❀ ${dev} ❀─╯
+╰─❀ 👨🏻‍💻 𝖢𝗋𝖾𝖺𝖽𝗈𝗋: ${creador} ❀─╯
 `.trim();
 
-  await conn.sendFile(m.chat, catalogo, 'grupos.jpg', texto, m);
-  await m.react(emojis);
+  await conn.sendFile(m.chat, imagenDecorativa, 'grupos.jpg', texto, m);
+  await m.react(emoji);
 };
 
 handler.help = ['grupos'];
