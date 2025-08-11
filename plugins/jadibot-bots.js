@@ -83,7 +83,7 @@ let handler = async (m, { conn, command, usedPrefix}) => {
         return `📖 「 ${i + 1} 」\n👤 Nombre: ${bot.user.name || 'SubBot'}\n⏱️ Activo: ${bot.uptime? formatUptime(Date.now() - bot.uptime): 'Desconocido'}\n📎 Enlace: https://wa.me/${jid}?text=${usedPrefix}code`;
 }).join('\n\n🍓──────────────────🍓\n\n');
 
-      const mensajeFinal = `🌸 *𝖲ᴜᴋ𝗂Bot_MD | SubBots en línea*\n\n🧋 ¿Quieres conectarte como ayudante pastelcore?\nPulsa en alguno de los enlaces y únete a la clase 🍑\n\n📊 SubBots activos: *${botsActivos.length || '0'}*\n\n${listado || '🚫 Ningún SubBot está en línea en este momento.'}`;
+      const mensajeFinal = `🌸 *𝖲ᴜᴋ𝗂Bot_MD | SubBots en línea*\n\n🧋 ¿Quieres conectarte como ayudante pastelcore?\nPulsa en alguno de los enlaces y únete a la clase 🍁\n\n📊 SubBots activos: *${botsActivos.length || '0'}*\n\n${listado || '🚫 Ningún SubBot está en línea en este momento.'}`;
 
       await conn.sendMessage(m.chat, {
         text: mensajeFinal,
