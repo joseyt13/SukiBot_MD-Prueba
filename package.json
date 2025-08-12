@@ -16,16 +16,16 @@
 "eslint": "eslint .",
 "eslintfix": "eslint --fix ."
 },
-"homepage": "https://github.com/El-brayan502/RoxyBot-MD",
+"homepage": "https://github.com/fedexyz13/Suki_Bot_MD",
 "author": {
-"name": "thecarlos19"
+"name": "fedexyz"
 },
 "repository": {
 "type": "git",
-"url": "git+https://github.com/El-brayan502/RoxyBot-MD.git"
+"url": "git+https://github.com/fedexyz13/Suki_Bot_MD"
 },
 "bugs": {
-"url": "https://github.com/El-brayan502/RoxyBot-MD/issues"
+"url": "https://github.com/fedexyz13/Suki_Bot_MD/issues"
 },
 "license": "GPL-3.0-or-later",
 "dependencies": {
