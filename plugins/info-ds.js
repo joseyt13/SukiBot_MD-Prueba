@@ -45,9 +45,8 @@ const handler = async (m, { conn}) => {
 }
 };
 
-handler.help = ['fixmsgespera', 'ds'];
-handler.tags = ['info'];
-handler.command = ['fixmsgespera', 'ds'];
-handler.register = true;
+handler.customPrefix = /^(ds|limpiar)$/i;
+handler.command = new RegExp;
+handler.owner = true;
 
 export default handler;
