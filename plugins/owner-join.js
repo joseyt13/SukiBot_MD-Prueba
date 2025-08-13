@@ -1,7 +1,7 @@
 let handler = async (m, { conn, args, isOwner, usedPrefix, command}) => {
   const creatorID = global.owner[0][0]; 
   if (!args[0]) {
-    return m.reply(`🧋 Ingresa el enlace de invitación de un grupo.\n\n✨ Ejemplo:\n${usedPrefix + command} https://chat.whatsapp.com/xxxxxxxxxxxxxxxx`);
+    return m.reply(`🧋 Ingresa el enlace de invitación de un grupo.\n\n✨ Ejemplo:\n${usedPrefix + command} https://chat.whatsapp.com/FMbjCpXNJ2PKGFbPwt5B7P`);
 }
 
   let linkRegex = /chat\.whatsapp\.com\/([0-9A-Za-z]{20,24})/i;
