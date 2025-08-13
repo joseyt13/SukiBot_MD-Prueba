@@ -107,7 +107,9 @@ async function pinterestDL(url) {
     for (const media of data.medias) {
       mediaList.push(media)
 
-      if (media.extension === 'jpg' && media.url.includes('i.pinimg.com/')) { const originalUrl = media.url.replace(/\/\d+x\//, '/originals/')
+      if (media.extension === 'jpg' && media.url.includes('i.pinimg.com/')) {
+        
+        const originalUrl = media.url.replace(/\/\d+x\//, '/originals/')
         if (!originalsSet.has(originalUrl)) {
           originalsSet.add(originalUrl)
           mediaList.push({...media, url: originalUrl, quality: 'original'})
