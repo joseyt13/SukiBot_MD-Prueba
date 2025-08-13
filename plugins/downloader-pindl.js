@@ -26,14 +26,15 @@ const handler = async (m, { conn, text, command}) => {
       await conn.sendMessage(m.chat, {
         text: `🎧 *𝖲𝗎𝗄𝗂Bot_MD ha preparado tu audio:*\n\n📌 *Título:* ${title}\n📥 *Formato:* MP3\n\nToca el botón para descargarlo~`,
         footer: '✨ Descarga mágica cortesía de 𝖲𝗎𝗄𝗂',
-        buttons: [
+        templateButtons: [
           {
-            buttonId: result.url,
-            buttonText: { displayText: '🔊 Descargar Audio'},
-            type: 1
+            index: 1,
+            urlButton: {
+              displayText: '🔊 Descargar Audio',
+              url: result.url
 }
-        ],
-        headerType: 1
+}
+        ]
 }, { quoted: m})
 
       await conn.sendMessage(m.chat, {
@@ -106,8 +107,7 @@ async function pinterestDL(url) {
     for (const media of data.medias) {
       mediaList.push(media)
 
-      if (media.extension === 'jpg' && media.url.includes('i.pinimg.com/')) {
-        const originalUrl = media.url.replace(/\/\d+x\//, '/originals/')
+      if (media.extension === 'jpg' && media.url.includes('i.pinimg.com/')) { const originalUrl = media.url.replace(/\/\d+x\//, '/originals/')
         if (!originalsSet.has(originalUrl)) {
           originalsSet.add(originalUrl)
           mediaList.push({...media, url: originalUrl, quality: 'original'})
