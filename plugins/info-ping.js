@@ -5,13 +5,27 @@ let handler = async (m, { conn}) => {
   let timestamp = speed();
   let latencia = speed() - timestamp;
 
+  const now = new Date();
+  const fecha = now.toLocaleDateString('es-ES', {
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+});
+  const hora = now.toLocaleTimeString('es-ES', {
+    hour: '2-digit',
+    minute: '2-digit'
+});
+
   exec(`neofetch --stdout`, async (error, stdout, stderr) => {
     let info = stdout.toString("utf-8").replace(/Memory:/, "Ram:");
 
     const respuesta = `
 ╭─❀ *𝖲𝗎𝗄𝗂Bot_MD* ❀─╮
-┃ ✨ 𝖯𝗂𝗇𝗀 𝖾𝗇𝖼𝖺𝗇𝗍𝖺𝖽𝗈
+┃ ✨ 𝖯𝗂𝗇𝗀 𝖾𝗇𝖼𝖺𝗇𝖼𝖺𝖽𝗈
 ┃ 🕐 𝖳𝗂𝖾𝗆𝗉𝗈 𝖽𝖾 𝗋𝖾𝗌𝗉𝗎𝖾𝗌𝗍𝖺: *${latencia.toFixed(4)} ms*
+┃ 📅 𝖥𝖾𝖼𝗁𝖺: *${fecha}*
+┃ ⏰ 𝖧𝗈𝗋𝖺: *${hora}*
 ┃ 📊 𝖨𝗇𝖿𝗈 𝗌𝗂𝗌𝗍𝖾𝗆𝖺:
 ╰───────────────╯
 
@@ -24,13 +38,13 @@ ${info}
       buttons: [
         {
           buttonId: '.menu',
-          buttonText: { displayText: '🍂 menu'},
+          buttonText: { displayText: '🍂 Menú de comandos'},
           type: 1
 }
       ],
       contextInfo: {
         externalAdReply: {
-          title: '𝖲𝗂𝗍𝗂𝗈 𝗈𝗳𝗂𝗰𝗂𝗮𝗅 𝖽𝖾 𝖲𝗎𝗄𝗂Bot_MD',
+          title: '𝖲𝗎𝗄𝗂Bot_MD',
           body: '🕹 Canal de soporte y novedades',
           mediaType: 1,
           renderLargerThumbnail: true,
