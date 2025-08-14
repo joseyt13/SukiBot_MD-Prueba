@@ -7,10 +7,10 @@ const {
 
 let handler = async (m, { conn, text}) => {
   if (!text) {
-    return conn.reply(m.chat, '🌸 Por favor, escribe algo para buscar en TikTok.', m);
+    return conn.reply(m.chat, '🌸 𝖲𝗎𝗄𝗂 necesita que escribas algo para buscar en TikTok.\nEjemplo: *.tiktoksearch gatos bailando*', m);
 }
 
-  await conn.reply(m.chat, '🔍 𓆩 ꒰ Iniciando búsqueda en TikTok ꒱ 𓆪', m);
+  await conn.reply(m.chat, '🔍 𓆩 ꒰ 𝖲𝗎𝗄𝗂 está buscando magia en TikTok ꒱ 𓆪', m);
 
   const fuente = `https://apis-starlights-team.koyeb.app/starlight/tiktoksearch?text=${encodeURIComponent(text)}`;
   let res, videos;
@@ -19,18 +19,16 @@ let handler = async (m, { conn, text}) => {
     res = await axios.get(fuente);
     videos = res?.data?.data || [];
 } catch (e) {
-    return conn.reply(m.chat, `❌ Error al obtener resultados: ${e.message}`, m);
+    return conn.reply(m.chat, `❌ 𝖤𝗋𝗋𝗈𝗋 𝗆á𝗀𝗂𝖼𝗈: ${e.message}`, m);
 }
 
   if (!videos.length) {
-    return conn.reply(m.chat, '🔍 No se encontraron videos relacionados con tu búsqueda.', m);
+    return conn.reply(m.chat, '🔍 𝖲𝗎𝗄𝗂 no encontró nada con ese hechizo. Intenta otro término.', m);
 }
 
-  // Mezcla aleatoria de resultados
   shuffle(videos);
   const topVideos = videos.slice(0, 5);
 
-  // Construcción del carrusel
   const cards = await Promise.all(topVideos.map(async (video) => {
     const videoMessage = (await generateWAMessageContent({
       video: { url: video.nowm}
@@ -38,9 +36,9 @@ let handler = async (m, { conn, text}) => {
 
     return {
       body: proto.Message.InteractiveMessage.Body.create({ text: ''}),
-      footer: proto.Message.InteractiveMessage.Footer.create({ text: '🌷 SukiBot_MD'}),
+      footer: proto.Message.InteractiveMessage.Footer.create({ text: '🌷 𝖲𝗎𝗄𝗂Bot_MD'}),
       header: proto.Message.InteractiveMessage.Header.create({
-        title: video.title || '🎬 Video TikTok',
+        title: video.title || '🎬 𝖵𝗂𝖽𝖾𝗈 𝖳𝗂𝗄𝖳𝗈𝗄',
         hasMediaAttachment: true,
         videoMessage
 }),
@@ -57,10 +55,10 @@ let handler = async (m, { conn, text}) => {
 },
         interactiveMessage: proto.Message.InteractiveMessage.create({
           body: proto.Message.InteractiveMessage.Body.create({
-            text: `🎀 Resultados para: *${text}*`
+            text: `🎀 𝖱𝖾𝗌𝗎𝗅𝗍𝖺𝖽𝗈𝗌 𝗉𝖺𝗋𝖺: *${text}*`
 }),
           footer: proto.Message.InteractiveMessage.Footer.create({
-            text: 'SukiBot_MD • powered by ꜰᴇᴅᴇxʏᴢ'
+            text: '𝖲𝗎𝗄𝗂Bot_MD • powered by ꜰᴇᴅᴇxʏᴢ'
 }),
           header: proto.Message.InteractiveMessage.Header.create({
             hasMediaAttachment: false
