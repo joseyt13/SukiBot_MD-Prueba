@@ -4,8 +4,8 @@ let handler = async (m, { conn, args}) => {
   try {
     const output = execSync('git pull' + (args.length? ' ' + args.join(' '): '')).toString();
     let response = output.includes('Already up to date')
-? '✅ *𝖲𝗎𝗄𝗂Bot_MD ya está actualizado.*'
-: `✅ *Actualización aplicada correctamente:*\n\n\`\`\`\n${output}\n\`\`\``;
+? '🔧 _𝖤𝗅 𝖻𝗈𝗍 𝗒𝖺 𝖾𝗌𝗍𝖺́ 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝗈 𝖼𝗈𝗇 𝗅𝖺 𝗎́𝗅𝗍𝗂𝗆𝖺 𝗍𝖾𝗋𝗇𝗎𝗋𝖺 𝗉𝖺𝗌𝗍𝖾𝗅𝖼𝗈𝗋𝖾'
+: `*⚙ 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗔𝗡𝗗𝗢 𝗔𝗖𝗧𝗨𝗔𝗟𝗜𝗭𝗔𝗖𝗜𝗢́𝗡...*\n\n\`\`\`\n${output}\n\`\`\``;
 
     await conn.sendMessage(m.chat, {
       text: response,
