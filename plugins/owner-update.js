@@ -4,18 +4,18 @@ let handler = async (m, { conn, args}) => {
   try {
     const output = execSync('git pull' + (args.length? ' ' + args.join(' '): '')).toString();
     let response = output.includes('Already up to date')
-? '✅ *SukiBot_MD ya está actualizado.*'
+? '✅ *𝖲𝗎𝗄𝗂Bot_MD ya está actualizado.*'
 : `✅ *Actualización aplicada correctamente:*\n\n\`\`\`\n${output}\n\`\`\``;
 
     await conn.sendMessage(m.chat, {
       text: response,
       contextInfo: {
         externalAdReply: {
-          title: 'SukiBot_MD',
-          body: '🕹 Canal de oficial',
+          title: '𝖲𝗎𝗄𝗂Bot_MD',
+          body: '🕹 𝖲𝗎𝗄𝗂𝖻𝗈𝗍_𝗆𝖽 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝖺',
           mediaType: 1,
           renderLargerThumbnail: true,
-          thumbnailUrl: 'https://files.cloudkuimages.guru/images/rgelVn5i.jpg', // puedes cambiar la imagen
+          thumbnailUrl: 'https://files.cloudkuimages.guru/images/rgelVn5i.jpg',
           sourceUrl: 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'
 }
 }
@@ -27,8 +27,8 @@ let handler = async (m, { conn, args}) => {
       text: errorMsg,
       contextInfo: {
         externalAdReply: {
-          title: 'SukiBot_MD',
-          body: '🕹 Canal de oficial',
+          title: '𝖲𝗎𝗄𝗂Bot_MD',
+          body: '🕹 𝖲𝗎𝗄𝗂𝖻𝗈𝗍_𝗆𝖽 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝖺',
           mediaType: 1,
           renderLargerThumbnail: true,
           thumbnailUrl: 'https://files.cloudkuimages.guru/images/rgelVn5i.jpg',
