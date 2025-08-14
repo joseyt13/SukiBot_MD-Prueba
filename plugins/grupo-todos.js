@@ -29,7 +29,7 @@ let handler = async (m, { conn, args, participants, groupMetadata}) => {
 
 handler.help = ['todos', 'tagall', 'invocar']
 handler.tags = ['group']
-handler.command = /^(todos|tagall|invocar)$/i
+handler.command = ['todos', 'tagall', 'invocar'];
 handler.group = true
 handler.admin = true
 handler.botAdmin = true
