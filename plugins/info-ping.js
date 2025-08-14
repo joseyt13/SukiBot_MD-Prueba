@@ -20,11 +20,11 @@ ${info}
 
     await conn.sendMessage(m.chat, {
       text: respuesta,
-      footer: '🌐 Visita el sitio oficial o abre el menú',
+      footer: '🍁 𝖲𝗎𝗄𝗂Bot_MD 𝗈𝗳𝗂𝗰𝗂𝗮𝗅',
       buttons: [
         {
           buttonId: '.menu',
-          buttonText: { displayText: '📜 Menú de comandos'},
+          buttonText: { displayText: '🍂 menu'},
           type: 1
 }
       ],
