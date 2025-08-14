@@ -12,7 +12,7 @@ let handler = async (m, { conn, args}) => {
       contextInfo: {
         externalAdReply: {
           title: '𝖲𝗎𝗄𝗂Bot_MD',
-          body: '🕹 𝖲𝗎𝗄𝗂𝖻𝗈𝗍_𝗆𝖽 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝖺',
+          body: '🔧 𝖲𝗎𝗄𝗂𝖻𝗈𝗍_𝗆𝖽 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝖺',
           mediaType: 1,
           renderLargerThumbnail: true,
           thumbnailUrl: 'https://files.cloudkuimages.guru/images/rgelVn5i.jpg',
@@ -28,7 +28,7 @@ let handler = async (m, { conn, args}) => {
       contextInfo: {
         externalAdReply: {
           title: '𝖲𝗎𝗄𝗂Bot_MD',
-          body: '🕹 𝖲𝗎𝗄𝗂𝖻𝗈𝗍_𝗆𝖽 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝖺',
+          body: '⚙ 𝖲𝗎𝗄𝗂𝖻𝗈𝗍_𝗆𝖽 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝖺',
           mediaType: 1,
           renderLargerThumbnail: true,
           thumbnailUrl: 'https://files.cloudkuimages.guru/images/rgelVn5i.jpg',
