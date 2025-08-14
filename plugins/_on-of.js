@@ -20,8 +20,8 @@ let handler = async (m, { conn, command, args, usedPrefix, isOwner, isROwner, is
 
   const activar = /on|activar|enable/i.test(args[0]);
   const desactivar = /off|desactivar|disable/i.test(args[0]);
-
   let valor = activar? true: desactivar? false: null;
+
   if (valor === null) throw `🌸 Usa: *${usedPrefix + command} on/off*`;
 
   // Validar permisos según el comando
@@ -47,13 +47,13 @@ let handler = async (m, { conn, command, args, usedPrefix, isOwner, isROwner, is
     case 'antisub':
     case 'antilink':
     case 'antilink2':
+    case 'antiprivado': // ✅ Nuevo comando agregado
       if (permisosGrupo) throw '⚠️ Solo admins pueden cambiar esto.';
       chat[config] = valor;
       break;
 
     case 'jadibotmd':
     case 'modejadibot':
-    case 'antiprivado':
       if (!isOwner) throw '⚠️ Solo el dueño del bot puede cambiar esto.';
       bot.jadibotmd = valor;
       globalSetting = true;
@@ -81,9 +81,11 @@ handler.help = [
   'detect', 'detect2',
   'nsfw', 'modoadmin', 'soloadmin',
   'antisubbots', 'antisub', 'antilink', 'antilink2',
-  'jadibotmd', 'modejadibot', 'antiprivado',
+  'antiprivado', // ✅ Agregado aquí también
+  'jadibotmd', 'modejadibot',
 ];
 handler.tags = ['settings', 'group'];
 handler.command = handler.help;
 handler.register = true;
+
 export default handler;
