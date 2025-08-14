@@ -16,7 +16,6 @@ export async function before(m, { conn}) {
 
   const canalSuki = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
   const grupoOficial = 'https://chat.whatsapp.com/Bt6O68OzrIN28UZz5Ka1hV';
-  const imagenSuki = 'https://files.cloudkuimages.guru/images/rgelVn5i.jpg';
 
   for (const user of participants) {
     const name = await conn.getName(user);
@@ -63,12 +62,6 @@ ${grupoOficial}
 }
 });
 
-      // Imagen decorativa de Suki debajo del perfil
-      await conn.sendMessage(m.chat, {
-        image: { url: imagenSuki},
-        caption: '🧁 𝖲𝗎𝗄𝗂Bot_MD te recibe con dulzura ✨'
-});
-
       await conn.sendMessage(m.chat, {
         audio: { url: audioBienvenida},
         mimetype: 'audio/mpeg',
@@ -106,3 +99,4 @@ ${grupoOficial}
 });
 }
 }
+        }
