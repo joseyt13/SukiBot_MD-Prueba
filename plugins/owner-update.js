@@ -15,7 +15,7 @@ let handler = async (m, { conn, args}) => {
           body: '🕹 Canal de oficial',
           mediaType: 1,
           renderLargerThumbnail: true,
-          thumbnailUrl: 'https://i.imgur.com/0Z7bYUJ.jpeg', // puedes cambiar la imagen
+          thumbnailUrl: 'https://files.cloudkuimages.guru/images/rgelVn5i.jpg', // puedes cambiar la imagen
           sourceUrl: 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'
 }
 }
@@ -31,7 +31,7 @@ let handler = async (m, { conn, args}) => {
           body: '🕹 Canal de oficial',
           mediaType: 1,
           renderLargerThumbnail: true,
-          thumbnailUrl: 'https://i.imgur.com/0Z7bYUJ.jpeg',
+          thumbnailUrl: 'https://files.cloudkuimages.guru/images/rgelVn5i.jpg',
           sourceUrl: 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'
 }
 }
