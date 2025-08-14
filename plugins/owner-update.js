@@ -15,7 +15,7 @@ let handler = async (m, { conn, args}) => {
     let response = output.includes('Already up to date')
 ? `${emoji} _𝖤𝗅 𝖻𝗈𝗍 𝖲𝗎𝗄𝗂Bot-MD 𝖞𝖆 𝖾𝖘𝖙𝖺́ 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝗈._`
 : `*${emoji} 𝗔𝗖𝗧𝗨𝗔𝗟𝗜𝗭𝗔𝗖𝗜𝗢́𝗡 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗔𝗗𝗔*\n\n` +
-        `🗓️ Fecha: *${fecha}*\n🕒 Hora: *${hora}*\n🌿 Rama: *${branch}*\n📝 Último commit:\n> ${lastCommit}\n\n` +
+        `🗓️ Fecha: *${fecha}*\n🕒 Hora: *${hora}*\n🍁 Rama: *${branch}*\n📝 Último commit:\n> ${lastCommit}\n\n` +
         `\`\`\`\n${output}\n\`\`\``;
 
     await conn.sendMessage(m.chat, {
