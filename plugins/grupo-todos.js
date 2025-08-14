@@ -1,49 +1,38 @@
-const handler = async (m, { conn, participants, isAdmin, isBotAdmin, command }) => {
-  if (!m.isGroup) return m.reply('❗ Este comando solo se puede usar en grupos.')
-  if (!isAdmin) return m.reply('🛡️ Solo los administradores pueden usar este comando.')
+let handler = async (m, { conn, args, participants, groupMetadata}) => {
+  if (!m.isGroup) throw '🌸 Este comando solo funciona en grupos mágicos.'
 
-  const countryFlags = {
-    '502': '🇬🇹', // Guatemala
-    '503': '🇸🇻', // El Salvador
-    '504': '🇭🇳', // Honduras
-    '505': '🇳🇮', // Nicaragua
-    '506': '🇨🇷', // Costa Rica
-    '507': '🇵🇦', // Panamá
-    '51': '🇵🇪',  // Perú
-    '52': '🇲🇽',  // México
-    '54': '🇦🇷',  // Argentina
-    '55': '🇧🇷',  // Brasil
-    '56': '🇨🇱',  // Chile
-    '57': '🇨🇴',  // Colombia
-    '58': '🇻🇪',  // Venezuela
-    '1': '🇺🇸',   // USA
-    '34': '🇪🇸',  // España
-    '91': '🇮🇳',  // India
-    '93': '🇦🇫',  // Afganistán
-    '212': '🇲🇦', // Marruecos
-    '355': '🇦🇱', // Albania
-    '84': '🇻🇳',  // Vietnam
-    '976': '🇲🇳', // Mongolia
-    '94': '🇱🇰'   // Sri Lanka
-  }
+  const admins = groupMetadata.participants.filter(p => p.admin)
+  const isAdmin = admins.some(p => p.id === m.sender)
+  const isBotAdmin = admins.some(p => p.id === conn.user.jid)
 
-  let text = '👥 *Invocando a todos los miembros:*\n\n'
-  let mentions = []
+  if (!isAdmin) throw '🧁 Solo los administradores pueden invocar a todos con 𝖲𝗎𝗄𝗂.'
+  if (!isBotAdmin) throw '⚠️ El bot necesita ser administrador para mencionar a todos.'
 
-  for (let user of participants) {
-    const number = user.id.split('@')[0]
-    const prefix = number.length > 5 ? number.slice(0, number.length - 7) : number
-    const flag = countryFlags[prefix] || '🏳️'
-    text += `${flag} @${number}\n`
-    mentions.push(user.id)
-  }
+  const texto = args.join(' ') || '🌷 𝖲𝗎𝗄𝗂Bot_MD invoca a todos los miembros del reino mágico:'
+  const mentions = participants.map(p => p.id)
 
-  await conn.sendMessage(m.chat, { text, mentions }, { quoted: m })
+  await conn.sendMessage(m.chat, {
+    text: texto + '\n\n' + mentions.map(u => `• @${u.split('@')[0]}`).join('\n'),
+    mentions,
+    contextInfo: {
+      externalAdReply: {
+        title: '🌸 Invocación grupal',
+        body: '✨ Todos han sido llamados por 𝖲𝗎𝗄𝗂',
+        thumbnailUrl: 'https://files.catbox.moe/rkvuzb.jpg',
+        mediaType: 1,
+        renderLargerThumbnail: true,
+        sourceUrl: 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W'
+}
+}
+}, { quoted: m})
 }
 
-handler.help = ['invocar', 'todos']
-handler.tags = ['grupo']
-handler.command = ['invocar', 'todos']
+handler.help = ['todos', 'tagall', 'invocar']
+handler.tags = ['group']
+handler.command = /^(todos|tagall|invocar)$/i
 handler.group = true
+handler.admin = true
+handler.botAdmin = true
+handler.register = true
 
 export default handler
