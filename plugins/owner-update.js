@@ -7,9 +7,16 @@ let handler = async (m, { conn, args}) => {
     const fecha = now.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric'});
     const hora = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit'});
 
+    const branch = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
+    const lastCommit = execSync('git log -1 --pretty=format:"%h - %s"').toString();
+    const emojis = ['✨', '🛠️', '🚀', '🔧', '📦', '🧩'];
+    const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
     let response = output.includes('Already up to date')
-? '🔧 _𝖤𝗅 𝖻𝗈𝗍 𝗒𝖺 𝖾𝗌𝗍𝖺́ 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝖮 𝖼𝗈𝗇 𝗅𝖺 𝗎́𝗅𝗍𝗂𝗆𝖺 𝗍𝖾𝗋𝗇𝗎𝗋𝖺 𝗉𝖺𝗌𝗍𝖾𝗅𝖼𝗈𝗋𝖾_'
-: `*⚙ 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗔𝗡𝗗𝗢 𝗔𝗖𝗧𝗨𝗔𝗟𝗜𝗭𝗔𝗖𝗜𝗢́𝗡...*\n\n\`\`\`\n${output}\n\`\`\``;
+? `${emoji} _𝖤𝗅 𝖻𝗈𝗍 𝖲𝗎𝗄𝗂Bot-MD 𝖞𝖆 𝖾𝖘𝖙𝖺́ 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝗈._`
+: `*${emoji} 𝗔𝗖𝗧𝗨𝗔𝗟𝗜𝗭𝗔𝗖𝗜𝗢́𝗡 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗔𝗗𝗔*\n\n` +
+        `🗓️ Fecha: *${fecha}*\n🕒 Hora: *${hora}*\n🌿 Rama: *${branch}*\n📝 Último commit:\n> ${lastCommit}\n\n` +
+        `\`\`\`\n${output}\n\`\`\``;
 
     await conn.sendMessage(m.chat, {
       text: response,
