@@ -38,7 +38,7 @@ ${info}
       buttons: [
         {
           buttonId: '.menu',
-          buttonText: { displayText: '🍂 Menú de comandos'},
+          buttonText: { displayText: '🍂 Menú'},
           type: 1
 }
       ],
