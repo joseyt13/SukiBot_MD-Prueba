@@ -1,53 +1,43 @@
-// Código creado por 𝒇𝒆𝒅𝒆𝒙𝒚𝒛 🍁
-// no quites los créditos 🍂
-
 import { execSync} from 'child_process';
 
 let handler = async (m, { conn, args}) => {
   try {
-    const encabezado = '🎀 `𝖡𝖴𝖲𝖢𝖠𝖭𝖣𝖮 𝖠𝖢𝖳𝖴𝖠𝖫𝖨𝖹𝖠𝖢𝖨𝖮𝖭...`';
-    const inicio = '🌸 *𝖤𝖲𝖳𝖮𝖸 𝖠𝖭𝖠𝖫𝖨𝖹𝖠𝖭𝖣𝖮...*';
-    await conn.reply(m.chat, `${encabezado}\n\n${inicio}`, m);
+    const output = execSync('git pull' + (args.length? ' ' + args.join(' '): '')).toString();
+    let response = output.includes('Already up to date')
+? '✅ *SukiBot_MD ya está actualizado.*'
+: `✅ *Actualización aplicada correctamente:*\n\n\`\`\`\n${output}\n\`\`\``;
 
-    const comando = 'git pull' + (args.length? ' ' + args.join(' '): '');
-    const output = execSync(comando).toString();
-    const actualizado = output.includes('Already up to date');
-
-    const mensajeFinal = actualizado
-? '✨ _𝖤𝗅 𝖻𝗈𝗍 𝗒𝖺 𝖾𝗌𝗍𝖺́ 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝗈 𝖼𝗈𝗇 𝗅𝖺 𝗎́𝗅𝗍𝗂𝗆𝖺 𝗍𝖾𝗋𝗇𝗎𝗋𝖺 𝗉𝖺𝗌𝗍𝖾𝗅𝖼𝗈𝗋𝖾~_'
-: `*⚙ 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗔𝗡𝗗𝗢 𝗔𝗖𝗧𝗨𝗔𝗟𝗜𝗭𝗔𝗖𝗜𝗢́𝗡...*\n\n\`\`\`${output}\`\`\`\n\n*𝖲𝗎𝗄𝗂𝖻𝗈𝗍_𝗆𝖽 𝖺𝖼𝗍𝗎𝖺𝗅𝗂𝗓𝖺𝖽𝖺...*`;
-
-    await conn.reply(m.chat, mensajeFinal, m);
+    await conn.sendMessage(m.chat, {
+      text: response,
+      contextInfo: {
+        externalAdReply: {
+          title: 'SukiBot_MD',
+          body: '🕹 Canal de oficial',
+          mediaType: 1,
+          renderLargerThumbnail: true,
+          thumbnailUrl: 'https://i.imgur.com/0Z7bYUJ.jpeg', // puedes cambiar la imagen
+          sourceUrl: 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'
+}
+}
+}, { quoted: m});
 
 } catch (error) {
-    try {
-      const estado = execSync('git status --porcelain').toString().trim();
-      if (estado) {
-        const conflictos = estado
-.split('\n')
-.filter(line =>
-!line.includes('roxySession/') &&
-!line.includes('.cache/') &&
-!line.includes('tmp/')
-);
-
-        if (conflictos.length> 0) {
-          const conflictMsg = `⚠️ *Conflictos detectados en los siguientes archivos:*\n\n` +
-            conflictos.map(f => '• ' + f.slice(3)).join('\n') +
-            `\n\n🔧 *Para solucionarlo:*\n- Reinstala el bot\n- O actualiza manualmente los archivos afectados`;
-
-          return await conn.reply(m.chat, conflictMsg, m);
+    const errorMsg = `❌ *Error al actualizar:*\n${error.message || 'Error desconocido.'}`;
+    await conn.sendMessage(m.chat, {
+      text: errorMsg,
+      contextInfo: {
+        externalAdReply: {
+          title: 'SukiBot_MD',
+          body: '🕹 Canal de oficial',
+          mediaType: 1,
+          renderLargerThumbnail: true,
+          thumbnailUrl: 'https://i.imgur.com/0Z7bYUJ.jpeg',
+          sourceUrl: 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'
 }
 }
-} catch (statusError) {
-      console.error('🌧️ Error al verificar conflictos:', statusError);
-}
-
-    const errorMsg = `❌ *Upss... ocurrió un error al actualizar:*\n\`\`\`${error.message || 'Error desconocido.'}\`\`\``;
-    await conn.reply(m.chat, errorMsg, m);
+}, { quoted: m});
 }
 };
-
 
 handler.customPrefix = /^(fix|update|up)$/i;
 handler.command = new RegExp;
