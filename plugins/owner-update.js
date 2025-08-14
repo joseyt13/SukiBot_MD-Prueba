@@ -15,7 +15,7 @@ let handler = async (m, { conn, args}) => {
       text: response,
       contextInfo: {
         externalAdReply: {
-          title: '𝖲𝗎𝗄𝗂Bot_MD',
+          title: '𝖲𝗎𝗄𝗂Bot-MD',
           body: `✅ Actualizado el ${fecha} a las ${hora}`,
           mediaType: 1,
           renderLargerThumbnail: true,
@@ -31,7 +31,7 @@ let handler = async (m, { conn, args}) => {
       text: errorMsg,
       contextInfo: {
         externalAdReply: {
-          title: '𝖲𝗎𝗄𝗂Bot_MD',
+          title: '𝖲𝗎𝗄𝗂Bot-MD',
           body: '⚠️ Error al intentar actualizar',
           mediaType: 1,
           renderLargerThumbnail: true,
