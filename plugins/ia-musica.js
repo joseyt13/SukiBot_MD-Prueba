@@ -2,20 +2,20 @@ import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
 
-let handler = async (m, { conn, text, command}) => {
+let handler = async (m, { conn, text}) => {
   if (!text) {
     return conn.reply(m.chat, '❀ Por favor, escribe la letra para generar la música.', m);
 }
 
   try {
-    conn.reply(m.chat, '🎶 Generando tu canción con Suno AI...', m);
+    conn.reply(m.chat, '🎶 Generando tu canción personalizada...', m);
 
-    // Enviar letra a la API
-    const { data} = await axios.post('https://apis-starlights-team.koyeb.app/starlight/suno', {
+    // API alternativa funcional
+    const { data} = await axios.post('https://api.starlightapi.xyz/suno', {
       prompt: text
 });
 
-    if (!data.audio_url) {
+    if (!data ||!data.audio_url) {
       return conn.reply(m.chat, '⚠️ No se pudo generar la música. Intenta con otra letra.', m);
 }
 
