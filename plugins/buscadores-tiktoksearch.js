@@ -11,7 +11,7 @@ const MAX_RESULTS = 7;
 
 let handler = async (message, { conn, text, usedPrefix, command}) => {
   if (!text) {
-    return conn.reply(message.chat, "❀ Por favor, ingrese un texto para realizar una búsqueda en TikTok.", message);
+    return conn.reply(message.chat, "🍁 𝑷𝒐𝒓 𝒇𝒂𝒗𝒐𝒓, 𝒏𝒐 𝒎𝒆 𝒅𝒆𝒋𝒆𝒔 𝒆𝒏 𝒃𝒍𝒂𝒏𝒄𝒐... 𝒆𝒔𝒄𝒓𝒊𝒃𝒆 𝒂𝒍𝒈𝒐 ✨.", message rcanal');
 }
 
   // Crea un mensaje de video para WhatsApp
@@ -34,7 +34,7 @@ let handler = async (message, { conn, text, usedPrefix, command}) => {
 
   try {
     // Mensaje de carga
-    conn.reply(message.chat, '✧ *ENVIANDO SUS RESULTADOS...*', message, {
+    conn.reply(message.chat, '♡⃛ 𝑬𝒏𝒗𝒊𝒂𝒏𝒅𝒐 𝒍𝒐 𝒒𝒖𝒆 𝒉𝒂𝒔 𝒃𝒖𝒔𝒄𝒂𝒅𝒐...*', message, {
       contextInfo: {
         externalAdReply: {
           mediaUrl: null,
