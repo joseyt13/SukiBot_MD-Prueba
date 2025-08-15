@@ -2,106 +2,123 @@ import axios from 'axios';
 const {
   proto,
   generateWAMessageFromContent,
-  prepareWAMessageMedia,
-  generateWAMessageContent,
-  getDevice
+  generateWAMessageContent
 } = (await import("@whiskeysockets/baileys")).default;
 
-let handler = async (message, { conn, text, usedPrefix, command }) => {
+// Configuración personalizada
+const API_URL = "https://apis-starlights-team.koyeb.app/starlight/tiktoksearch?text=";
+const MAX_RESULTS = 7;
+
+let handler = async (message, { conn, text, usedPrefix, command}) => {
   if (!text) {
-    return conn.reply(message.chat, "🍁 Por favor, ingrese un texto para realizar una búsqueda en tiktok.", message, rcanal);
-  }
+    return conn.reply(message.chat, "❀ Por favor, ingrese un texto para realizar una búsqueda en TikTok.", message);
+}
 
-  async function createVideoMessage(url) {
-    const { videoMessage } = await generateWAMessageContent({
-      video: { url }
-    }, {
+  // Crea un mensaje de video para WhatsApp
+  const createVideoMessage = async (url) => {
+    const { videoMessage} = await generateWAMessageContent({
+      video: { url}
+}, {
       upload: conn.waUploadToServer
-    });
+});
     return videoMessage;
-  }
+};
 
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+  // Mezcla aleatoriamente los resultados
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i> 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
+}
+};
 
   try {
-    conn.reply(message.chat, '🍂 *ENVIANDO SUS RESULTADOS..*', message, {
-      contextInfo: { 
-        externalAdReply: { 
-          mediaUrl: null, 
-          mediaType: 1, 
+    // Mensaje de carga
+    conn.reply(message.chat, '✧ *ENVIANDO SUS RESULTADOS...*', message, {
+      contextInfo: {
+        externalAdReply: {
+          mediaUrl: null,
+          mediaType: 1,
           showAdAttribution: true,
-          title: '♡  ͜ ۬︵࣪᷼⏜݊᷼𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖𝙨⏜࣪᷼︵۬ ͜ ',
-          body: dev,
-          previewType: 0, 
-          thumbnail: avatar,
-          sourceUrl: redes 
-        }
-      }
-    });
+          title: '♡ ͜ ۬︵࣪᷼⏜݊᷼𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖𝙨⏜࣪᷼︵۬ ͜ ',
+          body: global.dev,
+          previewType: 0,
+          thumbnail: global.avatar,
+          sourceUrl: global.redes
+}
+}
+});
 
-    let results = [];
-    let { data } = await axios.get("https://apis-starlights-team.koyeb.app/starlight/tiktoksearch?text=" + text);
-    let searchResults = data.data;
+    // Obtener resultados desde la API
+    const { data} = await axios.get(API_URL + encodeURIComponent(text));
+    const searchResults = data.data || [];
+
+    if (searchResults.length === 0) {
+      return conn.reply(message.chat, "⚠︎ No se encontraron resultados para tu búsqueda.", message);
+}
+
     shuffleArray(searchResults);
-    let topResults = searchResults.splice(0, 7);
+    const topResults = searchResults.slice(0, MAX_RESULTS);
 
-    for (let result of topResults) {
-      results.push({
-        body: proto.Message.InteractiveMessage.Body.fromObject({ text: null }),
-        footer: proto.Message.InteractiveMessage.Footer.fromObject({ text: dev }),
+    // Construir tarjetas de video
+    const cards = [];
+    for (const result of topResults) {
+      const videoMsg = await createVideoMessage(result.nowm);
+      cards.push({
+        body: proto.Message.InteractiveMessage.Body.fromObject({ text: null}),
+        footer: proto.Message.InteractiveMessage.Footer.fromObject({ text: global.dev}),
         header: proto.Message.InteractiveMessage.Header.fromObject({
-          title: '' + result.title,
+          title: result.title,
           hasMediaAttachment: true,
-          videoMessage: await createVideoMessage(result.nowm)
-        }),
-        nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({ buttons: [] })
-      });
-    }
+          videoMessage: videoMsg
+}),
+        nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({ buttons: []})
+});
+}
 
-    const messageContent = generateWAMessageFromContent(message.chat, {
+    // Construir mensaje interactivo tipo carrusel
+    const interactiveContent = generateWAMessageFromContent(message.chat, {
       viewOnceMessage: {
         message: {
           messageContextInfo: {
             deviceListMetadata: {},
             deviceListMetadataVersion: 2
-          },
+},
           interactiveMessage: proto.Message.InteractiveMessage.fromObject({
             body: proto.Message.InteractiveMessage.Body.create({
-              text: "🍁 RESULTADOS DE: " + text
-            }),
+              text: `✧ RESULTADO DE: ${text}`
+}),
             footer: proto.Message.InteractiveMessage.Footer.create({
-              text: dev
-            }),
+              text: global.dev
+}),
             header: proto.Message.InteractiveMessage.Header.create({
               hasMediaAttachment: false
-            }),
+}),
             carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({
-              cards: [...results]
-            })
-          })
-        }
-      }
-    }, {
+              cards
+})
+})
+}
+}
+}, {
       quoted: message
-    });
+});
 
-    await conn.relayMessage(message.chat, messageContent.message, {
-      messageId: messageContent.key.id
-    });
-  } catch (error) {
+    // Enviar mensaje
+    await conn.relayMessage(message.chat, interactiveContent.message, {
+      messageId: interactiveContent.key.id
+      });
+
+} catch (error) {
+    console.error("Error en tiktoksearch:", error);
     conn.reply(message.chat, `⚠︎ *OCURRIÓ UN ERROR:* ${error.message}`, message);
-  }
+}
 };
 
-handler.help = ["tiktoksearch <txt>"];
-handler.register = true
-handler.group = true
+handler.help = ["tiktoksearch <texto>"];
 handler.tags = ["buscador"];
 handler.command = ["tiktoksearch", "ttss", "tiktoks"];
+handler.register = true;
+handler.group = true;
 
 export default handler;
