@@ -16,7 +16,7 @@ const toSerifBold = (text) => {
   return text.split('').map(c => map[c] || c).join('');
 };
 
-let tags = {
+const tags = {
   main: toSerifBold('🌸 𝖬𝖾𝗇𝗎 𝖾𝗇𝖼𝖺𝗇𝗍𝖺𝖽𝗈'),
   group: toSerifBold('👥 𝖬𝖺𝗀𝗂𝖺 𝗀𝗋𝗎𝗉𝖺𝗅'),
   serbot: toSerifBold('🪄 𝖲𝗎𝖻 𝖡𝗈𝗍𝗌 & 𝖢𝗅𝗈𝗇𝖾𝗌'),
@@ -128,6 +128,15 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
     await conn.sendMessage(m.chat, {
       react: { text: '🌷', key: menuMessage.key}
 });
+
+    // 🎧 Enviar audio de bienvenida
+    await conn.sendFile(
+      m.chat,
+      'https://files.cloudkuimages.guru/audios/LEDz5ntF.mp3',
+      'sukibot_theme.mp3',
+      '🎧 SukiBot_MD te da la bienvenida con estilo 🌸',
+      m
+);
 
 } catch (e) {
     console.error('[❌] Error en menú decorado:', e);
