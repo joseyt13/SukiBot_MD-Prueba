@@ -11,7 +11,7 @@ const MAX_RESULTS = 7;
 
 let handler = async (message, { conn, text, usedPrefix, command}) => {
   if (!text) {
-    return conn.reply(message.chat, "🍁 𝑷𝒐𝒓 𝒇𝒂𝒗𝒐𝒓, 𝒏𝒐 𝒎𝒆 𝒅𝒆𝒋𝒆𝒔 𝒆𝒏 𝒃𝒍𝒂𝒏𝒄𝒐... 𝒆𝒔𝒄𝒓𝒊𝒃𝒆 𝒂𝒍𝒈𝒐 ✨.", message, rcanal);
+    return conn.reply(message.chat, "🍁 𝑷𝒐𝒓 𝒇𝒂𝒗𝒐𝒓, 𝒏𝒐 𝒎𝒆 𝒅𝒆𝒋𝒆𝒔 𝒆𝒏 𝒃𝒍𝒂𝒏𝒄𝒐... 𝒆𝒔𝒄𝒓𝒊𝒃𝒆 𝒂𝒍𝒈𝒐 ✨.", message rcanal);
 }
 
   // Crea un mensaje de video para WhatsApp
