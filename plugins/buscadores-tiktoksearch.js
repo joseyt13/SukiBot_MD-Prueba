@@ -34,7 +34,7 @@ let handler = async (message, { conn, text, usedPrefix, command}) => {
 
   try {
     // Mensaje de carga
-    conn.reply(message.chat, '♡⃛ 𝑬𝒏𝒗𝒊𝒂𝒏𝒅𝒐 𝒍𝒐 𝒒𝒖𝒆 𝒉𝒂𝒔 𝒃𝒖𝒔𝒄𝒂𝒅𝒐...*', message, {
+    conn.reply(message.chat, '*♡⃛ 𝑬𝒏𝒗𝒊𝒂𝒏𝒅𝒐 𝒍𝒐 𝒒𝒖𝒆 𝒉𝒂𝒔 𝒃𝒖𝒔𝒄𝒂𝒅𝒐...*', message, {
       contextInfo: {
         externalAdReply: {
           mediaUrl: null,
