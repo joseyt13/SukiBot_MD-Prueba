@@ -38,6 +38,7 @@ Intenta con otro título o revisa la ortografía.';
       buttons: [
         { buttonId: `.ytmp3 ${videoInfo.url}`, buttonText: { displayText: '🎵 Descargar Audio'}, type: 1},
         { buttonId: `.ytmp4 ${videoInfo.url}`, buttonText: { displayText: '📽️ Descargar Video'}, type: 1},
+        { buttonId: `.spotify ${videoInfo.url}`, buttonText: { displayText: '🦠 Buscar en Spotify'}, type: 1},
       ],
       headerType: 4,
       viewOnce: true,
