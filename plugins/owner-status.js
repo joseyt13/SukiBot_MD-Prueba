@@ -1,7 +1,7 @@
 import moment from 'moment-timezone';
 
 let handler = async function (m, { conn, command}) {
-  const nombreBot = '𝖲𝗎𝗄𝗂𝖡𝗈𝗍 -  𝖬𝖣';
+  const nombreBot = '𝖲𝗎𝗄𝗂𝖡𝗈𝗍-𝖬𝖣';
   const creador = '﹫𝖿𝖾𝖽𝖾𝗑𝗒𝗓';
   const zonaHoraria = 'America/Lima';
 
