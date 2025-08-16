@@ -5,26 +5,29 @@ const {
   generateWAMessageContent
 } = (await import("@whiskeysockets/baileys")).default;
 
-// Configuración personalizada
+// Configuración
 const API_URL = "https://apis-starlights-team.koyeb.app/starlight/tiktoksearch?text=";
 const MAX_RESULTS = 7;
 
-let handler = async (message, { conn, text, usedPrefix, command}) => {
+const handler = async (message, { conn, text}) => {
   if (!text) {
-    return conn.reply(message.chat, "🍁 𝑷𝒐𝒓 𝒇𝒂𝒗𝒐𝒓, 𝒏𝒐 𝒎𝒆 𝒅𝒆𝒋𝒆𝒔 𝒆𝒏 𝒃𝒍𝒂𝒏𝒄𝒐... 𝒆𝒔𝒄𝒓𝒊𝒃𝒆 𝒂𝒍𝒈𝒐 ✨.", message rcanal);
+    return conn.reply(
+      message.chat,
+      "🍁 𝑷𝒐𝒓 𝒇𝒂𝒗𝒐𝒓, 𝒏𝒐 𝒎𝒆 𝒅𝒆𝒋𝒆𝒔 𝒆𝒏 𝒃𝒍𝒂𝒏𝒄𝒐... 𝒆𝒔𝒄𝒓𝒊𝒃𝒆 𝒂𝒍𝒈𝒐 ✨.",
+      message
+);
 }
 
-  // Crea un mensaje de video para WhatsApp
+  // Función para crear mensaje de video
   const createVideoMessage = async (url) => {
-    const { videoMessage} = await generateWAMessageContent({
-      video: { url}
-}, {
-      upload: conn.waUploadToServer
-});
+    const { videoMessage} = await generateWAMessageContent(
+      { video: { url}},
+      { upload: conn.waUploadToServer}
+);
     return videoMessage;
 };
 
-  // Mezcla aleatoriamente los resultados
+  // Función para mezclar resultados
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i> 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -34,7 +37,7 @@ let handler = async (message, { conn, text, usedPrefix, command}) => {
 
   try {
     // Mensaje de carga
-    conn.reply(message.chat, '*♡⃛ 𝑬𝒏𝒗𝒊𝒂𝒏𝒅𝒐 𝒍𝒐 𝒒𝒖𝒆 𝒉𝒂𝒔 𝒃𝒖𝒔𝒄𝒂𝒅𝒐...*', message, {
+    await conn.reply(message.chat, '*♡⃛ 𝑬𝒏𝒗𝒊𝒂𝒏𝒅𝒐 𝒍𝒐 𝒒𝒖𝒆 𝒉𝒂𝒔 𝒃𝒖𝒔𝒄𝒂𝒅𝒐...*', message, {
       contextInfo: {
         externalAdReply: {
           mediaUrl: null,
@@ -94,20 +97,16 @@ let handler = async (message, { conn, text, usedPrefix, command}) => {
             header: proto.Message.InteractiveMessage.Header.create({
               hasMediaAttachment: false
 }),
-            carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({
-              cards
-})
+            carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards})
 })
 }
 }
-}, {
-      quoted: message
-});
+}, { quoted: message});
 
     // Enviar mensaje
     await conn.relayMessage(message.chat, interactiveContent.message, {
       messageId: interactiveContent.key.id
-      });
+});
 
 } catch (error) {
     console.error("Error en tiktoksearch:", error);
@@ -115,6 +114,7 @@ let handler = async (message, { conn, text, usedPrefix, command}) => {
 }
 };
 
+// Metadatos del comando
 handler.help = ["tiktoksearch <texto>"];
 handler.tags = ["buscador"];
 handler.command = ["tiktoksearch", "ttss", "tiktoks"];
