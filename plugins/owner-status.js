@@ -2,7 +2,7 @@ import moment from 'moment-timezone';
 
 let handler = async function (m, { conn}) {
   // Configuración personalizada
-  const nombreBot = 'SukiBot_MD';
+  const nombreBot = '𝖲𝗎𝗄𝗂Bot_MD';
   const creador = 'Fedexyz';
   const zonaHoraria = 'America/Lima';
 
@@ -20,10 +20,10 @@ let handler = async function (m, { conn}) {
 
   try {
     await conn.updateProfileStatus(descripcion);
-    m.reply('✅ Descripción actualizada con éxito por SukiBot_MD.');
+    m.reply('✅ Descripción actualizada con éxito por 𝖲𝗎𝗄𝗂Bot_MD.');
 } catch (e) {
     console.error('[❌] Error al actualizar la descripción:', e);
-    m.reply('❎ Suki se tropezó entre pétalos. Intenta de nuevo.');
+    m.reply('❎ 𝖲𝗎𝗄𝗂 se tropezó entre pétalos. Intenta de nuevo.');
 }
 };
 
@@ -41,4 +41,4 @@ function clockString(ms) {
   const m = isNaN(ms)? '--': Math.floor(ms / 60000) % 60;
   const s = isNaN(ms)? '--': Math.floor(ms / 1000) % 60;
   return [d, ' » ', h, ' ・ ', m, ' ・ ', s].map(v => v.toString().padStart(2, '0')).join('');
-}
+  }
