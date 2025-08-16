@@ -4,7 +4,8 @@
 import { createHash} from 'crypto';
 
 const sukiIcon = 'https://files.catbox.moe/rkvuzb.jpg';
-const channelRD = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
+const channelRD = 'https://whatsapp.com/channel/0029VbBCdev6RGJ81i7RwY1j';
+const canalRegistro = '120363421494408641@newsletter';
 
 function generarID(sender) {
   return createHash('md5').update(sender).digest('hex');
@@ -56,6 +57,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
   user.exp += 300;
 
   const sn = generarID(m.sender);
+  const fechaRegistro = new Date(user.regTime).toLocaleString('es-PE', { timeZone: 'America/Lima'});
 
   const mensaje = `
 ꒰🌸꒱ *𝖱𝖾𝗀𝗂𝗌𝗍𝗋𝗈 𝖼𝗈𝗆𝗉𝗅𝖾𝗍𝖺𝖽𝗈 𝖼𝗈𝗇 𝖲𝗎𝗄𝗂𝖡𝗈𝗍_𝖬𝖣* 🍓
@@ -64,6 +66,7 @@ let handler = async (m, { conn, text, usedPrefix, command}) => {
 🎂 𝖤𝖽𝖺𝖽: *${user.age}* 𝖺𝗇̃𝗈𝗌 𝗄𝖺𝗐𝖺𝗂𝗂
 🌎 𝖯𝖺𝗂́𝗌: *${user.country}*
 🧁 𝖨𝖣 𝖾𝗇𝖼𝖺𝗇𝗍𝖺𝖽𝗈: *${sn}*
+📅 𝖥𝖾𝖼𝗁𝖺 𝖽𝖾 𝖱𝖾𝗀𝗂𝗌𝗍𝗋𝗈: *${fechaRegistro}*
 
 🌐 𝖳𝗎 𝖾𝗇𝖾𝗋𝗀í𝖺 𝗆𝖺́𝗀𝗂𝖼𝖺 𝗁𝖺 𝗌𝗂𝗇𝖼𝗋𝗈𝗇𝗂𝗓𝖺𝖽𝗈 𝖼𝗈𝗇 *𝖲𝗎𝗄𝗂 𝗇𝖺𝗄𝗈 𝗀𝖺~*
 📢 𝖲𝗂𝗀𝗎𝖾 𝖾𝗅 𝖼𝖺𝗇𝖺𝗅 𝗈𝖿𝗂𝖼𝗂𝖺𝗅 𝗉𝖺𝗋𝖺 𝗌𝗈𝗋𝗉𝗋𝖾𝗌𝖺𝗌 𝗆𝖺́𝗀𝗂𝖼𝖺𝗌:
@@ -71,9 +74,10 @@ ${channelRD}
 
 ✨ 𝖴𝗌𝖺 *#perfil* 𝗉𝖺𝗋𝖺 𝗏𝖾𝗋 𝗍𝗎 𝗉𝗋𝗈𝗀𝗋𝖾𝗌𝗈 𝖾𝗇𝖼𝖺𝗇𝗍𝖺𝖽𝗈.
 🌈 ¡𝖳𝗎 𝖺𝗏𝖾𝗇𝗍𝗎𝗋𝖺 𝖺𝗉𝖾𝗇𝖺𝗌 𝖼𝗈𝗆𝗂𝖾𝗇𝗓𝖺, 𝗉𝗋𝖾𝖼𝗂𝗈𝗌𝗎𝗋𝖺~!*`.trim();
-
+  
   await m.react('🧋');
 
+  // Enviar mensaje de bienvenida al usuario
   await conn.sendMessage(m.chat, {
     text: mensaje,
     contextInfo: {
@@ -87,6 +91,22 @@ ${channelRD}
 }
 }
 }, { quoted: m});
+
+  // Enviar resumen del registro al canal oficial
+  const resumenCanal = `
+📥 *Nuevo registro en 𝖲𝗎𝗄𝗂Bot_MD* 🍁
+
+👤 Nombre: *${user.name}*
+🎂 Edad: *${user.age}*
+🌎 País: *${user.country}*
+🧁 ID mágico: *${sn}*
+📅 Fecha: *${fechaRegistro}*
+🔗 Usuario: wa.me/${m.sender.split('@')[0]}
+`;
+
+  await conn.sendMessage(canalRegistro, {
+    text: resumenCanal
+});
 };
 
 handler.help = ['reg'];
