@@ -1,7 +1,3 @@
-// Código creado  por 𝖋𝖊𝖉𝖊𝖝𝖞𝖟 🍁
-// no quites los créditos 🍂
-
-import { sticker} from '../lib/sticker.js';
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn}) => {
@@ -10,9 +6,14 @@ let handler = async (m, { conn}) => {
     await conn.reply(m.chat, '🌸 𝖲𝗎𝗄𝗂 está invocando un sticker de Among Us... espere un momento ✨', m);
 
     const res = await fetch('https://api.lolhuman.xyz/api/sticker/amongus?apikey=85faf717d0545d14074659ad');
-    const { url} = await res.json();
+    const json = await res.json();
 
-    if (!url) throw 'No se pudo obtener el sticker.';
+    // Verifica si la respuesta contiene la propiedad result
+    if (!json ||!json.result) {
+      throw 'La API no devolvió un sticker válido.';
+}
+
+    const url = json.result;
 
     await conn.sendFile(
       m.chat,
@@ -39,7 +40,7 @@ let handler = async (m, { conn}) => {
 );
 } catch (e) {
     console.error('[❌] Error en sticker-amongus:', e);
-    conn.reply(m.chat, '❎ No se pudo generar el sticker. Intenta de nuevo más tarde.', m);
+    conn.reply(m.chat, `❎ No se pudo generar el sticker.\n📌 Detalle: ${e}`, m);
 }
 };
 
