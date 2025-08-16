@@ -34,9 +34,9 @@ let handler = async function (m, { conn, command}) {
 }
 };
 
-handler.help = ['status'];
+handler.help = ['statuss'];
 handler.tags = ['owner'];
-handler.command = ['status'];
+handler.command = ['statuss'];
 handler.owner = true;
 handler.all = handler;
 
