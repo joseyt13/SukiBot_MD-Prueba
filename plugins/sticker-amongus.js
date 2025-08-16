@@ -1,3 +1,4 @@
+
 // Código creado y mejorado por 𝖋𝖊𝖉𝖊𝖝𝖞𝖟 🍁
 // no quites los créditos 🍂
 
@@ -8,7 +9,7 @@ let handler = async (m, { conn}) => {
     await m.react('🛸');
     await conn.reply(m.chat, '🌸 𝖲𝗎𝗄𝗂 está invocando un sticker de Among Us... espere un momento ✨', m);
 
-    // Obtener la URL del sticker desde la API
+    // Llamada a la API sin errores de sintaxis
     const res = await fetch('https://api.lolhuman.xyz/api/sticker/amongus?apikey=85faf717d0545d14074659ad');
     const json = await res.json();
 
@@ -21,7 +22,7 @@ let handler = async (m, { conn}) => {
 
     // Enviar como sticker
     await conn.sendMessage(m.chat, {
-      sticker: { url: imageUrl}
+      sticker: buffer
 }, {
       quoted: m,
       contextInfo: {
