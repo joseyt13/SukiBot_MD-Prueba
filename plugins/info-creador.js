@@ -5,7 +5,7 @@ let handler = async (m, { conn}) => {
   // Datos del creador
   const creator = {
     name: 'fedexyz',
-    number: '549115617878',
+    number: '5491156178758',
     email: 'fedelanyt130@gmail.com',
     note: 'Soy mini desarrollador de bots'
 };
