@@ -10,10 +10,12 @@
 
 ## 📊 𝗘𝘀𝘁𝗮𝗱𝗼 𝗱𝗲𝗹 𝗥𝗲𝗽𝗼𝘀𝗶𝘁𝗼𝗿𝗶𝗼
 
-Estáticas de SukiBot_MD 
+Estáticas de SukiBot_MD
+
 ![GitHub stars](https://img.shields.io/github/stars/fedexyz13/Suki_Bot_MD?style=for-the-badge&logo=github&color=yellow)
 ![GitHub forks](https://img.shields.io/github/forks/fedexyz13/Suki_Bot_MD?style=for-the-badge&logo=github&color=blue)
 ![GitHub last commit](https://img.shields.io/github/last-commit/fedexyz13/Suki_Bot_MD?style=for-the-badge&logo=github&color=green)
+
 ---
 
 ## 💮 Características
