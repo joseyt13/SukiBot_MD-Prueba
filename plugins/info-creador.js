@@ -18,8 +18,8 @@ let handler = async (m, { conn}) => {
     note: 'Creador de RoxyBot-MD & NagiBot-MD'
 };
 
-  // Enviar imagen con texto personalizado
-  await conn.sendFile(m.chat, imageUrl, 'suki.jpg', `
+  // Texto del mensaje
+  const messageText = `
 👑 *Creador:* ${creator.name}
 📧 *Email:* ${creator.email}
 📱 *WhatsApp:* wa.me/${creator.number}
@@ -33,7 +33,19 @@ let handler = async (m, { conn}) => {
 📌 *Grupo Oficial:* https://chat.whatsapp.com/F23muyMASZgK1RcVziBrPZ
 📣 *Canal Oficial:* https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
 🧊 *Canal Updates:* https://whatsapp.com/channel/0029VbBCdev6RGJ81i7RwY1j
-`, m);
+`;
+
+  // Enviar imagen con botones
+  await conn.sendMessage(m.chat, {
+    image: { url: imageUrl},
+    caption: messageText,
+    footer: 'SukiBot-MD ✨',
+    buttons: [
+      { buttonId: '.menu', buttonText: { displayText: '🍁 Menu'}, type: 1},
+      { buttonId: '.code', buttonText: { displayText: '🔗 serbot'}, type: 1}
+    ],
+    headerType: 4
+}, { quoted: m});
 };
 
 handler.help = ['creador'];
