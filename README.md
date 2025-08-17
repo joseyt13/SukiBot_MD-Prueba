@@ -1,8 +1,20 @@
-<h1 align="center">🌸 Suki-Bot-MD - WhatsApp Bot 🌸</h1>
+# ⭐ Michi-WaBot
 
-<p align="center">
-  <img src="https://n.uguu.se/ZzbXduJq.gif" width="220" alt="Suki-Bot-MD" />
-</p>
+<div align="center">
+  <img src="https://iili.io/FZQTsXR.jpg" alt="Michi-WaBot Logo" width="150"/>
+  <br>
+  <p>Un bot de WhatsApp ligero, confiable y fácil de usar, diseñado para la comunidad.</p>
+</div>
+
+---
+
+## 📊 𝗘𝘀𝘁𝗮𝗱𝗼 𝗱𝗲𝗹 𝗥𝗲𝗽𝗼𝘀𝗶𝘁𝗼𝗿𝗶𝗼
+
+Estos indicadores muestran el estado actualizado del proyecto en GitHub.
+
+![GitHub stars](https://img.shields.io/github/stars/fedexyz13/Suki_Bot_MDstyle=for-the-badge&logo=github&color=yellow)
+![GitHub forks](https://img.shields.io/github/forks/Ado-rgb/Michi-WaBot?style=for-the-badge&logo=github&color=blue)
+![GitHub last commit](https://img.shields.io/github/last-commit/Ado-rgb/Michi-WaBot?style=for-the-badge&logo=github&color=green)
 
 ---
 
