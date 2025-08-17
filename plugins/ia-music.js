@@ -14,6 +14,9 @@ async function suno(prompt, { style = '', title = '', instrumental = false} = {}
 }
 });
 
+  const token = cf?.result?.token;
+  if (!token) throw new Error('❎ No se pudo obtener el token de verificación.');
+
   const uid = crypto.createHash('md5').update(Date.now().toString()).digest('hex');
 
   const { data: task} = await axios.post('https://aiarticle.erweima.ai/api/v1/secondary-page/api/create', {
@@ -29,15 +32,18 @@ async function suno(prompt, { style = '', title = '', instrumental = false} = {}
 }, {
     headers: {
       uniqueid: uid,
-      verify: cf.result.token
+      verify: token
 }
 });
 
+  const recordId = task?.data?.recordId;
+  if (!recordId) throw new Error('❎ No se pudo crear la tarea de generación musical.');
+
   while (true) {
-    const { data} = await axios.get(`https://aiarticle.erweima.ai/api/v1/secondary-page/api/${task.data.recordId}`, {
+    const { data} = await axios.get(`https://aiarticle.erweima.ai/api/v1/secondary-page/api/${recordId}`, {
       headers: {
         uniqueid: uid,
-        verify: cf.result.token
+        verify: token
 }
 });
 
@@ -82,13 +88,17 @@ let handler = async (m, { conn, text}) => {
 }
 } catch (e) {
     console.error('[❌] Error en comando suno:', e);
-    m.reply(`❎ Error mágico: ${e.message}`);
+    if (e.response?.status === 502) {
+      m.reply('❎ El servidor de música está temporalmente fuera de servicio. Intenta más tarde 🌙');
+} else {
+      m.reply(`❎ Error mágico: ${e.message}`);
+}
 }
 };
 
-handler.help = ['music <prompt>'];
+handler.help = ['suno <prompt>'];
 handler.tags = ['ai', 'music'];
-handler.command = ['musica', 'music'];
+handler.command = ['suno', 'music'];
 handler.register = true;
 
 export default handler;
