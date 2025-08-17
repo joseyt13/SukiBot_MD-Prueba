@@ -1,55 +1,62 @@
-import fetch from 'node-fetch';
+let handler = async (m, { conn}) => {
+  // Datos del creador
+  const creator = {
+    name: 'fedexyz',
+    number: '549115617878',
+    email: 'fedelanyt130@gmail.com',
+    org: 'Creador de SukiBot_MD',
+    note: 'Soy mini desarrollador de bots'
+}
 
-const channelRD = {
-  id: '120363402097425674@newsletter',
-  name: '🌸 Suki_Bot_MD Canal Oficial'
-};
+  // Datos del colaborador
+  const collaborator = {
+    name: 'DevBrayan',
+    number: '573001533523',
+    email: 'brayanfree881@gmail.com',
+    org: 'Colaborador de SukiBot-MD',
+    note: 'Creador de RoxyBot-MD & NagiBot-MDN'
+}
 
-const handler = async (m, { conn}) => {
-  await m.react('💫');
+  // VCard del creador
+  const vcardCreator = `
+BEGIN:VCARD
+VERSION:3.0
+N:${creator.name}
+FN:${creator.name}
+ORG:${creator.org}
+EMAIL;type=EMAIL:${creator.email}
+TEL;type=CELL;type=VOICE;waid=${creator.number}:${creator.number}
+NOTE:${creator.note}
+END:VCARD
+`.trim()
 
-  const imagenURL = 'https://files.catbox.moe/rkvuzb.jpg'; // Imagen decorativa pastel
-  const imgBuffer = await fetch(imagenURL).then(res => res.buffer());
+  // VCard del colaborador
+  const vcardCollaborator = `
+BEGIN:VCARD
+VERSION:3.0
+N:${collaborator.name}
+FN:${collaborator.name}
+ORG:${collaborator.org}
+EMAIL;type=EMAIL:${collaborator.email}
+TEL;type=CELL;type=VOICE;waid=${collaborator.number}:${collaborator.number}
+NOTE:${collaborator.note}
+END:VCARD
+`.trim()
 
-  const textoCreador = `
-🌸 *Panel del Creador — SukiBot_MD* 🧋
-
-𖧷 ꒰ 𝗖𝗥𝗘𝗔𝗗𝗢𝗥𝗘𝗦 ꒱
-• 💌 fedexyz → wa.me/5491156178758
-• 🍁 DevBrayan → wa.me/573001533523
-
-𖧷 ꒰ 𝗖𝗔𝗡𝗔𝗟 𝗢𝗙𝗜𝗖𝗜𝗔𝗟 ꒱
-📡 https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
-
-𖧷 ꒰ 𝗚𝗥𝗨𝗣𝗢 𝗣𝗥𝗜𝗡𝗖𝗜𝗣𝗔𝗟 ꒱
-👥 https://chat.whatsapp.com/FoVnxJ64gYV6EZcfNVQUfJ
-
-𖧷 ꒰ 𝗦𝗜𝗧𝗜𝗢𝗦 𝗠𝗔𝗚𝗜𝗖𝗢𝗦 ꒱
-📚 https://sukibot-site.vercel.app/
-📚 https://sukibot-md-sites.vercel.app/
-
-🌺 Gracias por formar parte del universo pastelcore de *SukiBot_MD*
-Tu compañer@ digital con ternura encantadora ✨
-`.trim();
-
+  // Enviar ambos contactos
   await conn.sendMessage(m.chat, {
-    image: imgBuffer,
-    caption: textoCreador,
-    contextInfo: {
-      mentionedJid: [m.sender],
-      isForwarded: true,
-      forwardingScore: 888,
-      forwardedNewsletterMessageInfo: {
-        newsletterJid: channelRD.id,
-        serverMessageId: 123,
-        newsletterName: channelRD.name
+    contacts: {
+      displayName: 'Equipo SukiBot-MD',
+      contacts: [
+        { vcard: vcardCreator},
+        { vcard: vcardCollaborator}
+      ]
 }
+}, { quoted: m})
 }
-}, { quoted: m});
-};
 
-handler.command = ['creador', 'creator', 'owner'];
-handler.help = ['creador'];
-handler.tags = ['info', 'suki'];
+handler.help = ['creador']
+handler.tags = ['info']
+handler.command = ['creador', 'owner', 'creator']
 
-export default handler;
+export default handler
