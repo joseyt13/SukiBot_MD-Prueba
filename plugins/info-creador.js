@@ -7,7 +7,6 @@ let handler = async (m, { conn}) => {
     name: 'fedexyz',
     number: '549115617878',
     email: 'fedelanyt130@gmail.com',
-    org: 'Creador de SukiBot_MD',
     note: 'Soy mini desarrollador de bots'
 };
 
@@ -16,40 +15,11 @@ let handler = async (m, { conn}) => {
     name: 'DevBrayan',
     number: '573001533523',
     email: 'brayanfree881@gmail.com',
-    org: 'Colaborador de SukiBot-MD',
-    note: 'Creador de RoxyBot-MD & NagiBot-MDN'
+    note: 'Creador de RoxyBot-MD & NagiBot-MD'
 };
 
-  // VCard del creador
-  const vcardCreator = `
-BEGIN:VCARD
-VERSION:3.0
-N:${creator.name}
-FN:${creator.name}
-ORG:${creator.org}
-EMAIL;type=EMAIL:${creator.email}
-TEL;type=CELL;type=VOICE;waid=${creator.number}:${creator.number}
-NOTE:${creator.note}
-END:VCARD
-`.trim();
-
-  // VCard del colaborador
-  const vcardCollaborator = `
-BEGIN:VCARD
-VERSION:3.0
-N:${collaborator.name}
-FN:${collaborator.name}
-ORG:${collaborator.org}
-EMAIL;type=EMAIL:${collaborator.email}
-TEL;type=CELL;type=VOICE;waid=${collaborator.number}:${collaborator.number}
-NOTE:${collaborator.note}
-END:VCARD
-`.trim();
-
-  // Enviar imagen con texto informativo
+  // Enviar imagen con texto personalizado
   await conn.sendFile(m.chat, imageUrl, 'suki.jpg', `
-🌸 *Información del equipo SukiBot-MD* 🌸
-
 👑 *Creador:* ${creator.name}
 📧 *Email:* ${creator.email}
 📱 *WhatsApp:* wa.me/${creator.number}
@@ -60,21 +30,10 @@ END:VCARD
 📱 *WhatsApp:* wa.me/${collaborator.number}
 📝 *Nota:* ${collaborator.note}
 
-📌 *Grupo Oficial:* https://chat.whatsapp.com/F23muyMASZgK1RcVziBrPZ?mode=ac_t
+📌 *Grupo Oficial:* https://chat.whatsapp.com/F23muyMASZgK1RcVziBrPZ
 📣 *Canal Oficial:* https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N
 🧊 *Canal Updates:* https://whatsapp.com/channel/0029VbBCdev6RGJ81i7RwY1j
 `, m);
-
-  // Enviar contactos como vCards
-  await conn.sendMessage(m.chat, {
-    contacts: {
-      displayName: 'Equipo SukiBot-MD',
-      contacts: [
-        { vcard: vcardCreator},
-        { vcard: vcardCollaborator}
-      ]
-}
-}, { quoted: m});
 };
 
 handler.help = ['creador'];
