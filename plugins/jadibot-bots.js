@@ -82,16 +82,22 @@ let handler = async (m, { conn, command, usedPrefix}) => {
         return `📖 「 ${i + 1} 」\n👤 Nombre: ${bot.user.name || 'SubBot'}\n⏱️ Activo: ${bot.uptime? formatUptime(Date.now() - bot.uptime): 'Desconocido'}\n📎 Enlace: https://wa.me/${jid}?text=${usedPrefix}code`;
 }).join('\n\n🍓──────────────────🍓\n\n');
 
-      // 🧮 Mostrar espacios disponibles
       const maxBots = 20;
       const espaciosLibres = maxBots - botsActivos.length;
 
-      const mensajeFinal = `🌸 *𝖲ᴜᴋ𝗂Bot_MD | SubBots en línea*\n\n🧋 ¿Quieres conectarte como ayudante pastelcore?\nPulsa en alguno de los enlaces y únete a la clase 🍁\n\n📊 SubBots activos: *${botsActivos.length}*\n🧃 Espacios disponibles: *${espaciosLibres}*\n\n${listado || '🚫 Ningún SubBot está en línea en este momento.'}`;
+      const mensajeFinal = `🌸 *𝖲ᴜᴋ𝗂Bot_MD | SubBots en línea*\n\n🧋 ¿Quieres conectarte como ayudante pastelcore?\nPulsa el botón para pedir tu código 🍁\n\n📊 SubBots activos: *${botsActivos.length}*\n🧃 Espacios disponibles: *${espaciosLibres}*\n\n${listado || '🚫 Ningún SubBot está en línea en este momento.'}`;
 
       await conn.sendMessage(m.chat, {
-        text: mensajeFinal,
+        image: { url: 'https://files.catbox.moe/rkvuzb.jpg'},
+        caption: mensajeFinal,
+        footer: 'SukiBot_MD 🍁',
+        buttons: [
+          { buttonId: '.code', buttonText: { displayText: '💻 Pedir Código'}, type: 1}
+        ],
+        headerType: 4,
         mentions: conn.parseMention(mensajeFinal)
 }, { quoted: m});
+
       break;
 }
 }
