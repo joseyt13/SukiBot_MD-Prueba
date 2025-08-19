@@ -113,7 +113,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   global.db.data.users[m.sender].Subs = new Date() * 1
 
   // Línea eliminada 
-  // await m.reply(`🥷🏻 Gracias por ser parte de la familia Black Clover ⚔️`)
+  // await m.reply(`🥷🏻 Gracias por ser parte de la familia 💖`)
 }
 
 handler.help = ['qr', 'code']
@@ -260,7 +260,7 @@ export async function blackJadiBot(options) {
         sock.isInit = true
         global.conns.push(sock)
 
-        if (m?.chat) await conn.sendMessage(m.chat, { text: args[0] ? `@${m.sender.split('@')[0]}, ya estás conectado, leyendo mensajes entrantes...` : `@${m.sender.split('@')[0]}, genial ya eres parte de nuestra familia de Sub-Bots.`, mentions: [m.sender] }, { quoted: m })
+        if (m?.chat) await conn.sendMessage(m.chat, { text: args[0] ? `@${m.sender.split('@')[0]}, ya estás conectado, leyendo mensajes entrantes...` : `@${m.sender.split('@')[0]},𝙂𝙚𝙣𝙞𝙖𝙡 — 𝙮𝙖 𝙚𝙧𝙚𝙨 𝙋𝘼𝙍𝙏𝙀 𝙙𝙚 𝙡𝙖 𝙛𝙖𝙢𝙞𝙡𝙞𝙖 𝙎𝙪𝙗-𝘽𝙤𝙩𝙨 🍓.`, mentions: [m.sender] }, { quoted: m })
       }
     }
 
