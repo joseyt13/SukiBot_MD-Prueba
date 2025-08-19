@@ -5,7 +5,7 @@ let handler = async (m, { args, usedPrefix, command}) => {
   await m.reply(`🆔 𝗜𝗗 𝗱𝗲𝗹 𝘂𝘀𝘂𝗮𝗿𝗶𝗼:\n\n\`${id}\``)
 }
 
-handler.help = ['lid', 'id', 'jid']
+handler.help = ['lid', 'id'']
 handler.tags = ['info']
-handler.command = ['lid', 'id', 'jid'] // puedes usar cualquiera de estos
+handler.command = ['lid', 'id'] // puedes usar cualquiera de estos
 export default handler
