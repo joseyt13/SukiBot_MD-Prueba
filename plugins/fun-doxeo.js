@@ -10,38 +10,36 @@ let handler = async (m, { conn, text}) => {
   if (m.isGroup) {
     if (m.mentionedJid.length> 0) {
       who = m.mentionedJid[0];
-      userName = await conn.getName(who);
 } else if (m.quoted) {
       who = m.quoted.sender;
-      userName = await conn.getName(who);
 } else {
-      who = m.chat;
+      who = m.sender;
 }
 } else {
-    who = m.chat;
+    who = m.sender;
 }
 
-  if (!who) return conn.reply(m.chat, '📌 Por favor, etiqueta a alguien o responde a un mensaje.', m);
-  if (!userName) userName = text || 'Usuario desconocido';
+  userName = global.db?.data?.users?.[who]?.name || text || 'Usuario desconocido';
 
-  const { key} = await conn.sendMessage(m.chat, { text: '🧑‍💻 *Iniciando escaneo de red*...'}, { quoted: m});
-  const boosts = [
-    pickRandom(['3','7','12','18','25']),
-    pickRandom(['31','36','42','47','53']),
-    pickRandom(['58','63','69','74','80']),
-    pickRandom(['85','89','93','97','100'])
+  const pasos = [
+    '🧑‍💻 Iniciando doxeo virtual...',
+    '🔍 Obteniendo información del usuario...',
+    '📡 Analizando red y actividad reciente...',
+    '📂 Accediendo a documentación simulada...',
+    '🌐 Rastreo de perfiles sociales...',
+    '🛰️ Localizando última ubicación conocida...'
   ];
 
-  for (const boost of boosts) {
-    await delay(1000);
-    await conn.sendMessage(m.chat, { text: `📡 Progreso: *${boost}%*`, edit: key});
+  for (const paso of pasos) {
+    await conn.sendMessage(m.chat, { text: paso}, { quoted: m});
+    await delay(1200);
 }
 
   const documentosFalsos = `
 📂 *Documentación simulada*
 
 • DNI: 45.982.317
-• Pasaporte: XJ9203845AR
+• Pasaporte: XR9203845AR
 • Licencia de conducir: B-928374-AZ
 • Registro académico: Universidad Pastelcore — Ingeniería en Bots
 • Matrícula profesional: BOT-AR-2025-001
@@ -50,6 +48,20 @@ let handler = async (m, { conn, text}) => {
 • ID de empleado: SukiCorp-8821
 • Estado civil: En relación con el código fuente
 • Firma digital: ✒️ 0xA7F9B2C1D3E4F5
+`;
+
+  const perfilesSociales = `
+🌐 *Perfiles digitales simulados*
+
+• Facebook: @${userName.toLowerCase().replace(/\s/g, '')}.official
+• Instagram: @${userName.toLowerCase().replace(/\s/g, '')}_md
+• TikTok: @${userName.toLowerCase().replace(/\s/g, '')}_core
+• Twitter: @${userName.toLowerCase().replace(/\s/g, '')}_suki
+• Discord: ${userName}#8821
+• Steam: ${userName.toLowerCase().replace(/\s/g, '')}_gamerx
+• GitHub: github.com/${userName.toLowerCase().replace(/\s/g, '')}-dev
+• Última conexión: hace 2 horas
+• Estado: Activa en modo pastelcore
 `;
 
   const doxeo = `🛰️ *Análisis de red completado*
@@ -72,10 +84,10 @@ let handler = async (m, { conn, text}) => {
 • Gateway: 192.168.1.1
 • Subnet: 255.255.255.0
 • Hostname: user-172-31-255-204.fiberlink.net
-• Última actividad: hace 3 minutos
 • Nodo de conexión: SukiBot_MD - Nodo 4
 
 ${documentosFalsos}
+${perfilesSociales}
 
 🧃 Datos generados por el sistema de simulación pastelcore 🍓`;
 
