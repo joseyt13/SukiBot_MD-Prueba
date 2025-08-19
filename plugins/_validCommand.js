@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'; // Asegurate de tener node-fetch instalado si usás Node <18
+import fetch from 'node-fetch'; // Si usás Node <18, asegurate de tener node-fetch instalado
 
 export async function before(m, { conn}) {
   try {
@@ -37,8 +37,8 @@ export async function before(m, { conn}) {
       const thumbnail = await (await fetch('https://files.catbox.moe/rkvuzb.jpg')).buffer();
 
       const mensaje = errores>= 3
-? `🚫 *¿Estás bien?*\nHas escrito mal los comandos *${errores} veces seguidas*.\n🌸 Usa *${usedPrefix}menu* para ver tus hechizos disponibles.\n🧁 *${metanombre}* también se cansa de tus intentos fallidos.`
-: `❌ El hechizo *${command}* no existe.\n🌷 Usa *${usedPrefix}menu* para ver tus poderes disponibles.\n🧁 Si necesitas ayuda, puedes usar *${usedPrefix}ayuda*.`;
+? `🚫 *¿Estás bien?*\nHas escrito mal los comandos _${errores} veces seguidas*.\n🌸 Usa *${usedPrefix}menu*_ para ver tus hechizos disponibles.\n🧁 *${metanombre}* también se cansa de tus intentos fallidos.`
+: `❌ El hechizo *${command}* no existe.\n🌷 Usa _${usedPrefix}menu_ para ver tus poderes disponibles.`;
 
       await conn.sendMessage(m.chat, {
         image: thumbnail,
