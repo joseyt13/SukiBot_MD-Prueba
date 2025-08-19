@@ -46,7 +46,7 @@ global.etiqueta = '🎄 Sᴜᴋɪ𝐁𝐨𝐭_MD  mᥙᥣ𝗍і-ძᥱ᥎іᥴ�
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
 // ᗰOᑎᗴᗪᗩՏ 💸
-global.moneda = 'dolares';
+global.moneda = 'Sukicoins 💵';
 
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
@@ -73,18 +73,18 @@ global.fin = " • •"
 
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
-// Iᗰᗩᘜ3ᑎᗴՏ ᑎO TOᑕᗩᖇ 📥
+// NO TOCAR ⚔
 global.catalogo = fs.readFileSync('./src/catalogo.jpg');
 global.photoSity = [catalogo]
 
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
-// ᘜᖇᑌᑭOՏ ᗪᗴ ᒪᗩ ᗷOT 🗂️
-global.gp1 = 'https://chat.whatsapp.com/FoVnxJ64gYV6EZcfNVQUfJ'
-global.channel2 = 'https://whatsapp.com/channel/0029VajUPbECxoB0cYovo60W'
-global.md = 'https://github.com/El-brayan502/RoxyBot-MD'
-global.correo = 'brayanfree881@gmail.com'
-global.cn ='https://whatsapp.com/channel/0029VawF8fBBvvsktcInIz3m';
+// LINKS DEL BOT 🍁
+global.gp1 = 'https://chat.whatsapp.com/Bxwmb1CO5ojASdRT87I11b'
+global.channel2 = 'https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N'
+global.md = 'https://github.com/fedexyz13/Suki_Bot_MD'
+global.correo = 'fedelanyt20@gmail.com'
+global.cn ='https://whatsapp.com/channel/0029VbApe6jG8l5Nv43dsC2N';
 
 //✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
 
