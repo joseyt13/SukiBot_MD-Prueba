@@ -28,7 +28,7 @@ export async function before(m, { conn}) {
     // Imagen decorativa desde URL
     const thumbnail = await (await fetch('https://files.catbox.moe/rkvuzb.jpg')).buffer();
 
-    // Mensaje falso decorado con imagen
+    // Mensaje falso decorado con imagen y botón
     global.fakeMetaMsg = {
       key: {
         remoteJid: '0@s.whatsapp.net',
@@ -37,14 +37,15 @@ export async function before(m, { conn}) {
         participant: '0@s.whatsapp.net'
 },
       message: {
-        contactMessage: {
-          displayName: metanombre,
-          vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:${metanombre}\nORG:Reino Encantado\nEND:VCARD`,
+        imageMessage: {
+          mimetype: 'image/jpeg',
           jpegThumbnail: thumbnail,
-          contextInfo: {
-            forwardingScore: 999,
-            isForwarded: true
-}
+          caption: `🌸 *${metanombre}* está en modo encantado.\n🧁 ¿Necesitás ayuda con los comandos?`,
+          footer: 'Pulsa el botón para ver el menú 🍓',
+          buttons: [
+            { buttonId: '.menu', buttonText: { displayText: '📜 Ver Menú'}, type: 1}
+          ],
+          headerType: 4
 }
 }
 };
@@ -102,4 +103,4 @@ Has escrito mal los comandos *${errores} veces seguidas*.
     console.error(`⚠️ Error en before: ${e}`);
     await m.reply(`💥 Ups... ocurrió un error mágico.\n🔧 Detalles: ${e.message}`);
 }
-}
+  }
