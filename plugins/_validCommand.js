@@ -37,15 +37,15 @@ export async function before(m, { conn}) {
       const thumbnail = await (await fetch('https://files.catbox.moe/rkvuzb.jpg')).buffer();
 
       const mensaje = errores>= 3
-? `🚫 *¿Estás bien?*\nHas escrito mal los comandos _${errores} veces seguidas*.\n🌸 Usa *${usedPrefix}menu*_ para ver tus hechizos disponibles.\n🧁 *${metanombre}* también se cansa de tus intentos fallidos.`
-: `❌ El hechizo *${command}* no existe.\n🌷 Usa _${usedPrefix}menu_ para ver tus poderes disponibles.`;
+? `🚫 *¿Estás bien?*\nHas escrito mal los comandos ${errores} veces seguidas*.\n🌸 Usa *${usedPrefix}menu* para ver tus hechizos disponibles.\n🧁 *${metanombre}* también se cansa de tus intentos fallidos.`
+: `❌ El hechizo *${command}* no existe.\n🌷 Usa _${usedPrefix}menu_ para ver tus poderes disponibles...`;
 
       await conn.sendMessage(m.chat, {
         image: thumbnail,
         caption: mensaje,
         footer: 'SᴜᴋɪBᴏᴛ_ᴍᴅ 🍓',
         buttons: [
-          { buttonId: '.menu', buttonText: { displayText: '📜 Ver Menú'}, type: 1}
+          { buttonId: '.menu', buttonText: { displayText: '🍁 Ver Menú'}, type: 1}
         ],
         headerType: 4
 }, { quoted: m});
