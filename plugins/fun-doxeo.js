@@ -24,13 +24,12 @@ let handler = async (m, { conn, text}) => {
   if (!who) return conn.reply(m.chat, '📌 Por favor, etiqueta a alguien o responde a un mensaje.', m);
   if (!userName) userName = text || 'Usuario desconocido';
 
-  const { key} = await conn.sendMessage(m.chat, { text: '🧑‍💻 *Iniciando doxeo virtual*...'}, { quoted: m});
+  const { key} = await conn.sendMessage(m.chat, { text: '🧑‍💻 *Iniciando escaneo de red*...'}, { quoted: m});
   const boosts = [
-    pickRandom(['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']),
-    pickRandom(['21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40']),
-    pickRandom(['41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60']),
-    pickRandom(['61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80']),
-    pickRandom(['81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100'])
+    pickRandom(['3','7','12','18','25']),
+    pickRandom(['31','36','42','47','53']),
+    pickRandom(['58','63','69','74','80']),
+    pickRandom(['85','89','93','97','100'])
   ];
 
   for (const boost of boosts) {
@@ -38,42 +37,56 @@ let handler = async (m, { conn, text}) => {
     await conn.sendMessage(m.chat, { text: `📡 Progreso: *${boost}%*`, edit: key});
 }
 
-  const doxeo = `👤 *Persona doxeada virtualmente*
+  const documentosFalsos = `
+📂 *Documentación simulada*
 
-📅 ${new Date().toLocaleDateString()}
-⏰ ${new Date().toLocaleTimeString()}
+• DNI: 45.982.317
+• Pasaporte: XJ9203845AR
+• Licencia de conducir: B-928374-AZ
+• Registro académico: Universidad Pastelcore — Ingeniería en Bots
+• Matrícula profesional: BOT-AR-2025-001
+• Certificado de vacunación: COVID-19 (3 dosis) + AnimeVirus
+• Número de seguridad social: 697-91-9151
+• ID de empleado: SukiCorp-8821
+• Estado civil: En relación con el código fuente
+• Firma digital: ✒️ 0xA7F9B2C1D3E4F5
+`;
 
-📢 Resultados simulados:
+  const doxeo = `🛰️ *Análisis de red completado*
 
-*Nombre:* ${userName}
-*IP:* 92.28.211.234
-*MAC:* 5A:78:3E:7E:00
-*ISP:* Ucom Universal
-*DNS:* 8.8.8.8 / 1.1.1.1
-*WAN:* 100.23.10.15
-*GATEWAY:* 192.168.0.1
-*SUBNET:* 255.255.0.255
-*PUERTOS:* TCP: 443 / UDP: 8080
-*DISPOSITIVO:* WIN32-X
-*ROUTER:* ERICCSON
-*CONEXIÓN:* TPLINK COMPANY
-*SS NUMBER:* 6979191519182016
-*IPV6:* fe80::5dcd::ef69::fb22::d9888%12
-*HTTP:* 192.168.3.1:433 → 92.28.211.234:80
-*MODEM JUMPS:* 64
-*HOST:* host-132.12.32.167.ucom.com
+📅 Fecha: ${new Date().toLocaleDateString()}
+⏰ Hora: ${new Date().toLocaleTimeString()}
 
-🧃 Información generada por SukiBot_MD 🍓`;
+📡 Información simulada:
+
+• Nombre de usuario: ${userName}
+• Dirección IP: 172.31.255.204
+• ISP: FiberLink Communications
+• MAC: 00:1A:2B:3C:4D:5E
+• DNS primario: 8.8.8.8
+• DNS alternativo: 1.1.1.1
+• Puertos abiertos: TCP 443, UDP 53, TCP 22
+• Sistema operativo: Android 13 (emulado)
+• Dispositivo: Xiaomi MiBot-X
+• Red: NAT privada
+• Gateway: 192.168.1.1
+• Subnet: 255.255.255.0
+• Hostname: user-172-31-255-204.fiberlink.net
+• Última actividad: hace 3 minutos
+• Nodo de conexión: SukiBot_MD - Nodo 4
+
+${documentosFalsos}
+
+🧃 Datos generados por el sistema de simulación pastelcore 🍓`;
 
   await conn.sendMessage(m.chat, { text: doxeo}, { quoted: m});
 
-  // 📍 Ubicación falsa simulada
   await conn.sendMessage(m.chat, {
     location: {
-      degreesLatitude: -34.6037,
-      degreesLongitude: -58.3816,
+      degreesLatitude: 37.7749,
+      degreesLongitude: -122.4194,
       name: '📍 Última ubicación detectada',
-      address: 'Nodo pastelcore - SukiBot_MD'
+      address: 'Zona industrial - Nodo 4'
 }
 }, { quoted: m});
 };
