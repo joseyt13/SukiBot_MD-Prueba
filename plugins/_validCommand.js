@@ -1,10 +1,11 @@
+import fetch from 'node-fetch'; // Asegurate de tener node-fetch instalado si usás Node <18
+
 export async function before(m, { conn}) {
   try {
     if (!m.text ||!global.prefix ||!global.prefix.test(m.text)) return;
 
-    const metanombre = global.metanombre || '𓆩 SukiBot_MD 🌸';
+    const metanombre = global.metanombre || '𓆩 SᴜᴋɪBᴏᴛ_ᴍᴅ 🌸';
     const creador = 'ꜰᴇᴅᴇxʏᴢ';
-    const Buffer = global.Buffer || ((...args) => new Uint8Array(...args));
 
     // Añadir método getRandom si no existe
     if (!Array.prototype.getRandom) {
@@ -24,7 +25,10 @@ export async function before(m, { conn}) {
 }
 };
 
-    // Mensaje falso decorado
+    // Imagen decorativa desde URL
+    const thumbnail = await (await fetch('https://files.catbox.moe/rkvuzb.jpg')).buffer();
+
+    // Mensaje falso decorado con imagen
     global.fakeMetaMsg = {
       key: {
         remoteJid: '0@s.whatsapp.net',
@@ -36,7 +40,7 @@ export async function before(m, { conn}) {
         contactMessage: {
           displayName: metanombre,
           vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:${metanombre}\nORG:Reino Encantado\nEND:VCARD`,
-          jpegThumbnail: Buffer.from([]),
+          jpegThumbnail: thumbnail,
           contextInfo: {
             forwardingScore: 999,
             isForwarded: true
@@ -68,7 +72,7 @@ export async function before(m, { conn}) {
         user.commands = (user.commands || 0) + 1;
         user.lastCommand = command;
         user.lastActive = Date.now();
-        user.errores = 0; // Reinicia contador de errores
+        user.errores = 0;
 }
 } else {
       const cmd = m.text.trim().split(' ')[0];
@@ -81,7 +85,7 @@ export async function before(m, { conn}) {
 Has escrito mal los comandos *${errores} veces seguidas*.
 🌸 Usa *${usedPrefix}menu* antes de seguir lanzando hechizos fallidos.
 
-🧁 SukiBot_MD también se cansa de tus intentos fallidos.
+🧁 SᴜᴋɪBᴏᴛ_ᴍᴅ también se cansa de tus intentos fallidos.
 `.trim();
 } else {
         respuesta = `
