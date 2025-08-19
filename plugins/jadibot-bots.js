@@ -1,9 +1,8 @@
-
-// 🧠 Código adaptado por @fedexyz13 🍁 
+// 🧠 Código adaptado por @fedexyz13 🍁
 // No quites créditos ⚔️
 
 import {
-  readdirSync, statSync, unlinkSync, existsSync, readFileSync, watch, rmSync,
+  readdirSync, statSync, unlinkSync, existsSync, readFileSync, rmSync,
   promises as fsPromises
 } from 'fs';
 const fs = {...fsPromises, existsSync};
@@ -45,7 +44,7 @@ let handler = async (m, { conn, command, usedPrefix}) => {
 }, { quoted: m});
 
       try {
-        fs.rmdir(`./${jadi}/${uniqid}`, { recursive: true, force: true});
+        fs.rmdir(sessionPath, { recursive: true, force: true});
         await conn.sendMessage(m.chat, {
           text: `✅ SubBot eliminado.\n🧋 La unidad ha sido desconectada del grupo de estudio.`
 }, { quoted: m});
@@ -83,7 +82,11 @@ let handler = async (m, { conn, command, usedPrefix}) => {
         return `📖 「 ${i + 1} 」\n👤 Nombre: ${bot.user.name || 'SubBot'}\n⏱️ Activo: ${bot.uptime? formatUptime(Date.now() - bot.uptime): 'Desconocido'}\n📎 Enlace: https://wa.me/${jid}?text=${usedPrefix}code`;
 }).join('\n\n🍓──────────────────🍓\n\n');
 
-      const mensajeFinal = `🌸 *𝖲ᴜᴋ𝗂Bot_MD | SubBots en línea*\n\n🧋 ¿Quieres conectarte como ayudante pastelcore?\nPulsa en alguno de los enlaces y únete a la clase 🍁\n\n📊 SubBots activos: *${botsActivos.length || '0'}*\n\n${listado || '🚫 Ningún SubBot está en línea en este momento.'}`;
+      // 🧮 Mostrar espacios disponibles
+      const maxBots = 20;
+      const espaciosLibres = maxBots - botsActivos.length;
+
+      const mensajeFinal = `🌸 *𝖲ᴜᴋ𝗂Bot_MD | SubBots en línea*\n\n🧋 ¿Quieres conectarte como ayudante pastelcore?\nPulsa en alguno de los enlaces y únete a la clase 🍁\n\n📊 SubBots activos: *${botsActivos.length}*\n🧃 Espacios disponibles: *${espaciosLibres}*\n\n${listado || '🚫 Ningún SubBot está en línea en este momento.'}`;
 
       await conn.sendMessage(m.chat, {
         text: mensajeFinal,
@@ -95,7 +98,8 @@ let handler = async (m, { conn, command, usedPrefix}) => {
 };
 
 handler.command = [
-  'deletesesion', 'deletebot', 'deletesession', 'deletesesaion', 'stop', 'pausarbot', 'detenersuki',
+  'deletesesion', 'deletebot', 'deletesession', 'deletesesaion',
+  'stop', 'pausarbot', 'detenersuki',
   'bots', 'listjadibots', 'subbots', 'sukibots'
 ];
 
