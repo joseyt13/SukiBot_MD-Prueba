@@ -17,7 +17,7 @@ let handler = async (m, { conn, participants, usedPrefix, command}) => {
 
   await conn.sendMessage(m.chat, {
     image: { url: 'https://files.catbox.moe/rkvuzb.jpg'},
-    caption: `✨ *Lista de ID * ✨\n\n👥 *Total de miembros:* ${total}\n\n${lista}`,
+    caption: `✨ *Lista de ID* ✨\n\n👥 *Total de miembros:* ${total}\n\n${lista}`,
     footer: 'ꜰᴇᴅᴇxʏᴢ 🍁',
     buttons: [{ buttonId: '.menu', buttonText: { displayText: '🍁 Ver Menú'}, type: 1}],
     headerType: 4
