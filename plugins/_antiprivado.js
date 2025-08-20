@@ -7,12 +7,12 @@ export async function before(m, { conn, isOwner, isROwner}) {
 
     const bot = global.db.data.settings[conn.user.jid] || {};
     const user = global.db.data.users[m.sender] || {};
-    const gp1 = global.gp1 || 'https://chat.whatsapp.com/tu-enlace-grupo';
+    const grupoOficial = global.gp1 || 'https://chat.whatsapp.com/tu-enlace-grupo';
 
-    // Desbloqueo automático si ya pasó el tiempo
+    // 🔓 Desbloqueo automático si ya pasó el tiempo
     if (user.bloqueado && user.tiempoBloqueo) {
-      const tiempoPasado = Date.now() - user.tiempoBloqueo;
-      if (tiempoPasado>= TIEMPO_BLOQUEO_MS) {
+      const tiempoTranscurrido = Date.now() - user.tiempoBloqueo;
+      if (tiempoTranscurrido>= TIEMPO_BLOQUEO_MS) {
         await conn.updateBlockStatus(m.chat, 'unblock').catch(() => {});
         Object.assign(user, {
           bloqueado: false,
@@ -21,7 +21,7 @@ export async function before(m, { conn, isOwner, isROwner}) {
 });
 
         await conn.sendMessage(m.chat, {
-          text: `🔓 *¡El sello ha sido roto!*\n\n🌠 @${m.sender.split('@')[0]}, tus cadenas se han desvanecido...\n✨ Puedes volver a usar mis poderes.`,
+          text: `🔓 *¡El sello ha sido roto!*\n\n✨ @${m.sender.split('@')[0]}, tus cadenas han sido disueltas.\nPuedes volver a invocar mis poderes.`,
           mentions: [m.sender]
 });
 } else {
@@ -29,24 +29,24 @@ export async function before(m, { conn, isOwner, isROwner}) {
 }
 }
 
-    // Bloqueo automático si el antiPrivado está activado
+    // 🚫 Bloqueo automático si AntiPrivado está activado
     if (!m.isGroup && bot.antiprivado &&!isOwner &&!isROwner) {
       user.warnPrivado = (user.warnPrivado || 0) + 1;
 
       if (user.warnPrivado>= 3) {
         await conn.sendMessage(m.chat, {
           text: `
-💀 *SENTENCIA CÓSMICA ACTIVADA* 💀
+🚫 *ACCESO DENEGADO* 🚫
 ━━━━━━━━━━━━━━━━━━━━━━
-👁️ Usuario: @${m.sender.split('@')[0]}
-📛 Has accedido al grimorio sin autorización.
+👤 Usuario: @${m.sender.split('@')[0]}
+📵 Has invocado al bot sin autorización.
 
-🔒 Estado: *BLOQUEADO POR 2 DÍAS*
-🕰️ Todos los canales mágicos han sido sellados.
+⛔ Estado: *Bloqueado por 2 días*
+🕰️ Todos los canales han sido cerrados.
 
-💡 Busca redención en el gremio:
-🌐 ${gp1}
-━━━━━━━━━━━━━━━━━━━━`.trim(),
+🔄 Puedes buscar redención en el gremio oficial:
+🌐 ${grupoOficial}
+━━━━━━━━━━━━━━━━━━━━━━`.trim(),
           mentions: [m.sender]
 });
 
@@ -61,16 +61,16 @@ export async function before(m, { conn, isOwner, isROwner}) {
 } else {
         await conn.sendMessage(m.chat, {
           text: `
-⚠️ *¡ACCESO RESTRINGIDO!* ⚠️
-━━━━━━━━━━━━━━━━━━━
-🧛‍♂️ @${m.sender.split('@')[0]}, no puedes contactar al grimorio sagrado por privado.
+⚠️ *ZONA RESTRINGIDA* ⚠️
+━━━━━━━━━━━━━━━━━━━━━━
+🧙‍♂️ @${m.sender.split('@')[0]}, no puedes contactar al bot por privado.
 
-🔁 Advertencia ${user.warnPrivado}/3
-🕳️ Al tercer intento, serás sellado por 2 días (privado + grupos).
+🔁 Advertencia: ${user.warnPrivado}/3
+⏳ Al tercer intento, serás bloqueado por 2 días.
 
 📜 Únete al gremio oficial:
-🌐 ${gp1}
-━━━━━━━━━━━━━━━━━━`.trim(),
+🌐 ${grupoOficial}
+━━━━━━━━━━━━━━━━━━━━━━`.trim(),
           mentions: [m.sender]
 });
 
@@ -81,7 +81,7 @@ export async function before(m, { conn, isOwner, isROwner}) {
     return true;
 
 } catch (e) {
-    console.error('[❌ ERROR EN ANTI-PRIVADO]', e);
+    console.error('[❌ ERROR EN SISTEMA ANTIPRIVADO]', e);
     return true;
 }
 }
