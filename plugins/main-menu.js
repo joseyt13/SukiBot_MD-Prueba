@@ -40,7 +40,7 @@ const defaultMenu = {
 ╰─╼🍁 SᴜᴋɪBᴏᴛ_MD 🍁╾─╯
 %readmore`.trim(),
 
-  header: '\n` %category 乂`\n',
+  header: '\n`%category 乂`\n',
   body: '.🍂.𖦹˙ %cmd %iscorazones %isPremium',
   footer: '\n',
   after: ``,
@@ -103,19 +103,9 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
 
     const text = _text.replace(/%(\w+)/g, (_, key) => replace[key] || '');
 
-    // Mensaje previo con botón.grupos
-    await conn.sendMessage(m.chat, {
-      text: '🌸 Enviando menú encantado…',
-      footer: 'SukiBot_MD',
-      buttons: [
-        { buttonId: `${_p}grupos`, buttonText: { displayText: '👥 Gʀᴜᴘᴏs'}, type: 1}
-      ],
-      image: { url: 'imagen.jpg'},
-      headerType: 4
-}, { quoted: m});
-
     const imageURL = 'https://files.catbox.moe/rkvuzb.jpg';
     const imgBuffer = await fetch(imageURL).then(res => res.buffer());
+
     const buttons = [
       { buttonId: `${_p}p`, buttonText: { displayText: '📶 Pɪɴɢ'}, type: 1},
       { buttonId: `${_p}grupos`, buttonText: { displayText: '👥 Gʀᴜᴘᴏs'}, type: 1},
@@ -139,7 +129,7 @@ let handler = async (m, { conn, usedPrefix: _p}) => {
       react: { text: '🌷', key: menuMessage.key}
 });
 
-    await conn.sendFile(
+    // 🎧 Enviar audio de bienvenida
     await conn.sendFile(
       m.chat,
       'https://files.cloudkuimages.guru/audios/LEDz5ntF.mp3',
