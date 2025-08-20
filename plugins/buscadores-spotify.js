@@ -1,158 +1,80 @@
-import axios from "axios";
-import cheerio from "cheerio";
+import fetch from 'node-fetch';
 
-const client_id = "acc6302297e040aeb6e4ac1fbdfd62c3";
-const client_secret = "0e8439a1280a43aba9a5bc0a16f3f009";
-const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
-const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
+const cacheSpotify = new Set(); // Cache temporal
 
-const getToken = async () => {
-  const res = await axios.post(
-    TOKEN_ENDPOINT,
-    "grant_type=client_credentials",
-    {
-      headers: {
-        Authorization: "Basic " + basic,
-        "Content-Type": "application/x-www-form-urlencoded"
+const handler = async (m, { conn, text, usedPrefix, command}) => {
+  if (!text?.trim()) {
+    return conn.sendMessage(m.chat, {
+      text: `🚫 *Falta el nombre de la canción*\n\n📀 Usa:\n${usedPrefix + command} <nombre>\n🎧 Ejemplo:\n${usedPrefix + command} Enemy - Imagine Dragons`,
+      footer: 'Spotify Downloader',
+      buttons: [
+        { buttonId: `${usedPrefix + command} Blinding Lights`, buttonText: { displayText: '🎵 Blinding Lights'}, type: 1},
+        { buttonId: `${usedPrefix + command} Shape of You`, buttonText: { displayText: '🎵 Shape of You'}, type: 1}
+      ],
+      headerType: 1
+}, { quoted: m});
 }
-}
-);
-  return res.data.access_token;
-};
 
-const searchTrack = async (query, token) => {
-  const res = await axios.get(
-    `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`,
-    {
-      headers: { Authorization: `Bearer ${token}`}
-}
-);
-  if (res.data.tracks.items.length === 0) throw new Error("No se encontró la canción.");
-  return res.data.tracks.items[0];
-};
-
-let handler = async (m, { conn, text}) => {
-  if (!text) return m.reply("Escribe el nombre de una canción o comparte un enlace de Spotify.");
-  await m.react("🎧");
+  m.react('🔄');
 
   try {
-    const isUrl = /https?:\/\/(open\.)?spotify\.com\/track\/[a-zA-Z0-9]+/.test(text);
-    let track;
-    const token = await getToken();
+    const res = await fetch(`https://api.nekorinn.my.id/downloader/spotifyplay?q=${encodeURIComponent(text)}`);
+    const json = await res.json();
 
-    if (isUrl) {
-      const id = text.split("/track/")[1].split("?")[0];
-      const res = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
-        headers: { Authorization: `Bearer ${token}`}
-});
-      track = await res.json();
-} else {
-      track = await searchTrack(text, token);
+    if (!json?.result?.downloadUrl) {
+      throw new Error('No se encontró la canción.');
 }
 
-    const mensaje = `
-📘 Información de la pista:
+    const { title, artist, duration, downloadUrl, thumbnail} = json.result;
 
-• Título: ${track.name}
-• Artista: ${track.artists.map(a => a.name).join(", ")}
-• Álbum: ${track.album.name}
-• Fecha: ${track.album.release_date}
-• Popularidad: ${track.popularity}/100
-• Duración: ${(track.duration_ms / 60000).toFixed(2)} minutos
-• Enlace: ${track.external_urls.spotify}`.trim();
+    if (cacheSpotify.has(downloadUrl)) {
+      return conn.sendMessage(m.chat, {
+        text: `⚠️ *Canción repetida*\nYa fue enviada recientemente.\nEvita repetir la misma canción.`,
+        footer: 'Spotify Downloader',
+        buttons: [
+          { buttonId: `${usedPrefix + command} random`, buttonText: { displayText: '🔀 Otra canción'}, type: 1}
+        ],
+        headerType: 1
+}, { quoted: m});
+}
 
-    await m.reply(mensaje);
-
-    const data = new SpotMate();
-    const info = await data.convert(track.external_urls.spotify);
+    cacheSpotify.add(downloadUrl);
+    setTimeout(() => cacheSpotify.delete(downloadUrl), 60 * 1000);
 
     await conn.sendMessage(m.chat, {
-      audio: { url: info.url},
-      mimetype: "audio/mpeg",
-      ptt: false,
-      contextInfo: {
-        mentionedJid: [m.sender],
-        isForwarded: true,
-        forwardingScore: 999,
-        externalAdReply: {
-          title: track.name,
-          body: `Artista: ${track.artists.map(a => a.name).join(", ")}`,
-          thumbnailUrl: track.album.images[0]?.url,
-          mediaType: 1,
-          sourceUrl: track.external_urls.spotify,
-          renderLargerThumbnail: true
-}
-}
+      audio: { url: downloadUrl},
+      mimetype: 'audio/mpeg'
 }, { quoted: m});
 
-    await m.react("✅");
+    await conn.sendMessage(m.chat, {
+      image: { url: thumbnail || 'imagen.jpg'},
+      caption: `🎶 *Spotify Descargado*\n\n🎵 *Título:* ${title}\n🎙️ *Artista:* ${artist}\n⏱️ *Duración:* ${duration}\n✅ ¡Descarga exitosa!`,
+      footer: 'Spotify Downloader',
+      buttons: [
+        { buttonId: `${usedPrefix + command} ${artist}`, buttonText: { displayText: `🔍 Más de ${artist}`}, type: 1},
+        { buttonId: `${usedPrefix + command} random`, buttonText: { displayText: '🎧 Otra canción'}, type: 1}
+      ],
+      headerType: 4
+}, { quoted: m});
+
+    m.react('🎶');
 
 } catch (err) {
-    console.error(err);
-    await m.react("❌");
-    m.reply("No se pudo obtener la canción. Intenta de nuevo.\n> " + err.message);
+    console.error('[❌ ERROR SPOTIFY]', err);
+    m.react('❌');
+    conn.sendMessage(m.chat, {
+      text: `😿 *No se pudo obtener la canción*\nRevisa el nombre o intenta más tarde.`,
+      footer: 'Spotify Downloader',
+      buttons: [
+        { buttonId: `${usedPrefix + command} help`, buttonText: { displayText: '📘 Ayuda'}, type: 1}
+      ],
+      headerType: 1
+}, { quoted: m});
 }
 };
 
-handler.help = ["spotify"];
-handler.tags = ["music", "descargas"];
-handler.command = ["spotify"];
+handler.help = ['spotify *<nombre>*'];
+handler.tags = ['descargas'];
+handler.command = ['spotify', 'spotifydl'];
+
 export default handler;
-
-class SpotMate {
-  constructor() {
-    this._cookie = null;
-    this._token = null;
-}
-
-  async _visit() {
-    try {
-      const response = await axios.get('https://spotmate.online/en', {
-        headers: {
-          'user-agent': 'Mozilla/5.0 (Linux; Android 10)'
-}
-});
-
-      const setCookieHeader = response.headers['set-cookie'];
-      if (setCookieHeader) {
-        this._cookie = setCookieHeader.map(c => c.split(';')[0]).join('; ');
-}
-
-      const $ = cheerio.load(response.data);
-      this._token = $('meta[name="csrf-token"]').attr('content');
-      if (!this._token) throw new Error('Token CSRF no encontrado.');
-} catch (error) {
-      throw new Error(`Falló conexión a SpotMate: ${error.message}`);
-}
-}
-
-  async convert(spotifyUrl) {
-    if (!this._cookie ||!this._token) await this._visit();
-    try {
-      const response = await axios.post(
-        'https://spotmate.online/convert',
-        { urls: spotifyUrl},
-        { headers: this._getHeaders()}
-);
-      return response.data;
-} catch (error) {
-      throw new Error(`Error al convertir: ${error.message}`);
-}
-}
-
-  _getHeaders() {
-    return {
-      'cookie': this._cookie,
-      'x-csrf-token': this._token,
-      'origin': 'https://spotmate.online',
-      'referer': 'https://spotmate.online/en',
-      'user-agent': 'Mozilla/5.0 (Linux; Android 10)',
-      'content-type': 'application/json'
-};
-}
-
-  clear() {
-    this._cookie = null;
-    this._token = null;
-}
-}
