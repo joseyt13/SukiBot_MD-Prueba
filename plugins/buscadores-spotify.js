@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-const cacheSpotify = new Set(); // Cache temporal
+const cacheSpotify = new Set(); // Cache temporal para evitar repeticiones
 
 const handler = async (m, { conn, text, usedPrefix, command}) => {
   if (!text?.trim()) {
@@ -41,11 +41,15 @@ const handler = async (m, { conn, text, usedPrefix, command}) => {
     cacheSpotify.add(downloadUrl);
     setTimeout(() => cacheSpotify.delete(downloadUrl), 60 * 1000);
 
+    // Enviar audio como documento para mayor compatibilidad
     await conn.sendMessage(m.chat, {
-      audio: { url: downloadUrl},
-      mimetype: 'audio/mpeg'
+      document: { url: downloadUrl},
+      mimetype: 'audio/mpeg',
+      fileName: `${title} - ${artist}.mp3`,
+      caption: `🎵 *${title}* - ${artist}`
 }, { quoted: m});
 
+    // Enviar imagen con botones
     await conn.sendMessage(m.chat, {
       image: { url: thumbnail || 'imagen.jpg'},
       caption: `🎶 *Spotify Descargado*\n\n🎵 *Título:* ${title}\n🎙️ *Artista:* ${artist}\n⏱️ *Duración:* ${duration}\n✅ ¡Descarga exitosa!`,
@@ -66,7 +70,7 @@ const handler = async (m, { conn, text, usedPrefix, command}) => {
       text: `😿 *No se pudo obtener la canción*\nRevisa el nombre o intenta más tarde.`,
       footer: 'Spotify Downloader',
       buttons: [
-        { buttonId: `${usedPrefix + command} help`, buttonText: { displayText: '📘 Ayuda'}, type: 1}
+        { buttonId: `${usedPrefix + command} menu`, buttonText: { displayText: '📘 ayuda'}, type: 1}
       ],
       headerType: 1
 }, { quoted: m});
