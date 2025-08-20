@@ -29,6 +29,6 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 
 handler.help = ["cr7"];
 handler.tags = ["anime"];
-handler.command = /^(ronaldo|cr7)$/i;
+handler.command = ['ronaldo', 'cr7'];
 
 export default handler;
