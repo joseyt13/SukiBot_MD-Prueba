@@ -58,12 +58,6 @@ async function showBanner() {
     ]
     const loadingFrames = [
         chalk.magentaBright('⠋ Cargando módulos...'),
-        chalk.magentaBright('⠙ Cargando módulos...'),
-        chalk.magentaBright('⠹ Cargando módulos...'),
-        chalk.magentaBright('⠸ Cargando módulos...'),
-        chalk.magentaBright('⠼ Cargando módulos...'),
-        chalk.magentaBright('⠴ Cargando módulos...'),
-        chalk.magentaBright('⠦ Cargando módulos...'),
         chalk.magentaBright('⠧ Cargando módulos...'),
         chalk.magentaBright('⠇ Cargando módulos...'),
         chalk.magentaBright('⠏ Cargando módulos...')
@@ -215,9 +209,10 @@ do {
 opcion = await question(`
 ╭─────────────────────────────●
 │ ${chalk.red.bgBlueBright.bold(' 🍁 SUKI BOT SYSTEM')}
-│「💡」${chalk.yellow('Seleciona una opción')}
-│「📲」${chalk.yellow.bgRed.bold('1. SUKI MODO QR 🍁')}
-│「🔑」${chalk.red.bgGreenBright.bold('2. SUKI MODO CODIGO 🍂')}
+│
+│ 💡 ${chalk.yellow('Seleciona una opción')}
+│ 📲 ${chalk.yellow.bgRed.bold('1. SUKI MODO QR 🍁')}
+│  🔑 ${chalk.red.bgGreenBright.bold('2. SUKI MODO CODIGO 🍂')}
 ╰─────────────────────────────●
 ${chalk.magenta('--->')} ${chalk.bold('Elije: (1 o 2): ')}`.trim());
 
@@ -270,8 +265,8 @@ do {
 phoneNumber = await question(`
 ╭─────────────────────────────●
 │ ${chalk.black.bgGreenBright.bold('  📞 INGRESO DE NÚMERO WHATSAPP  ')}
-│「💖」${chalk.whiteBright('Ingresa tu número con prefijo de país')}
-│「🍁」${chalk.yellowBright('Ejemplo: +5491158908708')}
+│ 💖 ${chalk.whiteBright('INGRESA TU NUMERO CON PREFIJO')}
+│ 🍁 ${chalk.yellowBright('Ejemplo: +5491158908708')}
 ╰─────────────────────────────●
 ${chalk.magentaBright('--->')} ${chalk.bold.greenBright('Número: ')}`.trim());
 
@@ -297,8 +292,8 @@ setTimeout(async () => {
     console.log(`
 ╭─────────────────────────────●
 │ ${chalk.black.bgMagentaBright.bold('🔐 CODIGO DE VINCULACIÓN')}
-│「🔧」${chalk.whiteBright('Ingresa este código')}
-│「⚙」${chalk.bold.red(codeBot)}
+│ 🔧 ${chalk.whiteBright('Ingresa este código')}
+│ ⚙ ${chalk.bold.red(codeBot)}
 ╰─────────────────────────────●\n`);
 }, 3000)
 }}}
