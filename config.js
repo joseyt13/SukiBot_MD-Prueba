@@ -66,7 +66,7 @@ global.moment = moment;
 // 📁 Sesiones personalizadas
 global.nameqr = 'SukiBot';
 global.namebot = 'SukiBot';
-global.sessions = 'sukiSessions';
+global.sessions = 'SukiSessions';
 global.jadi = 'JadiBots';
 global.sukiJadibts = true;
 
