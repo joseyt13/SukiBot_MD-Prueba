@@ -38,18 +38,27 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 
 let { say } = cfonts
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 async function showBanner() {
-  const title = chalk.hex('#ff00cc').bold('🔧 SukiBot_MD iniciado.');
-  const subtitle = chalk.hex('#00eaff').bold('Sistema listo.');
-  const poweredMsg = chalk.hex('#00eaff').italic('by Fedexyz');
+    const title = `
+░░░╔═══════════════╗░░░░░
+░░░║   🏮 𝖲𝗎𝗄𝗂Bot_MD 開始中... 🏮 ░░░░░
+░░░║   功能已啟動，準備就緒！░░░░░
+░░░║   開發者：fedexyz13   ░░░░░
+░░░╚═══════════════════════╝░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-  console.log(title);
-  console.log(subtitle);
-  console.log(poweredMsg);
+    `.split('\n').map(line => chalk.hex('#ff00cc').bold(line)).join('\n')
 
-  const loadingFrames = [
+    const subtitle = chalk.hex('#00eaff').bold('🍁 SukiBot-MD 🍁').padStart(40)
+    const poweredMsg = chalk.hex('#00eaff').italic('Powered by Fedexyz 🍁')
+    const aiMsg = chalk.hex('#ffb300').bold('🤖 SukiBot - Tu compañera virtual')
+    const tips = [
+        chalk.hex('#ffb300')('🍁 Holaaaa'),
+        chalk.hex('#ff00cc')('✨ Disfruta mis comandos.')
+    ]
+    const loadingFrames = [
         chalk.magentaBright('⠋ Cargando módulos...'),
         chalk.magentaBright('⠙ Cargando módulos...'),
         chalk.magentaBright('⠹ Cargando módulos...'),
@@ -79,7 +88,7 @@ async function showBanner() {
         )
     )
 
-    say('Suki-Bot-MD', {
+    say('SukiBot-MD', {
         font: 'block',
         align: 'center',
         colors: ['blue', 'cyan'],
@@ -106,8 +115,8 @@ async function showBanner() {
     console.log(
         chalk.bold.cyanBright(
             boxen(
-                chalk.bold('¡Bienvenido a Suki-Bot-MD!\n') +
-                chalk.hex('#00eaff')('La bot está arrancando, por favor espere...') +
+                chalk.bold('¡Welcome!\n') +
+                chalk.hex('#00eaff')('SUKI INICIANDO...') +
                 '\n' +
                 tips.join('\n'),
                 {
