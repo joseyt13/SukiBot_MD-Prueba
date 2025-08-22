@@ -43,10 +43,9 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 async function showBanner() {
     const title = `
 ░╔═══════════════╗
-░║🏮 𝖲𝗎𝗄𝗂Bot_MD...🏮       ║░
-░║  Creado por：fedexyz13 ║░
-░╚═══════════════╝░
-░░░░░░░░░░░░░░░░░░░
+░║🏮 𝖲𝗎𝗄𝗂Bot_MD...🏮       
+░║🍁 Creador：fedexyz 
+░╚═══════════════╝
 
     `.split('\n').map(line => chalk.hex('#ff00cc').bold(line)).join('\n')
 
