@@ -212,7 +212,7 @@ opcion = await question(`
 │
 │ 💡 ${chalk.yellow('Seleciona una opción')}
 │ 📲 ${chalk.yellow.bgRed.bold('1. SUKI MODO QR 🍁')}
-│  🔑 ${chalk.red.bgGreenBright.bold('2. SUKI MODO CODIGO 🍂')}
+│ 🔑 ${chalk.red.bgGreenBright.bold('2. SUKI MODO CODIGO 🍂')}
 ╰─────────────────────────────●
 ${chalk.magenta('--->')} ${chalk.bold('Elije: (1 o 2): ')}`.trim());
 
