@@ -217,21 +217,18 @@ opcion = '1'
 if (!methodCodeQR && !methodCode && !fs.existsSync(`./${sessions}/creds.json`)) {
 do {
 opcion = await question(`
-╭─────────────────────────────◉
-│ ${chalk.red.bgBlueBright.bold('    ⚙ MÉTODO DE CONEXIÓN BOT    ')}
-│「 💡 」${chalk.yellow('Selecciona cómo quieres conectarte')}
-│「 📲 」${chalk.yellow.bgRed.bold('1. Escanear Código QR')}
-│「 🔑 」${chalk.red.bgGreenBright.bold('2. Código de Emparejamiento')}
+╭─────────────────────────────●
+│ ${chalk.red.bgBlueBright.bold(' 🍁 SUKI BOT SYSTEM')}
+│「💡」 ${chalk.yellow('Seleciona una opción')}
+│「📲」${chalk.yellow.bgRed.bold('1. SUKI MODO QR 🍁')}
+│「🔑」${chalk.red.bgGreenBright.bold('2. SUKI MODO CODIGO 🍂')}
 │
-│「 ℹ️ 」${chalk.gray('Usa el código si tienes problemas con el QR')}
-│「 🚀 」${chalk.gray('Ideal para la primera configuración')}
-│
-│ ${chalk.bold.bgGreen.bold('📦 COMANDOS DISPONIBLES')}
-│「 🛠️ 」${chalk.bold('npm run qr')}     ${chalk.gray('# Inicia con QR')}
-│「 🛠️ 」${chalk.bold('npm run code')}   ${chalk.gray('# Inicia con código')}
-│「 🛠️ 」${chalk.bold('npm start')}      ${chalk.gray('# Inicia normalmente')}
-╰─────────────────────────────◉
-${chalk.magenta('--->')} ${chalk.bold('Elige (1 o 2): ')}`.trim());
+│ ${chalk.bold.bgGreen.bold('🔧 COMANDOS DISPONIBLES')}
+│「⚘」${chalk.bold('npm run qr')}     ${chalk.gray('# Inicia con QR')}
+│「🍁」${chalk.bold('npm run code')}   ${chalk.gray('# Inicia con código')}
+│「🍂」${chalk.bold('npm start')}      ${chalk.gray('# Inicia normalmente')}
+╰─────────────────────────────●
+${chalk.magenta('--->')} ${chalk.bold('Elije (1 o 2): ')}`.trim());
 
 if (!/^[1-2]$/.test(opcion)) {
     console.log(chalk.redBright('✖ Opción inválida. Solo se permite 1 o 2.'));
@@ -280,11 +277,11 @@ addNumber = phoneNumber.replace(/[^0-9]/g, '')
 } else {
 do {
 phoneNumber = await question(`
-╭─────────────────────────────◉
+╭─────────────────────────────●
 │ ${chalk.black.bgGreenBright.bold('  📞 INGRESO DE NÚMERO WHATSAPP  ')}
-│「 ✨ 」${chalk.whiteBright('Introduce tu número con prefijo de país')}
-│「 🧾 」${chalk.yellowBright('Ejemplo: 57321XXXXXXX')}
-╰─────────────────────────────◉
+│「💖」${chalk.whiteBright('Ingresa tu número con prefijo de país')}
+│「🍁」${chalk.yellowBright('Ejemplo: +5491158908708')}
+╰─────────────────────────────●
 ${chalk.magentaBright('--->')} ${chalk.bold.greenBright('Número: ')}`.trim());
 
 phoneNumber = phoneNumber.replace(/\D/g, '');
@@ -307,11 +304,11 @@ setTimeout(async () => {
     codeBot = codeBot?.match(/.{1,4}/g)?.join('-') || codeBot;
 
     console.log(`
-╭─────────────────────────────◉
-│ ${chalk.black.bgMagentaBright.bold('🔐 CÓDIGO DE VINCULACIÓN GENERADO')}
-│「 📎 」${chalk.whiteBright('Ingresa este código')}
-│「 🔐 」${chalk.bold.red(codeBot)}
-╰─────────────────────────────◉\n`);
+╭─────────────────────────────●
+│ ${chalk.black.bgMagentaBright.bold('🔐 CODIGO DE VINCULACIÓN')}
+│「🔧」${chalk.whiteBright('Ingresa este código')}
+│「⚙」${chalk.bold.red(codeBot)}
+╰─────────────────────────────●\n`);
 }, 3000)
 }}}
 }
