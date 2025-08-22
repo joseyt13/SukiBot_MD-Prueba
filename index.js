@@ -87,7 +87,7 @@ async function showBanner() {
         )
     )
 
-    say('SukiBot-MD', {
+    say('Suki-Bot', {
         font: 'block',
         align: 'center',
         colors: ['blue', 'cyan'],
@@ -95,7 +95,7 @@ async function showBanner() {
         letterSpacing: 1,
         lineHeight: 1
     })
-    say('powered by Fedexyz', {
+    say('Powered by fedexyz', {
         font: 'console',
         align: 'center',
         colors: ['blue'],
@@ -216,16 +216,11 @@ do {
 opcion = await question(`
 ╭─────────────────────────────●
 │ ${chalk.red.bgBlueBright.bold(' 🍁 SUKI BOT SYSTEM')}
-│「💡」 ${chalk.yellow('Seleciona una opción')}
+│「💡」${chalk.yellow('Seleciona una opción')}
 │「📲」${chalk.yellow.bgRed.bold('1. SUKI MODO QR 🍁')}
 │「🔑」${chalk.red.bgGreenBright.bold('2. SUKI MODO CODIGO 🍂')}
-│
-│ ${chalk.bold.bgGreen.bold('🔧 COMANDOS DISPONIBLES')}
-│「⚘」${chalk.bold('npm run qr')}     ${chalk.gray('# Inicia con QR')}
-│「🍁」${chalk.bold('npm run code')}   ${chalk.gray('# Inicia con código')}
-│「🍂」${chalk.bold('npm start')}      ${chalk.gray('# Inicia normalmente')}
 ╰─────────────────────────────●
-${chalk.magenta('--->')} ${chalk.bold('Elije (1 o 2): ')}`.trim());
+${chalk.magenta('--->')} ${chalk.bold('Elije: (1 o 2): ')}`.trim());
 
 if (!/^[1-2]$/.test(opcion)) {
     console.log(chalk.redBright('✖ Opción inválida. Solo se permite 1 o 2.'));
