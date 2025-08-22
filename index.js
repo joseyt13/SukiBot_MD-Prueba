@@ -38,29 +38,18 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 
 let { say } = cfonts
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 async function showBanner() {
-    const title = `
-░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-░░░░░░░░░╔═══════════════════════╗░░░░░
-░░░░░░░░░║   🏮 𝖲𝗎𝗄𝗂Bot_MD 開始中... 🏮   ║░░░░░
-░░░░░░░░░║   功能已啟動，準備就緒！   ║░░░░░
-░░░░░░░░░║   開發者：fedexyz13         ║░░░░░
-░░░░░░░░░╚═══════════════════════╝░░░░░
-░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  const title = chalk.hex('#ff00cc').bold('🔧 SukiBot_MD iniciado.');
+  const subtitle = chalk.hex('#00eaff').bold('Sistema listo.');
+  const poweredMsg = chalk.hex('#00eaff').italic('by Fedexyz');
 
-    `.split('\n').map(line => chalk.hex('#ff00cc').bold(line)).join('\n')
+  console.log(title);
+  console.log(subtitle);
+  console.log(poweredMsg);
 
-    const subtitle = chalk.hex('#00eaff').bold('✦ Suki-Bot-MD ✦').padStart(40)
-    const poweredMsg = chalk.hex('#00eaff').italic('powered by Fedexyz')
-    const aiMsg = chalk.hex('#ffb300').bold('🤖 Suki-Bot-MD - Tu compañera virtual')
-    const tips = [
-        chalk.hex('#ffb300')('💡 Tip: Usa /help para ver los comandos disponibles.'),
-        chalk.hex('#00eaff')('� Síguenos en GitHub para actualizaciones.'),
-        chalk.hex('#ff00cc')('✨ Disfruta de la experiencia premium de Suki-Bot-MD.')
-    ]
-    const loadingFrames = [
+  const loadingFrames = [
         chalk.magentaBright('⠋ Cargando módulos...'),
         chalk.magentaBright('⠙ Cargando módulos...'),
         chalk.magentaBright('⠹ Cargando módulos...'),
