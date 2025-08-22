@@ -23,34 +23,14 @@ let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 let drm1 = ""
 let drm2 = ""
 
-const rtx = `*╭───〔 𝚂𝚄𝙺𝙸𝙱𝙾𝚃_𝙼𝙳 𝙲𝙾𝙽𝙴𝚇𝙸𝙾𝙽 〕───⬣*
-
-*¡Bienvenido a 𝚂𝚄𝙺𝙸𝙱𝙾𝚃_𝙼𝙳! 🚀*
-
-Escanea este código QR desde tu dispositivo para iniciar sesión:
-
-\`1\` ▸ Toca los *tres puntos* en la esquina superior derecha.
-\`2\` ▸ Selecciona *"Dispositivos vinculados"*.
-\`3\` ▸ Escanea el código QR que aparece aquí.
-
-*⚠️ Este código expira en 45 segundos. ¡Actúa rápido!*
-
-*╰───〔 𝚂𝚄𝙺𝙸𝙱𝙾𝚃_𝙼𝙳 𝚂𝚈𝚂𝚃𝙴𝙼 ✅ 〕───⬣*`;
-
-const rtx2 = `*╭══ 🎭 𝚂𝚄𝙺𝙸𝙱𝙾𝚃_𝙼𝙳 ══⬣*
-
-*¡Conexión segura por código activada! 🔐*
-
-Sigue estos pasos para vincular tu cuenta:
-
-\`1\` ▸ Toca los *tres puntos* en la esquina superior derecha.
-\`2\` ▸ Selecciona *"Dispositivos vinculados"*.
-\`3\` ▸ Elige *"Vincular con número de teléfono"*.
-\`4\` ▸ Introduce el código único que te proporcionaremos.
-
-*⚠️ Este código es exclusivo y personal. No lo compartas.*
-
-*╰═══ 𝚂𝚄𝙺𝙸𝙱𝙾𝚃_𝙼𝙳 𝚂𝚈𝚂𝚃𝙴𝙼 ═══⬣*`;
+const rtx = `*╭──〔 𝖲𝗎𝗄𝗂𝖡𝗈𝗍 - 𝖬𝖣 〕──╮*
+│ Escanea el QR para iniciar sesión.
+│ Código válido por 45 segundos.
+*╰──〔 Sistema Activo ✅ 〕──╯*`;
+const rtx2 = `*╭──〔 𝖲𝗎𝗄𝗂𝖡𝗈𝗍 - 𝖬𝖣 〕──╮*
+│ Conexión por código activada.
+│ Ingresá el código en tu dispositivo.
+*╰──〔 Sistema Seguro ✅ 〕*`;
 
 const maxSubBots = 500
 
